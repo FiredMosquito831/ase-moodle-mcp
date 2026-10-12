@@ -265,6 +265,36 @@ class ProjectScopeTests(unittest.TestCase):
         self.assertEqual(default.scope, "global")
 
 
+class DoctorScopeTests(unittest.TestCase):
+    def test_doctor_accepts_codex_and_opencode_installed_only_in_project(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp) / "home"
+            home.mkdir()
+            env = make_env(home, run=Recorder(output=""))  # CLI-urile nu listeaza nimic global
+            install.install_codex(env, "project")
+            install.install_opencode(env, "project")
+            steps = {(s.target, s.action): s for s in install.doctor(env)}
+            self.assertEqual(steps[("codex", "status")].status, "ok")
+            self.assertIn("proiect", steps[("codex", "status")].detail)
+            self.assertEqual(steps[("opencode", "status")].status, "ok")
+            self.assertIn("proiect", steps[("opencode", "status")].detail)
+
+    def test_listed_scope_is_read_from_claude_output(self):
+        listing = ("  ❯ ase-moodle@ase-moodle-marketplace\n    Version: 0.2.0\n    Scope: project\n"
+                   "    Status: enabled\n  ❯ alt-plugin\n    Scope: user\n")
+        self.assertEqual(install._listed_scope(listing, "ase-moodle@ase-moodle-marketplace"), "project")
+        self.assertEqual(install._listed_scope("ase-moodle", "ase-moodle"), "global")
+
+    def test_doctor_reports_error_when_nothing_is_installed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp) / "home"
+            home.mkdir()
+            env = make_env(home, run=Recorder(output=""))
+            steps = {(s.target, s.action): s for s in install.doctor(env)}
+            self.assertEqual(steps[("codex", "status")].status, "error")
+            self.assertEqual(steps[("opencode", "status")].status, "error")
+
+
 class PluginLayoutTests(unittest.TestCase):
     def test_manifests_are_valid_json(self):
         for rel in (

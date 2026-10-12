@@ -522,6 +522,16 @@ def _running_mcp_processes() -> int:
     return sum(1 for line in out.splitlines() if line.strip().isdigit())
 
 
+def _listed_scope(text: str, needle: str) -> str:
+    """Scopul in care apare pluginul in lista CLI-ului (Claude: 'Scope: user|project|local'). Implicit: global."""
+    idx = text.find(needle)
+    match = re.search(r"Scope:\s*(\w+)", text[idx:idx + 300]) if idx >= 0 else None
+    if not match:
+        return "global"
+    scope = match.group(1).lower()
+    return "global" if scope == "user" else scope
+
+
 def doctor(env: Env | None = None) -> list[Step]:
     """Verifica starea fiecarei instalari, fara sa modifice nimic."""
     env = env or Env(source=default_source())
@@ -534,23 +544,37 @@ def doctor(env: Env | None = None) -> list[Step]:
     steps.append(Step("package", "ase-moodle-mcp in PATH", "ok" if env.which("ase-moodle-mcp") else "error",
                       env.which("ase-moodle-mcp") or "lipseste; ruleaza pip install -e ."))
 
-    def check(target: str, cmd: list[str], needle: str) -> None:
+    def check(target: str, cmd: list[str], needle: str, project_ok: bool = False) -> None:
+        """Global: CLI-ul listeaza pluginul. Project: project_ok spune ca instalarea de proiect exista."""
         if env.which(cmd[0]) is None:
-            steps.append(Step(target, "status", "skipped", f"{cmd[0]} nu este in PATH"))
+            if project_ok:
+                steps.append(Step(target, "status", "ok", "instalat (proiect; nu e global)"))
+            else:
+                steps.append(Step(target, "status", "skipped", f"{cmd[0]} nu este in PATH"))
             return
         code, out = env.run(cmd)
-        found = needle in out
-        steps.append(Step(target, "status", "ok" if found else "error",
-                          "instalat" if found else "nu apare in lista"))
+        if needle in out:
+            steps.append(Step(target, "status", "ok", f"instalat ({_listed_scope(out, needle)})"))
+        elif project_ok:
+            steps.append(Step(target, "status", "ok", "instalat (proiect; nu e global)"))
+        else:
+            steps.append(Step(target, "status", "error", "nu apare in lista"))
 
+    codex_cfg = _codex_project_cfg(env)
+    codex_project = codex_cfg.exists() and f"[{BLOCK_PREFIX}]" in codex_cfg.read_text(encoding="utf-8")
     check("claude", ["claude", "plugin", "list"], f"{PLUGIN}@{MARKETPLACE}")
-    check("codex", ["codex", "plugin", "list"], PLUGIN)
+    check("codex", ["codex", "plugin", "list"], PLUGIN, project_ok=codex_project)
     check("antigravity", ["agy", "mcp", "list"], PLUGIN)
 
-    cfg = _opencode_global_cfg(env)
     try:
-        has = PLUGIN in _read_json(cfg).get("mcp", {})
-        steps.append(Step("opencode", "status", "ok" if has else "error", "instalat (global)" if has else "lipseste mcp"))
+        has_global = PLUGIN in _read_json(_opencode_global_cfg(env)).get("mcp", {})
+        has_project = PLUGIN in _read_json(_opencode_project_cfg(env)).get("mcp", {})
+        if has_global:
+            steps.append(Step("opencode", "status", "ok", "instalat (global)"))
+        elif has_project:
+            steps.append(Step("opencode", "status", "ok", "instalat (proiect; nu e global)"))
+        else:
+            steps.append(Step("opencode", "status", "error", "lipseste mcp (nici global, nici in proiect)"))
     except (OSError, json.JSONDecodeError) as exc:
         steps.append(Step("opencode", "status", "error", str(exc)))
 

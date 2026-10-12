@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "ase-moodle-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "FiredMosquito831/ase-moodle"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "ase-moodle@ase-moodle-marketplace": true
+  }
+}

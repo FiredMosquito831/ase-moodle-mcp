@@ -19,6 +19,10 @@ config.json
 /ASE-Moodle/
 /Anul3-*/
 
+# Configurare specifica calculatorului (instalare pe proiect): contine calea Python locala
+/.codex/
+/opencode.json
+
 # Editors / OS
 .vscode/
 .idea/
