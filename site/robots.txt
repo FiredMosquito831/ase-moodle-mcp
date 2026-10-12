@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://firedmosquito831.github.io/ase-moodle/sitemap.xml

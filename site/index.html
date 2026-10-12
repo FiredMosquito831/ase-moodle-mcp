@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ase-moodle: Moodle BL@ASE (online.ase.ro) pentru agenți AI | MCP, CLI, plugin</title>
+  <meta name="description" content="ase-moodle: server MCP, CLI și plugin pentru Moodle BL@ASE (online.ase.ro). Cursuri, teme, forumuri, note, quizuri și termene în Claude Code, Codex, opencode și Antigravity.">
+  <meta name="keywords" content="Moodle, BL@ASE, ASE, online.ase.ro, MCP, Model Context Protocol, Claude Code, Codex, opencode, Antigravity, CLI, Python, student tools">
+  <meta name="author" content="FiredMosquito831">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1f6feb">
+  <link rel="canonical" href="https://firedmosquito831.github.io/ase-moodle/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ase-moodle">
+  <meta property="og:title" content="ase-moodle: Moodle BL@ASE pentru agenți AI">
+  <meta property="og:description" content="Server MCP, CLI și plugin pentru Moodle BL@ASE (online.ase.ro): cursuri, teme, forumuri, note, quizuri și termene în Claude Code, Codex, opencode și Antigravity.">
+  <meta property="og:url" content="https://firedmosquito831.github.io/ase-moodle/">
+  <meta property="og:image" content="https://firedmosquito831.github.io/ase-moodle/og.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:locale" content="ro_RO">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ase-moodle: Moodle BL@ASE pentru agenți AI">
+  <meta name="twitter:description" content="Server MCP, CLI și plugin pentru Moodle BL@ASE (online.ase.ro) în Claude Code, Codex, opencode și Antigravity.">
+  <meta name="twitter:image" content="https://firedmosquito831.github.io/ase-moodle/og.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ase-moodle",
+    "description": "Server MCP, CLI și plugin pentru Moodle BL@ASE (online.ase.ro): cursuri, teme, forumuri, note, quizuri și termene pentru agenți AI.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, Linux",
+    "programmingLanguage": "Python",
+    "softwareVersion": "0.2.0",
+    "license": "https://www.apache.org/licenses/LICENSE-2.0",
+    "url": "https://firedmosquito831.github.io/ase-moodle/",
+    "codeRepository": "https://github.com/FiredMosquito831/ase-moodle",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "author": {
+      "@type": "Person",
+      "name": "FiredMosquito831",
+      "url": "https://github.com/FiredMosquito831",
+      "sameAs": [
+        "https://github.com/FiredMosquito831",
+        "https://danubelabs.net",
+        "https://www.linkedin.com/in/alexandru-eduard-amadeus-secureanu-832a47323/"
+      ]
+    }
+  }
+  </script>
+
+  <style>
+    :root { --fg: #1f2328; --muted: #57606a; --bg: #ffffff; --accent: #1f6feb; --code: #f6f8fa; --border: #d0d7de; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) { --fg: #e6edf3; --muted: #9da7b3; --bg: #0d1117; --accent: #4493f8; --code: #161b22; --border: #30363d; }
+    }
+    :root[data-theme="dark"] { --fg: #e6edf3; --muted: #9da7b3; --bg: #0d1117; --accent: #4493f8; --code: #161b22; --border: #30363d; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    main { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+    h1 { font-size: 2rem; margin: 0.4em 0 0.2em; }
+    h2 { font-size: 1.3rem; margin-top: 2em; border-bottom: 1px solid var(--border); padding-bottom: 0.3em; }
+    p.lead { font-size: 1.1rem; color: var(--muted); }
+    a { color: var(--accent); }
+    code, pre { background: var(--code); border-radius: 6px; font-family: ui-monospace, Consolas, monospace; }
+    code { padding: 0.1em 0.35em; }
+    pre { padding: 12px 14px; overflow-x: auto; border: 1px solid var(--border); }
+    .cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+    .cta a { border: 1px solid var(--accent); border-radius: 6px; padding: 8px 14px; text-decoration: none; }
+    .cta a.primary { background: var(--accent); color: #fff; }
+    footer { margin-top: 48px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--border); padding-top: 16px; }
+    img.hero { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+<main>
+  <img class="hero" src="og.png" alt="ase-moodle: server MCP, CLI și plugin pentru Moodle BL@ASE" width="1280" height="640">
+
+  <h1>ase-moodle: Moodle BL@ASE pentru agenți AI</h1>
+  <p class="lead">Server MCP, CLI și plugin care dau agenților AI acces la contul tău de Moodle BL@ASE (online.ase.ro): cursuri, materiale, teme, forumuri, note, quizuri, notificări și termene. Funcționează în Claude Code, Codex, opencode și Google Antigravity.</p>
+  <p><em>English: an MCP server, CLI and plugin that connects AI agents to your BL@ASE Moodle account (online.ase.ro): courses, assignments, forums, grades, quizzes, notifications and deadlines.</em></p>
+
+  <div class="cta">
+    <a class="primary" href="https://github.com/FiredMosquito831/ase-moodle">Cod sursă pe GitHub</a>
+    <a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/INSTALL.md">Instalare</a>
+    <a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/USAGE.md">Referința comenzilor</a>
+    <a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/SAFETY.md">Siguranță</a>
+  </div>
+
+  <h2>Ce poate face</h2>
+  <ul>
+    <li>Listează cursurile pe an de studiu, semestru și tip (CURS, SEMINAR, LABORATOR).</li>
+    <li>Descarcă materialele unui an sau ale unui curs, în paralel, în foldere organizate pe săptămâni.</li>
+    <li>Citește temele, starea trimiterii, feedbackul și termenele.</li>
+    <li>Trimite teme, răspunde pe forum și deschide discuții, doar după confirmare.</li>
+    <li>Citește și răspunde la quizuri, cu aprobare înainte de trimiterea finală.</li>
+    <li>Arată notificările și termenele apropiate.</li>
+  </ul>
+
+  <h2>Instalare rapidă</h2>
+  <p>Pe Windows, din clona repo-ului:</p>
+<pre><code>git clone https://github.com/FiredMosquito831/ase-moodle.git
+cd ase-moodle
+powershell -ExecutionPolicy Bypass -File scripts\bootstrap.ps1</code></pre>
+  <p>Pe Linux și macOS: <code>bash scripts/bootstrap.sh</code>. Scripturile instalează pachetul, te loghează în Moodle o singură dată (cu Google, în browser) și configurează CLI-urile.</p>
+
+  <h2>Documentație</h2>
+  <ul>
+    <li><a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/AUTH.md">Autentificare și token</a></li>
+    <li><a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/MCP.md">Unelte MCP, prompturi și resurse</a></li>
+    <li><a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/PLATFORMS.md">Claude Code, Codex, opencode, Antigravity</a></li>
+    <li><a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/TROUBLESHOOTING.md">Depanare</a></li>
+  </ul>
+
+  <h2>Licență și autor</h2>
+  <p>Cod sub <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>. Autor: FiredMosquito831 (<a href="https://danubelabs.net">danubelabs.net</a>, <a href="https://www.linkedin.com/in/alexandru-eduard-amadeus-secureanu-832a47323/">LinkedIn</a>, <a href="https://github.com/FiredMosquito831">GitHub</a>).</p>
+
+  <footer>ase-moodle nu e afiliat cu Academia de Studii Economice din București. Folosește-l cu contul tău și respectă regulile platformei online.ase.ro.</footer>
+</main>
+</body>
+</html>

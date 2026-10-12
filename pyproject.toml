@@ -8,12 +8,29 @@ version = "0.2.0"
 description = "Client, CLI si server MCP pentru platforma Moodle BL@ASE (online.ase.ro)"
 readme = "README.md"
 license = {text = "Apache-2.0"}
+authors = [{name = "FiredMosquito831"}]
+keywords = ["moodle", "bl-ase", "ase", "online-ase", "mcp", "model-context-protocol", "claude-code", "codex", "opencode", "antigravity", "ai-agents", "cli", "student-tools"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Education",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Topic :: Education",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
 requires-python = ">=3.10"
 dependencies = [
   "httpx>=0.27",
   "mcp>=1.12,<2",
   "playwright>=1.45",
 ]
+
+[project.urls]
+Homepage = "https://firedmosquito831.github.io/ase-moodle/"
+Repository = "https://github.com/FiredMosquito831/ase-moodle"
+Documentation = "https://github.com/FiredMosquito831/ase-moodle/tree/main/docs"
+Issues = "https://github.com/FiredMosquito831/ase-moodle/issues"
 
 [project.scripts]
 ase-moodle = "ase_moodle.cli:main"

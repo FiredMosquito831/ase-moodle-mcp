@@ -1,8 +1,14 @@
 # ase-moodle: BL@ASE (online.ase.ro) pentru agenți AI
 
+[![CI](https://github.com/FiredMosquito831/ase-moodle/actions/workflows/ci.yml/badge.svg)](https://github.com/FiredMosquito831/ase-moodle/actions/workflows/ci.yml)
+[![Licență: Apache 2.0](https://img.shields.io/badge/licen%C8%9B%C4%83-Apache%202.0-blue.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
+
 Client Python, CLI, server MCP și plugin pentru Moodle-ul BL@ASE. Îți permite să folosești contul tău de Moodle din Claude Code, Codex, opencode și Google Antigravity: cursuri, materiale, teme, forumuri, note, quizuri, notificări și termene.
 
-Repo-ul este **privat**. Conține logica de acces la contul tău.
+**In English:** an MCP server, CLI and plugin that gives AI agents (Claude Code, Codex, opencode, Google Antigravity) access to your Moodle account at BL@ASE / online.ase.ro: courses, course materials, assignments, forums, grades, quizzes, notifications and deadlines. Keywords: Moodle, BL@ASE, ASE Bucharest, online.ase.ro, MCP, Model Context Protocol, Claude Code plugin, Codex plugin, opencode, Antigravity, student tools.
+
+Site: https://firedmosquito831.github.io/ase-moodle/
 
 ## Ce poate face
 
