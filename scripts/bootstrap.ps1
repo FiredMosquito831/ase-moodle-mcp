@@ -11,16 +11,20 @@
 param(
     [string]$Source = "FiredMosquito831/ase-moodle",
     [string[]]$Targets = @("all"),
+    [ValidateSet("global", "project")][string]$Scope = "global",
     [switch]$SkipLogin
 )
 
 $ErrorActionPreference = "Stop"
+$callerDir = (Get-Location).Path   # folderul de unde rulezi scriptul: folosit pentru --scope project
 $root = Split-Path -Parent $PSScriptRoot
-Set-Location $root
 
 Write-Host "==> Pachet ase-moodle" -ForegroundColor Cyan
+Push-Location $root
 python -m pip install -e . --quiet
-if ($LASTEXITCODE -ne 0) { throw "pip install a esuat (inchide procesele ase-moodle-mcp care folosesc executabilul si ruleaza din nou)" }
+$pipExit = $LASTEXITCODE
+Pop-Location
+if ($pipExit -ne 0) { throw "pip install a esuat (inchide procesele ase-moodle-mcp care folosesc executabilul si ruleaza din nou)" }
 
 if (-not $SkipLogin) {
     Write-Host "==> Login Moodle (se deschide browserul; logheaza-te cu Google daca ti se cere)" -ForegroundColor Cyan
@@ -29,7 +33,7 @@ if (-not $SkipLogin) {
 }
 
 Write-Host "==> Instalare in CLI-uri: $($Targets -join ', ')" -ForegroundColor Cyan
-python -m ase_moodle.cli install @Targets --source $Source
+python -m ase_moodle.cli install @Targets --source $Source --scope $Scope --project-dir $callerDir
 
 Write-Host "==> Verificare" -ForegroundColor Cyan
 python -m ase_moodle.cli doctor

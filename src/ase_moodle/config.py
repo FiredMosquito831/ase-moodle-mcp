@@ -88,8 +88,20 @@ def _read_file() -> dict:
 
 
 def _restrict(path: Path, recursive: bool = False) -> None:
-    """Pe Windows: doar utilizatorul curent poate citi fisierul sau folderul (scoate mostenirea de ACL)."""
-    if sys.platform != "win32" or not path.exists():
+    """Doar utilizatorul curent poate citi fisierul sau folderul.
+
+    Linux/macOS: chmod 600 pentru fisiere, 700 pentru foldere.
+    Windows: scoate mostenirea de ACL si da acces doar utilizatorului curent.
+    """
+    if not path.exists():
+        return
+    if sys.platform != "win32":
+        targets = [path, *path.rglob("*")] if recursive and path.is_dir() else [path]
+        for target in targets:
+            try:
+                os.chmod(target, 0o700 if target.is_dir() else 0o600)
+            except OSError:
+                pass
         return
     user = os.environ.get("USERNAME")
     if not user:

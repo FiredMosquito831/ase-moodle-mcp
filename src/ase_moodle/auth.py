@@ -127,7 +127,15 @@ def login_browser(base_url: str, timeout_s: int = 300, headless: bool = False) -
         options["channel"] = channel
 
     with sync_playwright() as p:
-        ctx = p.chromium.launch_persistent_context(str(PROFILE_DIR), **options)
+        try:
+            ctx = p.chromium.launch_persistent_context(str(PROFILE_DIR), **options)
+        except Exception as exc:  # noqa: BLE001
+            if "Executable doesn't exist" in str(exc) or "playwright install" in str(exc):
+                raise AuthError(
+                    "Browserul pentru login nu e instalat. Ruleaza: python -m playwright install chromium "
+                    "(sau foloseste: ase-moodle login --method manual)"
+                ) from exc
+            raise
         try:
             page = ctx.pages[0] if ctx.pages else ctx.new_page()
             page.on("request", lambda req: captured.append(req.url) if req.url.startswith("moodlemobile://") else None)
@@ -151,17 +159,30 @@ def open_token_page(base_url: str) -> str:
     return url
 
 
-def read_clipboard() -> str:
+def _clipboard_commands() -> list[list[str]]:
     if sys.platform == "win32":
-        cmd = ["powershell", "-NoProfile", "-Command", "Get-Clipboard"]
-    elif sys.platform == "darwin":
-        cmd = ["pbpaste"]
-    else:
-        cmd = ["xclip", "-selection", "clipboard", "-o"]
-    try:
-        return subprocess.run(cmd, capture_output=True, text=True, timeout=10).stdout.strip()
-    except (OSError, subprocess.SubprocessError):
-        return ""
+        return [["powershell", "-NoProfile", "-Command", "Get-Clipboard"]]
+    if sys.platform == "darwin":
+        return [["pbpaste"]]
+    # Linux: X11 (xclip, xsel) sau Wayland (wl-paste); se incearca in ordine.
+    return [
+        ["xclip", "-selection", "clipboard", "-o"],
+        ["xsel", "--clipboard", "--output"],
+        ["wl-paste", "--no-newline"],
+    ]
+
+
+def read_clipboard() -> str:
+    for cmd in _clipboard_commands():
+        if shutil.which(cmd[0]) is None:
+            continue
+        try:
+            text = subprocess.run(cmd, capture_output=True, text=True, timeout=10).stdout.strip()
+        except (OSError, subprocess.SubprocessError):
+            continue
+        if text:
+            return text
+    return ""
 
 
 def wait_for_clipboard_token(timeout_s: int = 180) -> str:

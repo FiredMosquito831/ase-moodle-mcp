@@ -506,16 +506,20 @@ def update(names: list[str] | None = None, env: Env | None = None, scope: str = 
 
 
 def _running_mcp_processes() -> int:
-    if sys.platform != "win32":
-        return 0
+    """Cate procese ase-moodle-mcp ruleaza (Windows: tasklist; Linux/macOS: pgrep)."""
+    if sys.platform == "win32":
+        cmd = ["tasklist", "/FI", "IMAGENAME eq ase-moodle-mcp.exe", "/FO", "CSV", "/NH"]
+    else:
+        if shutil.which("pgrep") is None:
+            return 0
+        cmd = ["pgrep", "-f", "ase-moodle-mcp|ase_moodle.mcp_server"]
     try:
-        out = subprocess.run(
-            ["tasklist", "/FI", "IMAGENAME eq ase-moodle-mcp.exe", "/FO", "CSV", "/NH"],
-            capture_output=True, text=True, timeout=20,
-        ).stdout
+        out = subprocess.run(cmd, capture_output=True, text=True, timeout=20).stdout
     except (OSError, subprocess.SubprocessError):
         return 0
-    return sum(1 for line in out.splitlines() if "ase-moodle-mcp" in line.lower())
+    if sys.platform == "win32":
+        return sum(1 for line in out.splitlines() if "ase-moodle-mcp" in line.lower())
+    return sum(1 for line in out.splitlines() if line.strip().isdigit())
 
 
 def doctor(env: Env | None = None) -> list[Step]:
