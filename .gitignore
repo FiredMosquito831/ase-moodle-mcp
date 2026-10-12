@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/
+
+# Secrets and local data: never commit tokens or downloaded course material
+.env
+.ase-moodle/
+config.json
+*.bak
+*.part
+/ASE-Moodle/
+/Anul3-*/
+
+# Editors / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

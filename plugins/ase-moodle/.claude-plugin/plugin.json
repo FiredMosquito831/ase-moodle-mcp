@@ -1,0 +1,11 @@
+{
+  "name": "ase-moodle",
+  "version": "0.1.0",
+  "description": "Access to BL@ASE Moodle (online.ase.ro): courses, materials download, assignments, forums, grades, quizzes, notifications and deadlines, through an MCP server.",
+  "author": {
+    "name": "FiredMosquito831"
+  },
+  "homepage": "https://github.com/FiredMosquito831/ase-moodle",
+  "repository": "https://github.com/FiredMosquito831/ase-moodle",
+  "keywords": ["moodle", "ase", "bl@ase", "mcp", "education"]
+}

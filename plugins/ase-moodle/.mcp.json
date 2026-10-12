@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "ase-moodle": {
+      "command": "ase-moodle-mcp",
+      "args": []
+    }
+  }
+}

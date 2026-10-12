@@ -1,0 +1,13 @@
+{
+  "name": "ase-moodle",
+  "version": "0.1.0",
+  "description": "Access to BL@ASE Moodle (online.ase.ro): courses, materials download, assignments, forums, grades, quizzes, notifications and deadlines, through an MCP server.",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "keywords": ["moodle", "ase", "mcp", "education"],
+  "interface": {
+    "displayName": "ASE Moodle",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"]
+  }
+}

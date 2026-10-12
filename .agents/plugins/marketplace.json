@@ -1,0 +1,12 @@
+{
+  "name": "ase-moodle-marketplace",
+  "plugins": [
+    {
+      "name": "ase-moodle",
+      "source": {
+        "source": "local",
+        "path": "./plugins/ase-moodle"
+      }
+    }
+  ]
+}
