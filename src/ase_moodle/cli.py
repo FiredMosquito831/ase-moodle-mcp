@@ -225,7 +225,26 @@ def cmd_call(args: argparse.Namespace) -> None:
 
 def _install_env(args: argparse.Namespace) -> install.Env:
     project = Path(args.project_dir).expanduser().resolve() if getattr(args, "project_dir", None) else Path.cwd()
-    return install.Env(source=args.source or install.default_source(), project_dir=project)
+    return install.Env(source=getattr(args, "source", None) or install.default_source(), project_dir=project)
+
+
+def cmd_harness(args: argparse.Namespace) -> None:
+    """Comenzi per harness: ase-moodle claude install|update|uninstall|doctor. Merg doar la adaptorul lui."""
+    from .harnesses import REGISTRY
+
+    harness = REGISTRY[args.harness]
+    env = _install_env(args)
+    if args.harness_action == "install":
+        steps = harness.install(env, args.scope)
+    elif args.harness_action == "update":
+        steps = harness.update(env, args.scope)
+    elif args.harness_action == "uninstall":
+        steps = harness.uninstall(env, args.scope)
+    else:
+        steps = harness.doctor(env)
+    _out([s.to_dict() for s in steps])
+    if any(s.status == "error" for s in steps):
+        raise SystemExit(3)
 
 
 def cmd_install(args: argparse.Namespace) -> None:
@@ -448,6 +467,26 @@ def build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("doctor", help="Verifica starea instalarii, tokenul si procesele MCP").set_defaults(func=cmd_doctor)
     sub.add_parser("sync-plugin", help="(dezvoltare) copiaza SKILL.md canonic in plugin").set_defaults(func=cmd_sync_plugin)
+
+    # Comenzi per harness: fiecare are doar optiunile care au sens pentru el (vezi capabilities in adaptor).
+    from .harnesses import REGISTRY
+
+    for harness_name, harness in REGISTRY.items():
+        hp = sub.add_parser(harness_name, help=f"{harness_name}: install, update, uninstall, doctor (doar acest harness)")
+        hsub = hp.add_subparsers(dest="harness_action", required=True)
+        scopes = list(harness.capabilities.scopes)
+        for action in ("install", "update", "uninstall", "doctor"):
+            ap = hsub.add_parser(action, help=f"{action} pentru {harness_name}")
+            if action != "doctor":
+                ap.add_argument(
+                    "--scope", choices=[*scopes, *(["all"] if action == "uninstall" else [])],
+                    default="all" if action == "uninstall" else "global",
+                    help=f"suportat: {', '.join(scopes)}. {harness.capabilities.notes}",
+                )
+            if action in ("install", "update"):
+                ap.add_argument("--source", help="sursa marketplace-ului (implicit: repo-ul local sau GitHub)")
+            ap.add_argument("--project-dir", help="folderul proiectului (implicit: folderul curent)")
+            ap.set_defaults(func=cmd_harness, harness=harness_name)
 
     return parser
 

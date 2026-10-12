@@ -154,6 +154,22 @@ ase-moodle call mod_forum_get_forums_by_courses --json-params '{"courseids":[734
 
 Aceste comenzi configurează pluginul în Claude Code, Codex, opencode și Antigravity. Detalii pe platformă: [PLATFORMS.md](PLATFORMS.md).
 
+### Comenzi per harness
+
+Fiecare harness are propriile comenzi, care merg doar la adaptorul lui: `ase-moodle claude install`, `ase-moodle codex doctor` etc. Ce suportă fiecare (scopuri, fișiere, restart) e în [HARNESSES.md](HARNESSES.md).
+
+| Comandă | Opțiuni |
+|---|---|
+| `claude install\|update` | `--scope global\|project`, `--project-dir DIR`, `--source SURSA` |
+| `claude uninstall` | `--scope global\|project\|all` (implicit `all`), `--project-dir DIR` |
+| `claude doctor` | `--project-dir DIR` |
+| `codex` ... | la fel ca `claude` |
+| `opencode` ... | la fel ca `claude`, fără `--source` |
+| `antigravity install\|update` | `--source SURSA`. Doar `global`: `--scope project` e eroare |
+| `antigravity uninstall\|doctor` | la fel, fără scop de proiect |
+
+Exemplu: `ase-moodle claude install --scope project` instalează doar în folderul de unde rulezi comanda.
+
 ### `install [TARGET ...]`
 TARGET: `claude`, `codex`, `opencode`, `antigravity` sau `all` (implicit `all`).
 

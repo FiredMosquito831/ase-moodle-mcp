@@ -1,5 +1,7 @@
 # Platforme: Claude Code, Codex, opencode, Antigravity
 
+Fiecare platformă are un adaptor izolat, cu comenzile și evidența proprii. Modelul și regulile comune sunt în [HARNESSES.md](HARNESSES.md). Aici e ce face fiecare și unde ajung fișierele.
+
 `ase-moodle install` configurează pluginul sau serverul MCP în fiecare CLI, folosind mecanismul lui nativ. Aici e ce face fiecare și unde ajung fișierele.
 
 ## Scopuri

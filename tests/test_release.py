@@ -11,7 +11,7 @@ import unittest
 from pathlib import Path
 
 from fake_moodle import TOKEN, FakeMoodle
-from test_install import Recorder, make_env
+from test_harnesses import Recorder, make_env
 
 from ase_moodle import install
 

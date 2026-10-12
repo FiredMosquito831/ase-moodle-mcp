@@ -44,6 +44,21 @@ Fluxul unei comenzi:
 
 Pentru funcții Moodle noi, verifică întâi că există în serviciul mobil: `ase-moodle functions --filter 'nume'`.
 
+## Adăugarea unui harness
+
+Harness-urile sunt adaptoare izolate (vezi [HARNESSES.md](HARNESSES.md)). Pentru unul nou:
+
+1. **Modul nou** în `src/ase_moodle/harnesses/<nume>.py`, cu o clasă care moștenește `Harness`:
+   - `name` și `cli` (executabilul verificat cu `which`, sau `None` dacă harness-ul e configurat prin fișiere);
+   - `capabilities = Capabilities(scopes=..., needs_restart=..., notes=...)`: strict ce suportă;
+   - `install(ctx, scope)`, `uninstall(ctx, scope)`, `doctor(ctx)`, și `update` dacă diferă de install.
+2. **Evidență:** la fiecare scriere, `self.record(ctx, scope, {...})`. La dezinstalare, șterge doar ce ai înregistrat și intrările tale cu numele `ase-moodle`.
+3. **Scopuri:** `self.check_scope(scope)` la început. Pentru `uninstall`, `self.expand(scope)` (`all` = scopurile suportate).
+4. **Registru:** o intrare în `harnesses/__init__.py`. Comenzile `ase-moodle <nume> ...` apar singure.
+5. **Nu importa alte adaptoare.** Dacă ai nevoie de ceva comun, mută-l în `base.py`.
+6. **Teste** în `tests/test_harnesses.py`: scrierea, dezinstalarea, doctor-ul pe scopuri, izolarea față de alte harness-uri.
+7. **Documentație:** secțiunea din `HARNESSES.md`, rândul din tabelul de la `USAGE.md`, și `PLATFORMS.md`.
+
 ## Versiune
 
 Versiunea apare în patru locuri, și testul `test_release.py` le compară:

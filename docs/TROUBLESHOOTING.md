@@ -75,6 +75,18 @@ Un client MCP rulează și blochează executabilul. Închide Claude Code, Codex,
 
 Repornește Claude Code. Pluginul se încarcă la pornire.
 
+### Claude Code nu detectează MCP-ul în folderul proiectului
+
+Verifică în ordine:
+
+1. **Repornește Claude Code în folderul proiectului.** O sesiune deschisă înainte de o schimbare de scop păstrează lista veche de servere.
+2. **În sesiune, rulează `/mcp`.** Ar trebui să apară `plugin:ase-moodle:ase-moodle` cu statusul conectat.
+3. **Verifică din terminal:** `ase-moodle claude doctor --project-dir <folderul-proiectului>`. Pentru scopul de proiect ar trebui să vezi `plugin (project)` cu `ok` și `mcp server` cu `conectat`.
+4. **Verifică fișierul:** `.claude/settings.json` din folder trebuie să conțină `ase-moodle@ase-moodle-marketplace` în `enabledPlugins`.
+5. **Dacă Claude Code cere aprobarea marketplace-ului sau a folderului,** acceptă. Fără asta, pluginul de proiect e ignorat.
+
+Dacă tot nu apare după asta, `ase-moodle claude install --scope project` rescrie configurarea. Operația e idempotentă.
+
 ### Codex nu încarcă serverul pentru proiect
 
 Codex cere să marchezi folderul ca proiect de încredere. Deschide folderul și acceptă cererea. Verifică și că fișierul `.codex/config.toml` există și conține `[mcp_servers.ase-moodle]`.

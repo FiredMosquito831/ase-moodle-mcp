@@ -43,6 +43,7 @@ ase-moodle login                              # token (browser; sau --method man
 ase-moodle auth-status                        # ești logat?
 ase-moodle install                            # configurează toate CLI-urile (global)
 ase-moodle install claude --scope project     # doar folderul curent
+ase-moodle codex doctor                       # un singur harness: install|update|uninstall|doctor
 ase-moodle doctor                             # starea instalării
 ase-moodle deadlines --days 14
 ase-moodle download --year 3 --sem 1 --out D:\Materiale
@@ -58,6 +59,7 @@ Lista completă: [docs/USAGE.md](docs/USAGE.md).
 | [docs/USAGE.md](docs/USAGE.md) | referința CLI: fiecare comandă, opțiune, exemplu, coduri de ieșire |
 | [docs/MCP.md](docs/MCP.md) | cele 28 de unelte MCP, prompturile, resursele, conectarea clienților |
 | [docs/PLATFORMS.md](docs/PLATFORMS.md) | Claude Code, Codex, opencode, Antigravity: ce se instalează, scopurile, fișierele atinse |
+| [docs/HARNESSES.md](docs/HARNESSES.md) | adaptoarele izolate: comenzile per harness, evidența fiecăruia, ce returnează `doctor` |
 | [docs/AUTH.md](docs/AUTH.md) | obținerea tokenului, unde e stocat, parola Google, deconectare |
 | [docs/CONFIGURATION.md](docs/CONFIGURATION.md) | variabile de mediu, `.env`, `config.json`, folderul de descărcare |
 | [docs/SAFETY.md](docs/SAFETY.md) | confirmări, garda pentru ciorne, politica pentru quizuri, reguli de utilizare |
