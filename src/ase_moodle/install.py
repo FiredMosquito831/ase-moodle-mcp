@@ -128,7 +128,7 @@ def doctor(env: Env | None = None) -> list[Step]:
         steps.append(Step("package", "token", "error", str(exc)))
     mcp_bin = env.which("ase-moodle-mcp")
     steps.append(Step("package", "ase-moodle-mcp in PATH", "ok" if mcp_bin else "error",
-                      mcp_bin or "lipseste; ruleaza pip install -e ."))
+                      mcp_bin or "lipseste; ruleaza: pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git"))
 
     for name in TARGETS:
         steps += REGISTRY[name].doctor(env)
@@ -143,12 +143,12 @@ def doctor(env: Env | None = None) -> list[Step]:
 
     running = _running_mcp_processes()
     steps.append(Step("package", "procese MCP pornite", "ok" if running == 0 else "warning",
-                      f"{running} proces(e) ase-moodle-mcp. Inchide-le inainte de pip install -e . dupa update"))
+                      f"{running} proces(e) ase-moodle-mcp. Inchide-le inainte de reinstalare (pipx install --force ...) dupa update"))
     try:
         from importlib.metadata import version
 
         steps.append(Step("package", "metadate pachet", "ok", f"versiunea {version('ase-moodle')}"))
     except Exception as exc:  # noqa: BLE001
         steps.append(Step("package", "metadate pachet", "warning",
-                          f"metadatele sunt rupte ({exc.__class__.__name__}); ruleaza pip install -e . dupa inchiderea MCP"))
+                          f"metadatele sunt rupte ({exc.__class__.__name__}); ruleaza pipx install --force ... dupa inchiderea MCP"))
     return steps

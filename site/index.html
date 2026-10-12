@@ -13,6 +13,7 @@
   <link rel="alternate" hreflang="ro" href="https://ase-moodle-mcp.danubelabs.net/">
   <link rel="alternate" hreflang="en" href="https://ase-moodle-mcp.danubelabs.net/en/">
   <link rel="alternate" hreflang="x-default" href="https://ase-moodle-mcp.danubelabs.net/en/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f6feb'/%3E%3Ctext x='32' y='42' font-size='30' font-family='Segoe UI,Arial' font-weight='700' text-anchor='middle' fill='white'%3Ea%3C/text%3E%3C/svg%3E">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ase-moodle">
@@ -36,6 +37,7 @@
     "@type": "SoftwareApplication",
     "name": "ase-moodle",
     "description": "Server MCP, CLI și plugin pentru Moodle BL@ASE (online.ase.ro): cursuri, teme, forumuri, note, quizuri și termene pentru agenți AI.",
+    "inLanguage": "ro",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Windows, Linux",
     "programmingLanguage": "Python",
@@ -58,80 +60,251 @@
   </script>
 
   <style>
-    :root { --fg: #1f2328; --muted: #57606a; --bg: #ffffff; --accent: #1f6feb; --code: #f6f8fa; --border: #d0d7de; }
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) { --fg: #e6edf3; --muted: #9da7b3; --bg: #0d1117; --accent: #4493f8; --code: #161b22; --border: #30363d; }
+    :root {
+      --bg: #ffffff; --bg-soft: #f6f8fa; --fg: #1f2328; --muted: #57606a; --border: #d0d7de;
+      --accent: #1f6feb; --accent-2: #0969da; --code-bg: #0d1117; --code-fg: #e6edf3; --ok: #1a7f37;
+      --shadow: 0 1px 2px rgba(31,35,40,.06), 0 8px 24px rgba(31,35,40,.06);
     }
-    :root[data-theme="dark"] { --fg: #e6edf3; --muted: #9da7b3; --bg: #0d1117; --accent: #4493f8; --code: #161b22; --border: #30363d; }
-    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-    main { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
-    h1 { font-size: 2rem; margin: 0.4em 0 0.2em; }
-    h2 { font-size: 1.3rem; margin-top: 2em; border-bottom: 1px solid var(--border); padding-bottom: 0.3em; }
-    p.lead { font-size: 1.1rem; color: var(--muted); }
-    a { color: var(--accent); }
-    code, pre { background: var(--code); border-radius: 6px; font-family: ui-monospace, Consolas, monospace; }
-    code { padding: 0.1em 0.35em; }
-    pre { padding: 12px 14px; overflow-x: auto; border: 1px solid var(--border); }
-    .cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
-    .cta a { border: 1px solid var(--accent); border-radius: 6px; padding: 8px 14px; text-decoration: none; }
-    .cta a.primary { background: var(--accent); color: #fff; }
-    .lang { font-size: 0.9rem; }
-    .steps { padding-left: 1.3em; }
-    .steps li { margin: 0.4em 0; }
-    footer { margin-top: 48px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--border); padding-top: 16px; }
-    img.hero { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0d1117; --bg-soft: #161b22; --fg: #e6edf3; --muted: #9da7b3; --border: #30363d;
+        --accent: #4493f8; --accent-2: #58a6ff; --code-bg: #010409; --code-fg: #e6edf3; --ok: #3fb950;
+        --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0d1117; --bg-soft: #161b22; --fg: #e6edf3; --muted: #9da7b3; --border: #30363d;
+      --accent: #4493f8; --accent-2: #58a6ff; --code-bg: #010409; --code-fg: #e6edf3; --ok: #3fb950;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code, pre { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+    /* bara de sus */
+    .top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    .top .wrap { display: flex; align-items: center; gap: 18px; height: 56px; }
+    .brand { font-weight: 700; color: var(--fg); font-size: 1.05rem; margin-right: auto; }
+    .brand span { color: var(--accent); }
+    .top nav a { color: var(--muted); font-size: 0.95rem; margin-left: 14px; }
+    .top nav a:hover { color: var(--fg); text-decoration: none; }
+    .lang { font-size: 0.9rem; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px; }
+
+    /* hero */
+    .hero { padding: 64px 0 40px; background: radial-gradient(1200px 400px at 80% -10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%); }
+    .eyebrow { display: inline-block; font-size: 0.85rem; font-weight: 600; color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); padding: 4px 10px; border-radius: 999px; }
+    h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.12; margin: 16px 0 12px; letter-spacing: -0.02em; }
+    .lead { font-size: 1.15rem; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+    .badges span { font-size: 0.85rem; border: 1px solid var(--border); background: var(--bg-soft); border-radius: 6px; padding: 4px 10px; color: var(--muted); }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { display: inline-block; padding: 10px 18px; border-radius: 8px; border: 1px solid var(--accent); color: var(--accent); font-weight: 600; }
+    .btn:hover { text-decoration: none; background: color-mix(in srgb, var(--accent) 10%, transparent); }
+    .btn.primary { background: var(--accent); color: #fff; }
+    .btn.primary:hover { background: var(--accent-2); }
+
+    section { padding: 48px 0; border-top: 1px solid var(--border); }
+    section > .wrap > h2 { font-size: 1.6rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+    section > .wrap > p.sub { color: var(--muted); margin: 0 0 24px; max-width: 760px; }
+
+    /* pași de instalare */
+    .steps { display: grid; gap: 16px; counter-reset: step; list-style: none; padding: 0; margin: 0; }
+    .step { border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; background: var(--bg); box-shadow: var(--shadow); }
+    .step h3 { margin: 0 0 6px; font-size: 1.05rem; display: flex; align-items: center; gap: 10px; }
+    .step h3::before { counter-increment: step; content: counter(step); display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.9rem; }
+    .step p { margin: 0 0 12px; color: var(--muted); }
+    .codebox { position: relative; background: var(--code-bg); color: var(--code-fg); border-radius: 10px; padding: 14px 16px; overflow-x: auto; margin: 0; }
+    .codebox code { font-size: 0.95rem; white-space: pre; }
+    .copy { position: absolute; top: 8px; right: 8px; font: 600 0.78rem system-ui, sans-serif; color: var(--code-fg); background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: 6px; padding: 4px 9px; cursor: pointer; }
+    .copy:hover { background: rgba(255,255,255,.2); }
+    .copy.done { color: var(--ok); }
+    .note { margin-top: 18px; color: var(--muted); font-size: 0.95rem; }
+
+    /* carduri */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card { border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; background: var(--bg); box-shadow: var(--shadow); }
+    .card h3 { margin: 0 0 6px; font-size: 1.02rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.97rem; }
+    .icon { font-size: 1.4rem; margin-bottom: 6px; display: block; }
+
+    /* tabel platforme */
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.96rem; }
+    th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--bg-soft); font-weight: 600; }
+    tr:last-child td { border-bottom: 0; }
+    td code { font-size: 0.88rem; background: var(--bg-soft); padding: 2px 6px; border-radius: 5px; white-space: nowrap; }
+
+    /* siguranță */
+    .safe li { margin: 8px 0; }
+    ul.plain { padding-left: 1.2em; }
+
+    /* documentație */
+    .docs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .docs a { display: block; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; color: var(--fg); background: var(--bg); }
+    .docs a:hover { border-color: var(--accent); text-decoration: none; }
+    .docs strong { display: block; color: var(--accent); margin-bottom: 4px; }
+    .docs span { color: var(--muted); font-size: 0.93rem; }
+
+    footer { border-top: 1px solid var(--border); padding: 28px 0 48px; color: var(--muted); font-size: 0.92rem; }
+    footer .links a { margin-right: 14px; }
+    footer .disclaimer { margin-top: 12px; font-size: 0.85rem; }
+    @media (max-width: 640px) { .top nav { display: none; } .hero { padding-top: 40px; } }
   </style>
 </head>
 <body>
-<main>
-  <img class="hero" src="og.png" alt="ase-moodle: server MCP, CLI și plugin pentru Moodle BL@ASE" width="1280" height="640">
 
-  <h1>ase-moodle: Moodle BL@ASE pentru agenți AI</h1>
-  <p class="lang"><a href="en/">English</a> · Română</p>
-  <p class="lead">Server MCP, CLI și plugin care dau agenților AI acces la contul tău de Moodle BL@ASE (online.ase.ro): cursuri, materiale, teme, forumuri, note, quizuri, notificări și termene. Funcționează în Claude Code, Codex, opencode și Google Antigravity.</p>
-  <p><em>English: an MCP server, CLI and plugin that connects AI agents to your BL@ASE Moodle account (online.ase.ro): courses, assignments, forums, grades, quizzes, notifications and deadlines.</em></p>
-
-  <div class="cta">
-    <a class="primary" href="https://github.com/FiredMosquito831/ase-moodle-mcp">Cod sursă pe GitHub</a>
-    <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md">Instalare</a>
-    <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/USAGE.md">Referința comenzilor</a>
-    <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/SAFETY.md">Siguranță</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#">ase-<span>moodle</span></a>
+    <nav>
+      <a href="#instalare">Instalare</a>
+      <a href="#ce-face">Ce face</a>
+      <a href="#platforme">Platforme</a>
+      <a href="#documentatie">Documentație</a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp">GitHub</a>
+    </nav>
+    <a class="lang" href="en/" hreflang="en">English</a>
   </div>
+</header>
 
-  <h2>Ce poate face</h2>
-  <ul>
-    <li>Listează cursurile pe an de studiu, semestru și tip (CURS, SEMINAR, LABORATOR).</li>
-    <li>Descarcă materialele unui an sau ale unui curs, în paralel, în foldere organizate pe săptămâni.</li>
-    <li>Citește temele, starea trimiterii, feedbackul și termenele.</li>
-    <li>Trimite teme, răspunde pe forum și deschide discuții, doar după confirmare.</li>
-    <li>Citește și răspunde la quizuri, cu aprobare înainte de trimiterea finală.</li>
-    <li>Arată notificările și termenele apropiate.</li>
-  </ul>
+<main>
 
-  <h2>Instalare în trei comenzi</h2>
-  <p>Ai nevoie de Python 3.10+ și de <a href="https://pipx.pypa.io/stable/installation/">pipx</a>. Funcționează la fel pe Windows, Linux și macOS.</p>
-<pre><code>pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git
-ase-moodle login
-ase-moodle install</code></pre>
-  <ol class="steps">
-    <li><strong>pipx install</strong>: instalează <code>ase-moodle</code> izolat, fără să strice Python-ul tău.</li>
-    <li><strong>ase-moodle login</strong>: deschide browserul. Te loghezi cu Google o singură dată.</li>
-    <li><strong>ase-moodle install</strong>: adaugă pluginul în Claude Code, Codex, opencode și Antigravity.</li>
-  </ol>
-  <p>Verifici cu <code>ase-moodle doctor</code>. Pașii detaliați și variantele sunt în <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md">docs/INSTALL.md</a>.</p>
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Server MCP · CLI · plugin</span>
+    <h1>Moodle BL@ASE, direct în agenții tăi AI</h1>
+    <p class="lead">Cursuri, materiale, teme, forumuri, note, quizuri, notificări și termene din contul tău de online.ase.ro, disponibile în Claude Code, Codex, opencode și Google Antigravity.</p>
+    <div class="badges">
+      <span>Apache 2.0</span>
+      <span>Python 3.10+</span>
+      <span>Windows · Linux</span>
+      <span>Confirmare înainte de orice scriere</span>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#instalare">Instalează</a>
+      <a class="btn" href="https://github.com/FiredMosquito831/ase-moodle-mcp">Cod sursă pe GitHub</a>
+    </div>
+  </div>
+</div>
 
-  <h2>Documentație</h2>
-  <ul>
-    <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/AUTH.md">Autentificare și token</a></li>
-    <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/MCP.md">Unelte MCP, prompturi și resurse</a></li>
-    <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/PLATFORMS.md">Claude Code, Codex, opencode, Antigravity</a></li>
-    <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/TROUBLESHOOTING.md">Depanare</a></li>
-  </ul>
+<section id="instalare">
+  <div class="wrap">
+    <h2>Instalare în trei comenzi</h2>
+    <p class="sub">Ai nevoie de Python 3.10+ și de <a href="https://pipx.pypa.io/stable/installation/">pipx</a>. Aceleași comenzi merg pe Windows, Linux și macOS.</p>
+    <ol class="steps">
+      <li class="step">
+        <h3>Instalezi pachetul</h3>
+        <p>Pipx îl pune izolat, fără să strice Python-ul tău.</p>
+        <div class="codebox"><button class="copy" type="button">Copiază</button><code>pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git</code></div>
+      </li>
+      <li class="step">
+        <h3>Te loghezi în Moodle</h3>
+        <p>Se deschide browserul. Te loghezi cu Google o singură dată. Tokenul se salvează în Credential Manager, nu în text clar.</p>
+        <div class="codebox"><button class="copy" type="button">Copiază</button><code>ase-moodle login</code></div>
+      </li>
+      <li class="step">
+        <h3>Adaugi pluginul în agenți</h3>
+        <p>Pluginul ajunge în Claude Code, Codex, opencode și Antigravity, pentru tot calculatorul.</p>
+        <div class="codebox"><button class="copy" type="button">Copiază</button><code>ase-moodle install</code></div>
+      </li>
+    </ol>
+    <p class="note">Verifici cu <code>ase-moodle doctor</code>. Doar pentru un folder: <code>ase-moodle install claude --scope project</code>, rulat din acel folder. Actualizare: <code>pipx install --force git+…</code>, apoi <code>ase-moodle update</code>. Pașii detaliați sunt în <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md">docs/INSTALL.md</a>.</p>
+  </div>
+</section>
 
-  <h2>Licență și autor</h2>
-  <p>Cod sub <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>. Autor: FiredMosquito831 (<a href="https://danubelabs.net">danubelabs.net</a>, <a href="https://www.linkedin.com/in/alexandru-eduard-amadeus-secureanu-832a47323/">LinkedIn</a>, <a href="https://github.com/FiredMosquito831">GitHub</a>).</p>
+<section id="ce-face">
+  <div class="wrap">
+    <h2>Ce poate face</h2>
+    <p class="sub">Unelte, prompturi și resurse pentru agenți, toate pe contul tău, cu confirmare pentru orice scriere.</p>
+    <div class="grid">
+      <div class="card"><span class="icon">📚</span><h3>Cursuri și materiale</h3><p>Listează cursurile pe an, semestru și tip (CURS, SEMINAR, LABORATOR). Descarcă materialele în foldere pe săptămâni.</p></div>
+      <div class="card"><span class="icon">📝</span><h3>Teme</h3><p>Citește sarcinile, termenele și starea trimiterii. Trimite fișiere ca ciornă sau final, după aprobarea ta.</p></div>
+      <div class="card"><span class="icon">💬</span><h3>Forumuri</h3><p>Citește discuțiile, răspunde și deschide discuții noi, doar după confirmare.</p></div>
+      <div class="card"><span class="icon">🧠</span><h3>Quizuri</h3><p>Citește întrebările, salvează răspunsurile și trimite încercarea doar după a doua aprobare.</p></div>
+      <div class="card"><span class="icon">🔔</span><h3>Notificări și termene</h3><p>Vezi ce e nou și ce are termen în zilele următoare. Marchezi notificările ca citite.</p></div>
+      <div class="card"><span class="icon">🔧</span><h3>Orice funcție Moodle</h3><p>Acces la funcțiile Web Service ale serviciului mobil, cu aceleași reguli de confirmare.</p></div>
+    </div>
+  </div>
+</section>
 
-  <footer>ase-moodle nu e afiliat cu Academia de Studii Economice din București. Folosește-l cu contul tău și respectă regulile platformei online.ase.ro.</footer>
+<section id="platforme">
+  <div class="wrap">
+    <h2>Unde se adaugă</h2>
+    <p class="sub">Global înseamnă tot calculatorul. Scope de proiect înseamnă doar folderul din care rulezi comanda, fără subfoldere.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Client</th><th>Global</th><th>Doar un folder</th><th>Unde se scrie</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Claude Code</strong></td><td><code>ase-moodle install claude</code></td><td><code>ase-moodle install claude --scope project</code></td><td>plugin în <code>~/.claude</code> sau în <code>.claude/settings.json</code> din folder</td></tr>
+          <tr><td><strong>Codex</strong></td><td><code>ase-moodle install codex</code></td><td><code>ase-moodle install codex --scope project</code></td><td><code>~/.codex/config.toml</code> sau <code>.codex/config.toml</code></td></tr>
+          <tr><td><strong>opencode</strong></td><td><code>ase-moodle install opencode</code></td><td><code>ase-moodle install opencode --scope project</code></td><td><code>~/.config/opencode/opencode.json</code> sau <code>opencode.json</code></td></tr>
+          <tr><td><strong>Antigravity</strong></td><td><code>ase-moodle install antigravity</code></td><td>nu are</td><td><code>agy mcp add</code> (global)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Vrei serverul în toate subfolderele unui folder mare? Folosește scope global. Pluginul de proiect se aplică doar când pornești clientul din folderul exact. Detalii: <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/MCP.md">docs/MCP.md</a>.</p>
+  </div>
+</section>
+
+<section id="siguranta">
+  <div class="wrap">
+    <h2>Siguranță</h2>
+    <p class="sub">Pachetul lucrează cu contul tău. Regulile de mai jos sunt aplicate de server, nu doar de agent.</p>
+    <ul class="plain safe">
+      <li><strong>Scrierile cer confirmare.</strong> Trimiterea, răspunsul pe forum și quizul cer <code>confirm=true</code>. Fără el, nu se întâmplă nimic.</li>
+      <li><strong>Garda pentru ciorne.</strong> La o temă fără ciorne, salvarea ar trimite fișierul direct. Serverul refuză, dacă nu cere explicit studentul.</li>
+      <li><strong>Token în Credential Manager.</strong> Nu îl afișează și nu îl trimite prin clienți. Parola Google nu e stocată niciodată.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="documentatie">
+  <div class="wrap">
+    <h2>Documentație</h2>
+    <p class="sub">Tot ce e în repo, în română.</p>
+    <div class="docs">
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md"><strong>Instalare</strong><span>Pipx, script, pe proiect, actualizare și dezinstalare.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/USAGE.md"><strong>Comenzi CLI</strong><span>Fiecare comandă, opțiune și cod de ieșire.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/MCP.md"><strong>Server MCP</strong><span>Unelte, prompturi, resurse și cum se adaugă în clienți.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/PLATFORMS.md"><strong>Platforme</strong><span>Claude Code, Codex, opencode și Antigravity pe rând.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/AUTH.md"><strong>Autentificare</strong><span>Login, token, deconectare și ce se salvează unde.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/SAFETY.md"><strong>Siguranță</strong><span>Confirmări, garda pentru ciorne și politica pentru quizuri.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/TROUBLESHOOTING.md"><strong>Depanare</strong><span>Erori frecvente și cum le rezolvi.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/TESTING.md"><strong>Teste</strong><span>Ce e testat offline, ce e verificat live și ce nu.</span></a>
+    </div>
+  </div>
+</section>
+
 </main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp">GitHub</a>
+      <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a>
+      <a href="https://danubelabs.net">danubelabs.net</a>
+      <a href="https://www.linkedin.com/in/alexandru-eduard-amadeus-secureanu-832a47323/">LinkedIn</a>
+    </div>
+    <p>Autor: FiredMosquito831. Cod sub Apache License 2.0.</p>
+    <p class="disclaimer">ase-moodle nu e afiliat cu Academia de Studii Economice din București. Folosește-l cu contul tău și respectă regulile platformei online.ase.ro.</p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.parentElement.querySelector('code').innerText;
+      var done = function () { btn.textContent = 'Copiat'; btn.classList.add('done'); setTimeout(function () { btn.textContent = 'Copiază'; btn.classList.remove('done'); }, 1500); };
+      if (navigator.clipboard) { navigator.clipboard.writeText(text).then(done, function () {}); }
+    });
+  });
+</script>
 </body>
 </html>

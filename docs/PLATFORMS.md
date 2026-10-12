@@ -11,7 +11,9 @@ Fiecare platformă are un adaptor izolat, cu comenzile și evidența proprii. Mo
 | `global` (implicit) | în toate folderele, pentru contul tău | `--scope global` |
 | `project` | doar în folderul proiectului | `--scope project --project-dir DIR` |
 
-Folderul proiectului este `--project-dir`. Dacă nu-l dai, este folderul de unde rulezi comanda.
+Folderul proiectului este `--project-dir`. Dacă nu-l dai, este folderul de unde rulezi comanda. Exemplu: rulezi `ase-moodle install claude --scope project` din `D:\Projects2\Facultate`, iar configurarea ajunge în `D:\Projects2\Facultate\.claude\settings.json`, nu într-un subfolder.
+
+**Subfoldere:** scope-ul de proiect nu se aplică în subfoldere. Pornește clientul din folderul exact unde ai instalat. Dacă vrei serverul în toate subfolderele, folosește scope global (`ase-moodle install` fără `--scope`). Detalii pe client: [MCP.md](MCP.md#conectarea-clienților).
 
 Schimbarea de scop curăță celălalt scop. Motivul: două servere cu același nume se dublează. Dacă instalezi pe proiect, scot instalarea globală a acelui CLI, și invers.
 

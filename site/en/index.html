@@ -13,6 +13,7 @@
   <link rel="alternate" hreflang="en" href="https://ase-moodle-mcp.danubelabs.net/en/">
   <link rel="alternate" hreflang="ro" href="https://ase-moodle-mcp.danubelabs.net/">
   <link rel="alternate" hreflang="x-default" href="https://ase-moodle-mcp.danubelabs.net/en/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f6feb'/%3E%3Ctext x='32' y='42' font-size='30' font-family='Segoe UI,Arial' font-weight='700' text-anchor='middle' fill='white'%3Ea%3C/text%3E%3C/svg%3E">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ase-moodle">
@@ -59,79 +60,244 @@
   </script>
 
   <style>
-    :root { --fg: #1f2328; --muted: #57606a; --bg: #ffffff; --accent: #1f6feb; --code: #f6f8fa; --border: #d0d7de; }
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) { --fg: #e6edf3; --muted: #9da7b3; --bg: #0d1117; --accent: #4493f8; --code: #161b22; --border: #30363d; }
+    :root {
+      --bg: #ffffff; --bg-soft: #f6f8fa; --fg: #1f2328; --muted: #57606a; --border: #d0d7de;
+      --accent: #1f6feb; --accent-2: #0969da; --code-bg: #0d1117; --code-fg: #e6edf3; --ok: #1a7f37;
+      --shadow: 0 1px 2px rgba(31,35,40,.06), 0 8px 24px rgba(31,35,40,.06);
     }
-    :root[data-theme="dark"] { --fg: #e6edf3; --muted: #9da7b3; --bg: #0d1117; --accent: #4493f8; --code: #161b22; --border: #30363d; }
-    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-    main { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
-    h1 { font-size: 2rem; margin: 0.4em 0 0.2em; }
-    h2 { font-size: 1.3rem; margin-top: 2em; border-bottom: 1px solid var(--border); padding-bottom: 0.3em; }
-    p.lead { font-size: 1.1rem; color: var(--muted); }
-    a { color: var(--accent); }
-    code, pre { background: var(--code); border-radius: 6px; font-family: ui-monospace, Consolas, monospace; }
-    code { padding: 0.1em 0.35em; }
-    pre { padding: 12px 14px; overflow-x: auto; border: 1px solid var(--border); }
-    .cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
-    .cta a { border: 1px solid var(--accent); border-radius: 6px; padding: 8px 14px; text-decoration: none; }
-    .cta a.primary { background: var(--accent); color: #fff; }
-    .lang { font-size: 0.9rem; }
-    .steps { padding-left: 1.3em; }
-    .steps li { margin: 0.4em 0; }
-    footer { margin-top: 48px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--border); padding-top: 16px; }
-    img.hero { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0d1117; --bg-soft: #161b22; --fg: #e6edf3; --muted: #9da7b3; --border: #30363d;
+        --accent: #4493f8; --accent-2: #58a6ff; --code-bg: #010409; --code-fg: #e6edf3; --ok: #3fb950;
+        --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0d1117; --bg-soft: #161b22; --fg: #e6edf3; --muted: #9da7b3; --border: #30363d;
+      --accent: #4493f8; --accent-2: #58a6ff; --code-bg: #010409; --code-fg: #e6edf3; --ok: #3fb950;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code, pre { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+    .top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    .top .wrap { display: flex; align-items: center; gap: 18px; height: 56px; }
+    .brand { font-weight: 700; color: var(--fg); font-size: 1.05rem; margin-right: auto; }
+    .brand span { color: var(--accent); }
+    .top nav a { color: var(--muted); font-size: 0.95rem; margin-left: 14px; }
+    .top nav a:hover { color: var(--fg); text-decoration: none; }
+    .lang { font-size: 0.9rem; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px; }
+
+    .hero { padding: 64px 0 40px; background: radial-gradient(1200px 400px at 80% -10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%); }
+    .eyebrow { display: inline-block; font-size: 0.85rem; font-weight: 600; color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); padding: 4px 10px; border-radius: 999px; }
+    h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.12; margin: 16px 0 12px; letter-spacing: -0.02em; }
+    .lead { font-size: 1.15rem; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+    .badges span { font-size: 0.85rem; border: 1px solid var(--border); background: var(--bg-soft); border-radius: 6px; padding: 4px 10px; color: var(--muted); }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { display: inline-block; padding: 10px 18px; border-radius: 8px; border: 1px solid var(--accent); color: var(--accent); font-weight: 600; }
+    .btn:hover { text-decoration: none; background: color-mix(in srgb, var(--accent) 10%, transparent); }
+    .btn.primary { background: var(--accent); color: #fff; }
+    .btn.primary:hover { background: var(--accent-2); }
+
+    section { padding: 48px 0; border-top: 1px solid var(--border); }
+    section > .wrap > h2 { font-size: 1.6rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+    section > .wrap > p.sub { color: var(--muted); margin: 0 0 24px; max-width: 760px; }
+
+    .steps { display: grid; gap: 16px; counter-reset: step; list-style: none; padding: 0; margin: 0; }
+    .step { border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; background: var(--bg); box-shadow: var(--shadow); }
+    .step h3 { margin: 0 0 6px; font-size: 1.05rem; display: flex; align-items: center; gap: 10px; }
+    .step h3::before { counter-increment: step; content: counter(step); display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.9rem; }
+    .step p { margin: 0 0 12px; color: var(--muted); }
+    .codebox { position: relative; background: var(--code-bg); color: var(--code-fg); border-radius: 10px; padding: 14px 16px; overflow-x: auto; margin: 0; }
+    .codebox code { font-size: 0.95rem; white-space: pre; }
+    .copy { position: absolute; top: 8px; right: 8px; font: 600 0.78rem system-ui, sans-serif; color: var(--code-fg); background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: 6px; padding: 4px 9px; cursor: pointer; }
+    .copy:hover { background: rgba(255,255,255,.2); }
+    .copy.done { color: var(--ok); }
+    .note { margin-top: 18px; color: var(--muted); font-size: 0.95rem; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card { border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; background: var(--bg); box-shadow: var(--shadow); }
+    .card h3 { margin: 0 0 6px; font-size: 1.02rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.97rem; }
+    .icon { font-size: 1.4rem; margin-bottom: 6px; display: block; }
+
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.96rem; }
+    th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--bg-soft); font-weight: 600; }
+    tr:last-child td { border-bottom: 0; }
+    td code { font-size: 0.88rem; background: var(--bg-soft); padding: 2px 6px; border-radius: 5px; white-space: nowrap; }
+
+    .safe li { margin: 8px 0; }
+    ul.plain { padding-left: 1.2em; }
+
+    .docs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .docs a { display: block; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; color: var(--fg); background: var(--bg); }
+    .docs a:hover { border-color: var(--accent); text-decoration: none; }
+    .docs strong { display: block; color: var(--accent); margin-bottom: 4px; }
+    .docs span { color: var(--muted); font-size: 0.93rem; }
+
+    footer { border-top: 1px solid var(--border); padding: 28px 0 48px; color: var(--muted); font-size: 0.92rem; }
+    footer .links a { margin-right: 14px; }
+    footer .disclaimer { margin-top: 12px; font-size: 0.85rem; }
+    @media (max-width: 640px) { .top nav { display: none; } .hero { padding-top: 40px; } }
   </style>
 </head>
 <body>
-<main>
-  <p class="lang"><a href="../">Română</a> · English</p>
-  <img class="hero" src="../og.png" alt="ase-moodle: MCP server, CLI and plugin for Moodle BL@ASE" width="1280" height="640">
 
-  <h1>ase-moodle: Moodle BL@ASE for AI agents</h1>
-  <p class="lead">An MCP server, CLI and plugin that connects AI agents to your BL@ASE Moodle account (online.ase.ro): courses, materials, assignments, forums, grades, quizzes, notifications and deadlines. Works in Claude Code, Codex, opencode and Google Antigravity.</p>
-
-  <div class="cta">
-    <a class="primary" href="https://github.com/FiredMosquito831/ase-moodle-mcp">Source code on GitHub</a>
-    <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md">Installation</a>
-    <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/USAGE.md">Command reference</a>
-    <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/SAFETY.md">Safety</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#">ase-<span>moodle</span></a>
+    <nav>
+      <a href="#install">Install</a>
+      <a href="#features">Features</a>
+      <a href="#platforms">Platforms</a>
+      <a href="#docs">Docs</a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp">GitHub</a>
+    </nav>
+    <a class="lang" href="../" hreflang="ro">Română</a>
   </div>
+</header>
 
-  <h2>What it can do</h2>
-  <ul>
-    <li>List courses by study year, semester and type (lecture, seminar, lab).</li>
-    <li>Download a year's or a course's materials in parallel, organised into week folders.</li>
-    <li>Read assignments, submission status, feedback and deadlines.</li>
-    <li>Submit assignments, reply on forums and open discussions, only after your confirmation.</li>
-    <li>Read and answer quizzes, with your approval before the final submission.</li>
-    <li>Show notifications and upcoming deadlines.</li>
-  </ul>
+<main>
 
-  <h2>Install in three commands</h2>
-  <p>You need Python 3.10+ and <a href="https://pipx.pypa.io/stable/installation/">pipx</a>. The same commands work on Windows, Linux and macOS.</p>
-<pre><code>pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git
-ase-moodle login
-ase-moodle install</code></pre>
-  <ol class="steps">
-    <li><strong>pipx install</strong>: installs <code>ase-moodle</code> in an isolated environment, without touching your Python.</li>
-    <li><strong>ase-moodle login</strong>: opens the browser. You sign in with Google once.</li>
-    <li><strong>ase-moodle install</strong>: adds the plugin to Claude Code, Codex, opencode and Antigravity.</li>
-  </ol>
-  <p>Check with <code>ase-moodle doctor</code>. Step-by-step details and alternatives are in <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md">docs/INSTALL.md</a>.</p>
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">MCP server · CLI · plugin</span>
+    <h1>Moodle BL@ASE, inside your AI agents</h1>
+    <p class="lead">Courses, materials, assignments, forums, grades, quizzes, notifications and deadlines from your online.ase.ro account, available in Claude Code, Codex, opencode and Google Antigravity.</p>
+    <div class="badges">
+      <span>Apache 2.0</span>
+      <span>Python 3.10+</span>
+      <span>Windows · Linux</span>
+      <span>Confirmation before any write</span>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#install">Install</a>
+      <a class="btn" href="https://github.com/FiredMosquito831/ase-moodle-mcp">Source code on GitHub</a>
+    </div>
+  </div>
+</div>
 
-  <h2>Documentation</h2>
-  <ul>
-    <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/AUTH.md">Authentication and token</a></li>
-    <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/MCP.md">MCP tools, prompts and resources</a></li>
-    <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/PLATFORMS.md">Claude Code, Codex, opencode, Antigravity</a></li>
-    <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/TROUBLESHOOTING.md">Troubleshooting</a></li>
-  </ul>
+<section id="install">
+  <div class="wrap">
+    <h2>Install in three commands</h2>
+    <p class="sub">You need Python 3.10+ and <a href="https://pipx.pypa.io/stable/installation/">pipx</a>. The same commands work on Windows, Linux and macOS.</p>
+    <ol class="steps">
+      <li class="step">
+        <h3>Install the package</h3>
+        <p>Pipx installs it in an isolated environment, without touching your Python.</p>
+        <div class="codebox"><button class="copy" type="button">Copy</button><code>pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git</code></div>
+      </li>
+      <li class="step">
+        <h3>Log in to Moodle</h3>
+        <p>The browser opens. Sign in with Google once. The token is stored in the Credential Manager, not in plain text.</p>
+        <div class="codebox"><button class="copy" type="button">Copy</button><code>ase-moodle login</code></div>
+      </li>
+      <li class="step">
+        <h3>Add the plugin to your agents</h3>
+        <p>The plugin is added to Claude Code, Codex, opencode and Antigravity, for the whole machine.</p>
+        <div class="codebox"><button class="copy" type="button">Copy</button><code>ase-moodle install</code></div>
+      </li>
+    </ol>
+    <p class="note">Check with <code>ase-moodle doctor</code>. For one folder only: <code>ase-moodle install claude --scope project</code>, run from that folder. Update: <code>pipx install --force git+…</code>, then <code>ase-moodle update</code>. Full steps are in <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md">docs/INSTALL.md</a>.</p>
+  </div>
+</section>
 
-  <h2>License and author</h2>
-  <p>Code under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>. Author: FiredMosquito831 (<a href="https://danubelabs.net">danubelabs.net</a>, <a href="https://www.linkedin.com/in/alexandru-eduard-amadeus-secureanu-832a47323/">LinkedIn</a>, <a href="https://github.com/FiredMosquito831">GitHub</a>).</p>
+<section id="features">
+  <div class="wrap">
+    <h2>What it can do</h2>
+    <p class="sub">MCP tools, prompts and resources that act on your account, with confirmation for every write.</p>
+    <div class="grid">
+      <div class="card"><span class="icon">📚</span><h3>Courses and materials</h3><p>List courses by year, semester and type (lecture, seminar, lab). Download materials into week folders.</p></div>
+      <div class="card"><span class="icon">📝</span><h3>Assignments</h3><p>Read tasks, deadlines and submission status. Submit files as a draft or final, after your approval.</p></div>
+      <div class="card"><span class="icon">💬</span><h3>Forums</h3><p>Read discussions, reply and open new threads, only after confirmation.</p></div>
+      <div class="card"><span class="icon">🧠</span><h3>Quizzes</h3><p>Read questions, save answers and submit the attempt only after a second approval.</p></div>
+      <div class="card"><span class="icon">🔔</span><h3>Notifications and deadlines</h3><p>See what is new and what is due in the coming days. Mark notifications as read.</p></div>
+      <div class="card"><span class="icon">🔧</span><h3>Any Moodle function</h3><p>Access to the Web Service functions of the mobile service, with the same confirmation rules.</p></div>
+    </div>
+  </div>
+</section>
 
-  <footer>ase-moodle is not affiliated with the Bucharest University of Economic Studies (ASE). Use it with your own account and respect the rules of online.ase.ro.</footer>
+<section id="platforms">
+  <div class="wrap">
+    <h2>Where it gets added</h2>
+    <p class="sub">Global means the whole machine. Project scope means only the folder you run the command from, not its subfolders.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Client</th><th>Global</th><th>One folder only</th><th>Where it is written</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Claude Code</strong></td><td><code>ase-moodle install claude</code></td><td><code>ase-moodle install claude --scope project</code></td><td>plugin in <code>~/.claude</code> or <code>.claude/settings.json</code> in the folder</td></tr>
+          <tr><td><strong>Codex</strong></td><td><code>ase-moodle install codex</code></td><td><code>ase-moodle install codex --scope project</code></td><td><code>~/.codex/config.toml</code> or <code>.codex/config.toml</code></td></tr>
+          <tr><td><strong>opencode</strong></td><td><code>ase-moodle install opencode</code></td><td><code>ase-moodle install opencode --scope project</code></td><td><code>~/.config/opencode/opencode.json</code> or <code>opencode.json</code></td></tr>
+          <tr><td><strong>Antigravity</strong></td><td><code>ase-moodle install antigravity</code></td><td>not available</td><td><code>agy mcp add</code> (global)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Want the server in every subfolder of a large folder? Use global scope. The project plugin applies only when you start the client in that exact folder. Details: <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/MCP.md">docs/MCP.md</a>.</p>
+  </div>
+</section>
+
+<section id="safety">
+  <div class="wrap">
+    <h2>Safety</h2>
+    <p class="sub">The package works with your account. The rules below are enforced by the server, not only by the agent.</p>
+    <ul class="plain safe">
+      <li><strong>Writes need confirmation.</strong> Submitting, replying on a forum and submitting a quiz require <code>confirm=true</code>. Without it, nothing happens.</li>
+      <li><strong>Draft guard.</strong> For an assignment without drafts, saving would send the file at once. The server refuses unless the student explicitly asks for it.</li>
+      <li><strong>Token in the Credential Manager.</strong> It is never printed or passed through clients. Your Google password is never stored.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="docs">
+  <div class="wrap">
+    <h2>Documentation</h2>
+    <p class="sub">Everything in the repository.</p>
+    <div class="docs">
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md"><strong>Install</strong><span>Pipx, script, per project, update and uninstall.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/USAGE.md"><strong>CLI commands</strong><span>Every command, option and exit code.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/MCP.md"><strong>MCP server</strong><span>Tools, prompts, resources and how to add it to clients.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/PLATFORMS.md"><strong>Platforms</strong><span>Claude Code, Codex, opencode and Antigravity, one by one.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/AUTH.md"><strong>Authentication</strong><span>Login, token, logout and what is stored where.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/SAFETY.md"><strong>Safety</strong><span>Confirmations, the draft guard and the quiz policy.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/TROUBLESHOOTING.md"><strong>Troubleshooting</strong><span>Common errors and how to fix them.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/TESTING.md"><strong>Testing</strong><span>What is tested offline, what is verified live and what is not.</span></a>
+    </div>
+  </div>
+</section>
+
 </main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp">GitHub</a>
+      <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a>
+      <a href="https://danubelabs.net">danubelabs.net</a>
+      <a href="https://www.linkedin.com/in/alexandru-eduard-amadeus-secureanu-832a47323/">LinkedIn</a>
+    </div>
+    <p>Author: FiredMosquito831. Code under the Apache License 2.0.</p>
+    <p class="disclaimer">ase-moodle is not affiliated with the Bucharest University of Economic Studies (ASE). Use it with your own account and respect the rules of online.ase.ro.</p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.parentElement.querySelector('code').innerText;
+      var done = function () { btn.textContent = 'Copied'; btn.classList.add('done'); setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1500); };
+      if (navigator.clipboard) { navigator.clipboard.writeText(text).then(done, function () {}); }
+    });
+  });
+</script>
 </body>
 </html>

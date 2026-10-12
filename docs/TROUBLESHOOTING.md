@@ -59,15 +59,16 @@ ase-moodle login
 
 ### `ase-moodle-mcp` nu e în PATH
 
-Pachetul nu e instalat, sau Scripts-ul Python nu e în PATH.
+Pachetul nu e instalat, sau directorul executabilelor pipx nu e în PATH.
 
-```powershell
-python -m pip install -e .
+```bash
+pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git
+pipx ensurepath          # apoi deschide un terminal nou
 ```
 
-Pe Linux, dacă ai instalat în venv, activează venv-ul înainte.
+Dacă ai instalat cu `pip` într-un venv, activează venv-ul înainte de comandă.
 
-### `pip install -e .` eșuează pe Windows cu „Access denied” pe `ase-moodle-mcp.exe`
+### `pipx install` eșuează pe Windows cu „Access denied” pe `ase-moodle-mcp.exe`
 
 Un client MCP rulează și blochează executabilul. Închide Claude Code, Codex, opencode sau Antigravity (sau doar procesele `ase-moodle-mcp`), apoi rulează din nou. `doctor` le numără.
 
