@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable
 
-from .config import load_settings
+from .config import find_dotenv, load_settings
 
 PLUGIN = "ase-moodle"
 MARKETPLACE = "ase-moodle-marketplace"
@@ -393,8 +393,6 @@ def doctor(env: Env | None = None) -> list[Step]:
 
     # Mediu si securitate
     try:
-        from .config import find_dotenv, load_settings
-
         settings = load_settings()
         steps.append(Step("security", "token source", "ok", f"{settings.source} (tokenul nu se afiseaza)"))
         dotenv = find_dotenv()
