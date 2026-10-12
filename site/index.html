@@ -133,7 +133,11 @@
 
     /* tabel platforme */
     .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.96rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.94rem; table-layout: fixed; }
+    th:nth-child(1), td:nth-child(1) { width: 15%; }
+    th:nth-child(2), td:nth-child(2) { width: 25%; }
+    th:nth-child(3), td:nth-child(3) { width: 25%; }
+    th:nth-child(4), td:nth-child(4) { width: 35%; }
     th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
     th { background: var(--bg-soft); font-weight: 600; }
     tr:last-child td { border-bottom: 0; }
