@@ -38,7 +38,7 @@ ase-moodle doctor
 | `ase-moodle install` | adaugă pluginul în Claude Code, Codex, opencode și Antigravity |
 | `ase-moodle doctor` | verifică instalarea și arată ce lipsește |
 
-Doar pentru folderul curent: `ase-moodle install --scope project`. Actualizare: `pipx upgrade ase-moodle && ase-moodle update`. Dezinstalare: `ase-moodle uninstall && pipx uninstall ase-moodle`.
+Doar pentru folderul curent: `ase-moodle install --scope project`. Actualizare: `pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git && ase-moodle update`. Dezinstalare: `ase-moodle uninstall && pipx uninstall ase-moodle`.
 
 Dacă nu ai Edge sau Chrome, login-ul cere Chromium: `python -m playwright install chromium`.
 

@@ -106,9 +106,11 @@ Folderul curent e folosit fiindcă nu ai dat `--project-dir`. Antigravity rămâ
 ## Actualizare
 
 ```bash
-pipx upgrade ase-moodle
+pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git
 ase-moodle update
 ```
+
+`pipx upgrade` nu aduce codul nou din GitHub, deci folosește `--force`.
 
 Repornește Claude Code după `update`. Dacă actualizarea cere să închizi procese, închide clienții MCP (`ase-moodle doctor` îi numără) și rulează din nou.
 
