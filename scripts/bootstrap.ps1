@@ -9,7 +9,7 @@
 #   powershell -ExecutionPolicy Bypass -File scripts\bootstrap.ps1 -SkipLogin -Targets claude,codex
 
 param(
-    [string]$Source = "FiredMosquito831/ase-moodle",
+    [string]$Source = "FiredMosquito831/ase-moodle-mcp",
     [string[]]$Targets = @("all"),
     [ValidateSet("global", "project")][string]$Scope = "global",
     [switch]$SkipLogin

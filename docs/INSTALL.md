@@ -6,6 +6,7 @@
 |---|---|---|---|
 | Python | 3.10+ (testat cu 3.13) | 3.10+ (testat cu 3.12, Ubuntu 24.04) | 3.10+ (netestat) |
 | `git` | da | da | da |
+| `pipx` | `python -m pip install --user pipx` | `python3 -m pip install --user pipx` | la fel |
 | Browser pentru login | Edge sau Chrome instalat (detectat automat) | Chromium (`python -m playwright install chromium`), sau `--method manual` | Chromium (netestat) |
 | Clipboard pentru `--method manual` | PowerShell (inclus) | `xclip`, `xsel` sau `wl-paste` | `pbpaste` (inclus) |
 | Credential Manager | Windows Credential Manager (inclus) | Secret Service (GNOME Keyring, KWallet), altfel fișier `chmod 600` | Keychain (netestat) |
@@ -13,23 +14,46 @@
 
 Nu ai nevoie de toate CLI-urile. `ase-moodle install claude` funcționează și dacă ai doar Claude Code.
 
-## Varianta 1: script automat
+## Varianta 1: pipx (recomandată)
 
-### Windows (PowerShell)
+Pipx instalează aplicațiile Python în medii izolate și le pune în `PATH`. Îl instalezi o singură dată.
+
+```bash
+pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git
+ase-moodle login
+ase-moodle install
+ase-moodle doctor
+```
+
+| Comandă | Ce face |
+|---|---|
+| `pipx install git+…` | instalează `ase-moodle` și serverul MCP, izolat de restul Python-ului |
+| `ase-moodle login` | deschide browserul; te loghezi cu Google o singură dată, iar tokenul se salvează în Credential Manager |
+| `ase-moodle install` | adaugă pluginul în toate CLI-urile găsite: Claude Code, Codex, opencode, Antigravity |
+| `ase-moodle doctor` | verifică instalarea și arată ce lipsește |
+
+`ase-moodle install` pune pluginul global, pentru tot calculatorul. Pentru folderul curent, folosește `ase-moodle install --scope project` (vezi [Instalare pe proiect](#instalare-pe-proiect)).
+
+## Varianta 2: script automat
+
+Scripturile din repo fac tot din clonă: instalează pachetul, instalează Chromium (doar Linux și macOS), te loghează, configurează CLI-urile și rulează `doctor`.
+
+```bash
+git clone https://github.com/FiredMosquito831/ase-moodle-mcp.git
+cd ase-moodle-mcp
+```
+
+**Windows (PowerShell):**
 
 ```powershell
-git clone https://github.com/FiredMosquito831/ase-moodle.git
-cd ase-moodle
 powershell -ExecutionPolicy Bypass -File scripts\bootstrap.ps1
 ```
 
 Parametri: `-Source owner/repo`, `-Targets claude,codex`, `-Scope project`, `-SkipLogin`.
 
-### Linux și macOS (bash)
+**Linux și macOS (bash):**
 
 ```bash
-git clone https://github.com/FiredMosquito831/ase-moodle.git
-cd ase-moodle
 bash scripts/bootstrap.sh
 ```
 
@@ -37,13 +61,13 @@ Variabile: `TARGETS="claude codex"`, `SCOPE=project`, `SKIP_LOGIN=1`, `SKIP_BROW
 
 **Atenție:** `SCOPE=project` și `-Scope project` instalează în folderul de unde rulezi scriptul, nu în clonă.
 
-Scriptul face, în ordine: instalează pachetul, instalează Chromium (doar Linux/macOS, sărit cu `SKIP_BROWSER=1`), te loghează, configurează CLI-urile, rulează `doctor`.
+## Varianta 3: pas cu pas, din clonă
 
-## Varianta 2: pas cu pas
+Pentru dezvoltare, unde vrei ca modificările din cod să fie active imediat:
 
-```powershell
-git clone https://github.com/FiredMosquito831/ase-moodle.git
-cd ase-moodle
+```bash
+git clone https://github.com/FiredMosquito831/ase-moodle-mcp.git
+cd ase-moodle-mcp
 python -m pip install -e .            # pachetul, editabil
 ase-moodle login                      # token (browser sau manual)
 ase-moodle install                    # toate CLI-urile, global
@@ -58,17 +82,15 @@ python3 -m playwright install chromium
 
 Pe Linux, pentru `--method manual`, ai nevoie de un utilitar de clipboard (`xclip`, `xsel` sau `wl-paste`).
 
-## Varianta 3: direct din GitHub
+## Varianta 4: pip direct
 
-Fără clonă, dar cu acces la repo-ul privat (`gh auth login` sau SSH):
+Fără pipx, în Python-ul tău global sau într-un venv:
 
-```powershell
-python -m pip install git+https://github.com/FiredMosquito831/ase-moodle.git
+```bash
+python -m pip install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git
 ase-moodle login
-ase-moodle install --source FiredMosquito831/ase-moodle
+ase-moodle install
 ```
-
-Fără `--source`, instalatorul folosește implicit `FiredMosquito831/ase-moodle` (GitHub). Din clonă, implicit folosește folderul clonei ca marketplace local.
 
 ## Instalare pe proiect
 
@@ -83,31 +105,30 @@ Folderul curent e folosit fiindcă nu ai dat `--project-dir`. Antigravity rămâ
 
 ## Actualizare
 
-```powershell
-cd ase-moodle
-git pull
-python -m pip install -e .
+```bash
+pipx upgrade ase-moodle
 ase-moodle update
 ```
 
-Repornește Claude Code după `update`. Dacă `pip install` cere să închizi procese, închide clienții MCP (`ase-moodle doctor` îi numără) și rulează din nou.
+Repornește Claude Code după `update`. Dacă actualizarea cere să închizi procese, închide clienții MCP (`ase-moodle doctor` îi numără) și rulează din nou.
 
 ## Dezinstalare
 
-```powershell
+```bash
 ase-moodle uninstall                  # toate CLI-urile, ambele scopuri
 ase-moodle logout --forget-browser    # șterge tokenul și sesiunea din browser
-python -m pip uninstall ase-moodle
+pipx uninstall ase-moodle
 ```
 
 ## Verificare după instalare
 
-```powershell
+```bash
 ase-moodle auth-status                # ești logat?
 ase-moodle courses --year 3 --sem 1   # citire reală
 ase-moodle doctor                     # starea platformelor
-python -m unittest discover -s tests  # teste offline (din clona repo-ului)
 ```
+
+Teste offline (din clona repo-ului): `python -m unittest discover -s tests`.
 
 ## Probleme
 

@@ -6,7 +6,7 @@
     "ase-moodle-marketplace": {
       "source": {
         "source": "github",
-        "repo": "FiredMosquito831/ase-moodle"
+        "repo": "FiredMosquito831/ase-moodle-mcp"
       }
     }
   }

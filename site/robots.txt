@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://firedmosquito831.github.io/ase-moodle/sitemap.xml
+Sitemap: https://ase-moodle-mcp.danubelabs.net/sitemap.xml

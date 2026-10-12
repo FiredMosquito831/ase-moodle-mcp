@@ -36,7 +36,7 @@ ase-moodle install claude --scope project              # doar folderul curent
 Manual, în Claude Code:
 
 ```text
-/plugin marketplace add FiredMosquito831/ase-moodle
+/plugin marketplace add FiredMosquito831/ase-moodle-mcp
 /plugin install ase-moodle@ase-moodle-marketplace
 ```
 
@@ -62,7 +62,7 @@ ase-moodle install codex --scope project               # doar folderul curent
 Manual:
 
 ```text
-codex plugin marketplace add FiredMosquito831/ase-moodle
+codex plugin marketplace add FiredMosquito831/ase-moodle-mcp
 codex plugin add ase-moodle@ase-moodle-marketplace
 ```
 

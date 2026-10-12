@@ -449,7 +449,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("install", help="Configureaza pluginul in Claude Code, Codex, opencode si/sau Antigravity")
     p.add_argument("targets", **targets)
-    p.add_argument("--source", help="sursa marketplace-ului: cale locala sau owner/repo (implicit: FiredMosquito831/ase-moodle, de pe GitHub)")
+    p.add_argument("--source", help="sursa marketplace-ului: cale locala sau owner/repo (implicit: FiredMosquito831/ase-moodle-mcp, de pe GitHub)")
     add_scope(p, "global", ["global", "project"])
     p.set_defaults(func=cmd_install)
 

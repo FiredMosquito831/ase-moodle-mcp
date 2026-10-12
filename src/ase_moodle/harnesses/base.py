@@ -23,7 +23,7 @@ from typing import Any, Callable
 
 PLUGIN = "ase-moodle"
 MARKETPLACE = "ase-moodle-marketplace"
-DEFAULT_SOURCE = "FiredMosquito831/ase-moodle"
+DEFAULT_SOURCE = "FiredMosquito831/ase-moodle-mcp"
 SCOPES = ("global", "project")
 
 Runner = Callable[..., tuple[int, str]]

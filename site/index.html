@@ -9,17 +9,17 @@
   <meta name="author" content="FiredMosquito831">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#1f6feb">
-  <link rel="canonical" href="https://firedmosquito831.github.io/ase-moodle/">
-  <link rel="alternate" hreflang="ro" href="https://firedmosquito831.github.io/ase-moodle/">
-  <link rel="alternate" hreflang="en" href="https://firedmosquito831.github.io/ase-moodle/en/">
-  <link rel="alternate" hreflang="x-default" href="https://firedmosquito831.github.io/ase-moodle/en/">
+  <link rel="canonical" href="https://ase-moodle-mcp.danubelabs.net/">
+  <link rel="alternate" hreflang="ro" href="https://ase-moodle-mcp.danubelabs.net/">
+  <link rel="alternate" hreflang="en" href="https://ase-moodle-mcp.danubelabs.net/en/">
+  <link rel="alternate" hreflang="x-default" href="https://ase-moodle-mcp.danubelabs.net/en/">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ase-moodle">
   <meta property="og:title" content="ase-moodle: Moodle BL@ASE pentru agenți AI">
   <meta property="og:description" content="Server MCP, CLI și plugin pentru Moodle BL@ASE (online.ase.ro): cursuri, teme, forumuri, note, quizuri și termene în Claude Code, Codex, opencode și Antigravity.">
-  <meta property="og:url" content="https://firedmosquito831.github.io/ase-moodle/">
-  <meta property="og:image" content="https://firedmosquito831.github.io/ase-moodle/og.png">
+  <meta property="og:url" content="https://ase-moodle-mcp.danubelabs.net/">
+  <meta property="og:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="640">
   <meta property="og:locale" content="ro_RO">
@@ -28,7 +28,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="ase-moodle: Moodle BL@ASE pentru agenți AI">
   <meta name="twitter:description" content="Server MCP, CLI și plugin pentru Moodle BL@ASE (online.ase.ro) în Claude Code, Codex, opencode și Antigravity.">
-  <meta name="twitter:image" content="https://firedmosquito831.github.io/ase-moodle/og.png">
+  <meta name="twitter:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
 
   <script type="application/ld+json">
   {
@@ -41,8 +41,8 @@
     "programmingLanguage": "Python",
     "softwareVersion": "0.2.0",
     "license": "https://www.apache.org/licenses/LICENSE-2.0",
-    "url": "https://firedmosquito831.github.io/ase-moodle/",
-    "codeRepository": "https://github.com/FiredMosquito831/ase-moodle",
+    "url": "https://ase-moodle-mcp.danubelabs.net/",
+    "codeRepository": "https://github.com/FiredMosquito831/ase-moodle-mcp",
     "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
     "author": {
       "@type": "Person",
@@ -76,6 +76,8 @@
     .cta a { border: 1px solid var(--accent); border-radius: 6px; padding: 8px 14px; text-decoration: none; }
     .cta a.primary { background: var(--accent); color: #fff; }
     .lang { font-size: 0.9rem; }
+    .steps { padding-left: 1.3em; }
+    .steps li { margin: 0.4em 0; }
     footer { margin-top: 48px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--border); padding-top: 16px; }
     img.hero { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); }
   </style>
@@ -90,10 +92,10 @@
   <p><em>English: an MCP server, CLI and plugin that connects AI agents to your BL@ASE Moodle account (online.ase.ro): courses, assignments, forums, grades, quizzes, notifications and deadlines.</em></p>
 
   <div class="cta">
-    <a class="primary" href="https://github.com/FiredMosquito831/ase-moodle">Cod sursă pe GitHub</a>
-    <a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/INSTALL.md">Instalare</a>
-    <a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/USAGE.md">Referința comenzilor</a>
-    <a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/SAFETY.md">Siguranță</a>
+    <a class="primary" href="https://github.com/FiredMosquito831/ase-moodle-mcp">Cod sursă pe GitHub</a>
+    <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md">Instalare</a>
+    <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/USAGE.md">Referința comenzilor</a>
+    <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/SAFETY.md">Siguranță</a>
   </div>
 
   <h2>Ce poate face</h2>
@@ -106,19 +108,24 @@
     <li>Arată notificările și termenele apropiate.</li>
   </ul>
 
-  <h2>Instalare rapidă</h2>
-  <p>Pe Windows, din clona repo-ului:</p>
-<pre><code>git clone https://github.com/FiredMosquito831/ase-moodle.git
-cd ase-moodle
-powershell -ExecutionPolicy Bypass -File scripts\bootstrap.ps1</code></pre>
-  <p>Pe Linux și macOS: <code>bash scripts/bootstrap.sh</code>. Scripturile instalează pachetul, te loghează în Moodle o singură dată (cu Google, în browser) și configurează CLI-urile.</p>
+  <h2>Instalare în trei comenzi</h2>
+  <p>Ai nevoie de Python 3.10+ și de <a href="https://pipx.pypa.io/stable/installation/">pipx</a>. Funcționează la fel pe Windows, Linux și macOS.</p>
+<pre><code>pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git
+ase-moodle login
+ase-moodle install</code></pre>
+  <ol class="steps">
+    <li><strong>pipx install</strong>: instalează <code>ase-moodle</code> izolat, fără să strice Python-ul tău.</li>
+    <li><strong>ase-moodle login</strong>: deschide browserul. Te loghezi cu Google o singură dată.</li>
+    <li><strong>ase-moodle install</strong>: adaugă pluginul în Claude Code, Codex, opencode și Antigravity.</li>
+  </ol>
+  <p>Verifici cu <code>ase-moodle doctor</code>. Pașii detaliați și variantele sunt în <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md">docs/INSTALL.md</a>.</p>
 
   <h2>Documentație</h2>
   <ul>
-    <li><a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/AUTH.md">Autentificare și token</a></li>
-    <li><a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/MCP.md">Unelte MCP, prompturi și resurse</a></li>
-    <li><a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/PLATFORMS.md">Claude Code, Codex, opencode, Antigravity</a></li>
-    <li><a href="https://github.com/FiredMosquito831/ase-moodle/blob/main/docs/TROUBLESHOOTING.md">Depanare</a></li>
+    <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/AUTH.md">Autentificare și token</a></li>
+    <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/MCP.md">Unelte MCP, prompturi și resurse</a></li>
+    <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/PLATFORMS.md">Claude Code, Codex, opencode, Antigravity</a></li>
+    <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/TROUBLESHOOTING.md">Depanare</a></li>
   </ul>
 
   <h2>Licență și autor</h2>

@@ -95,7 +95,7 @@ ase-moodle sync-plugin
 4. Verifică `docs/`.
 5. Scanează secretele (vezi mai jos).
 6. Commit cu atribuirea cerută (linia `by FiredMosquito831` la final).
-7. `git push`, apoi verifică CI: `gh run list --repo FiredMosquito831/ase-moodle --limit 2`.
+7. `git push`, apoi verifică CI: `gh run list --repo FiredMosquito831/ase-moodle-mcp --limit 2`.
 8. Pe calculatorul tău: `ase-moodle update`, apoi repornește Claude Code.
 
 ### Scanarea secretelor înainte de commit

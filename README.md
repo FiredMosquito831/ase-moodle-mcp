@@ -1,6 +1,6 @@
 # ase-moodle: BL@ASE (online.ase.ro) pentru agenți AI
 
-[![CI](https://github.com/FiredMosquito831/ase-moodle/actions/workflows/ci.yml/badge.svg)](https://github.com/FiredMosquito831/ase-moodle/actions/workflows/ci.yml)
+[![CI](https://github.com/FiredMosquito831/ase-moodle-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/FiredMosquito831/ase-moodle-mcp/actions/workflows/ci.yml)
 [![Licență: Apache 2.0](https://img.shields.io/badge/licen%C8%9B%C4%83-Apache%202.0-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 
@@ -8,7 +8,7 @@ Client Python, CLI, server MCP și plugin pentru Moodle-ul BL@ASE. Îți permite
 
 **In English:** an MCP server, CLI and plugin that gives AI agents (Claude Code, Codex, opencode, Google Antigravity) access to your Moodle account at BL@ASE / online.ase.ro: courses, course materials, assignments, forums, grades, quizzes, notifications and deadlines. Keywords: Moodle, BL@ASE, ASE Bucharest, online.ase.ro, MCP, Model Context Protocol, Claude Code plugin, Codex plugin, opencode, Antigravity, student tools.
 
-Site: https://firedmosquito831.github.io/ase-moodle/
+Site: https://ase-moodle-mcp.danubelabs.net/
 
 ## Ce poate face
 
@@ -20,27 +20,29 @@ Site: https://firedmosquito831.github.io/ase-moodle/
 - vede notificările și termenele, marchează notificările ca citite;
 - apelează orice funcție Web Service Moodle (395 disponibile pentru token).
 
-## Pornire rapidă
+## Instalare
 
-**Windows:**
-
-```powershell
-git clone https://github.com/FiredMosquito831/ase-moodle.git
-cd ase-moodle
-powershell -ExecutionPolicy Bypass -File scripts\bootstrap.ps1
-```
-
-**Linux (și macOS):**
+Ai nevoie de Python 3.10+ și de [pipx](https://pipx.pypa.io/stable/installation/). Pipx se instalează o singură dată: `python -m pip install --user pipx`.
 
 ```bash
-git clone https://github.com/FiredMosquito831/ase-moodle.git
-cd ase-moodle
-bash scripts/bootstrap.sh
+pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git
+ase-moodle login
+ase-moodle install
+ase-moodle doctor
 ```
 
-Scriptul instalează pachetul, te loghează (se deschide browserul; o singură dată, cu Google), configurează Claude Code, Codex, opencode și Antigravity și verifică starea.
+| Comandă | Ce face |
+|---|---|
+| `pipx install git+…` | instalează `ase-moodle` și serverul MCP, izolat de restul Python-ului |
+| `ase-moodle login` | te loghezi în Moodle în browser, cu Google (o singură dată) |
+| `ase-moodle install` | adaugă pluginul în Claude Code, Codex, opencode și Antigravity |
+| `ase-moodle doctor` | verifică instalarea și arată ce lipsește |
 
-Pași manuali și variante (scop de proiect, instalare din GitHub, Linux) sunt în [docs/INSTALL.md](docs/INSTALL.md).
+Doar pentru folderul curent: `ase-moodle install --scope project`. Actualizare: `pipx upgrade ase-moodle && ase-moodle update`. Dezinstalare: `ase-moodle uninstall && pipx uninstall ase-moodle`.
+
+Dacă nu ai Edge sau Chrome, login-ul cere Chromium: `python -m playwright install chromium`.
+
+Pași detaliați, opțiunile pe platformă și scriptul de instalare completă sunt în [docs/INSTALL.md](docs/INSTALL.md).
 
 ## Comenzi de bază
 

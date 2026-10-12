@@ -14,7 +14,7 @@
 
 set -euo pipefail
 
-SOURCE="${1:-FiredMosquito831/ase-moodle}"
+SOURCE="${1:-FiredMosquito831/ase-moodle-mcp}"
 TARGETS="${TARGETS:-all}"
 SCOPE="${SCOPE:-global}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

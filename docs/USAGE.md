@@ -177,7 +177,7 @@ TARGET: `claude`, `codex`, `opencode`, `antigravity` sau `all` (implicit `all`).
 |---|---|---|
 | `--scope global\|project` | `global` | `global`: pentru tot calculatorul. `project`: doar folderul proiectului |
 | `--project-dir DIR` | folderul curent | folderul proiectului, pentru `--scope project` |
-| `--source SURSA` | `FiredMosquito831/ase-moodle` (GitHub) | marketplace-ul (cale locală sau `owner/repo`). Folosește o cale locală doar când lucrezi la pachet |
+| `--source SURSA` | `FiredMosquito831/ase-moodle-mcp` (GitHub) | marketplace-ul (cale locală sau `owner/repo`). Folosește o cale locală doar când lucrezi la pachet |
 
 Comanda e idempotentă: o rulare repetată nu dublează nimic. Schimbarea de scop curăță celălalt scop.
 

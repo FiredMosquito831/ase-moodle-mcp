@@ -72,7 +72,7 @@ ase-moodle courses --year 3 --sem 1
 2. `python -m pyflakes src tests`
 3. `python -m unittest discover -s tests -v`
 
-Statusul e vizibil cu `gh run list --repo FiredMosquito831/ase-moodle`.
+Statusul e vizibil cu `gh run list --repo FiredMosquito831/ase-moodle-mcp`.
 
 ## Verificare live (manuală)
 
