@@ -50,6 +50,7 @@ Adaptorul șterge și intrările cu numele `ase-moodle` din configurările care 
 - **Particularitate:** `claude plugin list` arată pluginurile de proiect doar din folderul proiectului. De aceea `doctor` verifică fiecare scop din folderul lui.
 - **Restart:** Claude Code trebuie repornit ca să încarce pluginul. Sesiunea veche păstrează lista veche de servere.
 - **Curățare:** scoate serverul MCP adăugat manual (`claude mcp add`), ca să nu se dubleze cu pluginul.
+- **Dezinstalare:** scoate doar pluginul din scopul cerut. Marketplace-ul rămâne înregistrat, pentru că e comun tuturor folderelor. `claude plugin marketplace remove` ar scoate pluginul și din celelalte foldere (verificat live), așa că nu îl folosim.
 
 ## Codex
 

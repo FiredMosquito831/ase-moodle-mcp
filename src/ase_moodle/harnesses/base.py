@@ -103,8 +103,8 @@ def repo_root() -> Path | None:
 
 
 def default_source() -> str:
-    root = repo_root()
-    return str(root) if root else DEFAULT_SOURCE
+    """Sursa implicita e GitHub. Calea locala (repo-ul) se da doar cu --source, altfel instalarea din alt folder muta marketplace-ul."""
+    return DEFAULT_SOURCE
 
 
 def server_command(python: str) -> list[str]:

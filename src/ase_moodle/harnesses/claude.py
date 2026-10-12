@@ -8,6 +8,8 @@ Particularitati (de aceea adaptorul e separat):
   curata celalalt scop.
 - Pluginul nou intra in vigoare abia dupa repornirea Claude Code.
 - Serverul MCP adaugat manual (`claude mcp add`) ar dubla serverul din plugin: il scoatem la instalare.
+- Marketplace-ul NU se scoate niciodata: e comun tuturor folderelor. `claude plugin marketplace remove` ar
+  dezinstala pluginul si din celelalte foldere (verificat live), deci scoatem doar pluginul din scopul cerut.
 """
 
 from __future__ import annotations
@@ -74,8 +76,6 @@ class ClaudeHarness(Harness):
         other = "project" if scope == "global" else "global"
         code, out = ctx.run(["claude", "plugin", "uninstall", NEEDLE, "--scope", _claude_scope(other), "-y"],
                             cwd=self._cwd(ctx, other))
-        ctx.run(["claude", "plugin", "marketplace", "remove", MARKETPLACE, "--scope", _claude_scope(other)],
-                cwd=self._cwd(ctx, other))
         steps.append(cleanup_step(self.name, f"scope {other} curatat", code, out))
         self.forget(ctx, other)
 
@@ -94,8 +94,6 @@ class ClaudeHarness(Harness):
             s, cwd = _claude_scope(sc), self._cwd(ctx, sc)
             code, out = ctx.run(["claude", "plugin", "uninstall", NEEDLE, "--scope", s, "-y"], cwd=cwd)
             steps.append(cleanup_step(self.name, f"plugin uninstall ({sc})", code, out))
-            code, out = ctx.run(["claude", "plugin", "marketplace", "remove", MARKETPLACE, "--scope", s], cwd=cwd)
-            steps.append(cleanup_step(self.name, f"marketplace remove ({sc})", code, out))
             self.forget(ctx, sc)
         return steps
 

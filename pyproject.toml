@@ -7,6 +7,7 @@ name = "ase-moodle"
 version = "0.2.0"
 description = "Client, CLI si server MCP pentru platforma Moodle BL@ASE (online.ase.ro)"
 readme = "README.md"
+license = {text = "Apache-2.0"}
 requires-python = ">=3.10"
 dependencies = [
   "httpx>=0.27",

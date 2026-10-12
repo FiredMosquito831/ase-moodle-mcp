@@ -449,7 +449,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("install", help="Configureaza pluginul in Claude Code, Codex, opencode si/sau Antigravity")
     p.add_argument("targets", **targets)
-    p.add_argument("--source", help="sursa marketplace-ului: cale locala sau owner/repo (implicit: repo-ul local)")
+    p.add_argument("--source", help="sursa marketplace-ului: cale locala sau owner/repo (implicit: FiredMosquito831/ase-moodle, de pe GitHub)")
     add_scope(p, "global", ["global", "project"])
     p.set_defaults(func=cmd_install)
 
@@ -461,7 +461,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("update", help="Actualizeaza pluginul in CLI-urile alese (marketplace + plugin)")
     p.add_argument("targets", **targets)
-    p.add_argument("--source", help="sursa marketplace-ului (implicit: repo-ul local sau GitHub)")
+    p.add_argument("--source", help="sursa marketplace-ului (implicit: GitHub)")
     add_scope(p, "global", ["global", "project"])
     p.set_defaults(func=cmd_update)
 
@@ -484,7 +484,7 @@ def build_parser() -> argparse.ArgumentParser:
                     help=f"suportat: {', '.join(scopes)}. {harness.capabilities.notes}",
                 )
             if action in ("install", "update"):
-                ap.add_argument("--source", help="sursa marketplace-ului (implicit: repo-ul local sau GitHub)")
+                ap.add_argument("--source", help="sursa marketplace-ului (implicit: GitHub)")
             ap.add_argument("--project-dir", help="folderul proiectului (implicit: folderul curent)")
             ap.set_defaults(func=cmd_harness, harness=harness_name)
 

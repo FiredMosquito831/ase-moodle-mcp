@@ -70,17 +70,17 @@ Lista completă: [docs/USAGE.md](docs/USAGE.md).
 
 ## Stare verificată
 
-Verificat pe contul real (2026-10-12):
+Verificat pe contul real (octombrie 2026):
 
 - autentificare prin browser (SSO) și salvare în Credential Manager;
 - cursuri, teme, forumuri, notificări, termene, note, quizuri (citire);
-- descărcarea anului 3, semestrul 1: 33 de fișiere, fără erori; a doua rulare nu descarcă nimic;
+- descărcarea unui an și semestru: a doua rulare nu descarcă nimic;
 - erori fără efecte: quiz închis, obiecte inexistente, fișier inexistent;
 - garda pentru ciorne: refuză o salvare pe o temă fără ciorne, fără să trimită nimic;
-- instalare, update, dezinstalare și reinstalare pe cele patru platforme; `doctor` OK;
-- testele trec pe Windows și pe Linux (WSL Ubuntu 24.04).
+- instalare, verificare (`doctor`) și dezinstalare, pe Claude Code, Codex și opencode, atât global cât și pe proiect, și pe Antigravity (global);
+- testele trec pe Windows. Pe Linux (WSL Ubuntu 24.04) au trecut înainte de ultimele modificări și nu au fost rerulate.
 
-Netestat pe contul real: un quiz deschis completat de la cap la coadă și o trimitere reală cu ciorne activate (nu există astfel de situații acum). Detalii în [docs/TESTING.md](docs/TESTING.md).
+Netestat pe contul real: `update` pentru toate platformele și o trimitere reală cu ciorne activate (nu există astfel de situații acum). Detalii în [docs/TESTING.md](docs/TESTING.md).
 
 ## Limite
 
@@ -88,3 +88,7 @@ Netestat pe contul real: un quiz deschis completat de la cap la coadă și o tri
 - Funcțiile Web Service sunt cele ale serviciului mobil Moodle. Ce există doar în interfața web nu se acoperă.
 - Antigravity se instalează doar global.
 - macOS nu e testat.
+
+## Licență
+
+Cod sub [Apache License 2.0](LICENSE). Dacă distribui sau modifici codul, păstrezi notele de copyright din [NOTICE](NOTICE) și menționezi sursa (repo-ul și autorul).
