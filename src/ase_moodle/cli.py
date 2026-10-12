@@ -223,22 +223,24 @@ def cmd_call(args: argparse.Namespace) -> None:
 
 # ---------- instalare ----------
 
+def _install_env(args: argparse.Namespace) -> install.Env:
+    project = Path(args.project_dir).expanduser().resolve() if getattr(args, "project_dir", None) else Path.cwd()
+    return install.Env(source=args.source or install.default_source(), project_dir=project)
+
+
 def cmd_install(args: argparse.Namespace) -> None:
-    env = install.Env(source=args.source or install.default_source())
-    steps = install.install(args.targets, env)
+    steps = install.install(args.targets, _install_env(args), args.scope)
     _out([s.to_dict() for s in steps])
     if any(s.status == "error" for s in steps):
         raise SystemExit(3)
 
 
 def cmd_uninstall(args: argparse.Namespace) -> None:
-    env = install.Env(source=args.source or install.default_source())
-    _out([s.to_dict() for s in install.uninstall(args.targets, env)])
+    _out([s.to_dict() for s in install.uninstall(args.targets, _install_env(args), args.scope)])
 
 
 def cmd_update(args: argparse.Namespace) -> None:
-    env = install.Env(source=args.source or install.default_source())
-    steps = install.update(args.targets, env)
+    steps = install.update(args.targets, _install_env(args), args.scope)
     _out([s.to_dict() for s in steps])
     if any(s.status == "error" for s in steps):
         raise SystemExit(3)
@@ -420,19 +422,28 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_call)
 
     targets = {"nargs": "*", "choices": [*install.TARGETS, "all"], "metavar": "TARGET"}
+
+    def add_scope(p: argparse.ArgumentParser, default: str, choices: list[str]) -> None:
+        p.add_argument("--scope", choices=choices, default=default,
+                       help="global: pentru tot calculatorul; project: doar folderul proiectului (Antigravity ramane global)")
+        p.add_argument("--project-dir", help="folderul proiectului (implicit: folderul curent)")
+
     p = sub.add_parser("install", help="Configureaza pluginul in Claude Code, Codex, opencode si/sau Antigravity")
     p.add_argument("targets", **targets)
     p.add_argument("--source", help="sursa marketplace-ului: cale locala sau owner/repo (implicit: repo-ul local)")
+    add_scope(p, "global", ["global", "project"])
     p.set_defaults(func=cmd_install)
 
     p = sub.add_parser("uninstall", help="Elimina configurarea din CLI-urile alese")
     p.add_argument("targets", **targets)
     p.add_argument("--source", help="sursa folosita la instalare (pentru calea plugin-ului)")
+    add_scope(p, "all", ["global", "project", "all"])
     p.set_defaults(func=cmd_uninstall)
 
     p = sub.add_parser("update", help="Actualizeaza pluginul in CLI-urile alese (marketplace + plugin)")
     p.add_argument("targets", **targets)
     p.add_argument("--source", help="sursa marketplace-ului (implicit: repo-ul local sau GitHub)")
+    add_scope(p, "global", ["global", "project"])
     p.set_defaults(func=cmd_update)
 
     sub.add_parser("doctor", help="Verifica starea instalarii, tokenul si procesele MCP").set_defaults(func=cmd_doctor)

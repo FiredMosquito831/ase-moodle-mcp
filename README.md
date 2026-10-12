@@ -82,6 +82,16 @@ ASE_MOODLE_DOWNLOADS=D:\...   # folderul pentru materiale (optional)
 | Google Antigravity | `agy mcp add ase-moodle` (serverul MCP) si `agy plugin install` (skill-urile). |
 
 - `ase-moodle install [claude|codex|opencode|antigravity|all] [--source FiredMosquito831/ase-moodle]`: idempotent.
+- **Scopul** (`--scope`):
+  - `global` (implicit): MCP-ul e disponibil in toate folderele.
+  - `project` (`--project-dir`, implicit folderul curent): MCP-ul e disponibil doar in folderul proiectului.
+    Claude Code foloseste scopul de proiect; opencode scrie `opencode.json` in folder; Codex scrie `.codex/config.toml`
+    in folder (prima data Codex cere sa marchezi folderul ca proiect de incredere). Codex de proiect aduce doar serverul
+    MCP, fara pluginul cu skill-uri.
+  - Antigravity (`agy`) nu are instalare pe proiect: ramane global, indiferent de `--scope`.
+  - Schimbarea de scop curata celalalt scop: nu exista doua servere care sa se dubleze.
+  - Exemplu: `ase-moodle install claude codex opencode --scope project --project-dir <folder-proiect>\online-ase-mcp`
+- `ase-moodle uninstall` implicit curata ambele scopuri (`--scope global|project|all`).
 - `ase-moodle update [...]`: aduce ultima versiune din marketplace. Claude Code cere repornire ca sa intre in vigoare.
 - `ase-moodle uninstall [...]`: elimina configurarea.
 - `ase-moodle doctor`: starea fiecarei platforme, sursa tokenului, procesele MCP pornite, metadatele pachetului.
