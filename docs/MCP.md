@@ -98,13 +98,78 @@ Prompturile sunt fluxuri gata, pe care clientul le poate oferi ca comenzi.
 
 ## Conectarea clienților
 
-Instalatorul (`ase-moodle install`) configurează clienții automat. Detalii și comenzi manuale: [PLATFORMS.md](PLATFORMS.md).
+Serverul e același peste tot: comanda `ase-moodle-mcp`, care pornește prin stdio. Ce diferă este locul unde clientul îl găsește și cât de larg se aplică. Cea mai simplă cale e `ase-moodle install`, care scrie configurația corectă pentru fiecare client. Detalii pe platformă: [PLATFORMS.md](PLATFORMS.md).
 
-În esență, fiecare client pornește serverul ca proces local:
+### Unde se adaugă, pe scope
 
-- Claude Code și Codex: prin plugin (`plugins/ase-moodle/.mcp.json`), comanda `ase-moodle-mcp`.
-- opencode: `mcp.ase-moodle` în `opencode.json`, cu comanda `[<python>, "-m", "ase_moodle.mcp_server"]`.
-- Antigravity: `agy mcp add ase-moodle -- <python> -m ase_moodle.mcp_server`.
+| Client | Global (tot calculatorul) | Doar un folder | Unde se scrie |
+|---|---|---|---|
+| Claude Code | `ase-moodle install claude` (scope user, implicit) | `ase-moodle install claude --scope project` | global: `~/.claude/settings.json`; folder: `<folder>/.claude/settings.json` |
+| Codex | `ase-moodle install codex` | `ase-moodle install codex --scope project` | global: `~/.codex/config.toml`; folder: `<folder>/.codex/config.toml` |
+| opencode | `ase-moodle install opencode` | `ase-moodle install opencode --scope project` | global: `~/.config/opencode/opencode.json`; folder: `<folder>/opencode.json` |
+| Antigravity | `ase-moodle install antigravity` | nu are | `agy mcp add` (global) |
+
+Ce înseamnă scope-ul pentru fiecare:
+
+- **Claude Code, global (user):** serverul e disponibil în orice folder, inclusiv în subfoldere.
+- **Claude Code, proiect:** serverul e disponibil doar dacă pornești Claude Code din folderul respectiv. Nu se aplică în subfoldere: am verificat asta pentru plugin.
+- **opencode, proiect:** `opencode.json` e căutat în folderul curent și în toți părinții lui, până la rădăcina discului. Deci un `opencode.json` pus într-un folder se aplică și în subfolderele lui.
+- **Codex, proiect:** `.codex/config.toml` se folosește doar pentru proiecte de încredere.
+- **Antigravity:** doar global. Nu are scope de proiect.
+
+### Comenzi manuale, dacă nu vrei instalatorul
+
+Dacă adaugi serverul manual, nu-l pune pe lângă instalator, ca să nu pornească de două ori.
+
+```bash
+# Claude Code, pentru toate folderele (scope user)
+claude mcp add --scope user ase-moodle -- ase-moodle-mcp
+
+# Claude Code, doar folderul curent (scope local, implicit)
+claude mcp add --scope local ase-moodle -- ase-moodle-mcp
+
+# Claude Code, în .mcp.json din folder, versionat (scope project)
+claude mcp add --scope project ase-moodle -- ase-moodle-mcp
+
+# Codex, global (~/.codex/config.toml)
+codex mcp add ase-moodle -- ase-moodle-mcp
+
+# Antigravity, global
+agy mcp add ase-moodle -- ase-moodle-mcp
+```
+
+Pentru opencode, în `opencode.json` (global sau din folder):
+
+```json
+{
+  "mcp": {
+    "ase-moodle": {
+      "type": "local",
+      "command": ["ase-moodle-mcp"],
+      "enabled": true
+    }
+  }
+}
+```
+
+Pentru Codex, în `~/.codex/config.toml` sau în `.codex/config.toml`:
+
+```toml
+[mcp_servers.ase-moodle]
+command = "ase-moodle-mcp"
+```
+
+Comanda `ase-moodle-mcp` trebuie să fie în `PATH`. Dacă ai instalat cu `pipx`, asta e deja adevărat. Instalatorul scrie în unele locuri calea absolută a Python-ului, ca să nu depindă de `PATH`.
+
+Pentru Claude Code, `ase-moodle install` șterge singur o intrare manuală `ase-moodle`, ca să nu se dubleze cu pluginul. Pentru Codex și opencode, instalatorul își scrie propria intrare `ase-moodle`, iar o intrare manuală cu același nume poate fi suprascrisă sau poate dubla serverul. Antigravity actualizează intrarea cu același nume, în loc să adauge una nouă.
+
+### Ce alegi pentru folderul tău
+
+- Vrei serverul în `Facultate` și în toate subfolderele: scope global (`ase-moodle install claude`). Scope-ul de proiect nu ajunge în subfoldere.
+- Vrei serverul doar într-un repo: scope de proiect, rulat din folderul repo-ului.
+- Antigravity: întotdeauna global.
+
+Global înseamnă că serverul e disponibil în orice folder al calculatorului, cu contul tău Moodle. Scrierile rămân protejate de confirmare (`confirm=true`).
 
 Serverul citește tokenul din Credential Manager sau din `.env` (vezi [AUTH.md](AUTH.md)). Nu primește tokenul prin clienți.
 
