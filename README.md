@@ -165,6 +165,9 @@ Verificat live (2026-10-12):
 - erori fara efecte asupra contului: `quiz-start` pe un quiz inchis (Moodle: „Acest test nu este disponibil acum”), `quiz-questions`/`quiz-answer` pe o incercare inexistenta, `reply` cu postare inexistenta, `new-discussion` cu forum inexistent, `submit-text` si `call mod_assign_save_submission` cu tema inexistenta, `submit` cu fisier inexistent
 - incarcare de fisier in zona privata de ciorne (`upload.php`): functioneaza (itemid returnat). Fisierul nu este atasat la nicio tema.
 - server MCP prin stdio: 26 de unelte, blocarea scrierii fara confirmare functioneaza
+- instalare reala din GitHub (privat) in cele 4 platforme: `ase-moodle install all --source FiredMosquito831/ase-moodle`. `doctor` raporteaza toate platformele ca instalate; Claude Code arata serverul `plugin:ase-moodle:ase-moodle` conectat, opencode il arata `connected`
+- reinstalare pe o configurare existenta: fara erori; dezinstalare completa, `doctor` detecteaza starea neinstalata; reinstalare: totul restabilit
+- nu exista dubluri: configurarea manuala veche (Claude Code user scope, `[mcp_servers.ase-moodle]` din Codex) este scoasa de instalator
 
 Netestat pe continut real (ar schimba contul; cer aprobare explicita):
 
