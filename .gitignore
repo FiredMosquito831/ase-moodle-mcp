@@ -9,6 +9,9 @@ dist/
 
 # Secrets and local data: never commit tokens or downloaded course material
 .env
+.env.*
+!.env.example
+!.env.test
 .ase-moodle/
 config.json
 *.bak

@@ -319,6 +319,46 @@ def uninstall(names: list[str] | None = None, env: Env | None = None) -> list[St
     return steps
 
 
+def update(names: list[str] | None = None, env: Env | None = None) -> list[Step]:
+    """Actualizeaza pluginul: Claude si Codex refac marketplace-ul si plugin-ul; opencode si Antigravity se rescriu."""
+    env = env or Env(source=default_source())
+    steps: list[Step] = []
+    for name in _targets(names):
+        if name == "claude":
+            if env.which("claude") is None:
+                steps.append(Step("claude", "update", "skipped", "CLI-ul 'claude' nu este in PATH"))
+                continue
+            code, out = env.run(["claude", "plugin", "marketplace", "update", MARKETPLACE])
+            steps.append(_step("claude", "marketplace update", code, out))
+            code, out = env.run(["claude", "plugin", "update", f"{PLUGIN}@{MARKETPLACE}", "--scope", "user", "-y"])
+            steps.append(_step("claude", "plugin update", code, out))
+            steps.append(Step("claude", "restart", "ok", "reporneste Claude Code ca sa intre in vigoare"))
+        elif name == "codex":
+            if env.which("codex") is None:
+                steps.append(Step("codex", "update", "skipped", "CLI-ul 'codex' nu este in PATH"))
+                continue
+            code, out = env.run(["codex", "plugin", "marketplace", "upgrade", MARKETPLACE])
+            steps.append(_step("codex", "marketplace upgrade", code, out))
+            code, out = env.run(["codex", "plugin", "add", f"{PLUGIN}@{MARKETPLACE}"])
+            steps.append(_step("codex", "plugin refresh", code, out))
+        else:
+            steps += INSTALLERS[name](env)
+    return steps
+
+
+def _running_mcp_processes() -> int:
+    if sys.platform != "win32":
+        return 0
+    try:
+        out = subprocess.run(
+            ["tasklist", "/FI", "IMAGENAME eq ase-moodle-mcp.exe", "/FO", "CSV", "/NH"],
+            capture_output=True, text=True, timeout=20,
+        ).stdout
+    except (OSError, subprocess.SubprocessError):
+        return 0
+    return sum(1 for line in out.splitlines() if "ase-moodle-mcp" in line.lower())
+
+
 def doctor(env: Env | None = None) -> list[Step]:
     """Verifica starea fiecarei instalari, fara sa modifice nimic."""
     env = env or Env(source=default_source())
@@ -350,4 +390,26 @@ def doctor(env: Env | None = None) -> list[Step]:
         steps.append(Step("opencode", "status", "ok" if has else "error", "instalat" if has else "lipseste mcp"))
     except (OSError, json.JSONDecodeError) as exc:
         steps.append(Step("opencode", "status", "error", str(exc)))
+
+    # Mediu si securitate
+    try:
+        from .config import find_dotenv, load_settings
+
+        settings = load_settings()
+        steps.append(Step("security", "token source", "ok", f"{settings.source} (tokenul nu se afiseaza)"))
+        dotenv = find_dotenv()
+        steps.append(Step("security", ".env", "ok", str(dotenv) if dotenv else "nu exista (optional)"))
+    except Exception as exc:  # noqa: BLE001
+        steps.append(Step("security", "token source", "error", str(exc)))
+
+    running = _running_mcp_processes()
+    steps.append(Step("package", "procese MCP pornite", "ok" if running == 0 else "warning",
+                      f"{running} proces(e) ase-moodle-mcp. Inchide-le inainte de pip install -e . dupa update"))
+    try:
+        from importlib.metadata import version
+
+        steps.append(Step("package", "metadate pachet", "ok", f"versiunea {version('ase-moodle')}"))
+    except Exception as exc:  # noqa: BLE001
+        steps.append(Step("package", "metadate pachet", "warning",
+                          f"metadatele sunt rupte ({exc.__class__.__name__}); ruleaza pip install -e . dupa inchiderea MCP"))
     return steps

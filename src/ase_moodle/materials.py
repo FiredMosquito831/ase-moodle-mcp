@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any, Callable, TypeVar
 
@@ -49,6 +50,12 @@ class ModuleIndex:
         self.course_ids = list(course_ids)
         self._cache: dict[str, dict[int, list[dict[str, Any]]]] = {}
         self.warnings: list[str] = []
+
+    def warm(self) -> None:
+        """Incarca toate tipurile de module o singura data (secvential), ca firele sa doar citeasca."""
+        for modtype in MODULE_LISTERS:
+            if modtype not in self._cache:
+                self._cache[modtype] = self._fetch(modtype)
 
     def items(self, modtype: str, course_id: int) -> list[dict[str, Any]]:
         if modtype not in self._cache:
@@ -402,13 +409,15 @@ def download_materials(
     courses: list[Course],
     root: Path,
     deep: bool = True,
+    workers: int = 4,
 ) -> list[dict[str, Any]]:
-    """Descarca mai multe cursuri. Scrie si root/_rezumat.json cu raportul complet."""
+    """Descarca mai multe cursuri in paralel (workers fire). Scrie si root/_rezumat.json cu raportul complet."""
     root.mkdir(parents=True, exist_ok=True)
     index = ModuleIndex(client, [c.id for c in courses])
-    reports = []
-    for course in courses:
-        reports.append(download_course(client, course, root, index, deep=deep))
+    index.warm()  # listele se citesc o data, inainte de fire; dupa asta cache-ul e doar citit
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+        futures = [pool.submit(download_course, client, course, root, index, deep) for course in courses]
+        reports = [future.result() for future in futures]
     summary = {"root": str(root), "courses": reports, "warnings": index.warnings}
     (root / "_rezumat.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     return reports

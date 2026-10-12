@@ -84,9 +84,28 @@ def list_assignments(client: MoodleClient, course_ids: list[int] | None = None) 
     return out
 
 
+def assignment_info(client: MoodleClient, assign_id: int) -> dict[str, Any]:
+    """Setarile temei: are ciorne (drafts_enabled), termene, daca accepta trimiteri."""
+    resp = client.call("mod_assign_get_assignments", {"courseids": _course_ids(client, None)})
+    for course in resp.get("courses", []):
+        for a in course.get("assignments", []):
+            if int(a.get("id", -1)) == int(assign_id):
+                return {
+                    "assign_id": int(assign_id),
+                    "course_id": course.get("id"),
+                    "name": a.get("name"),
+                    "drafts_enabled": bool(a.get("submissiondrafts")),
+                    "no_submissions": bool(a.get("nosubmissions")),
+                    "requires_statement": bool(a.get("requiresubmissionstatement")),
+                    "due": fmt_ts(a.get("duedate")),
+                }
+    raise MoodleError(f"Tema {assign_id} nu apare printre cursurile tale.", function="mod_assign_get_assignments")
+
+
 def assignment_status(client: MoodleClient, assign_id: int) -> dict[str, Any]:
     resp = client.call("mod_assign_get_submission_status", {"assignid": assign_id})
-    return {"assign_id": assign_id, **assign_status_summary(resp)}
+    info = assignment_info(client, assign_id)
+    return {"assign_id": assign_id, "drafts_enabled": info["drafts_enabled"], **assign_status_summary(resp)}
 
 
 # ---------- Forumuri ----------

@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+from . import activities
 from .activities import assignment_status
 from .client import MoodleClient
 
@@ -42,19 +43,36 @@ def text_to_html(text: str) -> str:
     return "".join("<p>" + html.escape(part).replace("\n", "<br>") + "</p>" for part in parts)
 
 
+class DirectSubmissionBlocked(RuntimeError):
+    """Tema nu are ciorne: salvarea fara trimitere finala ar trimite fisierul direct."""
+
+
+def check_drafts(client: MoodleClient, assign_id: int, submit_for_grading: bool, allow_direct: bool) -> dict[str, Any]:
+    """Refuza salvarea 'ciorna' la temele fara ciorne (Moodle ar trimite raspunsul direct). Nu scrie nimic."""
+    info = activities.assignment_info(client, assign_id)
+    if submit_for_grading or allow_direct or info["drafts_enabled"]:
+        return info
+    raise DirectSubmissionBlocked(
+        f"Tema {assign_id} ('{info['name']}') nu are ciorne: salvarea fara trimitere finala ar trimite raspunsul direct. "
+        "Daca studentul chiar vrea asta, reapeleaza cu allow_direct=true (CLI: --allow-direct)."
+    )
+
+
 def submit_assignment_file(
     client: MoodleClient,
     assign_id: int,
     file_path: str,
     submit_for_grading: bool = False,
     confirm: bool = False,
+    allow_direct: bool = False,
 ) -> dict[str, Any]:
-    """Incarca un fisier la tema. Fara submit_for_grading ramane ciorna; cu el se trimite definitiv."""
+    """Incarca un fisier la tema. Fara submit_for_grading ramane ciorna (daca tema are ciorne)."""
     mode = "trimitere FINALA" if submit_for_grading else "salvare ciorna"
     require_confirm(confirm, f"{mode} fisier {Path(file_path).name} la tema {assign_id}")
     path = Path(file_path).expanduser()
     if not path.is_file():
         raise FileNotFoundError(f"Fisierul nu exista: {path}")
+    check_drafts(client, assign_id, submit_for_grading, allow_direct)
     draft = client.upload(path)
     client.call("mod_assign_save_submission", {
         "assignmentid": assign_id,
@@ -75,9 +93,11 @@ def submit_assignment_text(
     text: str,
     submit_for_grading: bool = False,
     confirm: bool = False,
+    allow_direct: bool = False,
 ) -> dict[str, Any]:
     mode = "trimitere FINALA" if submit_for_grading else "salvare ciorna"
     require_confirm(confirm, f"{mode} text la tema {assign_id}")
+    check_drafts(client, assign_id, submit_for_grading, allow_direct)
     client.call("mod_assign_save_submission", {
         "assignmentid": assign_id,
         "plugindata": {"onlinetext_editor": {"text": text_to_html(text), "format": 1, "itemid": 0}},
@@ -108,11 +128,9 @@ def new_discussion(client: MoodleClient, forum_id: int, subject: str, message: s
 
 
 def mark_notification_read(client: MoodleClient, notification_id: int, confirm: bool = False) -> dict[str, Any]:
+    """Marcheaza o notificare ca citita. Functia accepta doar notificationid (useridto e respins de Moodle)."""
     require_confirm(confirm, f"marcare notificare {notification_id} ca citita")
-    return client.call("core_message_mark_notification_read", {
-        "notificationid": notification_id,
-        "useridto": client.userid,
-    })
+    return client.call("core_message_mark_notification_read", {"notificationid": notification_id})
 
 
 def call_function(client: MoodleClient, function: str, params: dict[str, Any] | None = None, confirm: bool = False) -> Any:

@@ -9,7 +9,7 @@ Talk to the student's Moodle through the `ase-moodle` MCP server (tools named be
 
 ## Setup check
 
-1. Run `whoami` (MCP) or `ase-moodle whoami`. If it fails with a missing token, ask the student to create one at online.ase.ro → Preferences → Security keys ("Moodle mobile web service"), then run `ase-moodle login` and paste the token. It is stored in `~/.ase-moodle/config.json`.
+1. Run `auth_status` (MCP) or `ase-moodle auth-status`. If the student is not logged in, call `moodle_login` (MCP) or run `ase-moodle login`. This opens a browser window. The student logs in with Google once. Later runs are automatic, with no login. Tell the student that a window will open and wait for the result. If the browser method is not available, use `method="manual"`: the login page opens, the student copies the token from Security keys, and the token is read from the clipboard. The token is stored in `~/.ase-moodle/config.json`.
 2. Never print the token.
 
 ## Confirmation rule
@@ -55,6 +55,25 @@ Unknown answer names are rejected with the list of valid names. Sequence-check h
 6. **Quiz.** See "Quizzes" above. `list_quizzes(course_ids)` and `quiz_attempts(quiz_id)` come first.
 7. **Grades.** `grades_overview()` for all courses; `course_grades(course_id)` for grade items and feedback.
 8. **Anything else.** `moodle_functions(pattern)` lists the Web Service functions available to this token. Then `moodle_call(function, params)`. Params are nested dicts and lists, encoded the way Moodle expects. Example: `moodle_call("mod_forum_get_forums_by_courses", {"courseids": [73445]})`.
+
+## Drafts (ciorne) and direct submissions
+
+- `assignment_status(assign_id)` returns `drafts_enabled`. If it is `false`, saving a file or text is a direct submission,
+  because Moodle sends it at once.
+- The server refuses a non-final save on such assignments (`DirectSubmissionBlocked`) and changes nothing.
+- Use `allow_direct=true` only if the student explicitly asks for a direct submission. Then confirm as usual.
+- A final submission (`submit_for_grading=true`) never needs `allow_direct`, but it still needs confirmation.
+
+## Lists and prompts
+
+- List tools return `{"count": n, "items": [...]}`. Read `items`.
+- Ready-made prompts: `weekly_brief`, `prepare_assignment(assign_id)`, `solve_quiz(quiz_id)`, `download_year(study_year, semester)`.
+- Resources: `moodle://me` (the student) and `moodle://deadlines` (next 14 days).
+
+## Credentials (for the student's own understanding)
+
+- The token is stored in Windows Credential Manager, or in a local `.env` file (never in git).
+- The Google password is never stored by this tool. The browser login keeps the session in a local profile.
 
 ## Notes
 

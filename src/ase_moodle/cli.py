@@ -3,13 +3,12 @@
 from __future__ import annotations
 
 import argparse
-import getpass
 import json
 import sys
 from pathlib import Path
 from typing import Any
 
-from . import actions, activities, install, materials, quiz
+from . import actions, activities, auth, install, materials, quiz
 from .client import MoodleClient, MoodleError
 from .config import DEFAULT_BASE_URL, SettingsError, download_root, load_settings, save_settings
 from .courses import fetch_courses, filter_courses
@@ -47,14 +46,22 @@ def _answers(args: argparse.Namespace) -> dict[str, str]:
 # ---------- cont si cursuri ----------
 
 def cmd_login(args: argparse.Namespace) -> None:
-    if args.token_stdin:
-        token = sys.stdin.read().strip()
-    else:
-        token = args.token or getpass.getpass("Token Moodle (Chei de securitate -> Moodle mobile web service): ").strip()
-    with MoodleClient(args.base_url, token) as client:
-        info = activities.whoami(client)
-    path = save_settings(token, args.base_url)
-    _out({"ok": True, "user": info["fullname"], "saved_to": str(path)})
+    if args.token or args.token_stdin:
+        token = args.token or sys.stdin.read().strip()
+        with MoodleClient(args.base_url, token) as client:
+            info = activities.whoami(client)
+        path = save_settings(token, args.base_url)
+        _out({"ok": True, "method": "token", "user": info["fullname"], "saved_to": str(path)})
+        return
+    _out(auth.authenticate(args.base_url, args.method, args.timeout))
+
+
+def cmd_logout(args: argparse.Namespace) -> None:
+    _out(auth.logout(args.forget_browser))
+
+
+def cmd_auth_status(args: argparse.Namespace) -> None:
+    _out(auth.status())
 
 
 def cmd_whoami(args: argparse.Namespace) -> None:
@@ -113,12 +120,12 @@ def cmd_assignment(args: argparse.Namespace) -> None:
 
 def cmd_submit(args: argparse.Namespace) -> None:
     with _client() as c:
-        _out(actions.submit_assignment_file(c, args.assign_id, args.file, args.submit, args.yes))
+        _out(actions.submit_assignment_file(c, args.assign_id, args.file, args.submit, args.yes, args.allow_direct))
 
 
 def cmd_submit_text(args: argparse.Namespace) -> None:
     with _client() as c:
-        _out(actions.submit_assignment_text(c, args.assign_id, _read_text(args), args.submit, args.yes))
+        _out(actions.submit_assignment_text(c, args.assign_id, _read_text(args), args.submit, args.yes, args.allow_direct))
 
 
 def cmd_forums(args: argparse.Namespace) -> None:
@@ -229,6 +236,14 @@ def cmd_uninstall(args: argparse.Namespace) -> None:
     _out([s.to_dict() for s in install.uninstall(args.targets, env)])
 
 
+def cmd_update(args: argparse.Namespace) -> None:
+    env = install.Env(source=args.source or install.default_source())
+    steps = install.update(args.targets, env)
+    _out([s.to_dict() for s in steps])
+    if any(s.status == "error" for s in steps):
+        raise SystemExit(3)
+
+
 def cmd_doctor(args: argparse.Namespace) -> None:
     steps = install.doctor()
     _out([s.to_dict() for s in steps])
@@ -261,11 +276,20 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="ase-moodle", description="Acces la Moodle BL@ASE (online.ase.ro)")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p = sub.add_parser("login", help="Salveaza tokenul (din Chei de securitate)")
-    p.add_argument("--token")
-    p.add_argument("--token-stdin", action="store_true")
+    p = sub.add_parser("login", help="Obtine tokenul automat (browser) sau il salveaza din --token")
+    p.add_argument("--method", choices=["auto", "browser", "manual"], default="auto",
+                   help="auto: browser daca e Playwright, altfel manual (clipboard)")
+    p.add_argument("--timeout", type=int, default=300, help="secunde de asteptare pentru login")
+    p.add_argument("--token", help="salveaza direct un token existent")
+    p.add_argument("--token-stdin", action="store_true", help="citeste tokenul din stdin")
     p.add_argument("--base-url", default=DEFAULT_BASE_URL)
     p.set_defaults(func=cmd_login)
+
+    p = sub.add_parser("logout", help="Sterge tokenul salvat")
+    p.add_argument("--forget-browser", action="store_true", help="sterge si profilul browserului (sesiunea Google)")
+    p.set_defaults(func=cmd_logout)
+
+    sub.add_parser("auth-status", help="Verifica daca tokenul salvat functioneaza").set_defaults(func=cmd_auth_status)
 
     sub.add_parser("whoami", help="Cine sunt conectat").set_defaults(func=cmd_whoami)
 
@@ -297,6 +321,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("assign_id", type=int)
     p.add_argument("file")
     p.add_argument("--submit", action="store_true", help="trimite definitiv (altfel ramane ciorna)")
+    p.add_argument("--allow-direct", action="store_true", help="permite salvarea la teme fara ciorne (se trimite direct)")
     p.add_argument("--yes", action="store_true", help="confirmarea utilizatorului")
     p.set_defaults(func=cmd_submit)
 
@@ -305,6 +330,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--text")
     p.add_argument("--file")
     p.add_argument("--submit", action="store_true")
+    p.add_argument("--allow-direct", action="store_true")
     p.add_argument("--yes", action="store_true")
     p.set_defaults(func=cmd_submit_text)
 
@@ -404,7 +430,12 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--source", help="sursa folosita la instalare (pentru calea plugin-ului)")
     p.set_defaults(func=cmd_uninstall)
 
-    sub.add_parser("doctor", help="Verifica starea instalarii in fiecare CLI").set_defaults(func=cmd_doctor)
+    p = sub.add_parser("update", help="Actualizeaza pluginul in CLI-urile alese (marketplace + plugin)")
+    p.add_argument("targets", **targets)
+    p.add_argument("--source", help="sursa marketplace-ului (implicit: repo-ul local sau GitHub)")
+    p.set_defaults(func=cmd_update)
+
+    sub.add_parser("doctor", help="Verifica starea instalarii, tokenul si procesele MCP").set_defaults(func=cmd_doctor)
     sub.add_parser("sync-plugin", help="(dezvoltare) copiaza SKILL.md canonic in plugin").set_defaults(func=cmd_sync_plugin)
 
     return parser
@@ -418,7 +449,8 @@ def main(argv: list[str] | None = None) -> int:
     except actions.NeedsConfirmation as exc:
         print(json.dumps({"error": "needs_confirmation", "message": str(exc)}, ensure_ascii=False), file=sys.stderr)
         return 2
-    except (MoodleError, SettingsError, FileNotFoundError, ValueError, json.JSONDecodeError) as exc:
+    except (MoodleError, SettingsError, auth.AuthError, actions.DirectSubmissionBlocked,
+            FileNotFoundError, ValueError, json.JSONDecodeError) as exc:
         print(json.dumps({"error": type(exc).__name__, "message": str(exc)}, ensure_ascii=False), file=sys.stderr)
         return 1
 

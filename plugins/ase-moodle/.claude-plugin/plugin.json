@@ -1,6 +1,6 @@
 {
   "name": "ase-moodle",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Access to BL@ASE Moodle (online.ase.ro): courses, materials download, assignments, forums, grades, quizzes, notifications and deadlines, through an MCP server.",
   "author": {
     "name": "FiredMosquito831"
