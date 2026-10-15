@@ -2,11 +2,18 @@
 'use strict';
 
 // Ruleaza dupa "npm install": instaleaza pachetul Python ase-moodle prin pipx.
+// Sursa, in ordine: git (daca exista), arhiva de pe GitHub descarcata cu curl,
+// apoi URL-ul arhivei, pe care pip il descarca singur.
 // Nu blocheaza niciodata npm install: iesirea e mereu 0. Daca ceva lipseste,
 // scrie ce trebuie facut, iar dupa ce rezolvi, ruleaza: npm rebuild -g ase-moodle-mcp
 
 const { spawnSync } = require('child_process');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
 const { findPython, INSTALL, SPEC } = require('../lib/run');
+
+const ARCHIVE_URL = 'https://github.com/FiredMosquito831/ase-moodle-mcp/archive/refs/heads/main.tar.gz';
 
 const log = (message) => process.stderr.write(`[ase-moodle-mcp] ${message}\n`);
 
@@ -15,11 +22,32 @@ function finish(message, code = 0) {
   process.exit(code);
 }
 
-// Comanda pipx: fie binarul din PATH, fie modulul din Python-ul gasit.
+function available(cmd) {
+  const result = spawnSync(cmd, ['--version'], { windowsHide: true });
+  return !result.error && result.status === 0;
+}
+
+// Comanda pipx: binarul din PATH, daca exista.
 function pipxCommand() {
-  const direct = spawnSync('pipx', ['--version'], { windowsHide: true });
-  if (!direct.error && direct.status === 0) return { cmd: 'pipx', args: [] };
+  if (available('pipx')) return { cmd: 'pipx', args: [] };
   return null;
+}
+
+// De unde instalam pachetul: git, apoi curl, apoi URL-ul direct.
+// ASE_MOODLE_NO_GIT=1 forteaza fallback-ul (folosit la test).
+function sourceSpec() {
+  if (process.env.ASE_MOODLE_NO_GIT !== '1' && available('git')) {
+    return { spec: SPEC, how: 'git' };
+  }
+  log('git lipseste sau e dezactivat, descarc arhiva de pe GitHub');
+  if (available('curl')) {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ase-moodle-'));
+    const file = path.join(dir, 'ase-moodle-mcp.tar.gz');
+    const got = spawnSync('curl', ['-fsSL', '-o', file, ARCHIVE_URL], { stdio: 'inherit', windowsHide: true });
+    if (got.status === 0) return { spec: file, how: 'curl' };
+    log('curl nu a reusit descarcarea, folosesc URL-ul direct');
+  }
+  return { spec: ARCHIVE_URL, how: 'url' };
 }
 
 function main() {
@@ -48,8 +76,9 @@ function main() {
     spawnSync(pipx.cmd, [...pipx.args, 'ensurepath'], { stdio: 'inherit', windowsHide: true });
   }
 
-  log('instalez pachetul Python ase-moodle prin pipx (poate dura cateva minute)');
-  const install = spawnSync(pipx.cmd, [...pipx.args, 'install', '--force', SPEC], {
+  const source = sourceSpec();
+  log(`instalez pachetul Python ase-moodle prin pipx, sursa: ${source.how} (poate dura cateva minute)`);
+  const install = spawnSync(pipx.cmd, [...pipx.args, 'install', '--force', source.spec], {
     stdio: 'inherit',
     windowsHide: true,
   });
