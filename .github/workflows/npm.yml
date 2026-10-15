@@ -1,0 +1,46 @@
+name: npm
+
+# Publica pe npm pachetul din npm/ la fiecare push pe main care modifica npm/.
+# Publica doar daca versiunea din npm/package.json nu exista inca pe npm:
+# ca sa publici o versiune noua, creste "version" in npm/package.json.
+
+on:
+  push:
+    branches: [main]
+    paths: ["npm/**", ".github/workflows/npm.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: npm
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Verifica tokenul npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm whoami
+
+      - name: Publica versiunea daca e noua
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "$NAME@$VERSION" version > /dev/null 2>&1; then
+            echo "$NAME@$VERSION exista deja pe npm. Cresti versiunea in npm/package.json ca sa publici."
+          else
+            npm publish --provenance --access public
+          fi

@@ -1,0 +1,47 @@
+{
+  "name": "ase-moodle-mcp",
+  "version": "0.2.0",
+  "description": "MCP server and CLI for Moodle BL@ASE (online.ase.ro): courses, assignments, forums, grades, quizzes and deadlines for Claude Code, Codex, opencode and Antigravity.",
+  "keywords": [
+    "moodle",
+    "bl-ase",
+    "ase",
+    "online-ase",
+    "mcp",
+    "model-context-protocol",
+    "claude-code",
+    "codex",
+    "opencode",
+    "antigravity",
+    "ai-agents",
+    "cli",
+    "student-tools"
+  ],
+  "license": "Apache-2.0",
+  "author": "FiredMosquito831 (https://github.com/FiredMosquito831)",
+  "homepage": "https://ase-moodle-mcp.danubelabs.net/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FiredMosquito831/ase-moodle-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FiredMosquito831/ase-moodle-mcp/issues"
+  },
+  "bin": {
+    "ase-moodle": "bin/ase-moodle.js",
+    "ase-moodle-mcp": "bin/ase-moodle-mcp.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
