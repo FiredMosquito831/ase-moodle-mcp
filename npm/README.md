@@ -8,14 +8,16 @@ Pachetul npm e un launcher. Serverul și CLI-ul sunt în pachetul Python `ase-mo
 
 ## Instalare
 
-Ai nevoie de Python 3.10+ și de pachetul Python:
+Ai nevoie de Python 3.10+ și de `git`. La instalare, pachetul instalează automat pachetul Python `ase-moodle` prin pipx.
 
 ```bash
-pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git
 npm install -g ase-moodle-mcp
 ase-moodle login
 ase-moodle install
+ase-moodle doctor
 ```
+
+Dacă instalarea automată a eșuat, rulează `npm rebuild -g ase-moodle-mcp` după ce rezolvi problema, sau instalează manual: `pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git`.
 
 ## Configurare MCP
 

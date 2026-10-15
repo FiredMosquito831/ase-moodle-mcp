@@ -31,9 +31,13 @@
     "ase-moodle": "bin/ase-moodle.js",
     "ase-moodle-mcp": "bin/ase-moodle-mcp.js"
   },
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js"
+  },
   "files": [
     "bin/",
     "lib/",
+    "scripts/",
     "README.md",
     "LICENSE",
     "NOTICE"

@@ -5,7 +5,8 @@
 
 const { spawn, spawnSync } = require('child_process');
 
-const INSTALL = 'pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git';
+const SPEC = 'git+https://github.com/FiredMosquito831/ase-moodle-mcp.git';
+const INSTALL = `pipx install ${SPEC}`;
 const PROBE = "import sys,importlib.util as u;print(int(sys.version_info>=(3,10)),int(u.find_spec('ase_moodle') is not None))";
 
 // Scripturile Python apelate pentru fiecare comanda.
@@ -60,4 +61,4 @@ function launch(kind, args) {
   child.on('exit', (code, signal) => process.exit(code ?? (signal ? 1 : 0)));
 }
 
-module.exports = { launch, INSTALL };
+module.exports = { launch, findPython, INSTALL, SPEC };
