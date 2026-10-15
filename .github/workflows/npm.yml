@@ -1,8 +1,13 @@
 name: npm
 
 # Publica pe npm pachetul din npm/ la fiecare push pe main care modifica npm/.
+# Foloseste trusted publishing (OIDC): fara token stocat in GitHub.
 # Publica doar daca versiunea din npm/package.json nu exista inca pe npm:
-# ca sa publici o versiune noua, creste "version" in npm/package.json.
+# ca sa publici o versiune noua, cresti "version" in npm/package.json.
+#
+# Setare pe npmjs.com (o singura data): pachetul ase-moodle-mcp -> Settings ->
+# Trusted publisher -> GitHub Actions -> owner FiredMosquito831, repo ase-moodle-mcp,
+# workflow filename npm.yml, environment gol.
 
 on:
   push:
@@ -28,14 +33,10 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org
 
-      - name: Verifica tokenul npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm whoami
+      - name: Npm nou (trusted publishing cere npm 11.5.1 sau mai nou)
+        run: npm install -g npm@latest
 
       - name: Publica versiunea daca e noua
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           NAME=$(node -p "require('./package.json').name")
           VERSION=$(node -p "require('./package.json').version")
