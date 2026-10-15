@@ -1,6 +1,6 @@
 {
   "name": "ase-moodle-mcp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "MCP server and CLI for Moodle BL@ASE (online.ase.ro): courses, assignments, forums, grades, quizzes and deadlines for Claude Code, Codex, opencode and Antigravity.",
   "keywords": [
     "moodle",
