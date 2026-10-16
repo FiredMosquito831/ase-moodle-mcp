@@ -104,6 +104,28 @@ Așa e: Antigravity nu are instalare pe proiect. Rămâne global. Vezi [PLATFORM
 
 Instalare veche (globală) și instalare de proiect. Rulează `ase-moodle install <platforma> --scope <scopul-dorit>`: scopul celălalt se curăță automat.
 
+## npm și npx
+
+### `npm install` s-a terminat, dar `ase-moodle login` spune că lipsește pachetul Python
+
+Scriptul de instalare n-a reușit (pipx, git sau rețea). Rulează `npm install -g --foreground-scripts ase-moodle-mcp` ca să vezi mesajul de eroare, rezolvă cauza, apoi reia cu `npm rebuild -g ase-moodle-mcp`. Dacă tot nu merge, instalează direct: `pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git`.
+
+### `npm install` pare blocat câteva minute
+
+Normal la prima instalare: scriptul descarcă și instalează pachetul Python, iar npm nu afișează mesajele lui până la final. Pentru progres: `npm install -g --foreground-scripts ase-moodle-mcp`.
+
+### `ase-moodle` nu e recunoscut după `npm install -g`
+
+Deschide un terminal nou, ca să se încarce PATH-ul. Dacă tot nu merge, verifică directorul global npm: `npm prefix -g` (pe Windows) sau `npm prefix -g`/`bin` (Linux, macOS) trebuie să fie în PATH.
+
+### `ase-moodle-mcp login` nu afișează nimic și pare blocat
+
+Pachetul Python e mai vechi de 0.2.1. Versiunile vechi ignoră argumentele și pornesc serverul MCP, care așteaptă intrare. Apasă Ctrl+C și actualizează pachetul Python: `pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git` (sau `python -m pip install --upgrade git+…`). Apoi `ase-moodle-mcp login` face același lucru ca `ase-moodle login`.
+
+### `npm update` nu a actualizat pachetul Python
+
+Așa e: scriptul de instalare lasă pachetul Python neatins dacă există deja. Actualizează-l separat, vezi [INSTALL.md, Actualizare](INSTALL.md#actualizare).
+
 ## Scrieri și confirmări
 
 ### `needs_confirmation` (cod 2)

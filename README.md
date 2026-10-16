@@ -22,7 +22,9 @@ Site: https://ase-moodle-mcp.danubelabs.net/
 
 ## Instalare
 
-Ai nevoie de Python 3.10+ și de [pipx](https://pipx.pypa.io/stable/installation/). Pipx se instalează o singură dată: `python -m pip install --user pipx`.
+Ai nevoie de Python 3.10+. Poți instala cu [pipx](https://pipx.pypa.io/stable/installation/) (fără Node.js) sau cu npm (dacă ai Node.js 18+). Rezultatul e același.
+
+Cu pipx. Pipx se instalează o singură dată: `python -m pip install --user pipx`.
 
 ```bash
 pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git
@@ -31,18 +33,31 @@ ase-moodle install
 ase-moodle doctor
 ```
 
+Cu npm:
+
+```bash
+npm install -g ase-moodle-mcp
+ase-moodle login
+ase-moodle install
+ase-moodle doctor
+```
+
+Instalarea prin npm pune și pachetul Python, prin pipx. La prima instalare durează câteva minute, iar npm nu afișează progresul. Pentru progres: `npm install -g --foreground-scripts ase-moodle-mcp`.
+
+Fără instalare globală, după ce ai npm: `npx ase-moodle-mcp auth-status`.
+
 | Comandă | Ce face |
 |---|---|
-| `pipx install git+…` | instalează `ase-moodle` și serverul MCP, izolat de restul Python-ului |
+| `pipx install git+…` sau `npm install -g ase-moodle-mcp` | instalează `ase-moodle` și serverul MCP (pachetul Python, izolat de restul Python-ului) |
 | `ase-moodle login` | te loghezi în Moodle în browser, cu Google (o singură dată) |
 | `ase-moodle install` | adaugă pluginul în Claude Code, Codex, opencode și Antigravity |
 | `ase-moodle doctor` | verifică instalarea și arată ce lipsește |
 
-Doar pentru folderul curent: `ase-moodle install --scope project`. Actualizare: `pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git && ase-moodle update`. Dezinstalare: `ase-moodle uninstall && pipx uninstall ase-moodle`.
+Doar pentru folderul curent: `ase-moodle install --scope project`. Dacă nu ai Edge sau Chrome, login-ul cere Chromium: `python -m playwright install chromium`.
 
-Dacă nu ai Edge sau Chrome, login-ul cere Chromium: `python -m playwright install chromium`.
+Actualizare și dezinstalare, pe fiecare metodă: [actualizare](docs/INSTALL.md#actualizare), [dezinstalare](docs/INSTALL.md#dezinstalare). Dezinstalarea completă are mai mulți pași, pentru că pluginul și pachetul sunt instalate separat.
 
-Pași detaliați, opțiunile pe platformă și scriptul de instalare completă sunt în [docs/INSTALL.md](docs/INSTALL.md).
+Pașii detaliați, cerințele și toate variantele (pipx, npm, script, pip) sunt în [docs/INSTALL.md](docs/INSTALL.md).
 
 ## Comenzi de bază
 
@@ -55,6 +70,7 @@ ase-moodle codex doctor                       # un singur harness: install|updat
 ase-moodle doctor                             # starea instalării
 ase-moodle deadlines --days 14
 ase-moodle download --year 3 --sem 1 --out D:\Materiale
+npx ase-moodle-mcp deadlines --days 14        # la fel, fără instalare globală (după npm)
 ```
 
 Lista completă: [docs/USAGE.md](docs/USAGE.md).
@@ -63,7 +79,7 @@ Lista completă: [docs/USAGE.md](docs/USAGE.md).
 
 | Document | Ce conține |
 |---|---|
-| [docs/INSTALL.md](docs/INSTALL.md) | cerințe pe Windows și Linux, cele trei variante de instalare, actualizare, dezinstalare |
+| [docs/INSTALL.md](docs/INSTALL.md) | cerințe pe Windows și Linux, variantele de instalare (pipx, npm, script, pip), actualizare, dezinstalare |
 | [docs/USAGE.md](docs/USAGE.md) | referința CLI: fiecare comandă, opțiune, exemplu, coduri de ieșire |
 | [docs/MCP.md](docs/MCP.md) | cele 28 de unelte MCP, prompturile, resursele, conectarea clienților |
 | [docs/PLATFORMS.md](docs/PLATFORMS.md) | Claude Code, Codex, opencode, Antigravity: ce se instalează, scopurile, fișierele atinse |

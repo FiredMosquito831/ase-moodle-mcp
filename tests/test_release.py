@@ -9,6 +9,7 @@ import tempfile
 import tomllib
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from fake_moodle import TOKEN, FakeMoodle
 from test_harnesses import Recorder, make_env
@@ -32,6 +33,31 @@ class VersionTests(unittest.TestCase):
         mismatched = {k: v for k, v in manifests.items() if v != pyproject}
         self.assertEqual(init, pyproject)
         self.assertEqual(mismatched, {}, f"versiunile nu coincid cu pyproject ({pyproject})")
+
+
+class EntryPointTests(unittest.TestCase):
+    """ase-moodle-mcp fara argumente porneste serverul; cu argumente ruleaza CLI-ul."""
+
+    def test_arguments_run_the_cli(self):
+        from ase_moodle import mcp_server
+
+        with mock.patch("ase_moodle.cli.main", return_value=0) as cli_main, \
+                mock.patch.object(mcp_server.mcp, "run") as run:
+            with self.assertRaises(SystemExit) as stop:
+                mcp_server.main(["auth-status"])
+        cli_main.assert_called_once_with(["auth-status"])
+        run.assert_not_called()
+        self.assertEqual(stop.exception.code, 0)
+
+    def test_no_arguments_start_the_mcp_server(self):
+        from ase_moodle import mcp_server
+
+        with mock.patch("ase_moodle.cli.main") as cli_main, \
+                mock.patch.object(mcp_server.mcp, "run") as run, \
+                mock.patch.object(sys, "argv", ["ase-moodle-mcp"]):
+            mcp_server.main()
+        run.assert_called_once()
+        cli_main.assert_not_called()
 
 
 class UpdateTests(unittest.TestCase):

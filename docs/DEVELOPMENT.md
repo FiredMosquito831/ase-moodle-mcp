@@ -70,6 +70,8 @@ Versiunea apare în patru locuri, și testul `test_release.py` le compară:
 
 Schimbă toate patru în același commit.
 
+Pachetul npm are versiunea lui, în `npm/package.json`. Testul nu o verifică, dar trebuie crescută la fiecare modificare din `npm/`: workflow-ul `npm` publică doar versiuni noi, iar o versiune publicată nu se mai poate republica.
+
 ## Skill-ul
 
 Sursa este `src/ase_moodle/data/SKILL.md`. Copia din plugin trebuie să fie identică:
@@ -90,12 +92,12 @@ ase-moodle sync-plugin
 ## Lansare (release)
 
 1. Modifică codul și testele. Rulează `python -m unittest discover -s tests` și `python -m pyflakes src tests`.
-2. Actualizează versiunea în cele patru locuri.
+2. Actualizează versiunea în cele patru locuri (și în `npm/package.json`, dacă ai modificat `npm/`).
 3. `ase-moodle sync-plugin` dacă ai modificat skill-ul.
 4. Verifică `docs/`.
 5. Scanează secretele (vezi mai jos).
 6. Commit cu atribuirea cerută (linia `by FiredMosquito831` la final).
-7. `git push`, apoi verifică CI: `gh run list --repo FiredMosquito831/ase-moodle-mcp --limit 2`.
+7. `git push`, apoi verifică CI: `gh run list --repo FiredMosquito831/ase-moodle-mcp --limit 2`. Dacă ai modificat `npm/`, verifică și publicarea: `npm view ase-moodle-mcp version`.
 8. Pe calculatorul tău: `ase-moodle update`, apoi repornește Claude Code.
 
 ### Scanarea secretelor înainte de commit

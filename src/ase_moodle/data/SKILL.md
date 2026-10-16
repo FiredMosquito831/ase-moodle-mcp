@@ -5,7 +5,7 @@ description: Access the student's BL@ASE Moodle (online.ase.ro). Use for anythin
 
 # ASE Moodle (BL@ASE)
 
-Talk to the student's Moodle through the `ase-moodle` MCP server (tools named below) or the `ase-moodle` CLI (JSON output). Both use the same token.
+Talk to the student's Moodle through the `ase-moodle` MCP server (tools named below) or the `ase-moodle` CLI (JSON output). Both use the same token. If `ase-moodle` is not on PATH, the CLI runs as `npx ase-moodle-mcp <command>`.
 
 ## Setup check
 
@@ -14,7 +14,7 @@ Talk to the student's Moodle through the `ase-moodle` MCP server (tools named be
 
 ## Confirmation rule
 
-Reads (courses, outline, assignments, assignment_status, forums, discussions, posts, grades, quizzes, quiz_questions, quiz_review, notifications, deadlines, moodle_functions, download_materials) run whenever the student asks.
+Reads (whoami, auth_status, list_courses, course_outline, list_assignments, assignment_status, list_forums, forum_discussions, discussion_posts, grades_overview, course_grades, list_quizzes, quiz_attempts, quiz_questions, quiz_review, notifications, deadlines, moodle_functions, download_materials) run whenever the student asks.
 
 Writes change the student's account: `submit_assignment_file`, `submit_assignment_text`, `reply_to_post`, `new_discussion`, `mark_notification_read`, `quiz_start`, `quiz_answer`, and `moodle_call` on any non-read function. Each takes `confirm=true` (CLI: `--yes`). Before calling with `confirm=true`, show the student the exact content and the target (assignment id, post id, quiz attempt), and wait for an explicit "yes" in this conversation. Approval for one action does not cover the next.
 
@@ -41,6 +41,7 @@ Unknown answer names are rejected with the list of valid names. Sequence-check h
 
 ## Course selection
 
+- `list_courses` (CLI: `ase-moodle courses --year 3 --sem 1`) lists the courses. `course_outline(course_id)` (CLI: `ase-moodle outline <course_id>`) shows the structure of one course.
 - Each course has `study_year` (1, 2, 3...), `semester` (1 or 2), `academic_year` (e.g. `2026-2027`), and `tip` (`CURS`, `SEMINAR`, `LABORATOR`).
 - `study_year` comes from the course description ("Anul 3 - 2026-2027"). If it is missing, it is inferred from another course with the same subject name; `study_year_source` says which.
 - As of 2026-10-12, study year 3 is 2026-2027 semester 1, with 14 courses.

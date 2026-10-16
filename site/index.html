@@ -41,7 +41,7 @@
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Windows, Linux",
     "programmingLanguage": "Python",
-    "softwareVersion": "0.2.0",
+    "softwareVersion": "0.2.1",
     "license": "https://www.apache.org/licenses/LICENSE-2.0",
     "url": "https://ase-moodle-mcp.danubelabs.net/",
     "codeRepository": "https://github.com/FiredMosquito831/ase-moodle-mcp",
@@ -218,7 +218,8 @@
         <div class="codebox"><button class="copy" type="button">Copiază</button><code>ase-moodle install</code></div>
       </li>
     </ol>
-    <p class="note">Verifici cu <code>ase-moodle doctor</code>. Doar pentru un folder: <code>ase-moodle install claude --scope project</code>, rulat din acel folder. Actualizare: <code>pipx install --force git+…</code>, apoi <code>ase-moodle update</code>. Pașii detaliați sunt în <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md">docs/INSTALL.md</a>.</p>
+    <p class="note">Ai Node.js? <code>npm install -g ase-moodle-mcp</code> face și primul pas, instalând și pachetul Python prin pipx. Fără instalare globală: <code>npx ase-moodle-mcp auth-status</code>.</p>
+    <p class="note">Verifici cu <code>ase-moodle doctor</code>. Doar pentru un folder: <code>ase-moodle install claude --scope project</code>, rulat din acel folder. Actualizare: <code>pipx install --force git+…</code>, apoi <code>ase-moodle update</code>. Dezinstalare: <code>ase-moodle uninstall</code>, apoi <code>pipx uninstall ase-moodle</code> (sau <code>npm uninstall -g ase-moodle-mcp</code>). Pașii detaliați sunt în <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md">docs/INSTALL.md</a>.</p>
   </div>
 </section>
 
@@ -275,7 +276,7 @@
     <h2>Documentație</h2>
     <p class="sub">Tot ce e în repo, în română.</p>
     <div class="docs">
-      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md"><strong>Instalare</strong><span>Pipx, script, pe proiect, actualizare și dezinstalare.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md"><strong>Instalare</strong><span>Pipx, npm, script, pe proiect, actualizare și dezinstalare.</span></a>
       <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/USAGE.md"><strong>Comenzi CLI</strong><span>Fiecare comandă, opțiune și cod de ieșire.</span></a>
       <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/MCP.md"><strong>Server MCP</strong><span>Unelte, prompturi, resurse și cum se adaugă în clienți.</span></a>
       <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/PLATFORMS.md"><strong>Platforme</strong><span>Claude Code, Codex, opencode și Antigravity pe rând.</span></a>

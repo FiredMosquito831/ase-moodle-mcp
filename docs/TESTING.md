@@ -92,6 +92,7 @@ Ce schimbă contul (fă-le doar cu aprobare): trimiteri, răspunsuri pe forum, m
 - Quizuri deschise, completate de la cap la coadă, pe contul real (nu există quiz deschis în momentul scrierii).
 - Trimiteri reale de teme cu ciorne activate.
 - CLI-urile `claude`, `codex`, `opencode`, `agy` pe Linux (comenzile de instalare reală). Logica instalatorului e testată cu runner fals.
+- Launcherul npm (`npm/`): fără teste automate. Instalarea globală, `npx` și dezinstalarea sunt verificate manual.
 - macOS.
 
 ## După o modificare

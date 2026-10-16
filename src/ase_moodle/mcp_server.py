@@ -8,6 +8,7 @@ Listele vin ca {"count": n, "items": [...]} intr-un singur raspuns.
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -353,7 +354,14 @@ def resource_deadlines() -> str:
     return json.dumps(activities.deadlines(_c(), 14), ensure_ascii=False, indent=2)
 
 
-def main() -> None:
+def main(argv: list[str] | None = None) -> None:
+    # Cu argumente, ase-moodle-mcp ruleaza CLI-ul: "ase-moodle-mcp login" = "ase-moodle login".
+    # Fara argumente porneste serverul MCP. Clientii MCP nu trimit argumente.
+    args = sys.argv[1:] if argv is None else argv
+    if args:
+        from .cli import main as cli_main
+
+        raise SystemExit(cli_main(args))
     mcp.run()
 
 

@@ -1,6 +1,6 @@
 # Serverul MCP (`ase-moodle-mcp`)
 
-Serverul MCP vorbește prin stdio. Pornește-l cu `ase-moodle-mcp` sau cu `python -m ase_moodle.mcp_server`. Nu ai nevoie să-l pornești manual: clienții (Claude Code, Codex, opencode, Antigravity) îl pornesc singuri, după ce ai rulat `ase-moodle install`.
+Serverul MCP vorbește prin stdio. Pornește-l cu `ase-moodle-mcp` sau cu `python -m ase_moodle.mcp_server`. Fără argumente, `ase-moodle-mcp` pornește serverul. Cu argumente rulează CLI-ul: `ase-moodle-mcp login` face același lucru ca `ase-moodle login` (vezi [USAGE.md](USAGE.md)). Nu ai nevoie să-l pornești manual: clienții (Claude Code, Codex, opencode, Antigravity) îl pornesc singuri, după ce ai rulat `ase-moodle install`.
 
 Versiunea curentă are **28 de unelte**, **4 prompturi** și **2 resurse**.
 
@@ -98,7 +98,7 @@ Prompturile sunt fluxuri gata, pe care clientul le poate oferi ca comenzi.
 
 ## Conectarea clienților
 
-Serverul e același peste tot: comanda `ase-moodle-mcp`, care pornește prin stdio. Ce diferă este locul unde clientul îl găsește și cât de larg se aplică. Cea mai simplă cale e `ase-moodle install`, care scrie configurația corectă pentru fiecare client. Detalii pe platformă: [PLATFORMS.md](PLATFORMS.md).
+Serverul e același peste tot: comanda `ase-moodle-mcp`, care pornește prin stdio. Comanda e aceeași indiferent dacă ai instalat cu pipx, cu npm (`npm install -g ase-moodle-mcp`) sau cu pip. Ce diferă este locul unde clientul îl găsește și cât de larg se aplică. Cea mai simplă cale e `ase-moodle install`, care scrie configurația corectă pentru fiecare client. Detalii pe platformă: [PLATFORMS.md](PLATFORMS.md).
 
 ### Unde se adaugă, pe scope
 

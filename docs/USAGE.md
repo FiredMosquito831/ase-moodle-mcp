@@ -15,6 +15,8 @@ Toate comenzile scriu JSON pe stdout. Erorile merg pe stderr, ca JSON `{"error":
 
 **Text.** Comenzile cu text (`submit-text`, `reply`, `new-discussion`) primesc textul din `--text`, dintr-un `--file` sau din stdin (pipe).
 
+**Rulare.** Comenzile merg ca `ase-moodle <comandă>` (după instalare cu pipx sau npm) sau ca `npx ase-moodle-mcp <comandă>` (după npm, fără instalare globală). Binarul `ase-moodle-mcp` cu argumente rulează același CLI. Fără argumente pornește serverul MCP, vezi [MCP.md](MCP.md).
+
 ## Cont
 
 ### `login`
@@ -190,7 +192,7 @@ ase-moodle install claude codex --scope project     # doar folderul curent, pent
 Aduce ultima versiune din marketplace. Opțiunile sunt cele de la `install`. Claude Code trebuie repornit ca să intre în vigoare.
 
 ### `uninstall [TARGET ...]`
-Elimină configurarea. `--scope global|project|all` (implicit `all`), `--project-dir`, `--source`.
+Elimină configurarea. `--scope global|project|all` (implicit `all`), `--project-dir`, `--source`. Nu șterge pachetul Python: pașii complet de dezinstalare sunt în [INSTALL.md](INSTALL.md#dezinstalare).
 
 ### `doctor`
 Verifică starea fără să modifice nimic: fiecare platformă, instalările de proiect, sursa tokenului, `.env`, procesele MCP pornite, versiunea pachetului. Cod `3` dacă e o problemă.

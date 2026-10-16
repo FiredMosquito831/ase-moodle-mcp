@@ -41,7 +41,7 @@
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Windows, Linux",
     "programmingLanguage": "Python",
-    "softwareVersion": "0.2.0",
+    "softwareVersion": "0.2.1",
     "license": "https://www.apache.org/licenses/LICENSE-2.0",
     "url": "https://ase-moodle-mcp.danubelabs.net/en/",
     "codeRepository": "https://github.com/FiredMosquito831/ase-moodle-mcp",
@@ -211,7 +211,8 @@
         <div class="codebox"><button class="copy" type="button">Copy</button><code>ase-moodle install</code></div>
       </li>
     </ol>
-    <p class="note">Check with <code>ase-moodle doctor</code>. For one folder only: <code>ase-moodle install claude --scope project</code>, run from that folder. Update: <code>pipx install --force git+…</code>, then <code>ase-moodle update</code>. Full steps are in <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md">docs/INSTALL.md</a>.</p>
+    <p class="note">Got Node.js? <code>npm install -g ase-moodle-mcp</code> does the first step too, installing the Python package through pipx. Without a global install: <code>npx ase-moodle-mcp auth-status</code>.</p>
+    <p class="note">Check with <code>ase-moodle doctor</code>. For one folder only: <code>ase-moodle install claude --scope project</code>, run from that folder. Update: <code>pipx install --force git+…</code>, then <code>ase-moodle update</code>. Uninstall: <code>ase-moodle uninstall</code>, then <code>pipx uninstall ase-moodle</code> (or <code>npm uninstall -g ase-moodle-mcp</code>). Full steps are in <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md">docs/INSTALL.md</a>.</p>
   </div>
 </section>
 
@@ -268,7 +269,7 @@
     <h2>Documentation</h2>
     <p class="sub">Everything in the repository.</p>
     <div class="docs">
-      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md"><strong>Install</strong><span>Pipx, script, per project, update and uninstall.</span></a>
+      <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/INSTALL.md"><strong>Install</strong><span>Pipx, npm, script, per project, update and uninstall.</span></a>
       <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/USAGE.md"><strong>CLI commands</strong><span>Every command, option and exit code.</span></a>
       <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/MCP.md"><strong>MCP server</strong><span>Tools, prompts, resources and how to add it to clients.</span></a>
       <a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/docs/PLATFORMS.md"><strong>Platforms</strong><span>Claude Code, Codex, opencode and Antigravity, one by one.</span></a>
