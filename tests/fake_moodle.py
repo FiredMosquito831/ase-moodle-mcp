@@ -74,6 +74,8 @@ class _State:
         ]
         self.quiz_attempts: dict[int, dict[str, Any]] = {}
         self.next_attempt = 900
+        # Optional, pentru teste: functii care "nu exista" pe site (raspuns ca la o functie necunoscuta).
+        self.missing_functions: set[str] = set()
 
     def new_itemid(self) -> int:
         self.next_itemid += 1
@@ -147,14 +149,17 @@ class FakeMoodle:
     # --- dispatch REST ---
 
     def call(self, fn: str, p: dict[str, Any]) -> Any:
-        handler = getattr(self, "_fn_" + fn, None)
+        handler = None if fn in self.state.missing_functions else getattr(self, "_fn_" + fn, None)
         if handler is None:
-            raise _MoodleFault("functionnotimplemented", f"Functie neimplementata in fake: {fn}")
+            # Ca Moodle real: functia lipsa din external_functions -> dml_missing_record_exception / invalidrecord.
+            raise _MoodleFault("invalidrecord", f"Functie neimplementata in fake: {fn}",
+                               exception="dml_missing_record_exception")
         return handler(p)
 
     def _fn_core_webservice_get_site_info(self, p):
         return {**STUDENT, "functions": [{"name": n} for n in sorted(
-            name[4:] for name in dir(self) if name.startswith("_fn_"))], "lang": "ro"}
+            name[4:] for name in dir(self) if name.startswith("_fn_")) if n not in self.state.missing_functions],
+            "lang": "ro"}
 
     def _fn_core_enrol_get_users_courses(self, p):
         return [{"id": c["id"]} for c in COURSES]
@@ -234,6 +239,9 @@ class FakeMoodle:
         return {"discussions": [{"id": POST_ID, "discussion": DISCUSSION_ID, "name": "Anunt", "subject": "Anunt",
                                  "userfullname": "Profesor Test", "created": _now() - DAY, "numreplies": 0,
                                  "numunread": 0, "pinned": False, "locked": False}]}
+
+    def _fn_mod_forum_get_forum_discussions(self, p):  # Moodle 3.7+; singura varianta in 4.5
+        return {"discussions": self._fn_mod_forum_get_forum_discussions_paginated(p)["discussions"], "warnings": []}
 
     def _fn_mod_forum_get_discussion_posts(self, p):
         if int(p.get("discussionid", 0)) != DISCUSSION_ID:
@@ -325,10 +333,11 @@ def _ids(value: Any) -> list[Any]:
 
 
 class _MoodleFault(Exception):
-    def __init__(self, errorcode: str, message: str) -> None:
+    def __init__(self, errorcode: str, message: str, exception: str = "moodle_exception") -> None:
         super().__init__(message)
         self.errorcode = errorcode
         self.message = message
+        self.exception = exception
 
 
 def _make_handler(fake: FakeMoodle):
@@ -364,7 +373,7 @@ def _make_handler(fake: FakeMoodle):
             try:
                 result = fake.call(fn, params)
             except _MoodleFault as fault:
-                return self._send(200, {"exception": "moodle_exception", "errorcode": fault.errorcode, "message": fault.message})
+                return self._send(200, {"exception": fault.exception, "errorcode": fault.errorcode, "message": fault.message})
             self._send(200, result)
 
         def _upload(self, body: bytes) -> None:

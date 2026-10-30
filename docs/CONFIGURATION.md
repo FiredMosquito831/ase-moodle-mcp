@@ -67,7 +67,7 @@ Nu e o variabilă de mediu. Se dă la comandă: `--project-dir DIR`. Dacă lipse
 
 ## Adresa Moodle
 
-Implicit: `https://online.ase.ro`. Se schimbă cu `ASE_MOODLE_URL` sau cu `--base-url` la `login`. Pachetul e scris pentru BL@ASE (Moodle 4.1). Alte instanțe Moodle ar putea funcționa, dar nu sunt testate.
+Implicit: `https://online.ase.ro`. Se schimbă cu `ASE_MOODLE_URL` sau cu `--base-url` la `login`. Pachetul e scris pentru BL@ASE, care rulează Moodle 4.5 (din octombrie 2026); funcționează pe Moodle 4.5 și pe 4.1. Alte instanțe Moodle ar putea funcționa, dar nu sunt testate.
 
 ## Verificare
 

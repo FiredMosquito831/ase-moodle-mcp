@@ -15,10 +15,22 @@ UPLOAD_PATH = "/webservice/upload.php"
 class MoodleError(RuntimeError):
     """Eroare returnata de Moodle sau de retea, cu codul Moodle daca exista."""
 
-    def __init__(self, message: str, errorcode: str | None = None, function: str | None = None):
+    def __init__(
+        self, message: str, errorcode: str | None = None, function: str | None = None, exception: str | None = None
+    ):
         super().__init__(message)
         self.errorcode = errorcode
         self.function = function
+        self.exception = exception  # clasa exceptiei Moodle (campul "exception" din raspuns), daca exista
+
+    @property
+    def missing_function(self) -> bool:
+        """True daca Moodle raporteaza ca functia web service nu exista pe site.
+
+        Moodle cauta functia in tabelul external_functions cu MUST_EXIST; daca lipseste ridica
+        dml_missing_record_exception cu errorcode invalidrecord. Mesajul e tradus, deci nu se foloseste.
+        """
+        return self.exception == "dml_missing_record_exception" and self.errorcode == "invalidrecord"
 
 
 def flatten_params(params: dict[str, Any] | None) -> dict[str, str]:
@@ -50,6 +62,8 @@ class MoodleClient:
         self.token = token
         self._http = httpx.Client(timeout=timeout, follow_redirects=True)
         self._siteinfo: dict[str, Any] | None = None
+        # Functii pe care site-ul le-a raportat ca inexistente (memorie per client, ca sa nu le reincercam).
+        self.missing_functions: set[str] = set()
 
     def close(self) -> None:
         self._http.close()
@@ -74,7 +88,9 @@ class MoodleClient:
         except ValueError as exc:
             raise MoodleError(f"Raspuns neasteptat la {wsfunction}: {resp.text[:200]}", function=wsfunction) from exc
         if isinstance(payload, dict) and "exception" in payload:
-            raise MoodleError(payload.get("message", "eroare necunoscuta"), payload.get("errorcode"), wsfunction)
+            raise MoodleError(
+                payload.get("message", "eroare necunoscuta"), payload.get("errorcode"), wsfunction, payload.get("exception")
+            )
         return payload
 
     @property

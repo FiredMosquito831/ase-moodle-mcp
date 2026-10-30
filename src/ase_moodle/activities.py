@@ -125,14 +125,45 @@ def list_forums(client: MoodleClient, course_ids: list[int] | None = None) -> li
     ]
 
 
-def forum_discussions_all(client: MoodleClient, forum_id: int, perpage: int = 100) -> list[dict[str, Any]]:
-    """Toate discutiile unui forum, pe pagini (mod_forum_get_forum_discussions_paginated)."""
-    discussions: list[dict[str, Any]] = []
-    for page in range(0, 200):
+FORUM_DISCUSSIONS = "mod_forum_get_forum_discussions"
+FORUM_DISCUSSIONS_PAGINATED = "mod_forum_get_forum_discussions_paginated"  # scoasa in Moodle 4.5; rezerva
+# discussion_list::SORTORDER_LASTPOST_DESC = 1: d.pinned DESC, d.timemodified DESC (ca vechiul sortby/sortdirection).
+FORUM_SORTORDER_LASTPOST_DESC = 1
+
+
+def _forum_discussions_page(client: MoodleClient, forum_id: int, page: int, perpage: int) -> dict[str, Any]:
+    """O pagina de discutii: functia noua; cea veche doar daca site-ul spune ca functia noua nu exista."""
+    missing = client.missing_functions
+    first_error: MoodleError | None = None
+    if FORUM_DISCUSSIONS not in missing:
+        try:
+            return client.call(
+                FORUM_DISCUSSIONS,
+                {"forumid": forum_id, "sortorder": FORUM_SORTORDER_LASTPOST_DESC, "page": page, "perpage": perpage},
+            )
+        except MoodleError as exc:
+            if not exc.missing_function:
+                raise
+            first_error = exc
+    try:
         resp = client.call(
-            "mod_forum_get_forum_discussions_paginated",
+            FORUM_DISCUSSIONS_PAGINATED,
             {"forumid": forum_id, "sortby": "timemodified", "sortdirection": "DESC", "page": page, "perpage": perpage},
         )
+    except MoodleError as exc:
+        if first_error is not None and exc.missing_function:
+            raise first_error  # lipsesc ambele: raportam eroarea functiei noi
+        raise
+    if first_error is not None:
+        missing.add(FORUM_DISCUSSIONS)  # rezerva a mers: nu mai incercam functia noua pe acest client
+    return resp
+
+
+def forum_discussions_all(client: MoodleClient, forum_id: int, perpage: int = 100) -> list[dict[str, Any]]:
+    """Toate discutiile unui forum, pe pagini (mod_forum_get_forum_discussions; rezerva: ..._paginated)."""
+    discussions: list[dict[str, Any]] = []
+    for page in range(0, 200):
+        resp = _forum_discussions_page(client, forum_id, page, perpage)
         batch = resp.get("discussions", [])
         discussions.extend(batch)
         if len(batch) < perpage:

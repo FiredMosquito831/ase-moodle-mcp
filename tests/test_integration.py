@@ -102,6 +102,52 @@ class CliReadTests(IntegrationBase):
         self.assertEqual(result["user"], "Student Test")
 
 
+class ForumDiscussionsFallbackTests(IntegrationBase):
+    """Moodle 4.5 a scos mod_forum_get_forum_discussions_paginated; folosim mod_forum_get_forum_discussions."""
+
+    NEW = "mod_forum_get_forum_discussions"
+    OLD = "mod_forum_get_forum_discussions_paginated"
+
+    def _discussions(self, missing: set[str]) -> tuple[str, MoodleClient]:
+        self.fake.state.missing_functions = set(missing)
+        client = MoodleClient(self.fake.url, TOKEN)  # client nou: memoria functiilor lipsa e per client
+        self.addCleanup(client.close)
+        with mock.patch("fake_moodle._now", return_value=1_800_000_000):
+            result = activities.forum_discussions(client, 401)
+        return json.dumps(result, ensure_ascii=False, sort_keys=False), client
+
+    def test_new_function_used_when_present(self):
+        # Ca pe 4.5: functia veche lipseste, deci rezultatul vine doar din functia noua.
+        out, client = self._discussions({self.OLD})
+        self.assertEqual(json.loads(out)[0]["discussion_id"], 501)
+        self.assertEqual(client.missing_functions, set())
+
+    def test_fallback_to_paginated_when_new_function_missing_gives_same_output(self):
+        new_out, _ = self._discussions({self.OLD})
+        old_out, client = self._discussions({self.NEW})
+        self.assertEqual(old_out, new_out)
+        self.assertEqual(client.missing_functions, {self.NEW})  # pagina urmatoare nu mai incearca functia noua
+
+    def test_other_error_is_not_swallowed(self):
+        client = MoodleClient(self.fake.url, TOKEN)
+        self.addCleanup(client.close)
+        with self.assertRaises(MoodleError) as ctx:
+            activities.forum_discussions(client, 999)  # forum necunoscut: invalidparameter din functia noua
+        self.assertEqual(ctx.exception.errorcode, "invalidparameter")
+        self.assertEqual(ctx.exception.function, self.NEW)
+        self.assertEqual(client.missing_functions, set())
+
+    def test_both_missing_reports_the_new_function_error(self):
+        self.fake.state.missing_functions = {self.NEW, self.OLD}
+        client = MoodleClient(self.fake.url, TOKEN)
+        self.addCleanup(client.close)
+        with self.assertRaises(MoodleError) as ctx:
+            activities.forum_discussions(client, 401)
+        self.assertTrue(ctx.exception.missing_function)
+        self.assertEqual(ctx.exception.exception, "dml_missing_record_exception")
+        self.assertEqual(ctx.exception.function, self.NEW)
+
+
 class DraftGuardTests(IntegrationBase):
     def test_direct_assignment_refuses_draft_save_with_no_side_effects(self):
         code, _, err = run_cli("submit", "202", str(self.workfile), "--yes")
