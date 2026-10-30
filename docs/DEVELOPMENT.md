@@ -22,8 +22,9 @@ src/ase_moodle/
 plugins/ase-moodle/       plugin: manifeste, .mcp.json, skills/, commands/
 .claude-plugin/           marketplace Claude Code
 .agents/plugins/          marketplace Codex
-tests/                    teste offline, server Moodle fals (fake_moodle.py)
-scripts/                  bootstrap.ps1 (Windows), bootstrap.sh (Linux/macOS)
+tests/                    teste offline, server Moodle fals (fake_moodle.py), smoke_mcp.py (handshake MCP)
+scripts/                  bootstrap.ps1 (Windows), bootstrap.sh (Linux/macOS), release.py (versiunea)
+.github/workflows/        ci.yml (teste), pypi.yml (publicare PyPI), npm.yml, pages.yml
 docs/                     documentația
 ```
 
@@ -62,14 +63,24 @@ Harness-urile sunt adaptoare izolate (vezi [HARNESSES.md](HARNESSES.md)). Pentru
 
 ## Versiune
 
-Versiunea apare în patru locuri, și testul `test_release.py` le compară:
+Versiunea are o singură sursă: `version` din `pyproject.toml`. Lângă ea, `RELEASE_DATE` din `src/ase_moodle/__init__.py` este ziua release-ului (UTC, forma `AAAA-LL-ZZT00:00:00Z`); pinurile de lansare o folosesc la `--exclude-newer`. Restul copiilor le scrie `scripts/release.py`:
 
-- `pyproject.toml` (`version`)
-- `src/ase_moodle/__init__.py` (`__version__`)
+```powershell
+python scripts/release.py 0.2.5                    # versiunea nouă, data = azi (UTC)
+python scripts/release.py 0.2.5 --date 2026-11-02  # altă zi
+python scripts/release.py --check                  # nu schimbă nimic; exit 1 și lista nepotrivirilor
+python scripts/release.py --check --expect 0.2.5   # în plus: versiunea cerută de tag (folosit de pypi.yml)
+```
+
+Ce scrie și verifică:
+
+- `pyproject.toml` (`version`) și `src/ase_moodle/__init__.py` (`__version__`, `RELEASE_DATE`)
 - `plugins/ase-moodle/.claude-plugin/plugin.json`, `plugins/ase-moodle/.codex-plugin/plugin.json`, `plugins/ase-moodle/plugin.json`
 - `.claude-plugin/marketplace.json` (`metadata.version`)
+- copia skill-ului din plugin, identică octet cu octet cu `src/ase_moodle/data/SKILL.md`
+- fiecare `ase-moodle==<versiune>` și `--exclude-newer <dată>` dintr-un fișier urmărit de git. În documentație, preferă un placeholder (`ase-moodle==X.Y.Z`); un pin scris de mână trebuie să fie cel curent.
 
-Schimbă toate patru în același commit.
+`tests/test_release.py` rulează același verificator (`test_every_pin_matches_the_release`), deci un loc uitat pică testele. Un loc nou (de exemplu launcherul sau pachetul npm) se adaugă în `locations()` sau `copies()` din `scripts/release.py`.
 
 Pachetul npm are versiunea lui, în `npm/package.json`. Testul nu o verifică, dar trebuie crescută la fiecare modificare din `npm/`: workflow-ul `npm` publică doar versiuni noi, iar o versiune publicată nu se mai poate republica.
 
@@ -81,7 +92,7 @@ Sursa este `src/ase_moodle/data/SKILL.md`. Copia din plugin trebuie să fie iden
 ase-moodle sync-plugin
 ```
 
-`test_release.py` verifică sincronizarea. Clientul (Claude Code, Antigravity) vede skill-ul din plugin.
+`scripts/release.py` face aceeași copie. `test_release.py` verifică sincronizarea (octet cu octet). Clientul (Claude Code, Antigravity) vede skill-ul din plugin.
 
 ## Plugin-ul
 
@@ -92,14 +103,51 @@ ase-moodle sync-plugin
 
 ## Lansare (release)
 
-1. Modifică codul și testele. Rulează `python -m unittest discover -s tests` și `python -m pyflakes src tests`.
-2. Actualizează versiunea în cele patru locuri (și în `npm/package.json`, dacă ai modificat `npm/`).
-3. `ase-moodle sync-plugin` dacă ai modificat skill-ul.
+Pachetul Python se publică pe PyPI de workflow-ul `.github/workflows/pypi.yml`, la un tag `vX.Y.Z`, prin trusted publishing (fără token stocat).
+
+**Ordinea contează: tagul și publicarea întâi, push pe `main` abia după ce jobul `pypi-verify` e verde.** Marketplace-ul pluginului citește `main`. Un plugin care cere o versiune care nu e încă pe PyPI nu pornește la nimeni, iar Claude Code sare peste un server eșuat 15 minute.
+
+1. Modifică codul și testele. Rulează `python -m unittest discover -s tests` și `python -m pyflakes src tests scripts`.
+2. `python scripts/release.py X.Y.Z` (versiunea, data, manifestele, copia skill-ului, pinurile). Dacă ai modificat `npm/`, crește și `npm/package.json`.
+3. `python scripts/release.py --check` trebuie să spună `ok`.
 4. Verifică `docs/`.
 5. Scanează secretele (vezi mai jos).
-6. Commit cu atribuirea cerută (linia `by FiredMosquito831` la final).
-7. `git push`, apoi verifică CI: `gh run list --repo FiredMosquito831/ase-moodle-mcp --limit 2`. Dacă ai modificat `npm/`, verifică și publicarea: `npm view ase-moodle-mcp version`.
-8. Pe calculatorul tău: `ase-moodle update`, apoi repornește Claude Code.
+6. Commit pe o ramură, cu atribuirea cerută (linia `by FiredMosquito831` la final).
+7. Tag pe acel commit și push doar al tagului: `git tag vX.Y.Z <sha>`, apoi `git push origin vX.Y.Z`.
+8. Urmărește workflow-ul: `gh run list --repo FiredMosquito831/ase-moodle-mcp --workflow pypi.yml --limit 1`, apoi `gh run watch <id>`. Joburile:
+   - `build`: `release.py --check --expect X.Y.Z` (tagul = versiunea din pyproject = fiecare copie), `uv build`, conținutul wheel-ului (inclusiv `ase_moodle/data/SKILL.md`), SHA-256;
+   - `smoke` (Ubuntu, Windows, macOS): wheel-ul și sdist-ul pornite cu `uvx --isolated --from <fișier> ase-moodle-mcp`, handshake MCP cu 28 de unelte (`tests/smoke_mcp.py`);
+   - `testpypi`: upload pe TestPyPI;
+   - `testpypi-verify`: fișierele de pe TestPyPI au același SHA-256 ca build-ul (fără să instaleze nimic de acolo);
+   - `pypi`: așteaptă aprobarea ta (environment `pypi`), apoi upload pe PyPI;
+   - `pypi-verify` (Ubuntu, Windows): SHA-256 egal, apoi `uvx --isolated --from ase-moodle==X.Y.Z ase-moodle-mcp` cu un cache uv gol dă 28 de unelte.
+9. Doar după ce `pypi-verify` e verde: push pe `main` (fast-forward până la commitul cu tag). Verifică CI: `gh run list --repo FiredMosquito831/ase-moodle-mcp --limit 2`. Dacă ai modificat `npm/`, verifică și publicarea: `npm view ase-moodle-mcp version`.
+10. Pe calculatorul tău: `ase-moodle update`, apoi repornește Claude Code.
+
+Probă fără publicare: GitHub → Actions → `pypi` → Run workflow (`workflow_dispatch`). Rulează doar `build` și `smoke`.
+
+Probă locală, înainte de tag (cu un cache uv separat, ca să nu atingi cache-ul obișnuit):
+
+```powershell
+$env:UV_CACHE_DIR = "$env:TEMP\uv-cache-proba"
+uv build --out-dir dist
+python tests/smoke_mcp.py -- uvx --isolated --from dist/ase_moodle-X.Y.Z-py3-none-any.whl ase-moodle-mcp
+python tests/smoke_mcp.py -- uvx --isolated --from dist/ase_moodle-X.Y.Z.tar.gz ase-moodle-mcp
+```
+
+`smoke_mcp.py` trimite doar `initialize` și `tools/list` (nicio unealtă), cu `ASE_MOODLE_URL=http://127.0.0.1:9`, keyring nul și un home temporar, deci nu poate citi tokenul tău.
+
+### Configurarea publicării (o singură dată, de mâna maintainerului)
+
+Fă pașii aproape de primul tag: un „pending publisher” nu rezervă numele.
+
+1. Verifică că `https://pypi.org/pypi/ase-moodle/json` răspunde încă 404 (numele e liber).
+2. test.pypi.org (cont cu 2FA) → Your account → Publishing → „Add a new pending publisher” → GitHub: PyPI project name `ase-moodle`, Owner `FiredMosquito831`, Repository name `ase-moodle-mcp`, Workflow name `pypi.yml`, Environment name `testpypi`.
+3. pypi.org: la fel, cu Environment name `pypi`.
+4. GitHub → repo Settings → Environments: creează `testpypi`, apoi `pypi` cu „Required reviewers: FiredMosquito831” și o regulă de deployment pentru taguri `v*`.
+5. Primul release: tagul `v0.2.4` pe commitul care conține `pypi.yml`, apoi aprobarea jobului `pypi` după ce `testpypi-verify` e verde.
+
+Dacă PyPI refuză numele, rezerva este un wheel atașat unui GitHub Release.
 
 ### Scanarea secretelor înainte de commit
 

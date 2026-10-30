@@ -13,6 +13,7 @@ keywords = ["moodle", "bl-ase", "ase", "online-ase", "mcp", "model-context-proto
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Education",
+  "Operating System :: MacOS",
   "Operating System :: Microsoft :: Windows",
   "Operating System :: POSIX :: Linux",
   "Programming Language :: Python :: 3",

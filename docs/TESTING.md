@@ -32,10 +32,11 @@ Numărul de teste crește cu versiunile. Rezultatul așteptat: `OK`, fără `FAI
 | `test_offline.py` | parsing cursuri, codificarea parametrilor, politica de confirmare |
 | `test_quiz.py` | parsarea câmpurilor de răspuns, validarea numelor, start, salvare, trimitere |
 | `test_config.py` | `.env`, Credential Manager (simulat), migrarea tokenului, rezerva |
-| `test_auth.py` | decodarea redirectului SSO, extragerea tokenului din pagină, clipboard |
+| `test_auth.py` | decodarea redirectului SSO, extragerea tokenului din pagină, clipboard, comanda de instalare a browserului (cu Python-ul care rulează) |
 | `test_install.py` | instalatorii pe toate platformele, ambele scopuri, în foldere temporare |
 | `test_integration.py` | CLI și client contra serverului fals: teme, ciorne, quiz, descărcare, notificări |
-| `test_release.py` | versiuni coerente, serverul MCP real prin stdio, comanda `update` |
+| `test_release.py` | versiuni coerente, `scripts/release.py` (același verificator ca `--check`: manifeste, `RELEASE_DATE`, copia SKILL.md, pinurile `ase-moodle==` / `--exclude-newer` din fișierele urmărite; scrierea pe o copie temporară), serverul MCP real prin stdio, comanda `update` |
+| `smoke_mcp.py` | nu e test unittest (nu e colectat de `discover`): handshake MCP prin stdio cu orice comandă de server, 28 de unelte. Folosit de `pypi.yml` și local: `python tests/smoke_mcp.py -- <comanda>` |
 | `test_moodle_functions.py` | lista funcțiilor Moodle din `functions.py` acoperă exact apelurile din cod |
 | `test_platform_docs.py` | permisiuni POSIX, folderul implicit, clipboard Linux, documentația |
 
@@ -75,6 +76,8 @@ ase-moodle courses --year 3 --sem 1
 
 Statusul e vizibil cu `gh run list --repo FiredMosquito831/ase-moodle-mcp`.
 
+`.github/workflows/pypi.yml` rulează la un tag `vX.Y.Z` (și manual, ca probă fără publicare): `release.py --check --expect`, build, smoke cu wheel-ul și sdist-ul pe **Windows**, **Ubuntu** și **macOS** (`uvx --isolated --from <fișier> ase-moodle-mcp` + `tests/smoke_mcp.py`), apoi TestPyPI și PyPI cu verificarea SHA-256. Detalii în [DEVELOPMENT.md](DEVELOPMENT.md#lansare-release).
+
 ## Verificare live (manuală)
 
 Nu rula asta automat. Testele live schimbă contul Moodle.
@@ -94,7 +97,7 @@ Ce schimbă contul (fă-le doar cu aprobare): trimiteri, răspunsuri pe forum, m
 - Trimiteri reale de teme cu ciorne activate.
 - CLI-urile `claude`, `codex`, `opencode`, `agy` pe Linux (comenzile de instalare reală). Logica instalatorului e testată cu runner fals.
 - Launcherul npm (`npm/`): fără teste automate. Instalarea globală, `npx` și dezinstalarea sunt verificate manual.
-- macOS.
+- macOS (în afară de smoke-ul serverului din `pypi.yml`).
 
 ## După o modificare
 

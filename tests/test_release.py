@@ -34,6 +34,117 @@ class VersionTests(unittest.TestCase):
         self.assertEqual(init, pyproject)
         self.assertEqual(mismatched, {}, f"versiunile nu coincid cu pyproject ({pyproject})")
 
+    def test_every_pin_matches_the_release(self):
+        """Acelasi verificator ca `scripts/release.py --check`: manifeste, data, copia SKILL, pinurile din fisiere."""
+        problems = load_release_script().check(REPO)
+        self.assertEqual(problems, [], "ruleaza: python scripts/release.py X.Y.Z\n" + "\n".join(problems))
+
+
+def load_release_script():
+    """scripts/release.py nu e un pachet: il incarc dupa cale."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("ase_moodle_release_script", REPO / "scripts" / "release.py")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module  # dataclasses cauta modulul in sys.modules
+    spec.loader.exec_module(module)
+    return module
+
+
+class ReleaseScriptTests(unittest.TestCase):
+    """scripts/release.py pe o copie a fisierelor de versiune, intr-un folder temporar (fara git)."""
+
+    FILES = [
+        "pyproject.toml",
+        "src/ase_moodle/__init__.py",
+        "src/ase_moodle/data/SKILL.md",
+        "plugins/ase-moodle/.claude-plugin/plugin.json",
+        "plugins/ase-moodle/.codex-plugin/plugin.json",
+        "plugins/ase-moodle/plugin.json",
+        "plugins/ase-moodle/skills/ase-moodle/SKILL.md",
+        ".claude-plugin/marketplace.json",
+        "README.md",
+    ]
+
+    def setUp(self):
+        import shutil
+
+        self.release = load_release_script()
+        self._tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self._tmp.name)
+        for name in self.FILES:
+            target = self.root / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(REPO / name, target)
+        (self.root / "docs").mkdir()
+        self.version, self.date = self.release.sources(self.root)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def edit(self, name, old, new):
+        path = self.root / name
+        text = path.read_bytes().decode("utf-8")
+        self.assertIn(old, text)
+        path.write_bytes(text.replace(old, new, 1).encode("utf-8"))
+
+    def assertReported(self, name):
+        problems = self.release.check(self.root)
+        self.assertTrue(any(p.startswith(name) for p in problems), f"{name} lipseste din {problems}")
+
+    def test_copy_is_clean(self):
+        self.assertEqual(self.release.check(self.root), [])
+
+    def test_manifest_version_mismatch_names_the_file(self):
+        self.edit("plugins/ase-moodle/.codex-plugin/plugin.json", f'"version": "{self.version}"', '"version": "9.9.9"')
+        self.assertReported("plugins/ase-moodle/.codex-plugin/plugin.json")
+
+    def test_release_date_format(self):
+        self.edit("src/ase_moodle/__init__.py", f'RELEASE_DATE = "{self.date}"', 'RELEASE_DATE = "2026-10-30"')
+        self.assertReported("src/ase_moodle/__init__.py")
+
+    def test_skill_copy_must_be_identical(self):
+        self.edit("plugins/ase-moodle/skills/ase-moodle/SKILL.md", "\n", "\r\n")
+        self.assertReported("plugins/ase-moodle/skills/ase-moodle/SKILL.md")
+
+    def test_wrong_pin_in_a_doc(self):
+        (self.root / "docs" / "X.md").write_bytes(
+            f"uvx --from ase-moodle==0.0.1 --exclude-newer {self.date} ase-moodle-mcp\n".encode())
+        problems = self.release.check(self.root)
+        self.assertEqual([p.split(":")[0] for p in problems], ["docs/X.md"])
+        (self.root / "docs" / "X.md").write_bytes(b"uvx --exclude-newer 2020-01-01T00:00:00Z --from ase-moodle==X.Y.Z\n")
+        self.assertReported("docs/X.md")
+
+    def test_placeholders_are_not_pins(self):
+        (self.root / "docs" / "X.md").write_bytes(
+            b"uvx --from ase-moodle==X.Y.Z --exclude-newer <data> --exclude-newer-package ase-moodle=false\n")
+        self.assertEqual(self.release.check(self.root), [])
+
+    def test_expect_must_equal_the_version(self):
+        self.assertEqual(self.release.check(self.root, expect=self.version), [])
+        self.assertTrue(self.release.check(self.root, expect="9.9.9"))
+
+    def test_apply_writes_every_location_and_keeps_lf(self):
+        (self.root / "docs" / "X.md").write_bytes(
+            f"a\nuvx --from ase-moodle=={self.version} --exclude-newer {self.date} ase-moodle-mcp\n".encode())
+        self.edit("plugins/ase-moodle/skills/ase-moodle/SKILL.md", "\n", "\n\n")
+        changed = self.release.apply(self.root, "7.8.9", "2031-02-03T00:00:00Z")
+        self.assertEqual(self.release.check(self.root), [])
+        self.assertEqual(self.release.sources(self.root), ("7.8.9", "2031-02-03T00:00:00Z"))
+        self.assertIn("docs/X.md", changed)
+        self.assertEqual((self.root / "docs" / "X.md").read_bytes(),
+                         b"a\nuvx --from ase-moodle==7.8.9 --exclude-newer 2031-02-03T00:00:00Z ase-moodle-mcp\n")
+        for name in self.FILES:
+            self.assertNotIn(b"\r\n", (self.root / name).read_bytes(), name)
+        marketplace = json.loads((self.root / ".claude-plugin/marketplace.json").read_text(encoding="utf-8"))
+        self.assertEqual(marketplace["metadata"]["version"], "7.8.9")
+
+    def test_cli_check_exit_codes(self):
+        with mock.patch("sys.stdout"):
+            self.assertEqual(self.release.main(["--check", "--root", str(self.root)]), 0)
+        with mock.patch("sys.stderr"):
+            self.assertEqual(self.release.main(["--check", "--expect", "9.9.9", "--root", str(self.root)]), 1)
+
 
 class EntryPointTests(unittest.TestCase):
     """ase-moodle-mcp fara argumente porneste serverul; cu argumente ruleaza CLI-ul."""

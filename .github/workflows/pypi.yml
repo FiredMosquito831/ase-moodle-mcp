@@ -1,0 +1,303 @@
+name: pypi
+
+# Publica pachetul Python ase-moodle pe TestPyPI, apoi pe PyPI, la un tag vX.Y.Z.
+# Trusted publishing (OIDC): fara token stocat in GitHub.
+#
+# Ordinea: build -> smoke (Windows, Ubuntu, macOS) -> TestPyPI -> verificare SHA-256
+# -> PyPI (environment "pypi", cu aprobare manuala) -> verificare SHA-256 + pornirea serverului de pe PyPI.
+# workflow_dispatch = proba: doar build + smoke, nu publica nimic.
+#
+# Setare (o singura data, vezi docs/DEVELOPMENT.md): pending publisher pe test.pypi.org (environment
+# "testpypi") si pe pypi.org (environment "pypi"), pentru FiredMosquito831/ase-moodle-mcp, workflow pypi.yml;
+# in GitHub, environment-urile "testpypi" si "pypi" (pypi: required reviewer + regula de tag v*).
+#
+# Important: tagul si publicarea vin inainte de push pe main. Marketplace-ul citeste main, iar un plugin
+# care cere o versiune inexistenta pe PyPI nu porneste la nimeni.
+
+on:
+  push:
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pypi-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  UV_VERSION: "0.11.21"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: false
+
+      - name: Versiunea (tagul = pyproject = fiecare copie)
+        id: version
+        run: |
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            python3 scripts/release.py --check --expect "${GITHUB_REF_NAME#v}"
+          else
+            python3 scripts/release.py --check
+          fi
+          VERSION=$(sed -n 's/^version = "\(.*\)"$/\1/p' pyproject.toml)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Build (sdist + wheel)
+        run: uv build --out-dir dist
+
+      - name: Continutul pachetelor
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          test "$(ls dist | wc -l)" -eq 2
+          test -f "dist/ase_moodle-${VERSION}-py3-none-any.whl"
+          test -f "dist/ase_moodle-${VERSION}.tar.gz"
+          unzip -l "dist/ase_moodle-${VERSION}-py3-none-any.whl" > wheel.txt
+          grep -q ' ase_moodle/data/SKILL.md$' wheel.txt
+          grep -q ' ase_moodle/mcp_server.py$' wheel.txt
+          grep -q " ase_moodle-${VERSION}.dist-info/entry_points.txt$" wheel.txt
+          tar -tzf "dist/ase_moodle-${VERSION}.tar.gz" > sdist.txt
+          grep -q "^ase_moodle-${VERSION}/src/ase_moodle/data/SKILL.md$" sdist.txt
+
+      - name: SHA-256
+        run: |
+          {
+            echo '### SHA-256 (build)'
+            echo '```'
+            (cd dist && sha256sum *)
+            echo '```'
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+
+  smoke:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: false
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
+
+      # Serverul din wheel si din sdist, prin uvx, fiecare cu un cache uv gol:
+      # initialize + tools/list = 28 unelte, contra http://127.0.0.1:9 (fara apeluri de unelte).
+      - name: Smoke wheel si sdist (uvx)
+        shell: bash
+        env:
+          WORKSPACE: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          for f in dist/*.whl dist/*.tar.gz; do
+            name=$(basename "$f")
+            echo "::group::$name"
+            UV_CACHE_DIR="$RUNNER_TEMP/uv-cache-$name" \
+              python tests/smoke_mcp.py --timeout 300 -- uvx --isolated --from "$WORKSPACE/$f" ase-moodle-mcp
+            echo "::endgroup::"
+          done
+
+  testpypi:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: [build, smoke]
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/project/ase-moodle/${{ needs.build.outputs.version }}/
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
+
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+
+  testpypi-verify:
+    needs: [build, testpypi]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
+
+      # Nu instala nimic de pe TestPyPI (oricine poate urca acolo pachete cu nume asemanatoare):
+      # doar fisierele noastre, comparate octet cu octet prin SHA-256.
+      - name: Fisierele de pe TestPyPI = build-ul
+        env:
+          INDEX: https://test.pypi.org
+          VERSION: ${{ needs.build.outputs.version }}
+        # Acelasi script ca la pypi-verify (tine-le identice).
+        run: |
+          set -euo pipefail
+          url="$INDEX/pypi/ase-moodle/$VERSION/json"
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            if curl -fsS "$url" -o release.json && [ "$(jq '.urls | length' release.json | tr -d '\r')" -ge 2 ]; then
+              break
+            fi
+            if [ "$attempt" -eq 10 ]; then
+              echo "::error::$url nu listeaza ambele fisiere dupa 10 incercari"
+              exit 1
+            fi
+            echo "incercarea $attempt: inca nu e disponibil, astept 30 s"
+            sleep 30
+          done
+          mkdir -p downloaded
+          for f in dist/*; do
+            name=$(basename "$f")
+            local_sha=$(sha256sum "$f" | cut -d' ' -f1)
+            remote_sha=$(jq -r --arg n "$name" '.urls[] | select(.filename == $n) | .digests.sha256' release.json | tr -d '\r')
+            file_url=$(jq -r --arg n "$name" '.urls[] | select(.filename == $n) | .url' release.json | tr -d '\r')
+            if [ -z "$remote_sha" ] || [ -z "$file_url" ]; then
+              echo "::error::$name lipseste din $url"
+              exit 1
+            fi
+            curl -fsSL "$file_url" -o "downloaded/$name"
+            downloaded_sha=$(sha256sum "downloaded/$name" | cut -d' ' -f1)
+            echo "$name build=$local_sha index=$remote_sha descarcat=$downloaded_sha"
+            if [ "$local_sha" != "$remote_sha" ] || [ "$local_sha" != "$downloaded_sha" ]; then
+              echo "::error::SHA-256 diferit pentru $name"
+              exit 1
+            fi
+          done
+          cache_control=$(curl -sSI "$INDEX/simple/ase-moodle/" | tr -d '\r' | grep -i '^cache-control:' || true)
+          echo "$INDEX/simple/ase-moodle/ -> ${cache_control:-fara Cache-Control}" | tee -a "$GITHUB_STEP_SUMMARY"
+
+  pypi:
+    needs: [build, testpypi-verify]
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/ase-moodle/${{ needs.build.outputs.version }}/
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
+
+      - uses: pypa/gh-action-pypi-publish@release/v1
+
+  pypi-verify:
+    needs: [build, pypi]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: false
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
+
+      - name: Fisierele de pe PyPI = build-ul
+        env:
+          INDEX: https://pypi.org
+          VERSION: ${{ needs.build.outputs.version }}
+        # Acelasi script ca la testpypi-verify (tine-le identice).
+        run: |
+          set -euo pipefail
+          url="$INDEX/pypi/ase-moodle/$VERSION/json"
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            if curl -fsS "$url" -o release.json && [ "$(jq '.urls | length' release.json | tr -d '\r')" -ge 2 ]; then
+              break
+            fi
+            if [ "$attempt" -eq 10 ]; then
+              echo "::error::$url nu listeaza ambele fisiere dupa 10 incercari"
+              exit 1
+            fi
+            echo "incercarea $attempt: inca nu e disponibil, astept 30 s"
+            sleep 30
+          done
+          mkdir -p downloaded
+          for f in dist/*; do
+            name=$(basename "$f")
+            local_sha=$(sha256sum "$f" | cut -d' ' -f1)
+            remote_sha=$(jq -r --arg n "$name" '.urls[] | select(.filename == $n) | .digests.sha256' release.json | tr -d '\r')
+            file_url=$(jq -r --arg n "$name" '.urls[] | select(.filename == $n) | .url' release.json | tr -d '\r')
+            if [ -z "$remote_sha" ] || [ -z "$file_url" ]; then
+              echo "::error::$name lipseste din $url"
+              exit 1
+            fi
+            curl -fsSL "$file_url" -o "downloaded/$name"
+            downloaded_sha=$(sha256sum "downloaded/$name" | cut -d' ' -f1)
+            echo "$name build=$local_sha index=$remote_sha descarcat=$downloaded_sha"
+            if [ "$local_sha" != "$remote_sha" ] || [ "$local_sha" != "$downloaded_sha" ]; then
+              echo "::error::SHA-256 diferit pentru $name"
+              exit 1
+            fi
+          done
+          cache_control=$(curl -sSI "$INDEX/simple/ase-moodle/" | tr -d '\r' | grep -i '^cache-control:' || true)
+          echo "$INDEX/simple/ase-moodle/ -> ${cache_control:-fara Cache-Control}" | tee -a "$GITHUB_STEP_SUMMARY"
+
+      # Exact ce face un utilizator: serverul de pe PyPI, cu un cache uv gol (proba de dupa upload).
+      - name: Serverul de pe PyPI porneste (28 unelte)
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5; do
+            if UV_CACHE_DIR="$RUNNER_TEMP/uv-cache-pypi-$attempt" \
+                python tests/smoke_mcp.py --timeout 300 -- uvx --isolated --from "ase-moodle==$VERSION" ase-moodle-mcp; then
+              exit 0
+            fi
+            echo "incercarea $attempt a esuat (indexul poate intarzia), astept 30 s"
+            sleep 30
+          done
+          echo "::error::ase-moodle==$VERSION de pe PyPI nu a pornit dupa 5 incercari"
+          exit 1
