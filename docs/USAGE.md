@@ -197,6 +197,8 @@ Elimină configurarea. `--scope global|project|all` (implicit `all`), `--project
 ### `doctor`
 Verifică starea fără să modifice nimic: fiecare platformă, instalările de proiect, sursa tokenului, `.env`, procesele MCP pornite, versiunea pachetului. Cod `3` dacă e o problemă.
 
+Ultima linie, `functii Moodle`, face un singur apel de citire (`core_webservice_get_site_info`) și arată versiunea Moodle a site-ului și funcțiile folosite de pachet care lipsesc de pe site: `obligatorii lipsa` (status `warning`, o unealtă nu va merge) și `optionale lipsa` (codul merge și fără ele; de exemplu `mod_forum_get_forum_discussions_paginated`, scoasă în Moodle 4.5). Fără token e `skipped`; dacă site-ul nu răspunde sau tokenul nu merge, e `warning`. Nu schimbă codul de ieșire.
+
 ### `sync-plugin`
 Pentru dezvoltare: copiază `src/ase_moodle/data/SKILL.md` în `plugins/ase-moodle/skills/`. Rulează-l după ce modifici skill-ul.
 

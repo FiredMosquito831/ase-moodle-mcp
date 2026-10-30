@@ -182,6 +182,12 @@ sudo apt install wl-clipboard # Wayland
 
 ## Diverse
 
+### `doctor` arată `functii Moodle` cu `warning`
+
+- `obligatorii lipsa: ...`: site-ul (de obicei după o actualizare Moodle) nu mai are funcțiile listate. Uneltele care le folosesc vor da eroare. Actualizează pachetul (`ase-moodle update`); dacă tot lipsesc, deschide un issue cu linia din `doctor`.
+- `optionale lipsa: ...` singur nu e o problemă: pachetul are o rezervă sau sare acel tip de material la descărcare.
+- `nu s-a putut verifica site-ul`: site-ul nu răspunde sau tokenul nu merge. Verifică `ase-moodle auth-status`.
+
 ### `doctor` raportează metadatele pachetului rupte
 
 Rulează `python -m pip install -e .` după ce închizi procesele MCP. Metadatele se repară.

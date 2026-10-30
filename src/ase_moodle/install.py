@@ -151,4 +151,28 @@ def doctor(env: Env | None = None) -> list[Step]:
     except Exception as exc:  # noqa: BLE001
         steps.append(Step("package", "metadate pachet", "warning",
                           f"metadatele sunt rupte ({exc.__class__.__name__}); ruleaza pipx install --force ... dupa inchiderea MCP"))
+    steps.append(_moodle_functions_step())
     return steps
+
+
+def _moodle_functions_step() -> Step:
+    """Un singur apel core_webservice_get_site_info: are site-ul toate functiile Moodle folosite de pachet?"""
+    from .client import MoodleClient
+    from .functions import missing_functions
+
+    action = "functii Moodle"
+    try:
+        settings = load_settings()
+    except Exception:  # noqa: BLE001
+        return Step("package", action, "skipped", "fara token; ruleaza ase-moodle login")
+    try:
+        with MoodleClient(settings.base_url, settings.token, timeout=20.0) as client:
+            info = client.siteinfo
+    except Exception as exc:  # noqa: BLE001  (retea, token invalid: avertisment, nu oprim doctor)
+        reason = str(exc).replace(settings.token, "***")[:200] if settings.token else str(exc)[:200]
+        return Step("package", action, "warning", f"nu s-a putut verifica site-ul: {reason}")
+    required, optional = missing_functions(f.get("name") for f in info.get("functions") or [] if isinstance(f, dict))
+    parts = [f"Moodle {info['release']}"] if info.get("release") else []
+    parts.append("obligatorii lipsa: " + (", ".join(required) or "niciuna"))
+    parts.append("optionale lipsa: " + (", ".join(optional) or "niciuna"))
+    return Step("package", action, "warning" if required else "ok", "; ".join(parts))

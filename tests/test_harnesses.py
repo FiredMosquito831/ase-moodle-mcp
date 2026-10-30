@@ -4,13 +4,48 @@ Totul ruleaza in foldere temporare, cu un runner fals. Nicio comanda reala, nici
 """
 
 import json
+import os
+import socket
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
-from ase_moodle import cli, install
+from ase_moodle import cli, config, install
+from ase_moodle.functions import OPTIONAL_FUNCTIONS, REQUIRED_FUNCTIONS
 from ase_moodle.harnesses import REGISTRY, UnsupportedScope
 from ase_moodle.harnesses.base import Ctx
+from fake_moodle import TOKEN, FakeMoodle
+
+_ISOLATION: list = []
+
+
+def setUpModule():
+    # doctor citeste tokenul si intreaba site-ul Moodle: aici nu se ating config.json, Credential Manager,
+    # .env-ul real sau reteaua. Fara token, verificarea functiilor Moodle e sarita.
+    tmp = tempfile.TemporaryDirectory()
+    _ISOLATION.append(tmp)
+    folder = Path(tmp.name)
+    patches = [
+        mock.patch.object(config, "CONFIG_FILE", folder / "config.json"),
+        mock.patch.object(config, "CONFIG_DIR", folder),
+        mock.patch.object(config, "_keyring", return_value=None),
+        mock.patch.dict(os.environ, {"ASE_MOODLE_ENV_FILE": str(folder / "nu-exista.env")}),
+    ]
+    for p in patches:
+        p.start()
+        _ISOLATION.append(p)
+    for key in ("ASE_MOODLE_TOKEN", "ASE_MOODLE_URL"):
+        os.environ.pop(key, None)
+
+
+def tearDownModule():
+    for item in reversed(_ISOLATION):
+        if isinstance(item, tempfile.TemporaryDirectory):
+            item.cleanup()
+        else:
+            item.stop()
+    _ISOLATION.clear()
 
 
 class Recorder:
@@ -315,6 +350,73 @@ class PlatformLayoutTests(unittest.TestCase):
             self.assertEqual(harness.name, name)
             self.assertTrue(harness.capabilities.scopes, name)
             self.assertIn("global", harness.capabilities.scopes, name)
+
+
+class DoctorMoodleFunctionsTests(IsolatedTest):
+    """doctor: un singur apel core_webservice_get_site_info, o singura intrare noua, la final."""
+
+    ACTION = "functii Moodle"
+
+    def _doctor(self, env: dict) -> list:
+        with mock.patch.dict(os.environ, env), mock.patch.object(install, "_running_mcp_processes", return_value=0):
+            return install.doctor(make_env(self.home, run=Recorder(output="")))
+
+    def _entry(self, steps):
+        found = [s for s in steps if s.action == self.ACTION]
+        self.assertEqual(len(found), 1)
+        self.assertIs(steps[-1], found[0])  # intrarea noua e ultima; celelalte raman in ordinea lor
+        self.assertEqual(found[0].target, "package")
+        return found[0]
+
+    def test_no_token_is_skipped_without_network(self):
+        entry = self._entry(self._doctor({}))
+        self.assertEqual((entry.status, entry.detail), ("skipped", "fara token; ruleaza ase-moodle login"))
+
+    def test_fake_site_lists_missing_required_and_optional_functions(self):
+        with FakeMoodle() as fake:
+            fake.state.missing_functions = {"mod_forum_get_forum_discussions"}
+            entry = self._entry(self._doctor({"ASE_MOODLE_TOKEN": TOKEN, "ASE_MOODLE_URL": fake.url}))
+        self.assertEqual(entry.status, "warning")
+        self.assertTrue(entry.detail.startswith("Moodle 4.1 (fake); obligatorii lipsa: "), entry.detail)
+        self.assertIn("mod_forum_get_forum_discussions,", entry.detail)
+        self.assertIn("mod_forum_add_discussion", entry.detail)  # fake-ul nu are scrierile pe forum
+        self.assertIn("optionale lipsa: mod_page_get_pages_by_courses", entry.detail)
+        self.assertNotIn(TOKEN, entry.detail)
+
+    def test_site_with_every_required_function_is_ok(self):
+        with FakeMoodle() as fake:
+            fake.state.extra_functions = set(REQUIRED_FUNCTIONS) | set(OPTIONAL_FUNCTIONS)
+            fake.state.missing_functions = {"mod_forum_get_forum_discussions_paginated"}  # ca pe Moodle 4.5
+            entry = self._entry(self._doctor({"ASE_MOODLE_TOKEN": TOKEN, "ASE_MOODLE_URL": fake.url}))
+        self.assertEqual(entry.status, "ok")
+        self.assertEqual(entry.detail, "Moodle 4.1 (fake); obligatorii lipsa: niciuna; "
+                                       "optionale lipsa: mod_forum_get_forum_discussions_paginated")
+
+    def test_invalid_token_is_a_warning_and_never_shows_the_token(self):
+        secret = "token-gresit-0123456789abcdef"
+        with FakeMoodle() as fake:
+            entry = self._entry(self._doctor({"ASE_MOODLE_TOKEN": secret, "ASE_MOODLE_URL": fake.url}))
+        self.assertEqual(entry.status, "warning")
+        self.assertIn("Invalid token", entry.detail)
+        self.assertNotIn(secret, entry.detail)
+
+    def test_network_error_is_a_warning_not_a_crash(self):
+        with socket.socket() as sock:  # un port local liber, apoi inchis: conexiunea e refuzata imediat
+            sock.bind(("127.0.0.1", 0))
+            port = sock.getsockname()[1]
+        entry = self._entry(self._doctor({"ASE_MOODLE_TOKEN": TOKEN, "ASE_MOODLE_URL": f"http://127.0.0.1:{port}"}))
+        self.assertEqual(entry.status, "warning")
+        self.assertTrue(entry.detail.startswith("nu s-a putut verifica site-ul: Eroare de retea"), entry.detail)
+        self.assertNotIn(TOKEN, entry.detail)
+
+    def test_other_entries_do_not_depend_on_the_moodle_check(self):
+        with FakeMoodle() as fake:
+            env = {"ASE_MOODLE_TOKEN": TOKEN, "ASE_MOODLE_URL": fake.url}
+            with_check = self._doctor(env)
+            with mock.patch.object(install, "_moodle_functions_step", return_value=None):
+                without_check = self._doctor(env)
+        self.assertEqual(with_check[:-1], without_check[:-1])
+        self.assertIsNone(without_check[-1])
 
 
 if __name__ == "__main__":

@@ -36,6 +36,7 @@ Numărul de teste crește cu versiunile. Rezultatul așteptat: `OK`, fără `FAI
 | `test_install.py` | instalatorii pe toate platformele, ambele scopuri, în foldere temporare |
 | `test_integration.py` | CLI și client contra serverului fals: teme, ciorne, quiz, descărcare, notificări |
 | `test_release.py` | versiuni coerente, serverul MCP real prin stdio, comanda `update` |
+| `test_moodle_functions.py` | lista funcțiilor Moodle din `functions.py` acoperă exact apelurile din cod |
 | `test_platform_docs.py` | permisiuni POSIX, folderul implicit, clipboard Linux, documentația |
 
 ## Serverul fals

@@ -7,6 +7,7 @@ src/ase_moodle/
   config.py      token (Credential Manager / Secret Service), .env, config.json, folderul de descărcare
   auth.py        login prin browser (SSO) și manual; status; logout
   client.py      client REST Moodle: call, upload, download; MoodleError
+  functions.py   lista funcțiilor Moodle folosite (obligatorii / opționale), verificată de `doctor`
   courses.py     cursuri: an de studiu, semestru, tip, an universitar; filtre
   materials.py   descărcarea unui curs (și a mai multor cursuri, în paralel)
   activities.py  citiri: teme, forumuri, note, quizuri, notificări, termene, funcții
@@ -42,7 +43,7 @@ Fluxul unei comenzi:
 5. **Teste**: în `test_integration.py` contra serverului fals. Dacă apelul nu există în server, adaugă funcția în `tests/fake_moodle.py`.
 6. **Politică**: o scriere trebuie să ceară `require_confirm` (sau să treacă prin `call_function`).
 
-Pentru funcții Moodle noi, verifică întâi că există în serviciul mobil: `ase-moodle functions --filter 'nume'`.
+Pentru funcții Moodle noi, verifică întâi că există în serviciul mobil: `ase-moodle functions --filter 'nume'`. Adaugă numele în `src/ase_moodle/functions.py` (obligatorie sau opțională); `test_moodle_functions.py` pică altfel.
 
 ## Adăugarea unui harness
 

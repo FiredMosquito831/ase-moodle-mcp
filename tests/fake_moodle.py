@@ -76,6 +76,8 @@ class _State:
         self.next_attempt = 900
         # Optional, pentru teste: functii care "nu exista" pe site (raspuns ca la o functie necunoscuta).
         self.missing_functions: set[str] = set()
+        # Optional, pentru teste: functii raportate in site_info fara implementare in fake (pentru doctor).
+        self.extra_functions: set[str] = set()
 
     def new_itemid(self) -> int:
         self.next_itemid += 1
@@ -158,8 +160,8 @@ class FakeMoodle:
 
     def _fn_core_webservice_get_site_info(self, p):
         return {**STUDENT, "functions": [{"name": n} for n in sorted(
-            name[4:] for name in dir(self) if name.startswith("_fn_")) if n not in self.state.missing_functions],
-            "lang": "ro"}
+            {name[4:] for name in dir(self) if name.startswith("_fn_")} | self.state.extra_functions)
+            if n not in self.state.missing_functions], "lang": "ro"}
 
     def _fn_core_enrol_get_users_courses(self, p):
         return [{"id": c["id"]} for c in COURSES]
