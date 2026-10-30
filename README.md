@@ -53,7 +53,7 @@ Fără instalare globală, după ce ai npm: `npx ase-moodle-mcp auth-status`.
 | `ase-moodle install` | adaugă pluginul în Claude Code, Codex, opencode și Antigravity |
 | `ase-moodle doctor` | verifică instalarea și arată ce lipsește |
 
-Doar pentru folderul curent: `ase-moodle install --scope project`. Dacă nu ai Edge sau Chrome, login-ul cere Chromium: `python -m playwright install chromium`.
+Doar pentru folderul curent: `ase-moodle install --scope project`. Dacă nu ai Edge sau Chrome, login-ul cere Chromium: rulează comanda pe care o afișează `ase-moodle login` (conține Python-ul în care e instalat pachetul).
 
 Actualizare și dezinstalare, pe fiecare metodă: [actualizare](docs/INSTALL.md#actualizare), [dezinstalare](docs/INSTALL.md#dezinstalare). Dezinstalarea completă are mai mulți pași, pentru că pluginul și pachetul sunt instalate separat.
 

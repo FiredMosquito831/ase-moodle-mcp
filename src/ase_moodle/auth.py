@@ -13,6 +13,7 @@ import base64
 import os
 import re
 import secrets
+import shlex
 import shutil
 import subprocess
 import sys
@@ -101,6 +102,14 @@ def _browser_channel() -> str | None:
     return None
 
 
+def _python_cmd(*args: str) -> str:
+    """Comanda cu interpretorul care ruleaza acum (uvx, pipx, pip sau venv), gata de copiat in terminal."""
+    parts = [sys.executable, *args]
+    if sys.platform == "win32":
+        return subprocess.list2cmdline(parts)
+    return shlex.join(parts)
+
+
 def playwright_available() -> bool:
     import importlib.util
 
@@ -112,7 +121,10 @@ def login_browser(base_url: str, timeout_s: int = 300, headless: bool = False) -
     try:
         from playwright.sync_api import sync_playwright
     except ImportError as exc:
-        raise AuthError("Playwright nu este instalat: python -m pip install playwright") from exc
+        raise AuthError(
+            f"Playwright lipseste din mediul acestui server ({sys.executable}). "
+            "Reinstalarea mediului: inchide clientii, apoi ruleaza ase-moodle doctor"
+        ) from exc
 
     passport = secrets.token_hex(16)
     launch_url = f"{base_url}{LAUNCH_PATH}?service={SERVICE}&passport={passport}"
@@ -132,7 +144,8 @@ def login_browser(base_url: str, timeout_s: int = 300, headless: bool = False) -
         except Exception as exc:  # noqa: BLE001
             if "Executable doesn't exist" in str(exc) or "playwright install" in str(exc):
                 raise AuthError(
-                    "Browserul pentru login nu e instalat. Ruleaza: python -m playwright install chromium "
+                    "Browserul pentru login nu e instalat. Ruleaza: "
+                    f"{_python_cmd('-m', 'playwright', 'install', 'chromium')} "
                     "(sau foloseste: ase-moodle login --method manual)"
                 ) from exc
             raise

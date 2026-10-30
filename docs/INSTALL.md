@@ -8,7 +8,7 @@
 | `git` | da | da | da |
 | `pipx` | `python -m pip install --user pipx` | `python3 -m pip install --user pipx` | la fel |
 | Node.js 18+ și npm | doar pentru varianta npm | doar pentru varianta npm | doar pentru varianta npm |
-| Browser pentru login | Edge sau Chrome instalat (detectat automat) | Chromium (`python -m playwright install chromium`), sau `--method manual` | Chromium (netestat) |
+| Browser pentru login | Edge sau Chrome instalat (detectat automat) | Chromium (comanda afișată de `ase-moodle login`), sau `--method manual` | Chromium (netestat) |
 | Clipboard pentru `--method manual` | PowerShell (inclus) | `xclip`, `xsel` sau `wl-paste` | `pbpaste` (inclus) |
 | Credential Manager | Windows Credential Manager (inclus) | Secret Service (GNOME Keyring, KWallet), altfel fișier `chmod 600` | Keychain (netestat) |
 | CLI-urile pe care vrei să le configurezi | `claude`, `codex`, `opencode`, `agy` | la fel | la fel |
@@ -115,10 +115,10 @@ ase-moodle install                    # toate CLI-urile, global
 ase-moodle doctor                     # verificare
 ```
 
-Pe Linux, înainte de `login` (metoda browser), instalează Chromium:
+Pe Linux, înainte de `login` (metoda browser), instalează Chromium cu același Python cu care ai instalat pachetul (comanda exactă o afișează și `ase-moodle login`, dacă browserul lipsește):
 
 ```bash
-python3 -m playwright install chromium
+python -m playwright install chromium
 ```
 
 Pe Linux, pentru `--method manual`, ai nevoie de un utilitar de clipboard (`xclip`, `xsel` sau `wl-paste`).

@@ -86,5 +86,67 @@ class MethodTests(unittest.TestCase):
         save.assert_called_once_with(SAMPLE_TOKEN, "https://example.invalid")
 
 
+class _NoBrowserChromium:
+    def launch_persistent_context(self, *args, **kwargs):
+        raise RuntimeError("BrowserType.launch: Executable doesn't exist at /fake/chromium")
+
+
+class _NoBrowserPlaywright:
+    chromium = _NoBrowserChromium()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+
+class LoginHintTests(unittest.TestCase):
+    """Indiciul de instalare foloseste interpretorul care ruleaza (uvx, pipx, pip, venv), nu un `python` din PATH."""
+
+    def _login_error(self, sync_api):
+        import sys
+        import tempfile
+        from pathlib import Path
+
+        with tempfile.TemporaryDirectory() as tmp, \
+                mock.patch.dict(sys.modules, {"playwright.sync_api": sync_api}), \
+                mock.patch.object(auth, "PROFILE_DIR", Path(tmp) / "profile"), \
+                mock.patch.object(auth, "_browser_channel", return_value=None), \
+                mock.patch("ase_moodle.config._restrict"):
+            with self.assertRaises(auth.AuthError) as caught:
+                auth.login_browser("https://example.invalid", timeout_s=1)
+        return str(caught.exception)
+
+    def test_missing_browser_hint_uses_the_running_interpreter(self):
+        import sys
+        import types
+
+        sync_api = types.ModuleType("playwright.sync_api")
+        sync_api.sync_playwright = _NoBrowserPlaywright
+        message = self._login_error(sync_api)
+        self.assertIn(sys.executable, message)
+        self.assertIn("-m playwright install chromium", message)
+        command = auth._python_cmd("-m", "playwright", "install", "chromium")
+        self.assertIn(command, message)
+        self.assertNotIn("python -m", message.replace(command, "<comanda>"))
+
+    def test_missing_playwright_names_the_environment_without_pip(self):
+        import sys
+
+        message = self._login_error(None)  # None in sys.modules: importul ridica ImportError
+        self.assertIn(sys.executable, message)
+        self.assertNotIn("python -m", message.replace(sys.executable, "<python>"))
+        self.assertNotIn("pip install", message)
+
+    def test_python_cmd_quotes_paths_with_spaces(self):
+        with mock.patch.object(auth.sys, "executable", r"C:\Program Files\Py\python.exe"), \
+                mock.patch.object(auth.sys, "platform", "win32"):
+            self.assertEqual(auth._python_cmd("-m", "x"), '"C:\\Program Files\\Py\\python.exe" -m x')
+        with mock.patch.object(auth.sys, "executable", "/opt/my env/bin/python"), \
+                mock.patch.object(auth.sys, "platform", "linux"):
+            self.assertEqual(auth._python_cmd("-m", "x"), "'/opt/my env/bin/python' -m x")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -20,11 +20,13 @@ ase-moodle login
 
 ### „Browserul pentru login nu e instalat”
 
-Pe Linux (și pe macOS) Playwright are nevoie de Chromium:
+Pe Linux (și pe macOS) Playwright are nevoie de Chromium. Mesajul de eroare conține comanda exactă, cu Python-ul mediului în care rulează `ase-moodle` (pipx, uv, venv sau Python-ul global), de forma:
 
 ```bash
-python3 -m playwright install chromium
+/cale/catre/mediu/bin/python -m playwright install chromium
 ```
+
+Rulează comanda din mesaj, nu un `python` oarecare din PATH: alt Python poate avea altă versiune de Playwright și instalează altă revizie de Chromium.
 
 Sau folosește `--method manual`.
 

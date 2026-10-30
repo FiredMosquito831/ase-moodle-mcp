@@ -23,6 +23,8 @@ Rulările următoare sunt automate, cât timp sesiunea Google e valabilă. Nu ma
 
 Dacă Playwright nu e instalat, `auto` trece pe metoda `manual`.
 
+Dacă nu ai Edge sau Chrome (și mereu pe Linux și macOS), login-ul cere Chromium. Când lipsește, `ase-moodle login` afișează comanda de instalare cu Python-ul mediului în care rulează pachetul (de exemplu `"C:\...\python.exe" -m playwright install chromium`). Rulează exact acea comandă.
+
 ### Metoda manual
 
 ```powershell
