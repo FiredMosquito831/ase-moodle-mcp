@@ -902,6 +902,10 @@ def build(site: dict, pages: list[dict], ctx: dict) -> dict[str, bytes]:
     og = (STATIC / "og.png").read_bytes()
     put("og.png", og)
     put("CNAME", site["url"].split("//", 1)[1].rstrip("/") + "\n")
+    # GitHub Pages runs Jekyll on a branch deploy, and Jekyll drops
+    # dot-directories, so /.well-known/security.txt would 404. An empty
+    # .nojekyll makes Pages serve docs/ as-is.
+    put(".nojekyll", "")
     put("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {site['url'].rstrip('/')}/sitemap.xml\n")
 
     page_by_id = {page["id"]: page for page in pages}
