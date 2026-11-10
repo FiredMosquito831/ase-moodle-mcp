@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="dl-title dl-desc">
+  <title id="dl-title">{{ labels.title }}</title>
+  <desc id="dl-desc">{{ labels.desc }}</desc>
+  <style>
+    .bg { fill: #0A0E14; }
+    .panel { fill: #111722; stroke: #5A6B82; stroke-width: 1; }
+    .title { fill: #E8EEF6; font: 700 24px system-ui, sans-serif; }
+    .tree { fill: #A7B6C9; font: 400 15px ui-monospace, Consolas, monospace; }
+    .folder { fill: #5B9DFF; font: 500 15px ui-monospace, Consolas, monospace; }
+    .file { fill: #E8EEF6; font: 400 15px ui-monospace, Consolas, monospace; }
+    .raw { fill: #A7B6C9; font: 400 15px ui-monospace, Consolas, monospace; }
+    .h { fill: #A7B6C9; font: 600 13px system-ui, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+    .note { fill: #E8EEF6; font: 600 17px system-ui, sans-serif; }
+    .sub { fill: #A7B6C9; font: 400 14px system-ui, sans-serif; }
+    .legend { fill: #A7B6C9; font: 400 13px system-ui, sans-serif; }
+    .swatch-folder { fill: #5B9DFF; }
+    .swatch-md { fill: #E8EEF6; }
+    .swatch-raw { fill: #A7B6C9; }
+  </style>
+  <rect class="bg" width="960" height="540" rx="16"/>
+  <text x="40" y="46" class="title">{{ labels.title }}</text>
+
+  <text x="40" y="104" class="folder">{{ labels.root }}</text>
+  <text x="40" y="132"><tspan class="tree">└── </tspan><tspan class="folder">{{ labels.course }}</tspan></text>
+  <text x="40" y="160"><tspan class="tree">    ├── </tspan><tspan class="folder">{{ labels.section }}</tspan></text>
+  <text x="40" y="188"><tspan class="tree">    │   └── </tspan><tspan class="file">{{ labels.file }}</tspan></text>
+  {% for item in labels["items"] %}
+  <text x="40" y="{{ 216 + loop.index0 * 28 }}"><tspan class="tree">    {% if loop.last %}└{% else %}├{% endif %}── </tspan><tspan class="{% if item.endswith('/') %}folder{% else %}file{% endif %}">{{ item }}</tspan></text>
+  {% endfor %}
+  <text x="40" y="{{ 216 + labels["items"]|length * 28 }}"><tspan class="tree">        └── </tspan><tspan class="raw">{{ labels.raw }}</tspan></text>
+
+  <rect class="panel" x="560" y="104" width="360" height="200" rx="12"/>
+  <text x="584" y="144" class="note">{{ labels.note_title }}</text>
+  {% for line in labels.note_lines %}
+  <text x="584" y="{{ 176 + loop.index0 * 24 }}" class="sub">{{ line }}</text>
+  {% endfor %}
+
+  <text x="40" y="500" class="h">{{ labels.legend }}</text>
+  <rect class="swatch-folder" x="40" y="512" width="14" height="14" rx="3"/>
+  <text x="62" y="524" class="legend">{{ labels.legend_folder }}</text>
+  <rect class="swatch-md" x="180" y="512" width="14" height="14" rx="3"/>
+  <text x="202" y="524" class="legend">{{ labels.legend_md }}</text>
+  <rect class="swatch-raw" x="360" y="512" width="14" height="14" rx="3"/>
+  <text x="382" y="524" class="legend">{{ labels.legend_raw }}</text>
+</svg>

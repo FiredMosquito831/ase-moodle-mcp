@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="error-page">
+  <p class="error-code">404</p>
+  <h1>{{ page.h1.ro }}</h1>
+  <p class="lead">{{ page.lead.ro }}</p>
+  <p class="lead" lang="en">{{ page.lead.en }}</p>
+  <p class="actions">
+    <a class="btn btn-primary" href="/">{{ "Înapoi la pagina principală" if lang == "ro" else "Back to the home page" }}</a>
+    <a class="btn" href="/comenzi/">Comenzi / Commands</a>
+    <a class="btn" href="/unelte/">Unelte / Tools</a>
+  </p>
+</div>
+{% endblock %}
