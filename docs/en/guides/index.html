@@ -3,33 +3,34 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Guides | ase-moodle</title>
-  <meta name="description" content="Six common tasks, step by step: download a semester, see the deadlines, prepare an assignment, reply on a forum, answer a quiz, find a course.">
+  <title>ase-moodle guides</title>
+  <meta name="description" content="Practical guides for ase-moodle: assignments and submissions, quizzes, forums, downloading materials and planning deadlines, each verified against the code.">
+  <meta name="keywords" content="moodle mcp guides, moodle assignments guide, moodle quiz guide, moodle materials download, download moodle semester guide, moodle forum guide, moodle deadlines guide, moodle assignment submission guide">
 <link rel="canonical" href="https://ase-moodle-mcp.danubelabs.net/en/guides/"><link rel="alternate" hreflang="ro" href="https://ase-moodle-mcp.danubelabs.net/ghiduri/"><link rel="alternate" hreflang="en" href="https://ase-moodle-mcp.danubelabs.net/en/guides/"><link rel="alternate" hreflang="x-default" href="https://ase-moodle-mcp.danubelabs.net/ghiduri/">  <meta name="theme-color" content="#0A0E14">
   <meta name="color-scheme" content="dark">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ase-moodle">
-  <meta property="og:title" content="Guides | ase-moodle">
-  <meta property="og:description" content="Six common tasks, step by step: download a semester, see the deadlines, prepare an assignment, reply on a forum, answer a quiz, find a course.">
+  <meta property="og:title" content="ase-moodle guides">
+  <meta property="og:description" content="Practical guides for ase-moodle: assignments and submissions, quizzes, forums, downloading materials and planning deadlines, each verified against the code.">
   <meta property="og:url" content="https://ase-moodle-mcp.danubelabs.net/en/guides/">
   <meta property="og:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Guides | ase-moodle">
+  <meta property="og:image:alt" content="ase-moodle guides">
   <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ro_RO">  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Guides | ase-moodle">
-  <meta name="twitter:description" content="Six common tasks, step by step: download a semester, see the deadlines, prepare an assignment, reply on a forum, answer a quiz, find a course.">
+  <meta name="twitter:title" content="ase-moodle guides">
+  <meta name="twitter:description" content="Practical guides for ase-moodle: assignments and submissions, quizzes, forums, downloading materials and planning deadlines, each verified against the code.">
   <meta name="twitter:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
 <script type="application/ld+json">[
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Guides | ase-moodle",
+    "name": "ase-moodle guides",
     "url": "https://ase-moodle-mcp.danubelabs.net/en/guides/",
-    "description": "Six common tasks, step by step: download a semester, see the deadlines, prepare an assignment, reply on a forum, answer a quiz, find a course.",
+    "description": "Practical guides for ase-moodle: assignments and submissions, quizzes, forums, downloading materials and planning deadlines, each verified against the code.",
     "inLanguage": "en",
     "isPartOf": {
       "@type": "WebSite",
@@ -54,6 +55,31 @@
         "item": "https://ase-moodle-mcp.danubelabs.net/en/guides/"
       }
     ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "ase-moodle guides",
+    "name": "ase-moodle guides",
+    "url": "https://ase-moodle-mcp.danubelabs.net/en/guides/",
+    "inLanguage": "en",
+    "description": "Practical guides for ase-moodle: assignments and submissions, quizzes, forums, downloading materials and planning deadlines, each verified against the code.",
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "ase-moodle",
+      "url": "https://ase-moodle-mcp.danubelabs.net"
+    },
+    "proficiencyLevel": "Expert",
+    "author": {
+      "@type": "Person",
+      "name": "FiredMosquito831",
+      "url": "https://github.com/FiredMosquito831"
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "ase-moodle",
+      "url": "https://ase-moodle-mcp.danubelabs.net"
+    }
   }
 ]</script></head>
 <body>
@@ -95,7 +121,7 @@
 </div>
 <div class="layout with-toc">
   <div class="prose">
-    <p class="lead">Every guide starts from a real task and uses the commands or tools that exist. The write steps need your approval.</p>
+    <p class="lead">Every guide starts from a real task and uses the commands or tools that exist. The write steps need your approval. The page collects ase-moodle guides for downloading materials, deadlines, assignments, forums and quizzes.</p>
 <section id="download-a-semester"><h2><span class="prompt" aria-hidden="true">&gt;</span> Download a semester</h2><ol class="steps"><li><h3>See your courses</h3><p>Filter by year and semester. <code>study_year_source</code> says where the year comes from: the description or another course with the same subject.</p><pre><code>ase-moodle courses --year 3 --sem 1</code></pre></li><li><h3>Download</h3><p>Files, pages, links, assignments, forums, quizzes and grades land in the given folder. <code>--shallow</code> takes only the structure and the files.</p><pre><code>ase-moodle download --year 3 --sem 1 --out D:\Materiale</code></pre></li><li><h3>Read the summary</h3><p><code>_rezumat.json</code> holds the errors and warnings. A course without files is normal: many have only forums or links.</p></li><li><h3>Run again if something is missing</h3><p>Files of the same size are skipped, so a second run downloads only what is missing. For a single course, pass <code>--course ID</code> instead of the year and semester filters.</p></li></ol></section>
 <section id="what-is-in-the-folder"><h2><span class="prompt" aria-hidden="true">&gt;</span> What is in the folder</h2><figure class="diagram"><img src="/assets/diagrams/download-layout-en.svg" alt="Diagram: the ~/ASE-Moodle folder holds one folder per course, with index.md, teme.md, forumuri/, quizuri.md, note.md, linkuri.txt and _raw/*.json." width="960" height="540" loading="lazy"><figcaption>The layout of a downloaded course: readable summaries and the raw data in <code>_raw</code>.</figcaption></figure><p class="figure-alt">Diagram: the ~/ASE-Moodle folder holds one folder per course, with index.md, teme.md, forumuri/, quizuri.md, note.md, linkuri.txt and _raw/*.json.</p></section>
 <section id="see-what-is-due"><h2><span class="prompt" aria-hidden="true">&gt;</span> See what is due</h2><ol class="steps"><li><h3>Deadlines</h3><p>The next days' deadlines, in order, with the course, the type and the date.</p><pre><code>ase-moodle deadlines --days 14</code></pre></li><li><h3>New notifications</h3><p>Unread only, with the total unread count in the answer.</p><pre><code>ase-moodle notifications --unread</code></pre></li><li><h3>Open assignments</h3><p>The assignment list, with deadlines and submission type.</p><pre><code>ase-moodle assignments</code></pre></li></ol></section>

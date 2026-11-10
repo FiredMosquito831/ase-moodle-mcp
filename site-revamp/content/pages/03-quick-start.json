@@ -1,96 +1,207 @@
 {
   "id": "quick-start",
   "order": 30,
-  "nav": { "ro": "Primii pași", "en": "Quick start" },
+  "nav": {
+    "ro": "Primii pași",
+    "en": "Quick start"
+  },
   "priority": "0.9",
-  "words": [500, 800],
-  "path": { "ro": "/start/", "en": "/en/quick-start/" },
-  "title": { "ro": "Primii pași | ase-moodle", "en": "Quick start | ase-moodle" },
+  "words": [
+    500,
+    800
+  ],
+  "path": {
+    "ro": "/start/",
+    "en": "/en/quick-start/"
+  },
+  "title": {
+    "ro": "Primii pași | ase-moodle",
+    "en": "Quick start | ase-moodle"
+  },
   "description": {
     "ro": "De la zero la prima întrebare: instalează ase-moodle, loghează-te cu Google, configurează clientul și cere termenele următoare în Claude Code sau opencode.",
     "en": "From zero to the first question: install ase-moodle, sign in with Google, configure your client and ask for upcoming deadlines in Claude Code or opencode."
   },
-  "h1": { "ro": "Primii pași", "en": "Quick start" },
-  "eyebrow": { "ro": "Șase pași, aproximativ cinci minute", "en": "Six steps, about five minutes" },
+  "h1": {
+    "ro": "Primii pași",
+    "en": "Quick start"
+  },
+  "eyebrow": {
+    "ro": "Șase pași, aproximativ cinci minute",
+    "en": "Six steps, about five minutes"
+  },
   "blocks": [
     {
       "type": "lead",
       "text": {
-        "ro": "De la zero la prima întrebare. Pașii de mai jos presupun Python 3.10+ și un cont BL@ASE pe online.ase.ro.",
-        "en": "From zero to the first question. The steps below assume Python 3.10+ and a BL@ASE account on online.ase.ro."
+        "ro": "De la zero la prima întrebare. Pașii de mai jos presupun Python 3.10+ și un cont BL@ASE pe online.ase.ro. Primii pași cu ase-moodle durează aproximativ cinci minute, de la instalare până la primul răspuns.",
+        "en": "From zero to the first question. The steps below assume Python 3.10+ and a BL@ASE account on online.ase.ro. The quick start with ase-moodle takes about five minutes, from the install to the first answer."
       }
     },
     {
       "type": "steps",
-      "heading": { "ro": "Pașii", "en": "The steps" },
+      "heading": {
+        "ro": "Pașii",
+        "en": "The steps"
+      },
       "items": [
         {
-          "title": { "ro": "Instalează pachetul", "en": "Install the package" },
-          "text": { "ro": "Cu pipx, fără Node.js. Variantele npm și pip sunt în pagina de instalare.", "en": "With pipx, no Node.js needed. The npm and pip paths are on the install page." },
+          "title": {
+            "ro": "Instalează pachetul",
+            "en": "Install the package"
+          },
+          "text": {
+            "ro": "Cu pipx, fără Node.js. Variantele npm și pip sunt în pagina de instalare.",
+            "en": "With pipx, no Node.js needed. The npm and pip paths are on the install page."
+          },
           "code": "python -m pip install --user pipx\npipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git"
         },
         {
-          "title": { "ro": "Loghează-te o singură dată", "en": "Sign in once" },
-          "text": { "ro": "Se deschide o fereastră cu un profil dedicat. Te loghezi cu Google; tokenul se salvează în seiful sistemului.", "en": "A window opens with a dedicated profile. You sign in with Google; the token is saved in the system keychain." },
+          "title": {
+            "ro": "Loghează-te o singură dată",
+            "en": "Sign in once"
+          },
+          "text": {
+            "ro": "Se deschide o fereastră cu un profil dedicat. Te loghezi cu Google; tokenul se salvează în seiful sistemului.",
+            "en": "A window opens with a dedicated profile. You sign in with Google; the token is saved in the system keychain."
+          },
           "code": "ase-moodle login"
         },
         {
-          "title": { "ro": "Configurează clienții", "en": "Configure the clients" },
-          "text": { "ro": "`install` scrie configurația în Claude Code, Codex, opencode și Antigravity. Pentru un singur folder, adaugă `--scope project`.", "en": "`install` writes the configuration into Claude Code, Codex, opencode and Antigravity. For one folder only, add `--scope project`." },
+          "title": {
+            "ro": "Configurează clienții",
+            "en": "Configure the clients"
+          },
+          "text": {
+            "ro": "`install` scrie configurația în Claude Code, Codex, opencode și Antigravity. Pentru un singur folder, adaugă `--scope project`.",
+            "en": "`install` writes the configuration into Claude Code, Codex, opencode and Antigravity. For one folder only, add `--scope project`."
+          },
           "code": "ase-moodle install"
         },
         {
-          "title": { "ro": "Verifică", "en": "Verify" },
-          "text": { "ro": "`doctor` verifică fiecare platformă, tokenul, procesele MCP și funcțiile Moodle. Fără token, pasul e `skipped`, nu eroare.", "en": "`doctor` checks each platform, the token, the MCP processes and the Moodle functions. Without a token the step is `skipped`, not an error." },
+          "title": {
+            "ro": "Verifică",
+            "en": "Verify"
+          },
+          "text": {
+            "ro": "`doctor` verifică fiecare platformă, tokenul, procesele MCP și funcțiile Moodle. Fără token, pasul e `skipped`, nu eroare.",
+            "en": "`doctor` checks each platform, the token, the MCP processes and the Moodle functions. Without a token the step is `skipped`, not an error."
+          },
           "code": "ase-moodle doctor"
         },
         {
-          "title": { "ro": "Întreabă în client", "en": "Ask in your client" },
-          "text": { "ro": "Deschide Claude Code, Codex, opencode sau Antigravity și întreabă: „Ce termene am în următoarele 7 zile?”. Serverul ar trebui să apeleze `deadlines`.", "en": "Open Claude Code, Codex, opencode or Antigravity and ask: “What deadlines do I have in the next 7 days?”. The server should call `deadlines`." }
+          "title": {
+            "ro": "Întreabă în client",
+            "en": "Ask in your client"
+          },
+          "text": {
+            "ro": "Deschide Claude Code, Codex, opencode sau Antigravity și întreabă: „Ce termene am în următoarele 7 zile?”. Serverul ar trebui să apeleze `deadlines`.",
+            "en": "Open Claude Code, Codex, opencode or Antigravity and ask: “What deadlines do I have in the next 7 days?”. The server should call `deadlines`."
+          }
         },
         {
-          "title": { "ro": "Descarcă un semestru", "en": "Download a semester" },
-          "text": { "ro": "Materialele ajung în folderul dat, cu `index.md`, `teme.md`, `forumuri/`, `quizuri.md`, `note.md` și datele brute. A doua rulare sare fișierele existente.", "en": "Materials land in the given folder, with `index.md`, `teme.md`, `forumuri/`, `quizuri.md`, `note.md` and the raw data. A second run skips existing files." },
+          "title": {
+            "ro": "Descarcă un semestru",
+            "en": "Download a semester"
+          },
+          "text": {
+            "ro": "Materialele ajung în folderul dat, cu `index.md`, `teme.md`, `forumuri/`, `quizuri.md`, `note.md` și datele brute. A doua rulare sare fișierele existente.",
+            "en": "Materials land in the given folder, with `index.md`, `teme.md`, `forumuri/`, `quizuri.md`, `note.md` and the raw data. A second run skips existing files."
+          },
           "code": "ase-moodle download --year 3 --sem 1 --out D:\\Materiale"
         }
       ]
     },
     {
       "type": "table",
-      "heading": { "ro": "Ce instalează fiecare client", "en": "What each client gets" },
+      "heading": {
+        "ro": "Ce instalează fiecare client",
+        "en": "What each client gets"
+      },
       "headers": [
-        { "ro": "Client", "en": "Client" },
-        { "ro": "Global", "en": "Global" },
-        { "ro": "Doar un folder", "en": "One folder" }
+        {
+          "ro": "Client",
+          "en": "Client"
+        },
+        {
+          "ro": "Global",
+          "en": "Global"
+        },
+        {
+          "ro": "Doar un folder",
+          "en": "One folder"
+        }
       ],
       "rows": [
         [
-          { "ro": "Claude Code", "en": "Claude Code" },
-          { "ro": "plugin + marketplace, scope user", "en": "plugin + marketplace, user scope" },
-          { "ro": "plugin + marketplace, în `.claude/settings.json`", "en": "plugin + marketplace, in `.claude/settings.json`" }
+          {
+            "ro": "Claude Code",
+            "en": "Claude Code"
+          },
+          {
+            "ro": "plugin + marketplace, scope user",
+            "en": "plugin + marketplace, user scope"
+          },
+          {
+            "ro": "plugin + marketplace, în `.claude/settings.json`",
+            "en": "plugin + marketplace, in `.claude/settings.json`"
+          }
         ],
         [
-          { "ro": "Codex", "en": "Codex" },
-          { "ro": "plugin + marketplace, în `~/.codex`", "en": "plugin + marketplace, in `~/.codex`" },
-          { "ro": "doar serverul MCP, în `.codex/config.toml`", "en": "only the MCP server, in `.codex/config.toml`" }
+          {
+            "ro": "Codex",
+            "en": "Codex"
+          },
+          {
+            "ro": "plugin + marketplace, în `~/.codex`",
+            "en": "plugin + marketplace, in `~/.codex`"
+          },
+          {
+            "ro": "doar serverul MCP, în `.codex/config.toml`",
+            "en": "only the MCP server, in `.codex/config.toml`"
+          }
         ],
         [
-          { "ro": "opencode", "en": "opencode" },
-          { "ro": "MCP + `SKILL.md` în `~/.config/opencode`", "en": "MCP + `SKILL.md` in `~/.config/opencode`" },
-          { "ro": "MCP în `opencode.json` din folder", "en": "MCP in the folder's `opencode.json`" }
+          {
+            "ro": "opencode",
+            "en": "opencode"
+          },
+          {
+            "ro": "MCP + `SKILL.md` în `~/.config/opencode`",
+            "en": "MCP + `SKILL.md` in `~/.config/opencode`"
+          },
+          {
+            "ro": "MCP în `opencode.json` din folder",
+            "en": "MCP in the folder's `opencode.json`"
+          }
         ],
         [
-          { "ro": "Antigravity", "en": "Antigravity" },
-          { "ro": "MCP + plugin, prin `agy`", "en": "MCP + plugin, through `agy`" },
-          { "ro": "nu are: rămâne global", "en": "none: it stays global" }
+          {
+            "ro": "Antigravity",
+            "en": "Antigravity"
+          },
+          {
+            "ro": "MCP + plugin, prin `agy`",
+            "en": "MCP + plugin, through `agy`"
+          },
+          {
+            "ro": "nu are: rămâne global",
+            "en": "none: it stays global"
+          }
         ]
       ]
     },
     {
       "type": "figure",
       "diagram": "auth-flow",
-      "heading": { "ro": "Ce se întâmplă la login", "en": "What happens at login" },
-      "caption": { "ro": "O singură autentificare, apoi tokenul e citit local la fiecare apel.", "en": "One sign-in, then the token is read locally on every call." },
+      "heading": {
+        "ro": "Ce se întâmplă la login",
+        "en": "What happens at login"
+      },
+      "caption": {
+        "ro": "O singură autentificare, apoi tokenul e citit local la fiecare apel.",
+        "en": "One sign-in, then the token is read locally on every call."
+      },
       "alt": {
         "ro": "Diagramă: login-ul deschide un profil de browser dedicat; te loghezi cu Google; Moodle redirecționează către moodlemobile://token=…; tokenul e verificat și salvat în Credential Manager sau Secret Service.",
         "en": "Diagram: login opens a dedicated browser profile; you sign in with Google; Moodle redirects to moodlemobile://token=…; the token is verified and saved in Credential Manager or Secret Service."
@@ -98,7 +209,10 @@
     },
     {
       "type": "prose",
-      "heading": { "ro": "Ce vezi dacă merge", "en": "What you see when it works" },
+      "heading": {
+        "ro": "Ce vezi dacă merge",
+        "en": "What you see when it works"
+      },
       "paragraphs": [
         {
           "ro": "`ase-moodle auth-status` întoarce `logged_in` și numele tău. `ase-moodle doctor` arată `ok` pentru pachet și pentru fiecare platformă instalată. În client, serverul apare ca `ase-moodle` și răspunde cu date reale.",
@@ -116,7 +230,10 @@
     },
     {
       "type": "code",
-      "label": { "ro": "terminal · JSON", "en": "terminal · JSON" },
+      "label": {
+        "ro": "terminal · JSON",
+        "en": "terminal · JSON"
+      },
       "text": "{\n  \"logged_in\": true,\n  \"user\": \"Student Test\",\n  \"base_url\": \"https://online.ase.ro\"\n}",
       "caption": {
         "ro": "Forma răspunsului `ase-moodle auth-status`, cu datele serverului fals din teste.",
@@ -126,7 +243,10 @@
     {
       "type": "callout",
       "kind": "note",
-      "title": { "ro": "Prima fereastră de login", "en": "The first login window" },
+      "title": {
+        "ro": "Prima fereastră de login",
+        "en": "The first login window"
+      },
       "text": {
         "ro": "Fereastra se deschide cu un profil de browser separat, nu cu profilul tău obișnuit. Loghează-te cu Google în ea. Dacă o închizi din greșeală, rulează din nou `ase-moodle login`; comanda așteaptă până la 300 de secunde.",
         "en": "The window opens with a separate browser profile, not your usual one. Sign in with Google inside it. If you close it by mistake, run `ase-moodle login` again; the command waits up to 300 seconds."
@@ -135,7 +255,10 @@
     {
       "type": "callout",
       "kind": "note",
-      "title": { "ro": "Scope-ul de proiect", "en": "The project scope" },
+      "title": {
+        "ro": "Scope-ul de proiect",
+        "en": "The project scope"
+      },
       "text": {
         "ro": "Dacă instalezi cu `--scope project`, pornește clientul din folderul exact unde ai instalat. Scope-ul de proiect nu se aplică în subfoldere; pentru asta folosește scope-ul global.",
         "en": "If you install with `--scope project`, start the client from the exact folder where you installed. The project scope does not apply in subfolders; use the global scope for that."
@@ -143,7 +266,10 @@
     },
     {
       "type": "prose",
-      "heading": { "ro": "Dacă ceva nu merge", "en": "If something goes wrong" },
+      "heading": {
+        "ro": "Dacă ceva nu merge",
+        "en": "If something goes wrong"
+      },
       "paragraphs": [
         {
           "ro": "Începe cu `ase-moodle doctor` și `ase-moodle auth-status`: ele spun ce e instalat, ce token există și de unde e citit. Lista completă de erori și rezolvări este în [probleme frecvente](/probleme/).",
@@ -153,15 +279,55 @@
     }
   ],
   "claims": [
-    { "text": "Pașii presupun Python 3.10+ și un cont BL@ASE pe online.ase.ro.", "evidence": "docs/INSTALL.md:7", "status": "verified" },
-    { "text": "Login-ul deschide o fereastră cu un profil dedicat și salvează tokenul în seiful sistemului.", "evidence": "docs/AUTH.md:17", "status": "verified" },
-    { "text": "install scrie configurația în Claude Code, Codex, opencode și Antigravity.", "evidence": "docs/INSTALL.md:35", "status": "verified" },
-    { "text": "doctor verifică fiecare platformă, tokenul, procesele MCP și funcțiile Moodle.", "evidence": "docs/USAGE.md:198", "status": "verified" },
-    { "text": "Fără token, pasul functii Moodle e skipped, nu eroare.", "evidence": "docs/USAGE.md:200", "status": "verified" },
-    { "text": "Serverul ar trebui să apeleze deadlines la întrebarea despre termene.", "evidence": "docs/MCP.md:184", "status": "verified" },
-    { "text": "Descărcarea pune index.md, teme.md, forumuri/, quizuri.md, note.md și datele brute în folderul cursului.", "evidence": "docs/CONFIGURATION.md:62", "status": "verified" },
-    { "text": "A doua rulare sare fișierele existente cu aceeași dimensiune.", "evidence": "docs/USAGE.md:57; src/ase_moodle/materials.py", "status": "verified" },
-    { "text": "auth-status întoarce logged_in și numele utilizatorului.", "evidence": "docs/USAGE.md:43", "status": "verified" },
-    { "text": "Scope-ul de proiect nu se aplică în subfoldere.", "evidence": "docs/PLATFORMS.md:16", "status": "verified" }
+    {
+      "text": "Pașii presupun Python 3.10+ și un cont BL@ASE pe online.ase.ro.",
+      "evidence": "docs/INSTALL.md:7",
+      "status": "verified"
+    },
+    {
+      "text": "Login-ul deschide o fereastră cu un profil dedicat și salvează tokenul în seiful sistemului.",
+      "evidence": "docs/AUTH.md:17",
+      "status": "verified"
+    },
+    {
+      "text": "install scrie configurația în Claude Code, Codex, opencode și Antigravity.",
+      "evidence": "docs/INSTALL.md:35",
+      "status": "verified"
+    },
+    {
+      "text": "doctor verifică fiecare platformă, tokenul, procesele MCP și funcțiile Moodle.",
+      "evidence": "docs/USAGE.md:198",
+      "status": "verified"
+    },
+    {
+      "text": "Fără token, pasul functii Moodle e skipped, nu eroare.",
+      "evidence": "docs/USAGE.md:200",
+      "status": "verified"
+    },
+    {
+      "text": "Serverul ar trebui să apeleze deadlines la întrebarea despre termene.",
+      "evidence": "docs/MCP.md:184",
+      "status": "verified"
+    },
+    {
+      "text": "Descărcarea pune index.md, teme.md, forumuri/, quizuri.md, note.md și datele brute în folderul cursului.",
+      "evidence": "docs/CONFIGURATION.md:62",
+      "status": "verified"
+    },
+    {
+      "text": "A doua rulare sare fișierele existente cu aceeași dimensiune.",
+      "evidence": "docs/USAGE.md:57; src/ase_moodle/materials.py",
+      "status": "verified"
+    },
+    {
+      "text": "auth-status întoarce logged_in și numele utilizatorului.",
+      "evidence": "docs/USAGE.md:43",
+      "status": "verified"
+    },
+    {
+      "text": "Scope-ul de proiect nu se aplică în subfoldere.",
+      "evidence": "docs/PLATFORMS.md:16",
+      "status": "verified"
+    }
   ]
 }

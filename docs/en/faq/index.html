@@ -3,33 +3,34 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FAQ | ase-moodle</title>
-  <meta name="description" content="Answers about the account, the token, security, assignments, quizzes, platforms and limits: what ase-moodle does and does not do, checked in the docs.">
+  <title>ase-moodle FAQ</title>
+  <meta name="description" content="Answers to the common questions about ase-moodle: sign-in, the saved token, safety, limits, and what happens to your Moodle data when an agent acts.">
+  <meta name="keywords" content="moodle mcp faq, ase moodle token, moodle mcp safety, ase moodle questions, ase moodle free, ase moodle linux macos, ase moodle nodejs, ase moodle doctor">
 <link rel="canonical" href="https://ase-moodle-mcp.danubelabs.net/en/faq/"><link rel="alternate" hreflang="ro" href="https://ase-moodle-mcp.danubelabs.net/intrebari/"><link rel="alternate" hreflang="en" href="https://ase-moodle-mcp.danubelabs.net/en/faq/"><link rel="alternate" hreflang="x-default" href="https://ase-moodle-mcp.danubelabs.net/intrebari/">  <meta name="theme-color" content="#0A0E14">
   <meta name="color-scheme" content="dark">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ase-moodle">
-  <meta property="og:title" content="FAQ | ase-moodle">
-  <meta property="og:description" content="Answers about the account, the token, security, assignments, quizzes, platforms and limits: what ase-moodle does and does not do, checked in the docs.">
+  <meta property="og:title" content="ase-moodle FAQ">
+  <meta property="og:description" content="Answers to the common questions about ase-moodle: sign-in, the saved token, safety, limits, and what happens to your Moodle data when an agent acts.">
   <meta property="og:url" content="https://ase-moodle-mcp.danubelabs.net/en/faq/">
   <meta property="og:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="FAQ | ase-moodle">
+  <meta property="og:image:alt" content="ase-moodle FAQ">
   <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ro_RO">  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="FAQ | ase-moodle">
-  <meta name="twitter:description" content="Answers about the account, the token, security, assignments, quizzes, platforms and limits: what ase-moodle does and does not do, checked in the docs.">
+  <meta name="twitter:title" content="ase-moodle FAQ">
+  <meta name="twitter:description" content="Answers to the common questions about ase-moodle: sign-in, the saved token, safety, limits, and what happens to your Moodle data when an agent acts.">
   <meta name="twitter:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
 <script type="application/ld+json">[
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "FAQ | ase-moodle",
+    "name": "ase-moodle FAQ",
     "url": "https://ase-moodle-mcp.danubelabs.net/en/faq/",
-    "description": "Answers about the account, the token, security, assignments, quizzes, platforms and limits: what ase-moodle does and does not do, checked in the docs.",
+    "description": "Answers to the common questions about ase-moodle: sign-in, the saved token, safety, limits, and what happens to your Moodle data when an agent acts.",
     "inLanguage": "en",
     "isPartOf": {
       "@type": "WebSite",
@@ -58,6 +59,7 @@
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "inLanguage": "en",
     "mainEntity": [
       {
         "@type": "Question",
@@ -80,7 +82,7 @@
         "name": "Do I give the Google password to the package?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. You sign in yourself, in the window that opens. The package never stores the Google password, not in the keychain, not in `.env`, not in files."
+          "text": "No. You sign in yourself, in the window that opens. The package never stores the Google password, not in the keychain, not in .env, not in files."
         }
       },
       {
@@ -88,7 +90,7 @@
         "name": "Where does the Moodle token go?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Into Windows Credential Manager or Secret Service on Linux. If the keychain is unavailable, it stays in `~/.ase-moodle/config.json`, readable only by you. It never goes into git."
+          "text": "Into Windows Credential Manager or Secret Service on Linux. If the keychain is unavailable, it stays in ~/.ase-moodle/config.json, readable only by you. It never goes into git."
         }
       },
       {
@@ -96,7 +98,7 @@
         "name": "Does the token appear in the output?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. `auth-status` and `doctor` only say where it was read from: `env`, `dotenv`, `keyring` or `file`. Errors do not include the token."
+          "text": "No. auth-status and doctor only say where it was read from: env, dotenv, keyring or file. Errors do not include the token."
         }
       },
       {
@@ -105,6 +107,158 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "No. The only connections are to the configured Moodle and to GitHub, only during installation, for the marketplace. There is no analytics and no telemetry."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can it submit assignments without my approval?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Writes need confirm=true in MCP or --yes in the CLI. Without them, the action stops with needs_confirmation (exit code 2) and sends nothing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens on an assignment without drafts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Saving would send the file at once. The package checks drafts_enabled and refuses with DirectSubmissionBlocked, without writing anything. Only allow_direct=true (or --allow-direct) forces it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can it answer quizzes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, because the student asked for it. The flow saves the answers first, without submitting, and finishes the attempt only after a second approval. Finishing is irreversible."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which integrity rules apply?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The course rules. Many courses forbid automated help or outsourcing answers. The student is responsible for what is submitted."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work on Linux and macOS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Windows is tested on the real account. The installer logic is tested on Linux (WSL Ubuntu 24.04) and in CI. macOS is untested, apart from the server smoke test in the PyPI workflow."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need Node.js?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, if you use pipx. Node.js 18+ is needed only for the npm path. Both paths install the same Python package."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work with another Moodle instance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The package is written for BL@ASE, which runs Moodle 4.5 as of October 2026, and works on 4.5 and 4.1. Other instances might work, but they are untested."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use it without a global install?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, with npx ase-moodle-mcp <command> after npm. For MCP clients you need a fixed ase-moodle-mcp command on PATH, so a global install."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does the package not do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It does not read private messages (messaging is disabled on the site), does not change the password, does not modify account settings and does not run quizzes or assignments automatically. Everything starts from a command or an explicit call."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is not tested?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An open quiz completed end to end on the real account; a real submission with drafts enabled; the real CLI commands on Linux; the npm launcher; macOS."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I download a single course?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. ase-moodle download --course ID selects the course by id, and the option can be repeated for several courses. Without --course, the year, semester and type filters choose the courses."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I update the package?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "With pipx: pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git, then ase-moodle update. With npm, the launcher does not update the Python package if it already exists, so update it separately. Restart Claude Code afterwards."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What exactly does doctor do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It checks without changing anything: each platform, the project installs, the token source, .env, the running MCP processes, the package version and the Moodle functions the package uses. Exit code 3 if it finds a problem."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "The token was exposed. What do I do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Treat it as compromised and reset it in Moodle: Security keys, the “Moodle mobile web service” row, the reset button. The old token stops working, and the package needs ase-moodle login."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens to downloaded materials?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "They stay on disk, in the chosen folder, and are not deleted automatically. The package does not run them: an executable file in the materials stays a file until you open it. Check before you do."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use the package in two clients at once?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Each client starts its own ase-moodle-mcp process, and all of them read the same token. Before reinstalling, close the processes: doctor counts them, and on Windows a running process locks the executable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work without opening a browser?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, with ase-moodle login --method manual: the login page opens, you copy the token from Security keys, and the package reads it from the clipboard. For scripts, --token-stdin reads the token from stdin."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens when Moodle is updated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "doctor compares the Web Service functions the package uses with the ones the site has. obligatorii lipsa means a tool will fail; optionale lipsa alone is not a problem, because the package has a fallback or skips that material type."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where do I report a problem?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "On GitHub Issues, with the output of ase-moodle doctor and the error message. The output does not contain the token. For a new feature, the steps are in docs/DEVELOPMENT.md."
         }
       }
     ]
@@ -149,7 +303,7 @@
 </div>
 <div class="layout with-toc">
   <div class="prose">
-    <p class="lead">The answers below come from the product documentation and the code. The same answers appear in the page's structured data.</p>
+    <p class="lead">The answers below come from the product documentation and the code. The same answers appear in the page's structured data. The ase-moodle FAQ page covers the account, the token, safety, platforms and limits.</p>
 <section id="about-the-product"><h2><span class="prompt" aria-hidden="true">&gt;</span> About the product</h2><div class="faq"><div class="faq-item"><h3>How much does it cost?</h3><p>Nothing. The code is under the Apache License 2.0, and the package installs from GitHub or npm. There is no subscription and no separate account.</p></div><div class="faq-item"><h3>Which account does it work with?</h3><p>With a BL@ASE account on online.ase.ro. Login goes only through Google, as in the browser; there is no username-and-password login for the package.</p></div><div class="faq-item"><h3>Do I give the Google password to the package?</h3><p>No. You sign in yourself, in the window that opens. The package never stores the Google password, not in the keychain, not in <code>.env</code>, not in files.</p></div><div class="faq-item"><h3>Where does the Moodle token go?</h3><p>Into Windows Credential Manager or Secret Service on Linux. If the keychain is unavailable, it stays in <code>~/.ase-moodle/config.json</code>, readable only by you. It never goes into git.</p></div><div class="faq-item"><h3>Does the token appear in the output?</h3><p>No. <code>auth-status</code> and <code>doctor</code> only say where it was read from: <code>env</code>, <code>dotenv</code>, <code>keyring</code> or <code>file</code>. Errors do not include the token.</p></div><div class="faq-item"><h3>Does it send data to other servers?</h3><p>No. The only connections are to the configured Moodle and to GitHub, only during installation, for the marketplace. There is no analytics and no telemetry.</p></div></div></section>
 <section id="about-writes"><h2><span class="prompt" aria-hidden="true">&gt;</span> About writes</h2><div class="faq"><div class="faq-item"><h3>Can it submit assignments without my approval?</h3><p>No. Writes need <code>confirm=true</code> in MCP or <code>--yes</code> in the CLI. Without them, the action stops with <code>needs_confirmation</code> (exit code 2) and sends nothing.</p></div><div class="faq-item"><h3>What happens on an assignment without drafts?</h3><p>Saving would send the file at once. The package checks <code>drafts_enabled</code> and refuses with <code>DirectSubmissionBlocked</code>, without writing anything. Only <code>allow_direct=true</code> (or <code>--allow-direct</code>) forces it.</p></div><div class="faq-item"><h3>Can it answer quizzes?</h3><p>Yes, because the student asked for it. The flow saves the answers first, without submitting, and finishes the attempt only after a second approval. Finishing is irreversible.</p></div><div class="faq-item"><h3>Which integrity rules apply?</h3><p>The course rules. Many courses forbid automated help or outsourcing answers. The student is responsible for what is submitted.</p></div></div></section>
 <section id="about-platforms"><h2><span class="prompt" aria-hidden="true">&gt;</span> About platforms</h2><div class="faq"><div class="faq-item"><h3>Does it work on Linux and macOS?</h3><p>Windows is tested on the real account. The installer logic is tested on Linux (WSL Ubuntu 24.04) and in CI. macOS is untested, apart from the server smoke test in the PyPI workflow.</p></div><div class="faq-item"><h3>Do I need Node.js?</h3><p>No, if you use pipx. Node.js 18+ is needed only for the npm path. Both paths install the same Python package.</p></div><div class="faq-item"><h3>Does it work with another Moodle instance?</h3><p>The package is written for BL@ASE, which runs Moodle 4.5 as of October 2026, and works on 4.5 and 4.1. Other instances might work, but they are untested.</p></div><div class="faq-item"><h3>Can I use it without a global install?</h3><p>Yes, with <code>npx ase-moodle-mcp &lt;command&gt;</code> after npm. For MCP clients you need a fixed <code>ase-moodle-mcp</code> command on PATH, so a global install.</p></div></div></section>

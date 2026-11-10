@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ase-moodle: Moodle BL@ASE pentru agenți AI</title>
   <meta name="description" content="Server MCP, CLI și plugin pentru Moodle BL@ASE: cursuri, materiale, teme, forumuri, note, quizuri și termene în Claude Code, Codex, opencode și Antigravity.">
+  <meta name="keywords" content="ase moodle mcp, moodle ase, blase moodle, online ase ro, server mcp moodle, moodle claude code, moodle codex, moodle opencode, moodle antigravity, automatizare moodle, automatizari ase, ase automatizari, agent ai ase, agent ai moodle, moodle romania, ase bucuresti moodle, descarcare cursuri moodle, teme moodle automat, note moodle, quizuri moodle, termene moodle, mcp server romania">
 <link rel="canonical" href="https://ase-moodle-mcp.danubelabs.net/"><link rel="alternate" hreflang="ro" href="https://ase-moodle-mcp.danubelabs.net/"><link rel="alternate" hreflang="en" href="https://ase-moodle-mcp.danubelabs.net/en/"><link rel="alternate" hreflang="x-default" href="https://ase-moodle-mcp.danubelabs.net/">  <meta name="theme-color" content="#0A0E14">
   <meta name="color-scheme" content="dark">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -39,6 +40,14 @@
   },
   {
     "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "ase-moodle",
+    "url": "https://ase-moodle-mcp.danubelabs.net/",
+    "inLanguage": "ro",
+    "description": "Server MCP, CLI și plugin pentru Moodle BL@ASE: cursuri, materiale, teme, forumuri, note, quizuri și termene în Claude Code, Codex, opencode și Antigravity."
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "ase-moodle",
     "alternateName": "ase-moodle-mcp",
@@ -46,6 +55,7 @@
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Windows, Linux",
     "softwareVersion": "0.2.4",
+    "inLanguage": "ro",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -97,7 +107,7 @@
     <p class="lead">ase-moodle deschide contul tău de Moodle de la online.ase.ro în Claude Code, Codex, opencode și Google Antigravity. Cursuri, materiale, teme, forumuri, note, quizuri, notificări și termene, cu confirmare pentru orice scriere.</p>
 <p class="actions"><a class="btn btn-primary" href="/instalare/">Instalează</a> <a class="btn" href="/start/">Primii pași</a> <a class="btn" href="https://github.com/FiredMosquito831/ase-moodle-mcp">Cod pe GitHub</a></p>
 <section><dl class="facts"><div><dt>Versiune</dt><dd>0.2.4</dd></div><div><dt>Licență</dt><dd>Apache-2.0</dd></div><div><dt>Python</dt><dd>3.10+</dd></div><div><dt>Unelte MCP</dt><dd>28</dd></div><div><dt>Comenzi CLI</dt><dd>37</dd></div><div><dt>Harness-uri</dt><dd>4</dd></div></dl></section>
-<section id="ce-este"><h2><span class="prompt" aria-hidden="true">&gt;</span> Ce este</h2><p>ase-moodle are trei fețe care folosesc același token Moodle. Serverul MCP <code>ase-moodle-mcp</code> vorbește prin stdio cu clientul tău. CLI-ul <code>ase-moodle</code> scrie JSON pe stdout, pentru scripturi. Pluginul adaugă în Claude Code, Codex, opencode și Antigravity uneltele, skill-ul și comenzile.</p><p>Nu ai nevoie de un cont separat și nu se instalează un server undeva. Totul rulează pe calculatorul tău, iar singurele conexiuni sunt către Moodle-ul configurat și, la instalare, către GitHub.</p></section>
+<section id="ce-este"><h2><span class="prompt" aria-hidden="true">&gt;</span> Ce este</h2><p>ase-moodle are trei fețe care folosesc același token Moodle. Serverul MCP <code>ase-moodle-mcp</code> vorbește prin stdio cu clientul tău. CLI-ul <code>ase-moodle</code> scrie JSON pe stdout, pentru scripturi. Pluginul adaugă în Claude Code, Codex, opencode și Antigravity uneltele, skill-ul și comenzile.</p><p>Nu ai nevoie de un cont separat și nu se instalează un server undeva. Totul rulează pe calculatorul tău, iar singurele conexiuni sunt către Moodle-ul configurat și, la instalare, către GitHub. Cu alte cuvinte, ase-moodle este un server MCP pentru Moodle: automatizare Moodle în agentul tău, fără să atingă contul.</p></section>
 <section id="pentru-cine"><h2><span class="prompt" aria-hidden="true">&gt;</span> Pentru cine</h2><p>Pentru studenții BL@ASE care vor să întrebe în limbaj natural: „ce am de făcut săptămâna asta?”, „descarcă materialele de la anul 3, semestrul 1”, „ce notă am la seminar?”. Agentul alege unealta potrivită și îți arată rezultatul.</p><p>Pentru cine lucrează din terminal: CLI-ul întoarce JSON, deci poate fi pus într-un script sau într-un pipeline fără să parseze text.</p></section>
 <section id="ce-poti-face"><h2><span class="prompt" aria-hidden="true">&gt;</span> Ce poți face</h2><ul class="cards"><li class="card"><h3><a href="/ghiduri/">Cursuri și materiale</a></h3><p>Listezi cursurile pe an, semestru și tip. Descarci un curs sau un an întreg, în paralel: fișiere, pagini, linkuri, teme, forumuri, quizuri, note.</p></li><li class="card"><h3><a href="/ghiduri/">Teme și ciorne</a></h3><p>Vezi cerința, termenul, starea trimiterii și feedbackul. Trimiterea cere confirmarea ta, iar temele fără ciorne sunt protejate.</p></li><li class="card"><h3><a href="/ghiduri/">Forumuri</a></h3><p>Citești discuțiile și postările. Răspunsurile și discuțiile noi se trimit doar după ce aprobi textul.</p></li><li class="card"><h3><a href="/unelte/">Note</a></h3><p>Notele tuturor cursurilor, sau elementele de notare ale unui curs, cu feedback.</p></li><li class="card"><h3><a href="/ghiduri/">Quizuri</a></h3><p>Citești întrebările, salvezi răspunsuri fără să trimiți, apoi trimiți încercarea doar după o a doua aprobare.</p></li><li class="card"><h3><a href="/unelte/">Notificări și termene</a></h3><p>Notificările noi și termenele următoare, în ordine. Marcarea ca citită cere confirmare.</p></li></ul></section>
 <section id="cum-se-leaga-piesele"><h2><span class="prompt" aria-hidden="true">&gt;</span> Cum se leagă piesele</h2><figure class="diagram"><img src="/assets/diagrams/harness-map-ro.svg" alt="Diagramă: Claude Code, Codex, opencode și Google Antigravity pornesc serverul ase-moodle-mcp prin stdio; serverul apelează Moodle BL@ASE prin HTTPS; CLI-ul ase-moodle folosește același token." width="960" height="540" loading="lazy"><figcaption>Patru clienți, un server MCP și Moodle. CLI-ul folosește același token.</figcaption></figure><p class="figure-alt">Diagramă: Claude Code, Codex, opencode și Google Antigravity pornesc serverul ase-moodle-mcp prin stdio; serverul apelează Moodle BL@ASE prin HTTPS; CLI-ul ase-moodle folosește același token.</p></section>

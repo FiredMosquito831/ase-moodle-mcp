@@ -32,7 +32,8 @@
         "server MCP pentru Moodle",
         "automatizare Moodle",
         "Moodle BL@ASE"
-      ]
+      ],
+      "llms": "Server MCP, CLI și plugin pentru Moodle BL@ASE, cu {tools} de unelte, {commands} de comenzi și patru harness-uri."
     },
     "en": {
       "title": "ase-moodle: BL@ASE Moodle MCP server for AI agents",
@@ -63,7 +64,8 @@
         "MCP server for Moodle",
         "Moodle automation",
         "BL@ASE Moodle"
-      ]
+      ],
+      "llms": "MCP server, CLI and plugin for BL@ASE Moodle, with {tools} tools, {commands} commands and four harnesses."
     }
   },
   "pages": {
@@ -158,7 +160,7 @@
         "primary": [
           "comenzi CLI ase-moodle"
         ],
-        "llms": "Toate cele {commands} comenzi CLI, generate din parser, cu opțiuni și coduri de ieșire."
+        "llms": "Toate cele {commands} de comenzi CLI, generate din parser, cu opțiuni și coduri de ieșire."
       },
       "en": {
         "title": "ase-moodle CLI commands",
@@ -196,7 +198,7 @@
         "primary": [
           "unelte MCP"
         ],
-        "llms": "Cele {tools} unelte MCP, {prompts} prompturi și {resources} resurse, cu parametri și tip."
+        "llms": "Cele {tools} de unelte MCP, {prompts} prompturi și {resources} resurse, cu parametri și tip."
       },
       "en": {
         "title": "ase-moodle MCP tools",
@@ -402,6 +404,42 @@
         ],
         "llms": "Apache License 2.0, the NOTICE attributions and the non-affiliation with ASE and Moodle."
       }
+    }
+  },
+  "not_found": {
+    "ro": {
+      "title": "Pagina nu există | ase-moodle",
+      "description": "Pagina căutată nu există pe site-ul ase-moodle. Întoarce-te la pagina principală sau la referința de comenzi, unelte și ghiduri.",
+      "keywords": [
+        "ase moodle pagina lipsa",
+        "ase moodle 404",
+        "ase moodle navigare",
+        "ase moodle comenzi",
+        "ase moodle unelte",
+        "ase moodle ghiduri",
+        "ase moodle documentatie",
+        "ase moodle ajutor"
+      ],
+      "primary": [
+        "ase-moodle"
+      ]
+    },
+    "en": {
+      "title": "Page not found | ase-moodle",
+      "description": "The page you are looking for does not exist on the ase-moodle site. Go back to the home page or to the commands, tools and guides reference.",
+      "keywords": [
+        "ase moodle page not found",
+        "ase moodle 404",
+        "ase moodle navigation",
+        "ase moodle commands",
+        "ase moodle tools",
+        "ase moodle guides",
+        "ase moodle documentation",
+        "ase moodle help"
+      ],
+      "primary": [
+        "ase-moodle"
+      ]
     }
   }
 }

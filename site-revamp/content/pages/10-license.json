@@ -3,26 +3,44 @@
   "order": 100,
   "nav": null,
   "priority": "0.4",
-  "words": [300, 500],
-  "path": { "ro": "/licenta/", "en": "/en/license/" },
-  "title": { "ro": "Licență | ase-moodle", "en": "License | ase-moodle" },
+  "words": [
+    300,
+    500
+  ],
+  "path": {
+    "ro": "/licenta/",
+    "en": "/en/license/"
+  },
+  "title": {
+    "ro": "Licență | ase-moodle",
+    "en": "License | ase-moodle"
+  },
   "description": {
     "ro": "ase-moodle e licențiat sub Apache License 2.0. Notele de copyright din NOTICE, textul integral și neafilierea față de ASE București și Moodle.",
     "en": "ase-moodle is licensed under the Apache License 2.0. The copyright notices in NOTICE, the full text and the non-affiliation with ASE Bucharest and Moodle."
   },
-  "h1": { "ro": "Licență", "en": "License" },
-  "eyebrow": { "ro": "Apache License 2.0", "en": "Apache License 2.0" },
+  "h1": {
+    "ro": "Licență",
+    "en": "License"
+  },
+  "eyebrow": {
+    "ro": "Apache License 2.0",
+    "en": "Apache License 2.0"
+  },
   "blocks": [
     {
       "type": "lead",
       "text": {
-        "ro": "Codul este licențiat sub Apache License 2.0 (Apache-2.0). Poți folosi, modifica și distribui codul, cu condiția să păstrezi notele de copyright și să menționezi sursa.",
-        "en": "The code is licensed under the Apache License 2.0 (Apache-2.0). You may use, modify and distribute the code, provided you keep the copyright notices and credit the source."
+        "ro": "Codul este licențiat sub Apache License 2.0 (Apache-2.0). Poți folosi, modifica și distribui codul, cu condiția să păstrezi notele de copyright și să menționezi sursa. Această licență ase-moodle se aplică întregului pachet, inclusiv serverului MCP și CLI-ului.",
+        "en": "The code is licensed under the Apache License 2.0 (Apache-2.0). You may use, modify and distribute the code, provided you keep the copyright notices and credit the source. This ase-moodle license covers the whole package, including the MCP server and the CLI."
       }
     },
     {
       "type": "prose",
-      "heading": { "ro": "Ce înseamnă", "en": "What it means" },
+      "heading": {
+        "ro": "Ce înseamnă",
+        "en": "What it means"
+      },
       "paragraphs": [
         {
           "ro": "Licența acordă drepturi de utilizare, modificare și distribuire, plus o licență de brevete din partea contribuitorilor. Cererile principale: păstrezi nota de copyright, incluzi o copie a licenței și marchezi fișierele modificate.",
@@ -48,12 +66,21 @@
     },
     {
       "type": "notice",
-      "heading": { "ro": "NOTICE", "en": "NOTICE" },
-      "caption": { "ro": "Fișierul NOTICE, verbatim.", "en": "The NOTICE file, verbatim." }
+      "heading": {
+        "ro": "NOTICE",
+        "en": "NOTICE"
+      },
+      "caption": {
+        "ro": "Fișierul NOTICE, verbatim.",
+        "en": "The NOTICE file, verbatim."
+      }
     },
     {
       "type": "prose",
-      "heading": { "ro": "Mărci și neafiliere", "en": "Trademarks and non-affiliation" },
+      "heading": {
+        "ro": "Mărci și neafiliere",
+        "en": "Trademarks and non-affiliation"
+      },
       "paragraphs": [
         {
           "ro": "ase-moodle este un proiect independent. Nu este afiliat cu, aprobat de sau sponsorizat de ASE București sau de Moodle. Moodle este o marcă a proprietarului ei.",
@@ -67,7 +94,10 @@
     },
     {
       "type": "prose",
-      "heading": { "ro": "Cod sursă", "en": "Source code" },
+      "heading": {
+        "ro": "Cod sursă",
+        "en": "Source code"
+      },
       "paragraphs": [
         {
           "ro": "Repo-ul public: [FiredMosquito831/ase-moodle-mcp](https://github.com/FiredMosquito831/ase-moodle-mcp). Licența: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).",
@@ -77,10 +107,30 @@
     }
   ],
   "claims": [
-    { "text": "Codul este licențiat sub Apache License 2.0 (Apache-2.0).", "evidence": "pyproject.toml:10; LICENSE", "status": "verified" },
-    { "text": "Licența acordă drepturi de utilizare, modificare și distribuire, plus o licență de brevete.", "evidence": "LICENSE (Apache License 2.0, sections 2 and 3)", "status": "verified" },
-    { "text": "Dacă distribui sau modifici codul, păstrezi notele din NOTICE și menționezi sursa.", "evidence": "NOTICE", "status": "verified" },
-    { "text": "ase-moodle este un proiect independent, neafiliat cu ASE București sau Moodle.", "evidence": "README.md:7; NOTICE", "status": "verified" },
-    { "text": "Textul integral al licenței este în fișierul LICENSE din repo.", "evidence": "LICENSE", "status": "verified" }
+    {
+      "text": "Codul este licențiat sub Apache License 2.0 (Apache-2.0).",
+      "evidence": "pyproject.toml:10; LICENSE",
+      "status": "verified"
+    },
+    {
+      "text": "Licența acordă drepturi de utilizare, modificare și distribuire, plus o licență de brevete.",
+      "evidence": "LICENSE (Apache License 2.0, sections 2 and 3)",
+      "status": "verified"
+    },
+    {
+      "text": "Dacă distribui sau modifici codul, păstrezi notele din NOTICE și menționezi sursa.",
+      "evidence": "NOTICE",
+      "status": "verified"
+    },
+    {
+      "text": "ase-moodle este un proiect independent, neafiliat cu ASE București sau Moodle.",
+      "evidence": "README.md:7; NOTICE",
+      "status": "verified"
+    },
+    {
+      "text": "Textul integral al licenței este în fișierul LICENSE din repo.",
+      "evidence": "LICENSE",
+      "status": "verified"
+    }
   ]
 }

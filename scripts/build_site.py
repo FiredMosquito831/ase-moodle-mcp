@@ -43,6 +43,9 @@ LANG_LABEL = {"ro": "Română", "en": "English"}
 LANG_SHORT = {"ro": "RO", "en": "EN"}
 HTML_LANG = {"ro": "ro", "en": "en"}
 
+# Pages that get TechArticle structured data: the guide and reference pages.
+TECH_ARTICLE_PAGES = ("install", "quick-start", "commands", "tools", "guides", "troubleshooting")
+
 # --------------------------------------------------------------------------- helpers
 
 
@@ -91,6 +94,11 @@ def inline(text: str) -> Markup:
         lambda m: f'<a href="{html.escape(m.group(2), quote=True)}">{m.group(1)}</a>', s
     )
     return Markup(s)
+
+
+def md_plain(text: str) -> str:
+    """The text a reader sees: inline markers are markup, not content."""
+    return text.replace("`", "").replace("**", "")
 
 
 def words_in_html(fragment: str) -> int:
@@ -419,6 +427,41 @@ def load_site() -> dict:
         if key not in site:
             die(f"site.json: missing {key}")
     return site
+
+
+def load_seo() -> dict:
+    """The curated per-page SEO data, keyed by page id and language.
+
+    Every page that has a path in both languages needs an entry. The 404 is
+    excluded: it is noindex, bilingual and outside the sitemap.
+    """
+    seo = load_json(CONTENT / "seo.json")
+    for key in ("site", "pages"):
+        if key not in seo:
+            die(f"seo.json: missing {key}")
+    for lang in LANGS:
+        block = seo["site"].get(lang)
+        if not block:
+            die(f"seo.json: missing site/{lang}")
+        for key in ("title", "description", "keywords", "primary"):
+            if not block.get(key):
+                die(f"seo.json: site/{lang} missing {key}")
+    return seo
+
+
+def seo_for(seo: dict, page: dict, lang: str) -> dict:
+    """The SEO block for one page in one language; a page without one fails."""
+    if page["id"] == "home":
+        return seo["site"][lang]
+    if page["id"] == "404":
+        return seo["not_found"][lang]
+    block = seo["pages"].get(page["id"], {}).get(lang)
+    if not block:
+        die(f"seo.json: no {lang} block for page {page['id']!r}")
+    for key in ("title", "description", "keywords", "primary"):
+        if not block.get(key):
+            die(f"seo.json: {page['id']}/{lang} missing {key}")
+    return block
 
 
 def load_pages() -> list[dict]:
@@ -819,6 +862,7 @@ def tool_surface_svg(tools: list[dict], groups: list[dict], lang: str) -> str:
 
 def build(site: dict, pages: list[dict], ctx: dict) -> dict[str, bytes]:
     tokens = load_json(SITE_SRC / "design-tokens.json")
+    seo = load_seo()
     env = Environment(
         loader=FileSystemLoader(str(TEMPLATES)),
         autoescape=select_autoescape(["html"]),
@@ -877,12 +921,13 @@ def build(site: dict, pages: list[dict], ctx: dict) -> dict[str, bytes]:
             ]
             blocks_html, toc = render_blocks(page, lang, ctx)
             canonical = page_url(site, canonical_path(path))
-            jsonld = build_jsonld(site, page, lang, canonical)
+            jsonld = build_jsonld(site, page, lang, canonical, seo_for(seo, page, lang))
             template = env.get_template("page.html")
             body = template.render(
                 site=site,
                 page=page,
                 lang=lang,
+                meta=seo_for(seo, page, lang),
                 other_lang=OTHER[lang],
                 other_path=page["path"][OTHER[lang]],
                 lang_short=LANG_SHORT[OTHER[lang]],
@@ -920,6 +965,7 @@ def build(site: dict, pages: list[dict], ctx: dict) -> dict[str, bytes]:
         site=site,
         page=page404,
         lang="ro",
+        meta=seo["not_found"]["ro"],
         other_lang="en",
         other_path=None,
         lang_short="EN",
@@ -937,6 +983,9 @@ def build(site: dict, pages: list[dict], ctx: dict) -> dict[str, bytes]:
     put("404.html", body404)
 
     put("sitemap.xml", render_sitemap(site, sitemap_entries))
+    put("llms.txt", render_llms(site, pages, seo, ctx))
+    put("security.txt", render_security(site))
+    put(".well-known/security.txt", render_security(site))
     return output
 
 
@@ -953,14 +1002,14 @@ def render_css(tokens: dict) -> str:
     return "\n".join(lines)
 
 
-def build_jsonld(site: dict, page: dict, lang: str, canonical: str) -> str:
+def build_jsonld(site: dict, page: dict, lang: str, canonical: str, meta: dict) -> str:
     blocks = [
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": t(page["title"], lang),
+            "name": meta["title"],
             "url": canonical,
-            "description": t(page["description"], lang),
+            "description": meta["description"],
             "inLanguage": HTML_LANG[lang],
             "isPartOf": {"@type": "WebSite", "name": site["name"], "url": site["url"]},
         }
@@ -980,13 +1029,24 @@ def build_jsonld(site: dict, page: dict, lang: str, canonical: str) -> str:
         blocks.append(
             {
                 "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": site["name"],
+                "url": page_url(site, page["path"][lang]),
+                "inLanguage": HTML_LANG[lang],
+                "description": meta["description"],
+            }
+        )
+        blocks.append(
+            {
+                "@context": "https://schema.org",
                 "@type": "SoftwareApplication",
                 "name": site["name"],
                 "alternateName": "ase-moodle-mcp",
-                "description": t(page["description"], lang),
+                "description": meta["description"],
                 "applicationCategory": "DeveloperApplication",
                 "operatingSystem": "Windows, Linux",
                 "softwareVersion": site["version"],
+                "inLanguage": HTML_LANG[lang],
                 "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
                 "license": site["license"]["url"],
                 "isAccessibleForFree": True,
@@ -994,24 +1054,119 @@ def build_jsonld(site: dict, page: dict, lang: str, canonical: str) -> str:
                 "author": {"@type": "Person", "name": site["author"], "url": site["author_url"]},
             }
         )
+    if page["id"] in TECH_ARTICLE_PAGES:
+        blocks.append(
+            {
+                "@context": "https://schema.org",
+                "@type": "TechArticle",
+                "headline": meta["title"],
+                "name": meta["title"],
+                "url": canonical,
+                "inLanguage": HTML_LANG[lang],
+                "description": meta["description"],
+                "about": {"@type": "SoftwareApplication", "name": site["name"], "url": site["url"]},
+                "proficiencyLevel": "Beginner" if page["id"] in ("install", "quick-start") else "Expert",
+                "author": {"@type": "Person", "name": site["author"], "url": site["author_url"]},
+                "isPartOf": {"@type": "WebSite", "name": site["name"], "url": site["url"]},
+            }
+        )
     if page["id"] == "faq":
-        faq = next((b for b in page["blocks"] if b["type"] == "faq"), None)
-        if faq:
+        faq_blocks = [b for b in page["blocks"] if b["type"] == "faq"]
+        if faq_blocks:
             blocks.append(
                 {
                     "@context": "https://schema.org",
                     "@type": "FAQPage",
+                    "inLanguage": HTML_LANG[lang],
                     "mainEntity": [
                         {
                             "@type": "Question",
-                            "name": t(item["q"], lang),
-                            "acceptedAnswer": {"@type": "Answer", "text": t(item["a"], lang)},
+                            "name": md_plain(t(item["q"], lang)),
+                            "acceptedAnswer": {"@type": "Answer", "text": md_plain(t(item["a"], lang))},
                         }
-                        for item in faq["items"]
+                        for block in faq_blocks
+                        for item in block["items"]
                     ],
                 }
             )
     return json.dumps(blocks, ensure_ascii=False, indent=2)
+
+
+def render_llms(site: dict, pages: list[dict], seo: dict, ctx: dict) -> str:
+    """llms.txt: a Markdown map of the site, absolute links, one line each."""
+    base = site["url"].rstrip("/")
+    values = {
+        "version": site["version"],
+        "tools": str(len(ctx["tools"])),
+        "prompts": str(len(ctx["prompts"])),
+        "resources": str(len(ctx["resources"])),
+        "commands": str(len(ctx["commands"])),
+    }
+
+    def line(page_id: str, lang: str) -> str:
+        page = next(p for p in pages if p["id"] == page_id)
+        block = seo_for(seo, page, lang)
+        summary = block.get("llms")
+        if not summary:
+            die(f"seo.json: {page_id}/{lang} has no llms line")
+        summary = substitute(summary, values)
+        return f"- [{block['title']}]({page_url(site, page['path'][lang])}): {summary}"
+
+    out = [
+        "# ase-moodle",
+        "",
+        "> Server MCP, CLI și plugin pentru Moodle BL@ASE (online.ase.ro); an MCP server, CLI and plugin for BL@ASE Moodle.",
+        "",
+        f"ase-moodle opens a BL@ASE Moodle account at online.ase.ro inside Claude Code, Codex, "
+        f"opencode and Google Antigravity: courses, materials, assignments, forums, grades, quizzes "
+        f"and deadlines. It is an independent Apache-2.0 project, version {site['version']}, not "
+        f"affiliated with ASE Bucharest or Moodle. Everything runs on the user's machine; writes "
+        f"need explicit confirmation. The site is Romanian-first, with a full English version under /en/.",
+        "",
+        "## Română",
+        "",
+        line("home", "ro"),
+        line("install", "ro"),
+        line("commands", "ro"),
+        line("tools", "ro"),
+        line("guides", "ro"),
+        line("faq", "ro"),
+        line("license", "ro"),
+        "",
+        "## English",
+        "",
+        line("home", "en"),
+        line("install", "en"),
+        line("commands", "en"),
+        line("tools", "en"),
+        line("guides", "en"),
+        line("faq", "en"),
+        line("license", "en"),
+        "",
+        "## Optional",
+        "",
+        f"- [Sursa / source]({site['repo']}): the repository, the product documentation in docs/*.md and the issue tracker.",
+        f"- [Sitemap]({base}/sitemap.xml): every page in both languages.",
+    ]
+    return "\n".join(out) + "\n"
+
+
+def security_expires(site: dict) -> str:
+    """Within one year of lastmod, in RFC 3339. From site.json, never the clock."""
+    from datetime import date, timedelta
+
+    start = date.fromisoformat(site["lastmod"])
+    return (start + timedelta(days=364)).isoformat() + "T00:00:00Z"
+
+
+def render_security(site: dict) -> str:
+    base = site["url"].rstrip("/")
+    return (
+        f"Contact: {site['repo']}/security/advisories/new\n"
+        f"Expires: {security_expires(site)}\n"
+        "Preferred-Languages: ro, en\n"
+        f"Canonical: {base}/.well-known/security.txt\n"
+    )
 
 
 def render_sitemap(site: dict, entries: list[dict]) -> str:
@@ -1198,6 +1353,276 @@ def gate_metadata(files: dict[str, bytes], pages: list[dict]) -> None:
                     problems.append(f"docs/{rel}: no hreflang {lang}")
     if problems:
         die("page metadata gate failed:\n  " + "\n  ".join(problems))
+
+
+def keyword_sets(seo: dict) -> dict[str, list[str]]:
+    """Every keyword set in seo.json, keyed by a readable label."""
+    sets = {}
+    for lang in LANGS:
+        sets[f"site/{lang}"] = seo["site"][lang]["keywords"]
+        sets[f"not_found/{lang}"] = seo["not_found"][lang]["keywords"]
+    for name, block in seo["pages"].items():
+        for lang in LANGS:
+            sets[f"{name}/{lang}"] = block[lang]["keywords"]
+    return sets
+
+
+def gate_keywords(files: dict[str, bytes], seo: dict, pages: list[dict]) -> None:
+    """Every page carries a keyword set for its language, and no set is reused
+    on more than three pages."""
+    problems = []
+    for label, keywords in keyword_sets(seo).items():
+        if len(keywords) < 8:
+            problems.append(f"seo.json {label}: {len(keywords)} keywords, need 8 or more")
+        if len(set(keywords)) != len(keywords):
+            problems.append(f"seo.json {label}: duplicate keyword")
+    counts: dict[str, list[str]] = {}
+    for label, keywords in keyword_sets(seo).items():
+        for keyword in keywords:
+            counts.setdefault(keyword, []).append(label)
+    for keyword, labels in sorted(counts.items()):
+        if len(labels) > 3:
+            problems.append(f"keyword {keyword!r} is on {len(labels)} pages: {', '.join(labels)}")
+
+    for page in pages:
+        for lang in LANGS:
+            path = page["path"].get(lang)
+            if not path:
+                continue
+            rel = path.lstrip("/")
+            if rel == "":
+                rel = "index.html"
+            elif rel.endswith("/"):
+                rel += "index.html"
+            text = files.get(rel, b"").decode("utf-8")
+            match = re.search(r'<meta name="keywords" content="([^"]*)"', text)
+            if not match:
+                problems.append(f"docs/{rel}: no keywords")
+                continue
+            emitted = [item.strip() for item in html.unescape(match.group(1)).split(",")]
+            expected = seo_for(seo, page, lang)["keywords"]
+            if emitted != expected:
+                problems.append(f"docs/{rel}: keywords do not match seo.json")
+            if len(emitted) < 8:
+                problems.append(f"docs/{rel}: {len(emitted)} keywords, need 8 or more")
+    if problems:
+        die("keyword gate failed:\n  " + "\n  ".join(problems))
+
+
+def gate_lengths(seo: dict) -> None:
+    """Title at most 60 characters, description 120-160, in the data itself."""
+    problems = []
+    blocks = [("site", lang, seo["site"][lang]) for lang in LANGS]
+    blocks += [("not_found", lang, seo["not_found"][lang]) for lang in LANGS]
+    for name, block in seo["pages"].items():
+        blocks += [(name, lang, block[lang]) for lang in LANGS]
+    for name, lang, block in blocks:
+        if len(block["title"]) > 60:
+            problems.append(f"seo.json {name}/{lang}: title is {len(block['title'])} characters")
+        if not 120 <= len(block["description"]) <= 160:
+            problems.append(f"seo.json {name}/{lang}: description is {len(block['description'])} characters")
+    if problems:
+        die("SEO length gate failed:\n  " + "\n  ".join(problems))
+
+
+def gate_hreflang(files: dict[str, bytes], site: dict, pages: list[dict]) -> None:
+    """All three hreflang links on every page, pointing at the right counterpart."""
+    problems = []
+    for page in pages:
+        if page["id"] == "404":
+            continue
+        ro_url = page_url(site, page["path"]["ro"])
+        en_url = page_url(site, page["path"]["en"])
+        expected = {"ro": ro_url, "en": en_url, "x-default": ro_url}
+        for lang in LANGS:
+            rel = page["path"][lang].lstrip("/")
+            if rel == "":
+                rel = "index.html"
+            elif rel.endswith("/"):
+                rel += "index.html"
+            text = files.get(rel, b"").decode("utf-8")
+            found = dict(
+                (m.group(1), html.unescape(m.group(2)))
+                for m in re.finditer(r'<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"', text)
+            )
+            for code, href in expected.items():
+                if code not in found:
+                    problems.append(f"docs/{rel}: no hreflang {code}")
+                elif found[code] != href:
+                    problems.append(f"docs/{rel}: hreflang {code} is {found[code]}, expected {href}")
+            extra = sorted(set(found) - set(expected))
+            if extra:
+                problems.append(f"docs/{rel}: unexpected hreflang {', '.join(extra)}")
+    if problems:
+        die("hreflang gate failed:\n  " + "\n  ".join(problems))
+
+
+def gate_structured(files: dict[str, bytes], pages: list[dict]) -> None:
+    """The required JSON-LD types and their inLanguage on every page."""
+    problems = []
+    for page in pages:
+        if page["id"] == "404":
+            continue
+        for lang in LANGS:
+            rel = page["path"][lang].lstrip("/")
+            if rel == "":
+                rel = "index.html"
+            elif rel.endswith("/"):
+                rel += "index.html"
+            text = files.get(rel, b"").decode("utf-8")
+            blocks = []
+            for raw in re.findall(r'<script type="application/ld\+json">(.*?)</script>', text, re.S):
+                try:
+                    blocks.extend(json.loads(raw))
+                except json.JSONDecodeError:
+                    problems.append(f"docs/{rel}: JSON-LD does not parse")
+                    blocks = []
+                    break
+            types = {block.get("@type"): block for block in blocks}
+            required = ["WebPage"]
+            if page["id"] == "home":
+                required += ["WebSite", "SoftwareApplication"]
+            if page["id"] in TECH_ARTICLE_PAGES:
+                required.append("TechArticle")
+            if page["id"] == "faq":
+                required.append("FAQPage")
+            for wanted in required:
+                if wanted not in types:
+                    problems.append(f"docs/{rel}: no {wanted}")
+                elif types[wanted].get("inLanguage") != HTML_LANG[lang]:
+                    problems.append(
+                        f"docs/{rel}: {wanted} inLanguage is {types[wanted].get('inLanguage')!r}, expected {HTML_LANG[lang]!r}"
+                    )
+            if page["id"] == "faq" and "FAQPage" in types:
+                visible = re.findall(r'<div class="faq-item"><h3>(.*?)</h3>', text, re.S)
+                visible = [html.unescape(re.sub(r"<[^>]+>", "", item)).strip() for item in visible]
+                structured = [item["name"] for item in types["FAQPage"]["mainEntity"]]
+                if visible != structured:
+                    problems.append(f"docs/{rel}: FAQPage questions do not mirror the visible ones")
+    if problems:
+        die("structured-data gate failed:\n  " + "\n  ".join(problems))
+
+
+def gate_machine_files(files: dict[str, bytes], site: dict, pages: list[dict]) -> None:
+    """llms.txt and security.txt exist, name the real host, and keep the RFC shape."""
+    problems = []
+    host = site["url"].rstrip("/")
+    llms = files.get("llms.txt")
+    if not llms:
+        problems.append("no llms.txt")
+    else:
+        text = llms.decode("utf-8")
+        if not text.startswith("# "):
+            problems.append("llms.txt does not start with a title")
+        if "\n> " not in text:
+            problems.append("llms.txt has no summary line")
+        links = re.findall(r"^- \[([^\]]+)\]\(([^)]+)\): (.+)$", text, re.M)
+        if len(links) < 14:
+            problems.append(f"llms.txt has {len(links)} links, expected at least 14")
+        for _, href, summary in links:
+            if not summary.strip():
+                problems.append(f"llms.txt: link {href} has no description")
+        # Page links must be absolute on the real host; the Optional section may
+        # point at the repository and the sitemap.
+        optional = text.split("## Optional", 1)[1] if "## Optional" in text else ""
+        for _, href, _ in links:
+            if href in optional:
+                continue
+            if not href.startswith(host + "/"):
+                problems.append(f"llms.txt: link {href} is not on {host}")
+        linked = {href for _, href, _ in links}
+        for lang in LANGS:
+            for page_id in ("install", "commands", "tools", "guides", "faq", "license"):
+                page = next(p for p in pages if p["id"] == page_id)
+                wanted = page_url(site, page["path"][lang])
+                if wanted not in linked:
+                    problems.append(f"llms.txt: no {lang} link to {wanted}")
+    for rel in ("security.txt", ".well-known/security.txt"):
+        data = files.get(rel)
+        if not data:
+            problems.append(f"no {rel}")
+            continue
+        text = data.decode("utf-8")
+        fields = {}
+        for line in text.splitlines():
+            if ": " in line:
+                key, value = line.split(": ", 1)
+                fields[key] = value
+        for key in ("Contact", "Expires", "Preferred-Languages", "Canonical"):
+            if key not in fields:
+                problems.append(f"{rel}: no {key}")
+        if fields.get("Contact") != f"{site['repo']}/security/advisories/new":
+            problems.append(f"{rel}: Contact is {fields.get('Contact')!r}")
+        if fields.get("Canonical") != f"{host}/.well-known/security.txt":
+            problems.append(f"{rel}: Canonical is {fields.get('Canonical')!r}")
+        expires = fields.get("Expires", "")
+        match = re.fullmatch(r"(\d{4})-(\d{2})-(\d{2})T\d{2}:\d{2}:\d{2}Z", expires)
+        if not match:
+            problems.append(f"{rel}: Expires {expires!r} is not RFC 3339")
+        else:
+            from datetime import date, timedelta
+
+            day = date(int(match.group(1)), int(match.group(2)), int(match.group(3)))
+            if not day <= date.fromisoformat(site["lastmod"]) + timedelta(days=365):
+                problems.append(f"{rel}: Expires is more than a year after lastmod")
+            if day < date.fromisoformat(site["lastmod"]):
+                problems.append(f"{rel}: Expires is before lastmod")
+        if fields.get("Preferred-Languages") != "ro, en":
+            problems.append(f"{rel}: Preferred-Languages is {fields.get('Preferred-Languages')!r}")
+    if problems:
+        die("machine-readable gate failed:\n  " + "\n  ".join(problems))
+
+
+def gate_primary_terms(files: dict[str, bytes], seo: dict, pages: list[dict]) -> None:
+    """Every page's visible text uses each of its primary terms at least once."""
+    problems = []
+    for page in pages:
+        for lang in LANGS:
+            path = page["path"].get(lang)
+            if not path:
+                continue
+            rel = path.lstrip("/")
+            if rel == "":
+                rel = "index.html"
+            elif rel.endswith("/"):
+                rel += "index.html"
+            text = files.get(rel, b"").decode("utf-8")
+            main = re.search(r"<main\b.*?</main>", text, re.S)
+            if not main:
+                problems.append(f"docs/{rel}: no main")
+                continue
+            plain = re.sub(r"<[^>]+>", " ", main.group(0))
+            plain = html.unescape(plain)
+            normalised = " ".join(plain.lower().split())
+            for term in seo_for(seo, page, lang)["primary"]:
+                if " ".join(term.lower().split()) not in normalised:
+                    problems.append(f"docs/{rel}: primary term {term!r} does not appear in the text")
+    if problems:
+        die("primary-term gate failed:\n  " + "\n  ".join(problems))
+
+
+def gate_sitemap_shape(files: dict[str, bytes], site: dict, pages: list[dict]) -> None:
+    """The sitemap holds every page in both languages, and nothing else."""
+    text = files.get("sitemap.xml", b"").decode("utf-8")
+    locs = re.findall(r"<loc>(.*?)</loc>", text)
+    expected = []
+    for page in pages:
+        if page["id"] == "404":
+            continue
+        for lang in LANGS:
+            expected.append(page_url(site, canonical_path(page["path"][lang])))
+    problems = []
+    if sorted(locs) != sorted(expected):
+        problems.append(f"sitemap has {len(locs)} URLs, expected {len(expected)}")
+        for loc in sorted(set(expected) - set(locs)):
+            problems.append(f"missing from sitemap: {loc}")
+        for loc in sorted(set(locs) - set(expected)):
+            problems.append(f"unexpected in sitemap: {loc}")
+    for name in ("llms.txt", "security.txt"):
+        if any(loc.endswith("/" + name) for loc in locs):
+            problems.append(f"sitemap lists {name}, which is not a page")
+    if problems:
+        die("sitemap shape gate failed:\n  " + "\n  ".join(problems))
 
 
 def gate_alt(files: dict[str, bytes]) -> None:
@@ -1480,12 +1905,20 @@ def collect_context(site: dict) -> dict:
 
 
 def render(site: dict, pages: list[dict], ctx: dict) -> dict[str, bytes]:
+    seo = load_seo()
     files = build(site, pages, ctx)
     gate_secrets(files, source_files())
     gate_placeholders(files, source_files())
     gate_external(files)
     gate_links(files)
     gate_metadata(files, pages)
+    gate_lengths(seo)
+    gate_keywords(files, seo, pages)
+    gate_hreflang(files, site, pages)
+    gate_structured(files, pages)
+    gate_primary_terms(files, seo, pages)
+    gate_machine_files(files, site, pages)
+    gate_sitemap_shape(files, site, pages)
     gate_alt(files)
     gate_jsonld(files)
     gate_sitemap(files, site)

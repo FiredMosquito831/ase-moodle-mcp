@@ -3,33 +3,34 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Troubleshooting | ase-moodle</title>
-  <meta name="description" content="Common errors and verified fixes: missing token, expired login, missing browser, PATH, blocked install, confirmations, drafts, quizzes and downloads.">
+  <title>ase-moodle troubleshooting</title>
+  <meta name="description" content="Verified fixes for the common ase-moodle problems: failed sign-in, an expired token, courses that do not appear, and network or timeout errors.">
+  <meta name="keywords" content="moodle mcp troubleshooting, moodle login failed, ase moodle errors, moodle token expired, ase moodle path, ase moodle browser login, ase moodle confirmation, ase moodle download">
 <link rel="canonical" href="https://ase-moodle-mcp.danubelabs.net/en/troubleshooting/"><link rel="alternate" hreflang="ro" href="https://ase-moodle-mcp.danubelabs.net/probleme/"><link rel="alternate" hreflang="en" href="https://ase-moodle-mcp.danubelabs.net/en/troubleshooting/"><link rel="alternate" hreflang="x-default" href="https://ase-moodle-mcp.danubelabs.net/probleme/">  <meta name="theme-color" content="#0A0E14">
   <meta name="color-scheme" content="dark">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ase-moodle">
-  <meta property="og:title" content="Troubleshooting | ase-moodle">
-  <meta property="og:description" content="Common errors and verified fixes: missing token, expired login, missing browser, PATH, blocked install, confirmations, drafts, quizzes and downloads.">
+  <meta property="og:title" content="ase-moodle troubleshooting">
+  <meta property="og:description" content="Verified fixes for the common ase-moodle problems: failed sign-in, an expired token, courses that do not appear, and network or timeout errors.">
   <meta property="og:url" content="https://ase-moodle-mcp.danubelabs.net/en/troubleshooting/">
   <meta property="og:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Troubleshooting | ase-moodle">
+  <meta property="og:image:alt" content="ase-moodle troubleshooting">
   <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ro_RO">  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Troubleshooting | ase-moodle">
-  <meta name="twitter:description" content="Common errors and verified fixes: missing token, expired login, missing browser, PATH, blocked install, confirmations, drafts, quizzes and downloads.">
+  <meta name="twitter:title" content="ase-moodle troubleshooting">
+  <meta name="twitter:description" content="Verified fixes for the common ase-moodle problems: failed sign-in, an expired token, courses that do not appear, and network or timeout errors.">
   <meta name="twitter:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
 <script type="application/ld+json">[
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Troubleshooting | ase-moodle",
+    "name": "ase-moodle troubleshooting",
     "url": "https://ase-moodle-mcp.danubelabs.net/en/troubleshooting/",
-    "description": "Common errors and verified fixes: missing token, expired login, missing browser, PATH, blocked install, confirmations, drafts, quizzes and downloads.",
+    "description": "Verified fixes for the common ase-moodle problems: failed sign-in, an expired token, courses that do not appear, and network or timeout errors.",
     "inLanguage": "en",
     "isPartOf": {
       "@type": "WebSite",
@@ -54,6 +55,31 @@
         "item": "https://ase-moodle-mcp.danubelabs.net/en/troubleshooting/"
       }
     ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "ase-moodle troubleshooting",
+    "name": "ase-moodle troubleshooting",
+    "url": "https://ase-moodle-mcp.danubelabs.net/en/troubleshooting/",
+    "inLanguage": "en",
+    "description": "Verified fixes for the common ase-moodle problems: failed sign-in, an expired token, courses that do not appear, and network or timeout errors.",
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "ase-moodle",
+      "url": "https://ase-moodle-mcp.danubelabs.net"
+    },
+    "proficiencyLevel": "Expert",
+    "author": {
+      "@type": "Person",
+      "name": "FiredMosquito831",
+      "url": "https://github.com/FiredMosquito831"
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "ase-moodle",
+      "url": "https://ase-moodle-mcp.danubelabs.net"
+    }
   }
 ]</script></head>
 <body>
@@ -95,7 +121,7 @@
 </div>
 <div class="layout with-toc">
   <div class="prose">
-    <p class="lead">Always start with <code>ase-moodle doctor</code> and <code>ase-moodle auth-status</code>. They say what is installed, which token exists and where it is read from.</p>
+    <p class="lead">Always start with <code>ase-moodle doctor</code> and <code>ase-moodle auth-status</code>. They say what is installed, which token exists and where it is read from. The ase-moodle troubleshooting list below is grouped by authentication, installation, writes and downloads.</p>
 <section id="authentication"><h2><span class="prompt" aria-hidden="true">&gt;</span> Authentication</h2><p><strong>“The token is missing.”</strong> You have not run <code>ase-moodle login</code>, or the token was deleted. Run <code>ase-moodle login</code>.</p><p><strong>Login times out (“No token received within the limit”).</strong> The window opened but you did not sign in. Run again, raise the time with <code>ase-moodle login --timeout 600</code>, or use <code>--method manual</code>.</p><p><strong>“The browser for login is not installed.”</strong> The message contains the exact command, with the Python of the environment that runs <code>ase-moodle</code>. Run exactly that command, not some other <code>python</code> from PATH. Alternatively, <code>--method manual</code>.</p><p><strong><code>auth-status</code> says the token does not work.</strong> The token was reset in Moodle or expired. Get a new one with <code>ase-moodle login</code>. To invalidate a token completely, reset it from Security keys.</p><p><strong>The manual method does not find the token.</strong> On Linux install <code>xclip</code>, <code>xsel</code> or <code>wl-paste</code>. Check that you copied exactly the 32-character string, without spaces. For scripts, <code>login --token-stdin</code> reads the token from stdin.</p></section>
 <section id="installation"><h2><span class="prompt" aria-hidden="true">&gt;</span> Installation</h2><p><strong><code>ase-moodle-mcp</code> is not on PATH.</strong> The package is not installed, or the pipx executables folder is not on PATH. Run <code>pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git</code>, then <code>pipx ensurepath</code>, and open a new terminal.</p><p><strong><code>pipx install</code> fails on Windows with “Access denied” on <code>ase-moodle-mcp.exe</code>.</strong> An MCP client is running and locks the executable. Close Claude Code, Codex, opencode or Antigravity and run again. <code>doctor</code> counts the running processes.</p><p><strong>Claude Code does not see the update.</strong> Restart Claude Code: the plugin loads at startup.</p><p><strong>Claude Code does not detect the server in the project folder.</strong> Restart Claude Code in the project folder, run <code>/mcp</code>, then <code>ase-moodle claude doctor --project-dir &lt;folder&gt;</code>. Check <code>.claude/settings.json</code>: it must contain <code>ase-moodle@ase-moodle-marketplace</code> in <code>enabledPlugins</code>. If Claude Code asks to approve the marketplace, accept.</p><p><strong>Codex does not load the project server.</strong> Codex requires the folder to be marked as a trusted project. Also check that <code>.codex/config.toml</code> contains <code>[mcp_servers.ase-moodle]</code>.</p><p><strong><code>opencode.json</code> is not valid JSON.</strong> The installer stops and leaves the file alone. Fix the commas and quotes, then run again. A <code>.bak</code> copy from the previous run exists.</p><p><strong>Two <code>ase-moodle</code> servers appear in the client.</strong> You have an old global install and a project one. Run <code>ase-moodle install &lt;platform&gt; --scope &lt;wanted scope&gt;</code>: the other scope is cleaned automatically, so two servers with the same name do not exist.</p></section>
 <section id="writes-and-quizzes"><h2><span class="prompt" aria-hidden="true">&gt;</span> Writes and quizzes</h2><p><strong><code>needs_confirmation</code> (exit code 2).</strong> The write has no confirmation. If you run the command, add <code>--yes</code> after checking what it sends. If an agent runs it, ask it to show the content and approve it.</p><p><strong>“The assignment has no drafts.”</strong> Saving would send the file at once. Choose a final submission with <code>--submit</code>, or <code>--allow-direct</code> only if you want the direct save.</p><p><strong>Quiz: “Unknown fields.”</strong> The names in <code>quiz-answer</code> do not match the ones from <code>quiz-questions</code>. Copy the names exactly from the answer.</p><p><strong>Quiz: “The attempt could not be started.”</strong> The quiz is closed or you reached the attempt limit. The Moodle message explains.</p></section>

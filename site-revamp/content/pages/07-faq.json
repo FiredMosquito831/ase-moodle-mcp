@@ -1,165 +1,405 @@
 {
   "id": "faq",
   "order": 70,
-  "nav": { "ro": "Întrebări", "en": "FAQ" },
+  "nav": {
+    "ro": "Întrebări",
+    "en": "FAQ"
+  },
   "priority": "0.7",
-  "words": [800, 1400],
-  "path": { "ro": "/intrebari/", "en": "/en/faq/" },
-  "title": { "ro": "Întrebări frecvente | ase-moodle", "en": "FAQ | ase-moodle" },
+  "words": [
+    800,
+    1400
+  ],
+  "path": {
+    "ro": "/intrebari/",
+    "en": "/en/faq/"
+  },
+  "title": {
+    "ro": "Întrebări frecvente | ase-moodle",
+    "en": "FAQ | ase-moodle"
+  },
   "description": {
     "ro": "Răspunsuri despre cont, token, securitate, teme, quizuri, platforme și limite: ce face ase-moodle și ce nu face, verificat în documentația produsului.",
     "en": "Answers about the account, the token, security, assignments, quizzes, platforms and limits: what ase-moodle does and does not do, checked in the docs."
   },
-  "h1": { "ro": "Întrebări frecvente", "en": "Frequently asked questions" },
-  "eyebrow": { "ro": "Răspunsuri verificate", "en": "Verified answers" },
+  "h1": {
+    "ro": "Întrebări frecvente",
+    "en": "Frequently asked questions"
+  },
+  "eyebrow": {
+    "ro": "Răspunsuri verificate",
+    "en": "Verified answers"
+  },
   "blocks": [
     {
       "type": "lead",
       "text": {
-        "ro": "Răspunsurile de mai jos sunt luate din documentația produsului și din cod. Aceleași răspunsuri apar și în datele structurate ale paginii.",
-        "en": "The answers below come from the product documentation and the code. The same answers appear in the page's structured data."
+        "ro": "Răspunsurile de mai jos sunt luate din documentația produsului și din cod. Aceleași răspunsuri apar și în datele structurate ale paginii. Pagina de întrebări frecvente ase-moodle acoperă contul, tokenul, siguranța, platformele și limitele.",
+        "en": "The answers below come from the product documentation and the code. The same answers appear in the page's structured data. The ase-moodle FAQ page covers the account, the token, safety, platforms and limits."
       }
     },
     {
       "type": "faq",
-      "heading": { "ro": "Despre produs", "en": "About the product" },
+      "heading": {
+        "ro": "Despre produs",
+        "en": "About the product"
+      },
       "items": [
         {
-          "q": { "ro": "Cât costă?", "en": "How much does it cost?" },
-          "a": { "ro": "Nimic. Codul e sub Apache License 2.0, iar pachetul se instalează din GitHub sau de pe npm. Nu există abonament și nu se cere un cont separat.", "en": "Nothing. The code is under the Apache License 2.0, and the package installs from GitHub or npm. There is no subscription and no separate account." }
+          "q": {
+            "ro": "Cât costă?",
+            "en": "How much does it cost?"
+          },
+          "a": {
+            "ro": "Nimic. Codul e sub Apache License 2.0, iar pachetul se instalează din GitHub sau de pe npm. Nu există abonament și nu se cere un cont separat.",
+            "en": "Nothing. The code is under the Apache License 2.0, and the package installs from GitHub or npm. There is no subscription and no separate account."
+          }
         },
         {
-          "q": { "ro": "Cu ce cont merge?", "en": "Which account does it work with?" },
-          "a": { "ro": "Cu un cont BL@ASE pe online.ase.ro. Login-ul se face doar prin Google, ca în browser; nu există login cu nume de utilizator și parolă pentru pachet.", "en": "With a BL@ASE account on online.ase.ro. Login goes only through Google, as in the browser; there is no username-and-password login for the package." }
+          "q": {
+            "ro": "Cu ce cont merge?",
+            "en": "Which account does it work with?"
+          },
+          "a": {
+            "ro": "Cu un cont BL@ASE pe online.ase.ro. Login-ul se face doar prin Google, ca în browser; nu există login cu nume de utilizator și parolă pentru pachet.",
+            "en": "With a BL@ASE account on online.ase.ro. Login goes only through Google, as in the browser; there is no username-and-password login for the package."
+          }
         },
         {
-          "q": { "ro": "Trebuie să dau parola Google pachetului?", "en": "Do I give the Google password to the package?" },
-          "a": { "ro": "Nu. Te loghezi tu, în fereastra care se deschide. Pachetul nu salvează parola Google, nici în seif, nici în `.env`, nici în fișiere.", "en": "No. You sign in yourself, in the window that opens. The package never stores the Google password, not in the keychain, not in `.env`, not in files." }
+          "q": {
+            "ro": "Trebuie să dau parola Google pachetului?",
+            "en": "Do I give the Google password to the package?"
+          },
+          "a": {
+            "ro": "Nu. Te loghezi tu, în fereastra care se deschide. Pachetul nu salvează parola Google, nici în seif, nici în `.env`, nici în fișiere.",
+            "en": "No. You sign in yourself, in the window that opens. The package never stores the Google password, not in the keychain, not in `.env`, not in files."
+          }
         },
         {
-          "q": { "ro": "Unde ajunge tokenul Moodle?", "en": "Where does the Moodle token go?" },
-          "a": { "ro": "În Windows Credential Manager sau în Secret Service pe Linux. Dacă seiful nu e disponibil, rămâne în `~/.ase-moodle/config.json`, cu acces doar pentru tine. Nu intră în git.", "en": "Into Windows Credential Manager or Secret Service on Linux. If the keychain is unavailable, it stays in `~/.ase-moodle/config.json`, readable only by you. It never goes into git." }
+          "q": {
+            "ro": "Unde ajunge tokenul Moodle?",
+            "en": "Where does the Moodle token go?"
+          },
+          "a": {
+            "ro": "În Windows Credential Manager sau în Secret Service pe Linux. Dacă seiful nu e disponibil, rămâne în `~/.ase-moodle/config.json`, cu acces doar pentru tine. Nu intră în git.",
+            "en": "Into Windows Credential Manager or Secret Service on Linux. If the keychain is unavailable, it stays in `~/.ase-moodle/config.json`, readable only by you. It never goes into git."
+          }
         },
         {
-          "q": { "ro": "Tokenul apare în output?", "en": "Does the token appear in the output?" },
-          "a": { "ro": "Nu. `auth-status` și `doctor` spun doar de unde a fost citit: `env`, `dotenv`, `keyring` sau `file`. Erorile nu includ tokenul.", "en": "No. `auth-status` and `doctor` only say where it was read from: `env`, `dotenv`, `keyring` or `file`. Errors do not include the token." }
+          "q": {
+            "ro": "Tokenul apare în output?",
+            "en": "Does the token appear in the output?"
+          },
+          "a": {
+            "ro": "Nu. `auth-status` și `doctor` spun doar de unde a fost citit: `env`, `dotenv`, `keyring` sau `file`. Erorile nu includ tokenul.",
+            "en": "No. `auth-status` and `doctor` only say where it was read from: `env`, `dotenv`, `keyring` or `file`. Errors do not include the token."
+          }
         },
         {
-          "q": { "ro": "Trimite date către alte servere?", "en": "Does it send data to other servers?" },
-          "a": { "ro": "Nu. Singurele conexiuni sunt către Moodle-ul configurat și către GitHub, doar la instalare, pentru marketplace. Nu există analytics și nici telemetrie.", "en": "No. The only connections are to the configured Moodle and to GitHub, only during installation, for the marketplace. There is no analytics and no telemetry." }
+          "q": {
+            "ro": "Trimite date către alte servere?",
+            "en": "Does it send data to other servers?"
+          },
+          "a": {
+            "ro": "Nu. Singurele conexiuni sunt către Moodle-ul configurat și către GitHub, doar la instalare, pentru marketplace. Nu există analytics și nici telemetrie.",
+            "en": "No. The only connections are to the configured Moodle and to GitHub, only during installation, for the marketplace. There is no analytics and no telemetry."
+          }
         }
       ]
     },
     {
       "type": "faq",
-      "heading": { "ro": "Despre scrieri", "en": "About writes" },
+      "heading": {
+        "ro": "Despre scrieri",
+        "en": "About writes"
+      },
       "items": [
         {
-          "q": { "ro": "Poate trimite teme fără să aprob?", "en": "Can it submit assignments without my approval?" },
-          "a": { "ro": "Nu. Scrierile cer `confirm=true` în MCP sau `--yes` în CLI. Fără ele, acțiunea se oprește cu `needs_confirmation` (cod 2) și nu trimite nimic.", "en": "No. Writes need `confirm=true` in MCP or `--yes` in the CLI. Without them, the action stops with `needs_confirmation` (exit code 2) and sends nothing." }
+          "q": {
+            "ro": "Poate trimite teme fără să aprob?",
+            "en": "Can it submit assignments without my approval?"
+          },
+          "a": {
+            "ro": "Nu. Scrierile cer `confirm=true` în MCP sau `--yes` în CLI. Fără ele, acțiunea se oprește cu `needs_confirmation` (cod 2) și nu trimite nimic.",
+            "en": "No. Writes need `confirm=true` in MCP or `--yes` in the CLI. Without them, the action stops with `needs_confirmation` (exit code 2) and sends nothing."
+          }
         },
         {
-          "q": { "ro": "Ce se întâmplă la o temă fără ciorne?", "en": "What happens on an assignment without drafts?" },
-          "a": { "ro": "Salvarea ar trimite fișierul imediat. Pachetul verifică `drafts_enabled` și refuză cu `DirectSubmissionBlocked`, fără să scrie nimic. Doar `allow_direct=true` (sau `--allow-direct`) forțează.", "en": "Saving would send the file at once. The package checks `drafts_enabled` and refuses with `DirectSubmissionBlocked`, without writing anything. Only `allow_direct=true` (or `--allow-direct`) forces it." }
+          "q": {
+            "ro": "Ce se întâmplă la o temă fără ciorne?",
+            "en": "What happens on an assignment without drafts?"
+          },
+          "a": {
+            "ro": "Salvarea ar trimite fișierul imediat. Pachetul verifică `drafts_enabled` și refuză cu `DirectSubmissionBlocked`, fără să scrie nimic. Doar `allow_direct=true` (sau `--allow-direct`) forțează.",
+            "en": "Saving would send the file at once. The package checks `drafts_enabled` and refuses with `DirectSubmissionBlocked`, without writing anything. Only `allow_direct=true` (or `--allow-direct`) forces it."
+          }
         },
         {
-          "q": { "ro": "Poate răspunde la quizuri?", "en": "Can it answer quizzes?" },
-          "a": { "ro": "Da, pentru că studentul a cerut-o. Fluxul salvează întâi răspunsurile, fără să trimită, și trimite încercarea doar după o a doua aprobare. Trimiterea e ireversibilă.", "en": "Yes, because the student asked for it. The flow saves the answers first, without submitting, and finishes the attempt only after a second approval. Finishing is irreversible." }
+          "q": {
+            "ro": "Poate răspunde la quizuri?",
+            "en": "Can it answer quizzes?"
+          },
+          "a": {
+            "ro": "Da, pentru că studentul a cerut-o. Fluxul salvează întâi răspunsurile, fără să trimită, și trimite încercarea doar după o a doua aprobare. Trimiterea e ireversibilă.",
+            "en": "Yes, because the student asked for it. The flow saves the answers first, without submitting, and finishes the attempt only after a second approval. Finishing is irreversible."
+          }
         },
         {
-          "q": { "ro": "Ce reguli de integritate se aplică?", "en": "Which integrity rules apply?" },
-          "a": { "ro": "Regulile cursului. Multe cursuri interzic ajutorul automat sau externalizarea răspunsurilor. Răspunderea pentru conținutul trimis e a studentului.", "en": "The course rules. Many courses forbid automated help or outsourcing answers. The student is responsible for what is submitted." }
+          "q": {
+            "ro": "Ce reguli de integritate se aplică?",
+            "en": "Which integrity rules apply?"
+          },
+          "a": {
+            "ro": "Regulile cursului. Multe cursuri interzic ajutorul automat sau externalizarea răspunsurilor. Răspunderea pentru conținutul trimis e a studentului.",
+            "en": "The course rules. Many courses forbid automated help or outsourcing answers. The student is responsible for what is submitted."
+          }
         }
       ]
     },
     {
       "type": "faq",
-      "heading": { "ro": "Despre platforme", "en": "About platforms" },
+      "heading": {
+        "ro": "Despre platforme",
+        "en": "About platforms"
+      },
       "items": [
         {
-          "q": { "ro": "Merge pe Linux și macOS?", "en": "Does it work on Linux and macOS?" },
-          "a": { "ro": "Windows e testat pe contul real. Logica de instalare e testată pe Linux (WSL Ubuntu 24.04) și în CI. macOS nu e testat, în afară de smoke-ul serverului din workflow-ul PyPI.", "en": "Windows is tested on the real account. The installer logic is tested on Linux (WSL Ubuntu 24.04) and in CI. macOS is untested, apart from the server smoke test in the PyPI workflow." }
+          "q": {
+            "ro": "Merge pe Linux și macOS?",
+            "en": "Does it work on Linux and macOS?"
+          },
+          "a": {
+            "ro": "Windows e testat pe contul real. Logica de instalare e testată pe Linux (WSL Ubuntu 24.04) și în CI. macOS nu e testat, în afară de smoke-ul serverului din workflow-ul PyPI.",
+            "en": "Windows is tested on the real account. The installer logic is tested on Linux (WSL Ubuntu 24.04) and in CI. macOS is untested, apart from the server smoke test in the PyPI workflow."
+          }
         },
         {
-          "q": { "ro": "Am nevoie de Node.js?", "en": "Do I need Node.js?" },
-          "a": { "ro": "Nu, dacă folosești pipx. Node.js 18+ e nevoie doar pentru varianta npm. Ambele variante instalează același pachet Python.", "en": "No, if you use pipx. Node.js 18+ is needed only for the npm path. Both paths install the same Python package." }
+          "q": {
+            "ro": "Am nevoie de Node.js?",
+            "en": "Do I need Node.js?"
+          },
+          "a": {
+            "ro": "Nu, dacă folosești pipx. Node.js 18+ e nevoie doar pentru varianta npm. Ambele variante instalează același pachet Python.",
+            "en": "No, if you use pipx. Node.js 18+ is needed only for the npm path. Both paths install the same Python package."
+          }
         },
         {
-          "q": { "ro": "Merge cu altă instanță Moodle?", "en": "Does it work with another Moodle instance?" },
-          "a": { "ro": "Pachetul e scris pentru BL@ASE, care rulează Moodle 4.5 din octombrie 2026, și funcționează pe 4.5 și 4.1. Alte instanțe ar putea funcționa, dar nu sunt testate.", "en": "The package is written for BL@ASE, which runs Moodle 4.5 as of October 2026, and works on 4.5 and 4.1. Other instances might work, but they are untested." }
+          "q": {
+            "ro": "Merge cu altă instanță Moodle?",
+            "en": "Does it work with another Moodle instance?"
+          },
+          "a": {
+            "ro": "Pachetul e scris pentru BL@ASE, care rulează Moodle 4.5 din octombrie 2026, și funcționează pe 4.5 și 4.1. Alte instanțe ar putea funcționa, dar nu sunt testate.",
+            "en": "The package is written for BL@ASE, which runs Moodle 4.5 as of October 2026, and works on 4.5 and 4.1. Other instances might work, but they are untested."
+          }
         },
         {
-          "q": { "ro": "Pot folosi fără instalare globală?", "en": "Can I use it without a global install?" },
-          "a": { "ro": "Da, cu `npx ase-moodle-mcp <comandă>` după npm. Pentru clienții MCP e nevoie de o comandă fixă `ase-moodle-mcp` în PATH, deci de instalarea globală.", "en": "Yes, with `npx ase-moodle-mcp <command>` after npm. For MCP clients you need a fixed `ase-moodle-mcp` command on PATH, so a global install." }
+          "q": {
+            "ro": "Pot folosi fără instalare globală?",
+            "en": "Can I use it without a global install?"
+          },
+          "a": {
+            "ro": "Da, cu `npx ase-moodle-mcp <comandă>` după npm. Pentru clienții MCP e nevoie de o comandă fixă `ase-moodle-mcp` în PATH, deci de instalarea globală.",
+            "en": "Yes, with `npx ase-moodle-mcp <command>` after npm. For MCP clients you need a fixed `ase-moodle-mcp` command on PATH, so a global install."
+          }
         }
       ]
     },
     {
       "type": "faq",
-      "heading": { "ro": "Limite", "en": "Limits" },
+      "heading": {
+        "ro": "Limite",
+        "en": "Limits"
+      },
       "items": [
         {
-          "q": { "ro": "Ce nu face pachetul?", "en": "What does the package not do?" },
-          "a": { "ro": "Nu citește mesajele private (mesageria e dezactivată pe site), nu schimbă parola, nu modifică setările contului și nu rulează automat quizuri sau teme. Totul pornește dintr-o comandă sau un apel explicit.", "en": "It does not read private messages (messaging is disabled on the site), does not change the password, does not modify account settings and does not run quizzes or assignments automatically. Everything starts from a command or an explicit call." }
+          "q": {
+            "ro": "Ce nu face pachetul?",
+            "en": "What does the package not do?"
+          },
+          "a": {
+            "ro": "Nu citește mesajele private (mesageria e dezactivată pe site), nu schimbă parola, nu modifică setările contului și nu rulează automat quizuri sau teme. Totul pornește dintr-o comandă sau un apel explicit.",
+            "en": "It does not read private messages (messaging is disabled on the site), does not change the password, does not modify account settings and does not run quizzes or assignments automatically. Everything starts from a command or an explicit call."
+          }
         },
         {
-          "q": { "ro": "Ce nu e testat?", "en": "What is not tested?" },
-          "a": { "ro": "Un quiz deschis, completat de la cap la coadă, pe contul real; o trimitere reală cu ciorne activate; comenzile reale ale CLI-urilor pe Linux; launcherul npm; macOS.", "en": "An open quiz completed end to end on the real account; a real submission with drafts enabled; the real CLI commands on Linux; the npm launcher; macOS." }
+          "q": {
+            "ro": "Ce nu e testat?",
+            "en": "What is not tested?"
+          },
+          "a": {
+            "ro": "Un quiz deschis, completat de la cap la coadă, pe contul real; o trimitere reală cu ciorne activate; comenzile reale ale CLI-urilor pe Linux; launcherul npm; macOS.",
+            "en": "An open quiz completed end to end on the real account; a real submission with drafts enabled; the real CLI commands on Linux; the npm launcher; macOS."
+          }
         },
         {
-          "q": { "ro": "Pot descărca un singur curs?", "en": "Can I download a single course?" },
-          "a": { "ro": "Da. `ase-moodle download --course ID` selectează cursul după id, iar opțiunea poate fi repetată pentru mai multe cursuri. Fără `--course`, filtrele de an, semestru și tip aleg cursurile.", "en": "Yes. `ase-moodle download --course ID` selects the course by id, and the option can be repeated for several courses. Without `--course`, the year, semester and type filters choose the courses." }
+          "q": {
+            "ro": "Pot descărca un singur curs?",
+            "en": "Can I download a single course?"
+          },
+          "a": {
+            "ro": "Da. `ase-moodle download --course ID` selectează cursul după id, iar opțiunea poate fi repetată pentru mai multe cursuri. Fără `--course`, filtrele de an, semestru și tip aleg cursurile.",
+            "en": "Yes. `ase-moodle download --course ID` selects the course by id, and the option can be repeated for several courses. Without `--course`, the year, semester and type filters choose the courses."
+          }
         },
         {
-          "q": { "ro": "Cum actualizez pachetul?", "en": "How do I update the package?" },
-          "a": { "ro": "Cu pipx: `pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git`, apoi `ase-moodle update`. Cu npm, launcherul nu actualizează pachetul Python dacă există deja, așa că îl actualizezi separat. Repornește Claude Code după.", "en": "With pipx: `pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git`, then `ase-moodle update`. With npm, the launcher does not update the Python package if it already exists, so update it separately. Restart Claude Code afterwards." }
+          "q": {
+            "ro": "Cum actualizez pachetul?",
+            "en": "How do I update the package?"
+          },
+          "a": {
+            "ro": "Cu pipx: `pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git`, apoi `ase-moodle update`. Cu npm, launcherul nu actualizează pachetul Python dacă există deja, așa că îl actualizezi separat. Repornește Claude Code după.",
+            "en": "With pipx: `pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git`, then `ase-moodle update`. With npm, the launcher does not update the Python package if it already exists, so update it separately. Restart Claude Code afterwards."
+          }
         },
         {
-          "q": { "ro": "Ce face `doctor` exact?", "en": "What exactly does `doctor` do?" },
-          "a": { "ro": "Verifică fără să modifice nimic: fiecare platformă, instalările de proiect, sursa tokenului, `.env`, procesele MCP pornite, versiunea pachetului și funcțiile Moodle folosite de pachet. Codul de ieșire e `3` dacă găsește o problemă.", "en": "It checks without changing anything: each platform, the project installs, the token source, `.env`, the running MCP processes, the package version and the Moodle functions the package uses. Exit code `3` if it finds a problem." }
+          "q": {
+            "ro": "Ce face `doctor` exact?",
+            "en": "What exactly does `doctor` do?"
+          },
+          "a": {
+            "ro": "Verifică fără să modifice nimic: fiecare platformă, instalările de proiect, sursa tokenului, `.env`, procesele MCP pornite, versiunea pachetului și funcțiile Moodle folosite de pachet. Codul de ieșire e `3` dacă găsește o problemă.",
+            "en": "It checks without changing anything: each platform, the project installs, the token source, `.env`, the running MCP processes, the package version and the Moodle functions the package uses. Exit code `3` if it finds a problem."
+          }
         },
         {
-          "q": { "ro": "Tokenul a fost expus. Ce fac?", "en": "The token was exposed. What do I do?" },
-          "a": { "ro": "Îl consideri compromis și îl resetezi din Moodle: Chei de securitate, rândul „Moodle mobile web service”, butonul de resetare. Tokenul vechi nu mai funcționează, iar pachetul are nevoie de `ase-moodle login`.", "en": "Treat it as compromised and reset it in Moodle: Security keys, the “Moodle mobile web service” row, the reset button. The old token stops working, and the package needs `ase-moodle login`." }
+          "q": {
+            "ro": "Tokenul a fost expus. Ce fac?",
+            "en": "The token was exposed. What do I do?"
+          },
+          "a": {
+            "ro": "Îl consideri compromis și îl resetezi din Moodle: Chei de securitate, rândul „Moodle mobile web service”, butonul de resetare. Tokenul vechi nu mai funcționează, iar pachetul are nevoie de `ase-moodle login`.",
+            "en": "Treat it as compromised and reset it in Moodle: Security keys, the “Moodle mobile web service” row, the reset button. The old token stops working, and the package needs `ase-moodle login`."
+          }
         },
         {
-          "q": { "ro": "Ce se întâmplă cu materialele descărcate?", "en": "What happens to downloaded materials?" },
-          "a": { "ro": "Rămân pe disc, în folderul ales, și nu se șterg automat. Pachetul nu le execută: un fișier executabil din materiale rămâne un fișier până îl deschizi tu. Verifică înainte.", "en": "They stay on disk, in the chosen folder, and are not deleted automatically. The package does not run them: an executable file in the materials stays a file until you open it. Check before you do." }
+          "q": {
+            "ro": "Ce se întâmplă cu materialele descărcate?",
+            "en": "What happens to downloaded materials?"
+          },
+          "a": {
+            "ro": "Rămân pe disc, în folderul ales, și nu se șterg automat. Pachetul nu le execută: un fișier executabil din materiale rămâne un fișier până îl deschizi tu. Verifică înainte.",
+            "en": "They stay on disk, in the chosen folder, and are not deleted automatically. The package does not run them: an executable file in the materials stays a file until you open it. Check before you do."
+          }
         },
         {
-          "q": { "ro": "Pot folosi pachetul în paralel, în două clienturi?", "en": "Can I use the package in two clients at once?" },
-          "a": { "ro": "Da. Fiecare client pornește propriul proces `ase-moodle-mcp`, iar toate citesc același token. Pentru reinstalare, închide procesele: `doctor` le numără, iar pe Windows un proces pornit blochează executabilul.", "en": "Yes. Each client starts its own `ase-moodle-mcp` process, and all of them read the same token. Before reinstalling, close the processes: `doctor` counts them, and on Windows a running process locks the executable." }
+          "q": {
+            "ro": "Pot folosi pachetul în paralel, în două clienturi?",
+            "en": "Can I use the package in two clients at once?"
+          },
+          "a": {
+            "ro": "Da. Fiecare client pornește propriul proces `ase-moodle-mcp`, iar toate citesc același token. Pentru reinstalare, închide procesele: `doctor` le numără, iar pe Windows un proces pornit blochează executabilul.",
+            "en": "Yes. Each client starts its own `ase-moodle-mcp` process, and all of them read the same token. Before reinstalling, close the processes: `doctor` counts them, and on Windows a running process locks the executable."
+          }
         },
         {
-          "q": { "ro": "Merge fără să deschid browserul?", "en": "Does it work without opening a browser?" },
-          "a": { "ro": "Da, cu `ase-moodle login --method manual`: se deschide pagina de login, copiezi tokenul din Chei de securitate, iar pachetul îl citește din clipboard. Pentru scripturi, `--token-stdin` citește tokenul din stdin.", "en": "Yes, with `ase-moodle login --method manual`: the login page opens, you copy the token from Security keys, and the package reads it from the clipboard. For scripts, `--token-stdin` reads the token from stdin." }
+          "q": {
+            "ro": "Merge fără să deschid browserul?",
+            "en": "Does it work without opening a browser?"
+          },
+          "a": {
+            "ro": "Da, cu `ase-moodle login --method manual`: se deschide pagina de login, copiezi tokenul din Chei de securitate, iar pachetul îl citește din clipboard. Pentru scripturi, `--token-stdin` citește tokenul din stdin.",
+            "en": "Yes, with `ase-moodle login --method manual`: the login page opens, you copy the token from Security keys, and the package reads it from the clipboard. For scripts, `--token-stdin` reads the token from stdin."
+          }
         },
         {
-          "q": { "ro": "Ce se întâmplă dacă Moodle se actualizează?", "en": "What happens when Moodle is updated?" },
-          "a": { "ro": "`doctor` compară funcțiile Web Service folosite de pachet cu cele pe care le are site-ul. `obligatorii lipsa` înseamnă că o unealtă nu va merge; `optionale lipsa` singur nu e o problemă, pentru că pachetul are o rezervă sau sare acel tip de material.", "en": "`doctor` compares the Web Service functions the package uses with the ones the site has. `obligatorii lipsa` means a tool will fail; `optionale lipsa` alone is not a problem, because the package has a fallback or skips that material type." }
+          "q": {
+            "ro": "Ce se întâmplă dacă Moodle se actualizează?",
+            "en": "What happens when Moodle is updated?"
+          },
+          "a": {
+            "ro": "`doctor` compară funcțiile Web Service folosite de pachet cu cele pe care le are site-ul. `obligatorii lipsa` înseamnă că o unealtă nu va merge; `optionale lipsa` singur nu e o problemă, pentru că pachetul are o rezervă sau sare acel tip de material.",
+            "en": "`doctor` compares the Web Service functions the package uses with the ones the site has. `obligatorii lipsa` means a tool will fail; `optionale lipsa` alone is not a problem, because the package has a fallback or skips that material type."
+          }
         },
         {
-          "q": { "ro": "Unde raportez o problemă?", "en": "Where do I report a problem?" },
-          "a": { "ro": "Pe GitHub Issues, cu output-ul lui `ase-moodle doctor` și mesajul de eroare. Output-ul nu conține tokenul. Pentru o funcție nouă, pașii sunt în `docs/DEVELOPMENT.md`.", "en": "On GitHub Issues, with the output of `ase-moodle doctor` and the error message. The output does not contain the token. For a new feature, the steps are in `docs/DEVELOPMENT.md`." }
+          "q": {
+            "ro": "Unde raportez o problemă?",
+            "en": "Where do I report a problem?"
+          },
+          "a": {
+            "ro": "Pe GitHub Issues, cu output-ul lui `ase-moodle doctor` și mesajul de eroare. Output-ul nu conține tokenul. Pentru o funcție nouă, pașii sunt în `docs/DEVELOPMENT.md`.",
+            "en": "On GitHub Issues, with the output of `ase-moodle doctor` and the error message. The output does not contain the token. For a new feature, the steps are in `docs/DEVELOPMENT.md`."
+          }
         }
       ]
     }
   ],
   "claims": [
-    { "text": "Codul e sub Apache License 2.0.", "evidence": "LICENSE; pyproject.toml:10", "status": "verified" },
-    { "text": "Login-ul se face doar prin Google; nu există login cu nume de utilizator și parolă pentru pachet.", "evidence": "docs/AUTH.md:5", "status": "verified" },
-    { "text": "Pachetul nu salvează parola Google.", "evidence": "docs/AUTH.md:63", "status": "verified" },
-    { "text": "Tokenul stă în Credential Manager sau Secret Service; altfel în config.json cu acces doar pentru utilizator.", "evidence": "docs/AUTH.md:53", "status": "verified" },
-    { "text": "auth-status și doctor spun doar de unde a fost citit tokenul.", "evidence": "docs/AUTH.md:57", "status": "verified" },
-    { "text": "Singurele conexiuni sunt către Moodle și către GitHub, doar la instalare.", "evidence": "docs/SAFETY.md:73", "status": "verified" },
-    { "text": "Scrierile cer confirm=true sau --yes; altfel codul 2.", "evidence": "docs/SAFETY.md:11", "status": "verified" },
-    { "text": "Pachetul verifică drafts_enabled și refuză cu DirectSubmissionBlocked.", "evidence": "docs/SAFETY.md:35", "status": "verified" },
-    { "text": "Quizul salvează răspunsurile întâi și trimite doar după a doua aprobare; trimiterea e ireversibilă.", "evidence": "docs/SAFETY.md:43", "status": "verified" },
-    { "text": "Regulile cursului pot interzice ajutorul automat; răspunderea e a studentului.", "evidence": "docs/SAFETY.md:51", "status": "verified" },
-    { "text": "Windows e testat pe contul real; logica de instalare e testată pe Linux; macOS nu e testat.", "evidence": "README.md:105; docs/PLATFORMS.md:128; docs/PLATFORMS.md:132; docs/TESTING.md:100", "status": "verified" },
-    { "text": "Node.js 18+ e nevoie doar pentru varianta npm.", "evidence": "docs/INSTALL.md:10", "status": "verified" },
-    { "text": "Pachetul e scris pentru BL@ASE, care rulează Moodle 4.5 din octombrie 2026; funcționează pe 4.5 și 4.1.", "evidence": "docs/CONFIGURATION.md:70", "status": "verified" },
-    { "text": "npx ase-moodle-mcp rulează comenzile fără instalare globală.", "evidence": "docs/INSTALL.md:69", "status": "verified" },
-    { "text": "Mesageria Moodle e dezactivată pe site.", "evidence": "README.md:111", "status": "verified" }
+    {
+      "text": "Codul e sub Apache License 2.0.",
+      "evidence": "LICENSE; pyproject.toml:10",
+      "status": "verified"
+    },
+    {
+      "text": "Login-ul se face doar prin Google; nu există login cu nume de utilizator și parolă pentru pachet.",
+      "evidence": "docs/AUTH.md:5",
+      "status": "verified"
+    },
+    {
+      "text": "Pachetul nu salvează parola Google.",
+      "evidence": "docs/AUTH.md:63",
+      "status": "verified"
+    },
+    {
+      "text": "Tokenul stă în Credential Manager sau Secret Service; altfel în config.json cu acces doar pentru utilizator.",
+      "evidence": "docs/AUTH.md:53",
+      "status": "verified"
+    },
+    {
+      "text": "auth-status și doctor spun doar de unde a fost citit tokenul.",
+      "evidence": "docs/AUTH.md:57",
+      "status": "verified"
+    },
+    {
+      "text": "Singurele conexiuni sunt către Moodle și către GitHub, doar la instalare.",
+      "evidence": "docs/SAFETY.md:73",
+      "status": "verified"
+    },
+    {
+      "text": "Scrierile cer confirm=true sau --yes; altfel codul 2.",
+      "evidence": "docs/SAFETY.md:11",
+      "status": "verified"
+    },
+    {
+      "text": "Pachetul verifică drafts_enabled și refuză cu DirectSubmissionBlocked.",
+      "evidence": "docs/SAFETY.md:35",
+      "status": "verified"
+    },
+    {
+      "text": "Quizul salvează răspunsurile întâi și trimite doar după a doua aprobare; trimiterea e ireversibilă.",
+      "evidence": "docs/SAFETY.md:43",
+      "status": "verified"
+    },
+    {
+      "text": "Regulile cursului pot interzice ajutorul automat; răspunderea e a studentului.",
+      "evidence": "docs/SAFETY.md:51",
+      "status": "verified"
+    },
+    {
+      "text": "Windows e testat pe contul real; logica de instalare e testată pe Linux; macOS nu e testat.",
+      "evidence": "README.md:105; docs/PLATFORMS.md:128; docs/PLATFORMS.md:132; docs/TESTING.md:100",
+      "status": "verified"
+    },
+    {
+      "text": "Node.js 18+ e nevoie doar pentru varianta npm.",
+      "evidence": "docs/INSTALL.md:10",
+      "status": "verified"
+    },
+    {
+      "text": "Pachetul e scris pentru BL@ASE, care rulează Moodle 4.5 din octombrie 2026; funcționează pe 4.5 și 4.1.",
+      "evidence": "docs/CONFIGURATION.md:70",
+      "status": "verified"
+    },
+    {
+      "text": "npx ase-moodle-mcp rulează comenzile fără instalare globală.",
+      "evidence": "docs/INSTALL.md:69",
+      "status": "verified"
+    },
+    {
+      "text": "Mesageria Moodle e dezactivată pe site.",
+      "evidence": "README.md:111",
+      "status": "verified"
+    }
   ]
 }

@@ -3,33 +3,34 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Install | ase-moodle</title>
-  <meta name="description" content="Install ase-moodle with pipx or npm, sign in once with Google and configure Claude Code, Codex, opencode and Antigravity. Requirements, update, uninstall.">
+  <title>Install ase-moodle in Claude Code, Codex and opencode</title>
+  <meta name="description" content="How to install the ase-moodle MCP server in Claude Code, Codex, opencode or Antigravity with one command, and what the install does.">
+  <meta name="keywords" content="install moodle mcp, install mcp server claude code, ase moodle setup, moodle mcp install, codex mcp install, moodle mcp pipx, moodle mcp npm, configure moodle claude code">
 <link rel="canonical" href="https://ase-moodle-mcp.danubelabs.net/en/install/"><link rel="alternate" hreflang="ro" href="https://ase-moodle-mcp.danubelabs.net/instalare/"><link rel="alternate" hreflang="en" href="https://ase-moodle-mcp.danubelabs.net/en/install/"><link rel="alternate" hreflang="x-default" href="https://ase-moodle-mcp.danubelabs.net/instalare/">  <meta name="theme-color" content="#0A0E14">
   <meta name="color-scheme" content="dark">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ase-moodle">
-  <meta property="og:title" content="Install | ase-moodle">
-  <meta property="og:description" content="Install ase-moodle with pipx or npm, sign in once with Google and configure Claude Code, Codex, opencode and Antigravity. Requirements, update, uninstall.">
+  <meta property="og:title" content="Install ase-moodle in Claude Code, Codex and opencode">
+  <meta property="og:description" content="How to install the ase-moodle MCP server in Claude Code, Codex, opencode or Antigravity with one command, and what the install does.">
   <meta property="og:url" content="https://ase-moodle-mcp.danubelabs.net/en/install/">
   <meta property="og:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Install | ase-moodle">
+  <meta property="og:image:alt" content="Install ase-moodle in Claude Code, Codex and opencode">
   <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ro_RO">  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Install | ase-moodle">
-  <meta name="twitter:description" content="Install ase-moodle with pipx or npm, sign in once with Google and configure Claude Code, Codex, opencode and Antigravity. Requirements, update, uninstall.">
+  <meta name="twitter:title" content="Install ase-moodle in Claude Code, Codex and opencode">
+  <meta name="twitter:description" content="How to install the ase-moodle MCP server in Claude Code, Codex, opencode or Antigravity with one command, and what the install does.">
   <meta name="twitter:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
 <script type="application/ld+json">[
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Install | ase-moodle",
+    "name": "Install ase-moodle in Claude Code, Codex and opencode",
     "url": "https://ase-moodle-mcp.danubelabs.net/en/install/",
-    "description": "Install ase-moodle with pipx or npm, sign in once with Google and configure Claude Code, Codex, opencode and Antigravity. Requirements, update, uninstall.",
+    "description": "How to install the ase-moodle MCP server in Claude Code, Codex, opencode or Antigravity with one command, and what the install does.",
     "inLanguage": "en",
     "isPartOf": {
       "@type": "WebSite",
@@ -54,6 +55,31 @@
         "item": "https://ase-moodle-mcp.danubelabs.net/en/install/"
       }
     ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Install ase-moodle in Claude Code, Codex and opencode",
+    "name": "Install ase-moodle in Claude Code, Codex and opencode",
+    "url": "https://ase-moodle-mcp.danubelabs.net/en/install/",
+    "inLanguage": "en",
+    "description": "How to install the ase-moodle MCP server in Claude Code, Codex, opencode or Antigravity with one command, and what the install does.",
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "ase-moodle",
+      "url": "https://ase-moodle-mcp.danubelabs.net"
+    },
+    "proficiencyLevel": "Beginner",
+    "author": {
+      "@type": "Person",
+      "name": "FiredMosquito831",
+      "url": "https://github.com/FiredMosquito831"
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "ase-moodle",
+      "url": "https://ase-moodle-mcp.danubelabs.net"
+    }
   }
 ]</script></head>
 <body>
@@ -95,7 +121,7 @@
 </div>
 <div class="layout with-toc">
   <div class="prose">
-    <p class="lead">You need Python 3.10+ and a BL@ASE account. Pick one path: pipx, npm, the script in the repo or pip. The result is the same: the <code>ase-moodle</code> and <code>ase-moodle-mcp</code> commands on PATH.</p>
+    <p class="lead">You need Python 3.10+ and a BL@ASE account. Pick one path: pipx, npm, the script in the repo or pip. The result is the same: the <code>ase-moodle</code> and <code>ase-moodle-mcp</code> commands on PATH. The ase-moodle install page explains each path in turn, and at the end you have an MCP server for Moodle ready to start.</p>
 <section id="requirements"><h2><span class="prompt" aria-hidden="true">&gt;</span> Requirements</h2><div class="table-wrap"><table><thead><tr><th scope="col"></th><th scope="col">Windows</th><th scope="col">Linux</th><th scope="col">macOS</th></tr></thead><tbody><tr><td>Python</td><td>3.10+ (tested with 3.13)</td><td>3.10+ (tested with 3.12, Ubuntu 24.04)</td><td>3.10+ (untested)</td></tr><tr><td>git</td><td>yes</td><td>yes</td><td>yes</td></tr><tr><td>Browser for login</td><td>Edge or Chrome, detected automatically</td><td>Chromium, or <code>--method manual</code></td><td>Chromium (untested)</td></tr><tr><td>Clipboard for <code>--method manual</code></td><td>PowerShell, included</td><td><code>xclip</code>, <code>xsel</code> or <code>wl-paste</code></td><td><code>pbpaste</code>, included</td></tr><tr><td>Token keychain</td><td>Windows Credential Manager</td><td>Secret Service (GNOME Keyring, KWallet)</td><td>Keychain (untested)</td></tr><tr><td>Node.js 18+ and npm</td><td>only for the npm path</td><td>only for the npm path</td><td>only for the npm path</td></tr></tbody></table></div></section>
 <section id="path-1-pipx-recommended"><h2><span class="prompt" aria-hidden="true">&gt;</span> Path 1: pipx (recommended)</h2><ol class="steps"><li><h3>Install pipx, once</h3><p>pipx installs Python applications in isolated environments and puts them on PATH.</p><pre><code>python -m pip install --user pipx</code></pre></li><li><h3>Install ase-moodle</h3><p>The package comes straight from GitHub.</p><pre><code>pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git</code></pre></li><li><h3>Sign in, configure, verify</h3><p>Login opens the browser once. <code>install</code> writes the clients' configuration, and <code>doctor</code> says what is missing.</p><pre><code>ase-moodle login
 ase-moodle install

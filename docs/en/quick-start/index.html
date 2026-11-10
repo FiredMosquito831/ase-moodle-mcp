@@ -3,33 +3,34 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quick start | ase-moodle</title>
-  <meta name="description" content="From zero to the first question: install ase-moodle, sign in with Google, configure your client and ask for upcoming deadlines in Claude Code or opencode.">
+  <title>Quick start with ase-moodle</title>
+  <meta name="description" content="First sign-in, first course, first assignment: the step-by-step guide to using the ase-moodle MCP server in your AI agent, with the exact commands.">
+  <meta name="keywords" content="moodle mcp quick start, moodle login automation, ase moodle guide, moodle agent setup, moodle google sign in, first moodle course, moodle install check, download moodle semester">
 <link rel="canonical" href="https://ase-moodle-mcp.danubelabs.net/en/quick-start/"><link rel="alternate" hreflang="ro" href="https://ase-moodle-mcp.danubelabs.net/start/"><link rel="alternate" hreflang="en" href="https://ase-moodle-mcp.danubelabs.net/en/quick-start/"><link rel="alternate" hreflang="x-default" href="https://ase-moodle-mcp.danubelabs.net/start/">  <meta name="theme-color" content="#0A0E14">
   <meta name="color-scheme" content="dark">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ase-moodle">
-  <meta property="og:title" content="Quick start | ase-moodle">
-  <meta property="og:description" content="From zero to the first question: install ase-moodle, sign in with Google, configure your client and ask for upcoming deadlines in Claude Code or opencode.">
+  <meta property="og:title" content="Quick start with ase-moodle">
+  <meta property="og:description" content="First sign-in, first course, first assignment: the step-by-step guide to using the ase-moodle MCP server in your AI agent, with the exact commands.">
   <meta property="og:url" content="https://ase-moodle-mcp.danubelabs.net/en/quick-start/">
   <meta property="og:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Quick start | ase-moodle">
+  <meta property="og:image:alt" content="Quick start with ase-moodle">
   <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ro_RO">  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Quick start | ase-moodle">
-  <meta name="twitter:description" content="From zero to the first question: install ase-moodle, sign in with Google, configure your client and ask for upcoming deadlines in Claude Code or opencode.">
+  <meta name="twitter:title" content="Quick start with ase-moodle">
+  <meta name="twitter:description" content="First sign-in, first course, first assignment: the step-by-step guide to using the ase-moodle MCP server in your AI agent, with the exact commands.">
   <meta name="twitter:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
 <script type="application/ld+json">[
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Quick start | ase-moodle",
+    "name": "Quick start with ase-moodle",
     "url": "https://ase-moodle-mcp.danubelabs.net/en/quick-start/",
-    "description": "From zero to the first question: install ase-moodle, sign in with Google, configure your client and ask for upcoming deadlines in Claude Code or opencode.",
+    "description": "First sign-in, first course, first assignment: the step-by-step guide to using the ase-moodle MCP server in your AI agent, with the exact commands.",
     "inLanguage": "en",
     "isPartOf": {
       "@type": "WebSite",
@@ -54,6 +55,31 @@
         "item": "https://ase-moodle-mcp.danubelabs.net/en/quick-start/"
       }
     ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Quick start with ase-moodle",
+    "name": "Quick start with ase-moodle",
+    "url": "https://ase-moodle-mcp.danubelabs.net/en/quick-start/",
+    "inLanguage": "en",
+    "description": "First sign-in, first course, first assignment: the step-by-step guide to using the ase-moodle MCP server in your AI agent, with the exact commands.",
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "ase-moodle",
+      "url": "https://ase-moodle-mcp.danubelabs.net"
+    },
+    "proficiencyLevel": "Beginner",
+    "author": {
+      "@type": "Person",
+      "name": "FiredMosquito831",
+      "url": "https://github.com/FiredMosquito831"
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "ase-moodle",
+      "url": "https://ase-moodle-mcp.danubelabs.net"
+    }
   }
 ]</script></head>
 <body>
@@ -95,7 +121,7 @@
 </div>
 <div class="layout with-toc">
   <div class="prose">
-    <p class="lead">From zero to the first question. The steps below assume Python 3.10+ and a BL@ASE account on online.ase.ro.</p>
+    <p class="lead">From zero to the first question. The steps below assume Python 3.10+ and a BL@ASE account on online.ase.ro. The quick start with ase-moodle takes about five minutes, from the install to the first answer.</p>
 <section id="the-steps"><h2><span class="prompt" aria-hidden="true">&gt;</span> The steps</h2><ol class="steps"><li><h3>Install the package</h3><p>With pipx, no Node.js needed. The npm and pip paths are on the install page.</p><pre><code>python -m pip install --user pipx
 pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git</code></pre></li><li><h3>Sign in once</h3><p>A window opens with a dedicated profile. You sign in with Google; the token is saved in the system keychain.</p><pre><code>ase-moodle login</code></pre></li><li><h3>Configure the clients</h3><p><code>install</code> writes the configuration into Claude Code, Codex, opencode and Antigravity. For one folder only, add <code>--scope project</code>.</p><pre><code>ase-moodle install</code></pre></li><li><h3>Verify</h3><p><code>doctor</code> checks each platform, the token, the MCP processes and the Moodle functions. Without a token the step is <code>skipped</code>, not an error.</p><pre><code>ase-moodle doctor</code></pre></li><li><h3>Ask in your client</h3><p>Open Claude Code, Codex, opencode or Antigravity and ask: “What deadlines do I have in the next 7 days?”. The server should call <code>deadlines</code>.</p></li><li><h3>Download a semester</h3><p>Materials land in the given folder, with <code>index.md</code>, <code>teme.md</code>, <code>forumuri/</code>, <code>quizuri.md</code>, <code>note.md</code> and the raw data. A second run skips existing files.</p><pre><code>ase-moodle download --year 3 --sem 1 --out D:\Materiale</code></pre></li></ol></section>
 <section id="what-each-client-gets"><h2><span class="prompt" aria-hidden="true">&gt;</span> What each client gets</h2><div class="table-wrap"><table><thead><tr><th scope="col">Client</th><th scope="col">Global</th><th scope="col">One folder</th></tr></thead><tbody><tr><td>Claude Code</td><td>plugin + marketplace, user scope</td><td>plugin + marketplace, in <code>.claude/settings.json</code></td></tr><tr><td>Codex</td><td>plugin + marketplace, in <code>~/.codex</code></td><td>only the MCP server, in <code>.codex/config.toml</code></td></tr><tr><td>opencode</td><td>MCP + <code>SKILL.md</code> in <code>~/.config/opencode</code></td><td>MCP in the folder's <code>opencode.json</code></td></tr><tr><td>Antigravity</td><td>MCP + plugin, through <code>agy</code></td><td>none: it stays global</td></tr></tbody></table></div></section>

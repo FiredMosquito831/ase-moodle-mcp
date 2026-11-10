@@ -3,26 +3,44 @@
   "order": 80,
   "nav": null,
   "priority": "0.6",
-  "words": [600, 1000],
-  "path": { "ro": "/probleme/", "en": "/en/troubleshooting/" },
-  "title": { "ro": "Probleme frecvente | ase-moodle", "en": "Troubleshooting | ase-moodle" },
+  "words": [
+    600,
+    1000
+  ],
+  "path": {
+    "ro": "/probleme/",
+    "en": "/en/troubleshooting/"
+  },
+  "title": {
+    "ro": "Probleme frecvente | ase-moodle",
+    "en": "Troubleshooting | ase-moodle"
+  },
   "description": {
     "ro": "Erori frecvente și rezolvări verificate: token lipsă, login expirat, browser lipsă, PATH, instalare blocată, confirmări, ciorne, quizuri și descărcări.",
     "en": "Common errors and verified fixes: missing token, expired login, missing browser, PATH, blocked install, confirmations, drafts, quizzes and downloads."
   },
-  "h1": { "ro": "Probleme frecvente", "en": "Troubleshooting" },
-  "eyebrow": { "ro": "Simptom, cauză, rezolvare", "en": "Symptom, cause, fix" },
+  "h1": {
+    "ro": "Probleme frecvente",
+    "en": "Troubleshooting"
+  },
+  "eyebrow": {
+    "ro": "Simptom, cauză, rezolvare",
+    "en": "Symptom, cause, fix"
+  },
   "blocks": [
     {
       "type": "lead",
       "text": {
-        "ro": "Începe mereu cu `ase-moodle doctor` și `ase-moodle auth-status`. Ele spun ce e instalat, ce token există și de unde e citit.",
-        "en": "Always start with `ase-moodle doctor` and `ase-moodle auth-status`. They say what is installed, which token exists and where it is read from."
+        "ro": "Începe mereu cu `ase-moodle doctor` și `ase-moodle auth-status`. Ele spun ce e instalat, ce token există și de unde e citit. Lista de probleme frecvente ase-moodle de mai jos este grupată pe autentificare, instalare, scrieri și descărcare.",
+        "en": "Always start with `ase-moodle doctor` and `ase-moodle auth-status`. They say what is installed, which token exists and where it is read from. The ase-moodle troubleshooting list below is grouped by authentication, installation, writes and downloads."
       }
     },
     {
       "type": "prose",
-      "heading": { "ro": "Autentificare", "en": "Authentication" },
+      "heading": {
+        "ro": "Autentificare",
+        "en": "Authentication"
+      },
       "paragraphs": [
         {
           "ro": "**„Lipsește tokenul.”** Nu ai rulat `ase-moodle login`, sau tokenul a fost șters. Rulează `ase-moodle login`.",
@@ -48,7 +66,10 @@
     },
     {
       "type": "prose",
-      "heading": { "ro": "Instalare", "en": "Installation" },
+      "heading": {
+        "ro": "Instalare",
+        "en": "Installation"
+      },
       "paragraphs": [
         {
           "ro": "**`ase-moodle-mcp` nu e în PATH.** Pachetul nu e instalat, sau folderul executabilelor pipx nu e în PATH. Rulează `pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git`, apoi `pipx ensurepath` și deschide un terminal nou.",
@@ -82,7 +103,10 @@
     },
     {
       "type": "prose",
-      "heading": { "ro": "Scrieri și quizuri", "en": "Writes and quizzes" },
+      "heading": {
+        "ro": "Scrieri și quizuri",
+        "en": "Writes and quizzes"
+      },
       "paragraphs": [
         {
           "ro": "**`needs_confirmation` (cod 2).** Scrierea nu are confirmare. Dacă rulezi tu comanda, adaugă `--yes` după ce ai verificat ce trimiți. Dacă e un agent, cere-i să arate conținutul și aprobă-l.",
@@ -104,7 +128,10 @@
     },
     {
       "type": "prose",
-      "heading": { "ro": "Descărcare și doctor", "en": "Downloads and doctor" },
+      "heading": {
+        "ro": "Descărcare și doctor",
+        "en": "Downloads and doctor"
+      },
       "paragraphs": [
         {
           "ro": "**Materiale lipsă.** Rulează din nou: fișierele cu aceeași dimensiune se sar, cele lipsă se descarcă. Verifică `_rezumat.json` pentru erori și avertismente.",
@@ -123,7 +150,10 @@
     {
       "type": "callout",
       "kind": "note",
-      "title": { "ro": "Când nu e clar", "en": "When it is not clear" },
+      "title": {
+        "ro": "Când nu e clar",
+        "en": "When it is not clear"
+      },
       "text": {
         "ro": "Rulează `ase-moodle doctor` și păstrează output-ul: nu conține tokenul. Cu el, problema e de obicei ușor de găsit.",
         "en": "Run `ase-moodle doctor` and keep the output: it does not contain the token. With it, the problem is usually easy to find."
@@ -131,22 +161,90 @@
     }
   ],
   "claims": [
-    { "text": "Începe cu doctor și auth-status: ele spun ce e instalat, ce token există și de unde e citit.", "evidence": "docs/TROUBLESHOOTING.md:3", "status": "verified" },
-    { "text": "Lipsește tokenul înseamnă că nu ai rulat login sau tokenul a fost șters.", "evidence": "docs/TROUBLESHOOTING.md:9", "status": "verified" },
-    { "text": "Login-ul expiră dacă nu te-ai logat; crește timpul cu --timeout 600 sau folosește --method manual.", "evidence": "docs/TROUBLESHOOTING.md:17", "status": "verified" },
-    { "text": "Mesajul pentru browser lipsă conține comanda exactă, cu Python-ul mediului.", "evidence": "docs/TROUBLESHOOTING.md:23", "status": "verified" },
-    { "text": "Tokenul se resetează din Chei de securitate.", "evidence": "docs/AUTH.md:82", "status": "verified" },
-    { "text": "Pe Linux, metoda manual are nevoie de xclip, xsel sau wl-paste.", "evidence": "docs/TROUBLESHOOTING.md:39", "status": "verified" },
-    { "text": "ase-moodle-mcp nu e în PATH dacă pachetul nu e instalat sau folderul pipx nu e în PATH.", "evidence": "docs/TROUBLESHOOTING.md:64", "status": "verified" },
-    { "text": "Pe Windows, un client MCP poate bloca ase-moodle-mcp.exe la pipx install.", "evidence": "docs/TROUBLESHOOTING.md:73", "status": "verified" },
-    { "text": "Claude Code încarcă pluginul la pornire.", "evidence": "docs/PLATFORMS.md:47", "status": "verified" },
-    { "text": "Pentru proiect, .claude/settings.json trebuie să conțină ase-moodle@ase-moodle-marketplace în enabledPlugins.", "evidence": "docs/TROUBLESHOOTING.md:88", "status": "verified" },
-    { "text": "Codex cere folderul marcat ca proiect de încredere.", "evidence": "docs/PLATFORMS.md:71", "status": "verified" },
-    { "text": "Instalatorul face copie .bak înainte de a scrie opencode.json și se oprește dacă JSON-ul nu e valid.", "evidence": "docs/PLATFORMS.md:83", "status": "verified" },
-    { "text": "Scrierile fără confirmare se opresc cu needs_confirmation (cod 2).", "evidence": "docs/SAFETY.md:11", "status": "verified" },
-    { "text": "Tema fără ciorne: --submit pentru trimitere finală, --allow-direct pentru salvare directă.", "evidence": "docs/TROUBLESHOOTING.md:139", "status": "verified" },
-    { "text": "Numele din quiz-answer trebuie copiate exact din quiz-questions.", "evidence": "docs/TROUBLESHOOTING.md:152", "status": "verified" },
-    { "text": "Materialele lipsă se reiau; _rezumat.json are erorile și avertismentele.", "evidence": "docs/TROUBLESHOOTING.md:163", "status": "verified" },
-    { "text": "Pachetul nu scrie fișiere de log; erorile apar pe stderr sau în răspunsul uneltei.", "evidence": "docs/TROUBLESHOOTING.md:203", "status": "verified" }
+    {
+      "text": "Începe cu doctor și auth-status: ele spun ce e instalat, ce token există și de unde e citit.",
+      "evidence": "docs/TROUBLESHOOTING.md:3",
+      "status": "verified"
+    },
+    {
+      "text": "Lipsește tokenul înseamnă că nu ai rulat login sau tokenul a fost șters.",
+      "evidence": "docs/TROUBLESHOOTING.md:9",
+      "status": "verified"
+    },
+    {
+      "text": "Login-ul expiră dacă nu te-ai logat; crește timpul cu --timeout 600 sau folosește --method manual.",
+      "evidence": "docs/TROUBLESHOOTING.md:17",
+      "status": "verified"
+    },
+    {
+      "text": "Mesajul pentru browser lipsă conține comanda exactă, cu Python-ul mediului.",
+      "evidence": "docs/TROUBLESHOOTING.md:23",
+      "status": "verified"
+    },
+    {
+      "text": "Tokenul se resetează din Chei de securitate.",
+      "evidence": "docs/AUTH.md:82",
+      "status": "verified"
+    },
+    {
+      "text": "Pe Linux, metoda manual are nevoie de xclip, xsel sau wl-paste.",
+      "evidence": "docs/TROUBLESHOOTING.md:39",
+      "status": "verified"
+    },
+    {
+      "text": "ase-moodle-mcp nu e în PATH dacă pachetul nu e instalat sau folderul pipx nu e în PATH.",
+      "evidence": "docs/TROUBLESHOOTING.md:64",
+      "status": "verified"
+    },
+    {
+      "text": "Pe Windows, un client MCP poate bloca ase-moodle-mcp.exe la pipx install.",
+      "evidence": "docs/TROUBLESHOOTING.md:73",
+      "status": "verified"
+    },
+    {
+      "text": "Claude Code încarcă pluginul la pornire.",
+      "evidence": "docs/PLATFORMS.md:47",
+      "status": "verified"
+    },
+    {
+      "text": "Pentru proiect, .claude/settings.json trebuie să conțină ase-moodle@ase-moodle-marketplace în enabledPlugins.",
+      "evidence": "docs/TROUBLESHOOTING.md:88",
+      "status": "verified"
+    },
+    {
+      "text": "Codex cere folderul marcat ca proiect de încredere.",
+      "evidence": "docs/PLATFORMS.md:71",
+      "status": "verified"
+    },
+    {
+      "text": "Instalatorul face copie .bak înainte de a scrie opencode.json și se oprește dacă JSON-ul nu e valid.",
+      "evidence": "docs/PLATFORMS.md:83",
+      "status": "verified"
+    },
+    {
+      "text": "Scrierile fără confirmare se opresc cu needs_confirmation (cod 2).",
+      "evidence": "docs/SAFETY.md:11",
+      "status": "verified"
+    },
+    {
+      "text": "Tema fără ciorne: --submit pentru trimitere finală, --allow-direct pentru salvare directă.",
+      "evidence": "docs/TROUBLESHOOTING.md:139",
+      "status": "verified"
+    },
+    {
+      "text": "Numele din quiz-answer trebuie copiate exact din quiz-questions.",
+      "evidence": "docs/TROUBLESHOOTING.md:152",
+      "status": "verified"
+    },
+    {
+      "text": "Materialele lipsă se reiau; _rezumat.json are erorile și avertismentele.",
+      "evidence": "docs/TROUBLESHOOTING.md:163",
+      "status": "verified"
+    },
+    {
+      "text": "Pachetul nu scrie fișiere de log; erorile apar pe stderr sau în răspunsul uneltei.",
+      "evidence": "docs/TROUBLESHOOTING.md:203",
+      "status": "verified"
+    }
   ]
 }

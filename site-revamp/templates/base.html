@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title[lang] }}</title>
-  <meta name="description" content="{{ page.description[lang] }}">
+  <title>{{ meta.title }}</title>
+  <meta name="description" content="{{ meta.description }}">
+  <meta name="keywords" content="{{ meta.keywords | join(', ') }}">
   {% if noindex %}<meta name="robots" content="noindex, follow">{% else %}<link rel="canonical" href="{{ canonical }}">{% for alt in hreflangs %}<link rel="alternate" hreflang="{{ alt.lang }}" href="{{ alt.href }}">{% endfor %}{% endif %}
   <meta name="theme-color" content="{{ tokens.color.bg }}">
   <meta name="color-scheme" content="dark">
@@ -12,18 +13,18 @@
   <link rel="stylesheet" href="/assets/style.css">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{{ site.name }}">
-  <meta property="og:title" content="{{ page.title[lang] }}">
-  <meta property="og:description" content="{{ page.description[lang] }}">
+  <meta property="og:title" content="{{ meta.title }}">
+  <meta property="og:description" content="{{ meta.description }}">
   <meta property="og:url" content="{{ site.url }}{{ page.path[lang] }}">
   <meta property="og:image" content="{{ site.url }}/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{{ page.title[lang] }}">
+  <meta property="og:image:alt" content="{{ meta.title }}">
   <meta property="og:locale" content="{{ site.locale[lang] }}">
   {% if page.path[other_lang] %}<meta property="og:locale:alternate" content="{{ site.locale[other_lang] }}">{% endif %}
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ page.title[lang] }}">
-  <meta name="twitter:description" content="{{ page.description[lang] }}">
+  <meta name="twitter:title" content="{{ meta.title }}">
+  <meta name="twitter:description" content="{{ meta.description }}">
   <meta name="twitter:image" content="{{ site.url }}/og.png">
   {% if jsonld %}<script type="application/ld+json">{{ jsonld | safe }}</script>{% endif %}
 </head>
