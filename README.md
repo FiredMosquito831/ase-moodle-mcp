@@ -8,7 +8,7 @@ Client Python, CLI, server MCP și plugin pentru Moodle-ul BL@ASE. Îți permite
 
 **In English:** an MCP server, CLI and plugin that gives AI agents (Claude Code, Codex, opencode, Google Antigravity) access to your Moodle account at BL@ASE / online.ase.ro: courses, course materials, assignments, forums, grades, quizzes, notifications and deadlines. Keywords: Moodle, BL@ASE, ASE Bucharest, online.ase.ro, MCP, Model Context Protocol, Claude Code plugin, Codex plugin, opencode, Antigravity, student tools.
 
-Site: https://ase-moodle-mcp.danubelabs.net/
+Site: https://ase-moodle-mcp.danubelabs.net/ (română) · https://ase-moodle-mcp.danubelabs.net/en/ (English)
 
 ## Ce poate face
 
