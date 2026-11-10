@@ -1,0 +1,158 @@
+{
+  "id": "commands",
+  "order": 40,
+  "nav": { "ro": "Comenzi", "en": "Commands" },
+  "priority": "0.8",
+  "words": [600, 1000],
+  "path": { "ro": "/comenzi/", "en": "/en/commands/" },
+  "title": { "ro": "Comenzi CLI | ase-moodle", "en": "CLI commands | ase-moodle" },
+  "description": {
+    "ro": "Referința comenzilor ase-moodle, generată din parserul real: cont, cursuri, teme, forumuri, note, quizuri, notificări, API Moodle și instalare.",
+    "en": "The ase-moodle command reference, generated from the real parser: account, courses, assignments, forums, grades, quizzes, notifications, Moodle API and install."
+  },
+  "h1": { "ro": "Comenzi", "en": "Commands" },
+  "eyebrow": { "ro": "37 de comenzi, generate din parser", "en": "37 commands, generated from the parser" },
+  "blocks": [
+    {
+      "type": "lead",
+      "text": {
+        "ro": "Toate comenzile scriu JSON pe stdout, iar erorile merg pe stderr ca `{\"error\": \"...\", \"message\": \"...\"}`. Tabelul de mai jos este generat din parserul real: numele, opțiunile și ajutorul vin din cod.",
+        "en": "Every command writes JSON on stdout, and errors go to stderr as `{\"error\": \"...\", \"message\": \"...\"}`. The table below is generated from the real parser: the names, options and help come from the code."
+      }
+    },
+    {
+      "type": "prose",
+      "heading": { "ro": "Cum citești tabelul", "en": "How to read the table" },
+      "paragraphs": [
+        {
+          "ro": "`N` înseamnă un număr întreg, `JSON` un obiect JSON, iar `A|B` o alegere dintre valori. Opțiunile fără valoare sunt comutatoare. Comenzile care modifică contul cer `--yes`.",
+          "en": "`N` means an integer, `JSON` a JSON object, and `A|B` a choice between values. Options without a value are switches. Commands that change the account need `--yes`."
+        },
+        {
+          "ro": "Textul pentru `submit-text`, `reply` și `new-discussion` vine din `--text`, dintr-un `--file` sau din stdin, prin pipe.",
+          "en": "The text for `submit-text`, `reply` and `new-discussion` comes from `--text`, from a `--file` or from stdin, through a pipe."
+        },
+        {
+          "ro": "Coloana „Ce face” din pagina românească afișează textele de ajutor ale comenzilor, exact cum le dă `--help`. Pagina engleză le traduce, iar numele și opțiunile rămân aceleași.",
+          "en": "The Romanian page's “What it does” column shows the commands' help texts, exactly as `--help` gives them. The English page translates them, while the names and options stay the same."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "heading": { "ro": "Coduri de ieșire", "en": "Exit codes" },
+      "headers": [
+        { "ro": "Cod", "en": "Code" },
+        { "ro": "Înseamnă", "en": "Meaning" }
+      ],
+      "rows": [
+        [
+          { "ro": "`0`", "en": "`0`" },
+          { "ro": "reușit", "en": "success" }
+        ],
+        [
+          { "ro": "`1`", "en": "`1`" },
+          { "ro": "eroare: Moodle, token lipsă, fișier inexistent, ciorne dezactivate", "en": "error: Moodle, missing token, missing file, drafts disabled" }
+        ],
+        [
+          { "ro": "`2`", "en": "`2`" },
+          { "ro": "scriere blocată: lipsește `--yes`", "en": "write blocked: `--yes` is missing" }
+        ],
+        [
+          { "ro": "`3`", "en": "`3`" },
+          { "ro": "`install`, `update` sau `doctor` a găsit o problemă", "en": "`install`, `update` or `doctor` found a problem" }
+        ]
+      ]
+    },
+    {
+      "type": "generated",
+      "what": "commands"
+    },
+    {
+      "type": "prose",
+      "heading": { "ro": "Scopuri și harness-uri", "en": "Scopes and harnesses" },
+      "paragraphs": [
+        {
+          "ro": "Comenzile `claude`, `codex`, `opencode` și `antigravity` merg doar la adaptorul lor. Fiecare acceptă `install`, `update`, `uninstall` și `doctor`, cu `--scope global|project` unde există. Antigravity nu are scop de proiect: `--scope project` este o eroare.",
+          "en": "The `claude`, `codex`, `opencode` and `antigravity` commands go only to their own adapter. Each accepts `install`, `update`, `uninstall` and `doctor`, with `--scope global|project` where it exists. Antigravity has no project scope: `--scope project` is an error."
+        },
+        {
+          "ro": "`ase-moodle install` fără nume de harness rulează toate adaptoarele. Un harness care nu suportă scopul cerut este sărit, cu motivul în output.",
+          "en": "`ase-moodle install` without a harness name runs every adapter. A harness that does not support the requested scope is skipped, with the reason in the output."
+        }
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "warn",
+      "title": { "ro": "Confirmarea", "en": "Confirmation" },
+      "text": {
+        "ro": "Fără `--yes`, o scriere se oprește cu codul `2` și nu trimite nimic. Adaugă `--yes` doar după ce ai verificat exact ce trimite comanda.",
+        "en": "Without `--yes`, a write stops with exit code `2` and sends nothing. Add `--yes` only after you have checked exactly what the command sends."
+      }
+    }
+  ],
+  "commands": {
+    "groups": [
+      { "id": "account", "label": { "ro": "Cont", "en": "Account" }, "names": ["login", "logout", "auth-status", "whoami"] },
+      { "id": "courses", "label": { "ro": "Cursuri și materiale", "en": "Courses and materials" }, "names": ["courses", "outline", "download"] },
+      { "id": "assignments", "label": { "ro": "Teme", "en": "Assignments" }, "names": ["assignments", "assignment", "submit", "submit-text"] },
+      { "id": "forums", "label": { "ro": "Forumuri", "en": "Forums" }, "names": ["forums", "forum", "discussion", "reply", "new-discussion"] },
+      { "id": "grades", "label": { "ro": "Note", "en": "Grades" }, "names": ["grades"] },
+      { "id": "quizzes", "label": { "ro": "Quizuri", "en": "Quizzes" }, "names": ["quizzes", "quiz-attempts", "quiz-start", "quiz-questions", "quiz-answer", "quiz-review"] },
+      { "id": "notifications", "label": { "ro": "Notificări și termene", "en": "Notifications and deadlines" }, "names": ["notifications", "read-notification", "deadlines"] },
+      { "id": "api", "label": { "ro": "API Moodle", "en": "Moodle API" }, "names": ["functions", "call"] },
+      { "id": "install", "label": { "ro": "Instalare și întreținere", "en": "Install and maintenance" }, "names": ["install", "uninstall", "update", "doctor", "sync-plugin"] },
+      { "id": "harnesses", "label": { "ro": "Comenzi per harness", "en": "Commands per harness" }, "names": ["claude", "codex", "opencode", "antigravity"] }
+    ],
+    "en": {
+      "login": "Get the token and save it. `auto` uses the browser when Playwright is available, otherwise the clipboard.",
+      "logout": "Delete the saved token. `--forget-browser` also deletes the Google session in the browser profile.",
+      "auth-status": "Check the saved token with a real call; returns `logged_in` and the user name.",
+      "whoami": "Show the connected account, the site and the number of Web Service functions available.",
+      "courses": "List enrolled courses, filtered by study year, semester, academic year, type or name.",
+      "outline": "Raw course structure: sections, modules and files.",
+      "download": "Download course materials in parallel; existing files of the same size are skipped.",
+      "assignments": "List assignments, optionally limited to some courses.",
+      "assignment": "Submission state for one assignment: drafts, submitted files or text, grade and feedback.",
+      "submit": "Upload a file as the assignment submission; a draft by default, final with `--submit`.",
+      "submit-text": "Send online text as the assignment submission; the same options as `submit`.",
+      "forums": "List forums, optionally limited to some courses.",
+      "forum": "Discussions of one forum.",
+      "discussion": "Posts of one discussion, with text and attachments.",
+      "reply": "Reply to a forum post; requires `--subject` and `--yes`.",
+      "new-discussion": "Start a new forum discussion; requires `--subject` and `--yes`.",
+      "grades": "Grades for every course, or the grade items of one course with `--course`.",
+      "quizzes": "List quizzes, optionally limited to some courses.",
+      "quiz-attempts": "Your past attempts at a quiz.",
+      "quiz-start": "Start an attempt; each attempt counts against Moodle's limit.",
+      "quiz-questions": "Questions of an attempt, with the answer field names and options.",
+      "quiz-answer": "Save answers, or finish the attempt with `--finish` (irreversible).",
+      "quiz-review": "Review a finished attempt: questions, answers and marks (raw Moodle data).",
+      "notifications": "Recent notifications and the unread count; `--unread` for unread only.",
+      "read-notification": "Mark a notification as read; requires `--yes`.",
+      "deadlines": "Upcoming deadlines in the next N days, sorted by time.",
+      "functions": "Web Service functions available to the token, with an optional regex filter.",
+      "call": "Call any Web Service function with JSON parameters; non-read functions need `--yes`.",
+      "install": "Configure the plugin in the chosen clients, globally or for the current folder.",
+      "uninstall": "Remove the configuration from the chosen clients.",
+      "update": "Bring the latest marketplace version; restart Claude Code afterwards.",
+      "doctor": "Check the installation, the token, the MCP processes and the Moodle functions.",
+      "sync-plugin": "Development: copy the canonical SKILL.md into the plugin.",
+      "claude": "Install, update, uninstall or check the Claude Code harness only.",
+      "codex": "Install, update, uninstall or check the Codex harness only.",
+      "opencode": "Install, update, uninstall or check the opencode harness only.",
+      "antigravity": "Install, update, uninstall or check the Antigravity harness only (global)."
+    }
+  },
+  "claims": [
+    { "text": "Toate comenzile scriu JSON pe stdout, iar erorile merg pe stderr.", "evidence": "docs/USAGE.md:3", "status": "verified" },
+    { "text": "Codurile de ieșire sunt 0, 1, 2 și 3.", "evidence": "docs/USAGE.md:5", "status": "verified" },
+    { "text": "Comenzile care modifică contul cer --yes.", "evidence": "docs/USAGE.md:14", "status": "verified" },
+    { "text": "Textul pentru submit-text, reply și new-discussion vine din --text, --file sau stdin.", "evidence": "docs/USAGE.md:16", "status": "verified" },
+    { "text": "Comenzile claude, codex, opencode și antigravity merg doar la adaptorul lor.", "evidence": "docs/HARNESSES.md:8", "status": "verified" },
+    { "text": "Antigravity nu are scop de proiect; --scope project este o eroare.", "evidence": "docs/HARNESSES.md:21", "status": "verified" },
+    { "text": "install fără nume de harness rulează toate adaptoarele, iar unul nesuportat este sărit cu motivul în output.", "evidence": "docs/HARNESSES.md:91", "status": "verified" },
+    { "text": "37 de comenzi, generate din parserul real.", "evidence": "src/ase_moodle/cli.py build_parser; builder gate reference-count", "status": "verified" }
+  ]
+}

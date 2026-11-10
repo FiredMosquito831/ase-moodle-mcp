@@ -1,0 +1,86 @@
+{
+  "id": "license",
+  "order": 100,
+  "nav": null,
+  "priority": "0.4",
+  "words": [300, 500],
+  "path": { "ro": "/licenta/", "en": "/en/license/" },
+  "title": { "ro": "Licență | ase-moodle", "en": "License | ase-moodle" },
+  "description": {
+    "ro": "ase-moodle e licențiat sub Apache License 2.0. Notele de copyright din NOTICE, textul integral și neafilierea față de ASE București și Moodle.",
+    "en": "ase-moodle is licensed under the Apache License 2.0. The copyright notices in NOTICE, the full text and the non-affiliation with ASE Bucharest and Moodle."
+  },
+  "h1": { "ro": "Licență", "en": "License" },
+  "eyebrow": { "ro": "Apache License 2.0", "en": "Apache License 2.0" },
+  "blocks": [
+    {
+      "type": "lead",
+      "text": {
+        "ro": "Codul este licențiat sub Apache License 2.0 (Apache-2.0). Poți folosi, modifica și distribui codul, cu condiția să păstrezi notele de copyright și să menționezi sursa.",
+        "en": "The code is licensed under the Apache License 2.0 (Apache-2.0). You may use, modify and distribute the code, provided you keep the copyright notices and credit the source."
+      }
+    },
+    {
+      "type": "prose",
+      "heading": { "ro": "Ce înseamnă", "en": "What it means" },
+      "paragraphs": [
+        {
+          "ro": "Licența acordă drepturi de utilizare, modificare și distribuire, plus o licență de brevete din partea contribuitorilor. Cererile principale: păstrezi nota de copyright, incluzi o copie a licenței și marchezi fișierele modificate.",
+          "en": "The license grants rights to use, modify and distribute, plus a patent license from the contributors. The main requirements: keep the copyright notice, include a copy of the license and mark modified files."
+        },
+        {
+          "ro": "Textul integral este în fișierul `LICENSE` din repo. Dacă distribui sau modifici codul, păstrezi notele din `NOTICE` și menționezi sursa: repo-ul și autorul.",
+          "en": "The full text is in the `LICENSE` file in the repo. If you distribute or modify the code, keep the notices in `NOTICE` and credit the source: the repo and the author."
+        },
+        {
+          "ro": "Licența acoperă codul proiectului, nu mărcile și nu materialele altor organizații. Pachetul folosește biblioteci Python publice, declarate în `pyproject.toml`: `httpx`, `keyring`, `mcp` și `playwright`. Fiecare are propria licență, în distribuția ei.",
+          "en": "The license covers the project's code, not trademarks and not other organisations' materials. The package uses public Python libraries, declared in `pyproject.toml`: `httpx`, `keyring`, `mcp` and `playwright`. Each has its own license, in its own distribution."
+        },
+        {
+          "ro": "Documentația site-ului descrie comportamentul verificat al pachetului. Dacă modifici codul, verifică din nou afirmațiile din pagini: ele sunt legate de fișiere și de teste, nu de o promisiune separată.",
+          "en": "The site documentation describes the package's verified behaviour. If you change the code, re-check the statements on these pages: they are tied to files and tests, not to a separate promise."
+        },
+        {
+          "ro": "Dacă redistribui pachetul, păstrează textul licenței și nota de copyright, iar dacă ai modificat fișiere, marchează modificările. Nu folosi numele proiectului pentru a sugera o aprobare din partea autorului sau a ASE.",
+          "en": "If you redistribute the package, keep the license text and the copyright notice, and if you changed files, mark the changes. Do not use the project name to suggest approval by the author or by ASE."
+        }
+      ]
+    },
+    {
+      "type": "notice",
+      "heading": { "ro": "NOTICE", "en": "NOTICE" },
+      "caption": { "ro": "Fișierul NOTICE, verbatim.", "en": "The NOTICE file, verbatim." }
+    },
+    {
+      "type": "prose",
+      "heading": { "ro": "Mărci și neafiliere", "en": "Trademarks and non-affiliation" },
+      "paragraphs": [
+        {
+          "ro": "ase-moodle este un proiect independent. Nu este afiliat cu, aprobat de sau sponsorizat de ASE București sau de Moodle. Moodle este o marcă a proprietarului ei.",
+          "en": "ase-moodle is an independent project. It is not affiliated with, endorsed by, or sponsored by ASE Bucharest or Moodle. Moodle is a trademark of its owner."
+        },
+        {
+          "ro": "Numele BL@ASE și online.ase.ro apar doar ca descriere a serviciului cu care pachetul vorbește. Site-ul nu folosește logouri sau materiale grafice ale altor organizații.",
+          "en": "The BL@ASE and online.ase.ro names appear only as a description of the service the package talks to. The site uses no logos or artwork from other organisations."
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": { "ro": "Cod sursă", "en": "Source code" },
+      "paragraphs": [
+        {
+          "ro": "Repo-ul public: [FiredMosquito831/ase-moodle-mcp](https://github.com/FiredMosquito831/ase-moodle-mcp). Licența: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).",
+          "en": "Public repo: [FiredMosquito831/ase-moodle-mcp](https://github.com/FiredMosquito831/ase-moodle-mcp). License: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    { "text": "Codul este licențiat sub Apache License 2.0 (Apache-2.0).", "evidence": "pyproject.toml:9; LICENSE", "status": "verified" },
+    { "text": "Licența acordă drepturi de utilizare, modificare și distribuire, plus o licență de brevete.", "evidence": "LICENSE (Apache License 2.0, sections 2 and 3)", "status": "verified" },
+    { "text": "Dacă distribui sau modifici codul, păstrezi notele din NOTICE și menționezi sursa.", "evidence": "NOTICE", "status": "verified" },
+    { "text": "ase-moodle este un proiect independent, neafiliat cu ASE București sau Moodle.", "evidence": "README.md:7; NOTICE", "status": "verified" },
+    { "text": "Textul integral al licenței este în fișierul LICENSE din repo.", "evidence": "LICENSE", "status": "verified" }
+  ]
+}

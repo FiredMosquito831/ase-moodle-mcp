@@ -1,0 +1,108 @@
+{
+  "harness-map": {
+    "ro": {
+      "title": "Cum ajunge o cerere la Moodle",
+      "desc": "Patru clienți — Claude Code, Codex, opencode și Google Antigravity — pornesc serverul MCP ase-moodle-mcp prin stdio. Serverul apelează Moodle BL@ASE prin HTTPS. CLI-ul ase-moodle folosește același token și vorbește direct cu Moodle.",
+      "clients": "Clienți",
+      "server": "ase-moodle-mcp",
+      "server_sub": "server MCP · stdio",
+      "server_tools": "unelte, prompturi, resurse",
+      "moodle": "Moodle BL@ASE",
+      "moodle_sub": "online.ase.ro · REST",
+      "cli": "ase-moodle CLI",
+      "cli_sub": "JSON pe stdout",
+      "legend": "Legendă",
+      "legend_mcp": "MCP prin stdio",
+      "legend_https": "HTTPS către Moodle",
+      "legend_token": "același token",
+      "token": "același token"
+    },
+    "en": {
+      "title": "How a request reaches Moodle",
+      "desc": "Four clients — Claude Code, Codex, opencode and Google Antigravity — start the ase-moodle-mcp MCP server over stdio. The server calls BL@ASE Moodle over HTTPS. The ase-moodle CLI uses the same token and talks to Moodle directly.",
+      "clients": "Clients",
+      "server": "ase-moodle-mcp",
+      "server_sub": "MCP server · stdio",
+      "server_tools": "tools, prompts, resources",
+      "moodle": "BL@ASE Moodle",
+      "moodle_sub": "online.ase.ro · REST",
+      "cli": "ase-moodle CLI",
+      "cli_sub": "JSON on stdout",
+      "legend": "Legend",
+      "legend_mcp": "MCP over stdio",
+      "legend_https": "HTTPS to Moodle",
+      "legend_token": "same token",
+      "token": "same token"
+    }
+  },
+  "auth-flow": {
+    "ro": {
+      "title": "Fluxul de autentificare",
+      "desc": "Login-ul deschide un profil de browser dedicat. Te loghezi o singură dată cu Google, Moodle redirecționează către moodlemobile://token=…, pachetul verifică tokenul cu un apel real și îl salvează în seiful sistemului. Rulările următoare sunt automate.",
+      "steps": [
+        ["ase-moodle login", "deschide un profil de browser dedicat"],
+        ["Google SSO", "te loghezi o singură dată; parola nu e salvată"],
+        ["launch.php", "Moodle redirecționează către moodlemobile://token=…"],
+        ["verificare", "tokenul e testat cu un apel real"],
+        ["salvare", "Credential Manager sau Secret Service"]
+      ],
+      "manual_title": "--method manual",
+      "manual_lines": ["Copiezi tokenul din Chei de", "securitate; pachetul îl citește", "din clipboard."],
+      "after_lines": ["După prima login, comanda", "nu mai cere nimic cât timp", "sesiunea Google e valabilă."],
+      "legend": "Legendă",
+      "legend_once": "o singură dată",
+      "legend_each": "la fiecare apel"
+    },
+    "en": {
+      "title": "The authentication flow",
+      "desc": "Login opens a dedicated browser profile. You sign in once with Google, Moodle redirects to moodlemobile://token=…, the package verifies the token with a real call and saves it in the system keychain. Later runs are automatic.",
+      "steps": [
+        ["ase-moodle login", "opens a dedicated browser profile"],
+        ["Google SSO", "you sign in once; the password is never stored"],
+        ["launch.php", "Moodle redirects to moodlemobile://token=…"],
+        ["verification", "the token is tested with a real call"],
+        ["storage", "Credential Manager or Secret Service"]
+      ],
+      "manual_title": "--method manual",
+      "manual_lines": ["You copy the token from Security", "keys; the package reads it from", "the clipboard."],
+      "after_lines": ["After the first login, the", "command asks for nothing while", "the Google session is valid."],
+      "legend": "Legend",
+      "legend_once": "once",
+      "legend_each": "on every call"
+    }
+  },
+  "download-layout": {
+    "ro": {
+      "title": "Structura folderului de descărcare",
+      "desc": "Fiecare curs are un folder propriu, cu index.md, teme.md, forumuri, quizuri.md, note.md, linkuri.txt și datele brute în _raw. Fișierele cu aceeași dimensiune sunt sărite, deci a doua rulare nu descarcă nimic.",
+      "root": "~/ASE-Moodle/",
+      "course": "Programare - CURS/",
+      "section": "Curs 1/",
+      "file": "fisier.pdf",
+      "items": ["index.md", "teme.md", "forumuri/", "quizuri.md", "note.md", "linkuri.txt", "_raw/"],
+      "raw": "*.json",
+      "note_title": "La rulările următoare",
+      "note_lines": ["Fișierele cu aceeași dimensiune", "sunt sărite. Descărcarea se reia", "doar pentru ce lipsește."],
+      "legend": "Legendă",
+      "legend_folder": "folder",
+      "legend_md": "rezumat citibil",
+      "legend_raw": "date Moodle brute"
+    },
+    "en": {
+      "title": "The download folder layout",
+      "desc": "Each course gets its own folder with index.md, teme.md, forumuri, quizuri.md, note.md, linkuri.txt and the raw data in _raw. Files of the same size are skipped, so a second run downloads nothing.",
+      "root": "~/ASE-Moodle/",
+      "course": "Programare - CURS/",
+      "section": "Curs 1/",
+      "file": "fisier.pdf",
+      "items": ["index.md", "teme.md", "forumuri/", "quizuri.md", "note.md", "linkuri.txt", "_raw/"],
+      "raw": "*.json",
+      "note_title": "On later runs",
+      "note_lines": ["Files of the same size are", "skipped. Only what is missing is", "downloaded again."],
+      "legend": "Legend",
+      "legend_folder": "folder",
+      "legend_md": "readable summary",
+      "legend_raw": "raw Moodle data"
+    }
+  }
+}

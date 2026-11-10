@@ -1,0 +1,208 @@
+{
+  "id": "guides",
+  "order": 60,
+  "nav": { "ro": "Ghiduri", "en": "Guides" },
+  "priority": "0.7",
+  "words": [600, 1000],
+  "path": { "ro": "/ghiduri/", "en": "/en/guides/" },
+  "title": { "ro": "Ghiduri | ase-moodle", "en": "Guides | ase-moodle" },
+  "description": {
+    "ro": "Șase sarcini obișnuite, pas cu pas: descarcă un semestru, vezi termenele, pregătește o temă, răspunde pe forum, răspunde la un quiz, găsește un curs.",
+    "en": "Six common tasks, step by step: download a semester, see the deadlines, prepare an assignment, reply on a forum, answer a quiz, find a course."
+  },
+  "h1": { "ro": "Ghiduri", "en": "Guides" },
+  "eyebrow": { "ro": "Șase sarcini, pași verificați", "en": "Six tasks, verified steps" },
+  "blocks": [
+    {
+      "type": "lead",
+      "text": {
+        "ro": "Fiecare ghid pornește de la o sarcină reală și folosește comenzile sau uneltele care există. Pașii de scriere cer aprobarea ta.",
+        "en": "Every guide starts from a real task and uses the commands or tools that exist. The write steps need your approval."
+      }
+    },
+    {
+      "type": "steps",
+      "heading": { "ro": "Descarcă un semestru", "en": "Download a semester" },
+      "items": [
+        {
+          "title": { "ro": "Vezi ce cursuri ai", "en": "See your courses" },
+          "text": { "ro": "Filtrează după an și semestru. `study_year_source` spune de unde vine anul: din descriere sau dedus din aceeași materie.", "en": "Filter by year and semester. `study_year_source` says where the year comes from: the description or another course with the same subject." },
+          "code": "ase-moodle courses --year 3 --sem 1"
+        },
+        {
+          "title": { "ro": "Descarcă", "en": "Download" },
+          "text": { "ro": "Fișierele, paginile, linkurile, temele, forumurile, quizurile și notele ajung în folderul dat. `--shallow` ia doar structura și fișierele.", "en": "Files, pages, links, assignments, forums, quizzes and grades land in the given folder. `--shallow` takes only the structure and the files." },
+          "code": "ase-moodle download --year 3 --sem 1 --out D:\\Materiale"
+        },
+        {
+          "title": { "ro": "Citește rezumatul", "en": "Read the summary" },
+          "text": { "ro": "`_rezumat.json` conține erorile și avertismentele. Un curs fără fișiere e normal: multe au doar forumuri sau linkuri.", "en": "`_rezumat.json` holds the errors and warnings. A course without files is normal: many have only forums or links." }
+        },
+        {
+          "title": { "ro": "Rulează din nou, dacă lipsește ceva", "en": "Run again if something is missing" },
+          "text": { "ro": "Fișierele cu aceeași dimensiune sunt sărite, deci a doua rulare descarcă doar ce lipsește. Pentru un singur curs, dă `--course ID` în locul filtrelor de an și semestru.", "en": "Files of the same size are skipped, so a second run downloads only what is missing. For a single course, pass `--course ID` instead of the year and semester filters." }
+        }
+      ]
+    },
+    {
+      "type": "figure",
+      "diagram": "download-layout",
+      "heading": { "ro": "Ce găsești în folder", "en": "What is in the folder" },
+      "caption": { "ro": "Structura unui curs descărcat: rezumate citibile și datele brute în `_raw`.", "en": "The layout of a downloaded course: readable summaries and the raw data in `_raw`." },
+      "alt": {
+        "ro": "Diagramă: folderul ~/ASE-Moodle conține un folder pe curs, cu index.md, teme.md, forumuri/, quizuri.md, note.md, linkuri.txt și _raw/*.json.",
+        "en": "Diagram: the ~/ASE-Moodle folder holds one folder per course, with index.md, teme.md, forumuri/, quizuri.md, note.md, linkuri.txt and _raw/*.json."
+      }
+    },
+    {
+      "type": "steps",
+      "heading": { "ro": "Vezi ce ai de făcut", "en": "See what is due" },
+      "items": [
+        {
+          "title": { "ro": "Termenele", "en": "Deadlines" },
+          "text": { "ro": "Termenele următoarelor zile, în ordine, cu cursul, tipul și data.", "en": "The next days' deadlines, in order, with the course, the type and the date." },
+          "code": "ase-moodle deadlines --days 14"
+        },
+        {
+          "title": { "ro": "Notificările noi", "en": "New notifications" },
+          "text": { "ro": "Doar necitite, cu numărul total de necitite în răspuns.", "en": "Unread only, with the total unread count in the answer." },
+          "code": "ase-moodle notifications --unread"
+        },
+        {
+          "title": { "ro": "Temele deschise", "en": "Open assignments" },
+          "text": { "ro": "Lista temelor, cu termenele și tipul de trimitere.", "en": "The assignment list, with deadlines and submission type." },
+          "code": "ase-moodle assignments"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "heading": { "ro": "Pregătește și trimite o temă", "en": "Prepare and submit an assignment" },
+      "items": [
+        {
+          "title": { "ro": "Citește cerința și starea", "en": "Read the requirement and the state" },
+          "text": { "ro": "`assignment_status` întoarce `drafts_enabled`, fișierele sau textul trimis, nota și feedbackul.", "en": "`assignment_status` returns `drafts_enabled`, the submitted files or text, the grade and the feedback." },
+          "code": "ase-moodle assignment 201"
+        },
+        {
+          "title": { "ro": "Verifică dacă tema are ciorne", "en": "Check whether the assignment has drafts" },
+          "text": { "ro": "Cu ciorne, salvarea păstrează fișierul ca ciornă. Fără ciorne, salvarea trimite imediat; pachetul refuză, ca să nu plece ceva din greșeală.", "en": "With drafts, saving keeps the file as a draft. Without drafts, saving sends at once; the package refuses, so nothing goes out by mistake." }
+        },
+        {
+          "title": { "ro": "Pregătește fișierul sau textul", "en": "Prepare the file or the text" },
+          "text": { "ro": "Fișierul trebuie să existe local. Pentru text, poți da `--text`, `--file` sau pipe.", "en": "The file must exist locally. For text, use `--text`, `--file` or a pipe." }
+        },
+        {
+          "title": { "ro": "Salvează ciorna", "en": "Save the draft" },
+          "text": { "ro": "Fără `--submit`, rămâne ciornă, dacă tema are ciorne.", "en": "Without `--submit`, it stays a draft, if the assignment has drafts." },
+          "code": "ase-moodle submit 201 D:\\teme\\raport.pdf --yes"
+        },
+        {
+          "title": { "ro": "Trimite definitiv, după ce ai verificat", "en": "Submit for grading, after checking" },
+          "text": { "ro": "`--submit` face trimiterea finală. În MCP, aceeași regulă: `submit_for_grading=true` și `confirm=true`.", "en": "`--submit` makes the final submission. In MCP, the same rule: `submit_for_grading=true` and `confirm=true`." },
+          "code": "ase-moodle submit 201 D:\\teme\\raport.pdf --submit --yes"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "heading": { "ro": "Răspunde pe un forum", "en": "Reply on a forum" },
+      "items": [
+        {
+          "title": { "ro": "Găsește forumul", "en": "Find the forum" },
+          "text": { "ro": "Forumurile cursului, inclusiv forumul de anunțuri.", "en": "The course forums, including the announcements forum." },
+          "code": "ase-moodle forums --course 73445"
+        },
+        {
+          "title": { "ro": "Citește discuția", "en": "Read the discussion" },
+          "text": { "ro": "Discuțiile forumului, apoi postările discuției, cu text și atașamente.", "en": "The forum's discussions, then the discussion's posts, with text and attachments." },
+          "code": "ase-moodle forum 12\nase-moodle discussion 34"
+        },
+        {
+          "title": { "ro": "Scrie răspunsul și arată-l", "en": "Write the reply and show it" },
+          "text": { "ro": "Pregătește subiectul și textul. Verifică exact ce pleacă înainte de confirmare.", "en": "Prepare the subject and the text. Check exactly what goes out before confirming." }
+        },
+        {
+          "title": { "ro": "Trimite", "en": "Send" },
+          "text": { "ro": "`--yes` confirmă scrierea. Aprobarea pentru un răspuns nu acoperă următorul.", "en": "`--yes` confirms the write. Approval for one reply does not cover the next." },
+          "code": "ase-moodle reply 56 --subject \"Intrebare laborator\" --text \"...\" --yes"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "heading": { "ro": "Răspunde la un quiz", "en": "Answer a quiz" },
+      "items": [
+        {
+          "title": { "ro": "Vezi încercările", "en": "See the attempts" },
+          "text": { "ro": "Încercările anterioare, cu starea și nota lor.", "en": "The previous attempts, with their state and grade." },
+          "code": "ase-moodle quiz-attempts 77"
+        },
+        {
+          "title": { "ro": "Pornește o încercare", "en": "Start an attempt" },
+          "text": { "ro": "Fiecare încercare contează în limita permisă de Moodle. `--force-new` cere una nouă.", "en": "Every attempt counts against Moodle's limit. `--force-new` asks for a new one." },
+          "code": "ase-moodle quiz-start 77 --yes"
+        },
+        {
+          "title": { "ro": "Citește întrebările", "en": "Read the questions" },
+          "text": { "ro": "Fiecare câmp are un nume; folosește exact acel nume ca cheie a răspunsului.", "en": "Every field has a name; use exactly that name as the answer key." },
+          "code": "ase-moodle quiz-questions 501"
+        },
+        {
+          "title": { "ro": "Salvează răspunsurile, fără să trimiți", "en": "Save the answers without submitting" },
+          "text": { "ro": "Fără `--finish`, răspunsurile sunt salvate, iar încercarea rămâne deschisă.", "en": "Without `--finish`, the answers are saved and the attempt stays open." },
+          "code": "ase-moodle quiz-answer 501 --answers '{\"q1:1_answer\": \"2\"}' --yes"
+        },
+        {
+          "title": { "ro": "Trimite, după a doua aprobare", "en": "Finish, after a second approval" },
+          "text": { "ro": "`--finish` este ireversibil. Serverul respinge numele de câmpuri care nu există în încercare.", "en": "`--finish` is irreversible. The server rejects field names that do not exist in the attempt." },
+          "code": "ase-moodle quiz-answer 501 --answers '{\"q1:1_answer\": \"2\"}' --finish --yes"
+        },
+        {
+          "title": { "ro": "Vezi rezultatul", "en": "See the result" },
+          "text": { "ro": "Revizuirea apare după ce Moodle o permite: întrebări, răspunsuri și punctaj.", "en": "The review appears once Moodle allows it: questions, answers and marks." },
+          "code": "ase-moodle quiz-review 501"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "heading": { "ro": "Găsește un curs", "en": "Find a course" },
+      "items": [
+        {
+          "title": { "ro": "Filtrează lista", "en": "Filter the list" },
+          "text": { "ro": "După an, semestru, an universitar, tip sau text din nume.", "en": "By year, semester, academic year, type or text in the name." },
+          "code": "ase-moodle courses --tip LABORATOR --search retele"
+        },
+        {
+          "title": { "ro": "Deschide structura", "en": "Open the structure" },
+          "text": { "ro": "Secțiunile, modulele și fișierele cursului, ca JSON Moodle brut.", "en": "The course sections, modules and files, as raw Moodle JSON." },
+          "code": "ase-moodle outline 73445"
+        }
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "warn",
+      "title": { "ro": "Integritate academică", "en": "Academic integrity" },
+      "text": {
+        "ro": "Verifică regulile cursului înainte să folosești quizurile. Multe cursuri interzic ajutorul automat sau externalizarea răspunsurilor. Răspunderea pentru conținutul trimis e a studentului.",
+        "en": "Check the course rules before using quizzes. Many courses forbid automated help or outsourcing answers. The student is responsible for what is submitted."
+      }
+    }
+  ],
+  "claims": [
+    { "text": "study_year_source spune de unde vine anul: din descriere sau dedus din aceeași materie.", "evidence": "src/ase_moodle/data/SKILL.md:46", "status": "verified" },
+    { "text": "Descărcarea pune fișiere, pagini, linkuri, teme, forumuri, quizuri și note în folderul dat.", "evidence": "docs/USAGE.md:57", "status": "verified" },
+    { "text": "--shallow ia doar structura și fișierele.", "evidence": "docs/USAGE.md:57", "status": "verified" },
+    { "text": "_rezumat.json conține erorile și avertismentele.", "evidence": "docs/TROUBLESHOOTING.md:163", "status": "verified" },
+    { "text": "Un curs fără fișiere e normal: multe au doar forumuri sau linkuri.", "evidence": "docs/TROUBLESHOOTING.md:164", "status": "verified" },
+    { "text": "assignment_status întoarce drafts_enabled, fișierele sau textul trimis, nota și feedbackul.", "evidence": "docs/USAGE.md:69", "status": "verified" },
+    { "text": "Cu ciorne, salvarea păstrează fișierul ca ciornă; fără ciorne, salvarea trimite imediat, iar pachetul refuză.", "evidence": "docs/SAFETY.md:32", "status": "verified" },
+    { "text": "Textul pentru submit-text, reply și new-discussion vine din --text, --file sau pipe.", "evidence": "docs/USAGE.md:16", "status": "verified" },
+    { "text": "Fiecare încercare la quiz contează în limita permisă de Moodle.", "evidence": "docs/USAGE.md:114", "status": "verified" },
+    { "text": "Serverul respinge numele de câmpuri care nu există în încercare.", "evidence": "docs/SAFETY.md:49", "status": "verified" },
+    { "text": "quiz-review arată întrebările, răspunsurile și punctajul, ca date Moodle brute.", "evidence": "docs/USAGE.md:130", "status": "verified" },
+    { "text": "Regulile cursului pot interzice ajutorul automat; răspunderea e a studentului.", "evidence": "docs/SAFETY.md:51", "status": "verified" }
+  ]
+}

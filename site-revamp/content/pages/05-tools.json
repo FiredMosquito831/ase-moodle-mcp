@@ -1,0 +1,127 @@
+{
+  "id": "tools",
+  "order": 50,
+  "nav": { "ro": "Unelte", "en": "Tools" },
+  "priority": "0.8",
+  "words": null,
+  "path": { "ro": "/unelte/", "en": "/en/tools/" },
+  "title": { "ro": "Unelte MCP | ase-moodle", "en": "MCP tools | ase-moodle" },
+  "description": {
+    "ro": "Referința uneltelor MCP, generată din definițiile reale: 28 de unelte cu parametri și tip, 4 prompturi și 2 resurse pentru Moodle BL@ASE.",
+    "en": "The MCP tool reference, generated from the real definitions: 28 tools with parameters and type, 4 prompts and 2 resources for BL@ASE Moodle."
+  },
+  "h1": { "ro": "Uneltele MCP", "en": "MCP tools" },
+  "eyebrow": { "ro": "28 de unelte · 4 prompturi · 2 resurse", "en": "28 tools · 4 prompts · 2 resources" },
+  "blocks": [
+    {
+      "type": "lead",
+      "text": {
+        "ro": "Serverul `ase-moodle-mcp` expune uneltele de mai jos prin stdio. Tabelul este generat din definițiile reale: numele, parametrii, tipurile și anotările vin din cod.",
+        "en": "The `ase-moodle-mcp` server exposes the tools below over stdio. The table is generated from the real definitions: the names, parameters, types and annotations come from the code."
+      }
+    },
+    {
+      "type": "prose",
+      "heading": { "ro": "Cum citești tabelul", "en": "How to read the table" },
+      "paragraphs": [
+        {
+          "ro": "Fiecare unealtă are un tip: **citire** (nu schimbă nimic), **scriere** (schimbă contul și cere `confirm=true`) sau **local** (lucrează pe calculatorul tău). Parametrii arată numele, tipul și valoarea implicită, când există.",
+          "en": "Every tool has a type: **read** (changes nothing), **write** (changes the account and needs `confirm=true`) or **local** (works on your machine). Parameters show the name, the type and the default value, when there is one."
+        },
+        {
+          "ro": "Uneltele care întorc liste răspund cu `{\"count\": n, \"items\": [...]}`. Erorile Moodle ajung ca erori ale uneltei, cu mesajul original.",
+          "en": "Tools that return lists answer with `{\"count\": n, \"items\": [...]}`. Moodle errors arrive as tool errors, with the original message."
+        }
+      ]
+    },
+    {
+      "type": "generated",
+      "what": "tools"
+    },
+    {
+      "type": "prose",
+      "heading": { "ro": "Reguli", "en": "Rules" },
+      "paragraphs": [
+        {
+          "ro": "Scrierile cer `confirm=true`. Fără el, serverul întoarce eroare și nu face nimic. Trimiterile la temele fără ciorne sunt refuzate, cu excepția `allow_direct=true`.",
+          "en": "Writes need `confirm=true`. Without it, the server returns an error and does nothing. Submissions to assignments without drafts are refused, except with `allow_direct=true`."
+        },
+        {
+          "ro": "Prompturile sunt fluxuri gata, pe care clientul le poate oferi ca comenzi. Resursele sunt context citibil: profilul tău și termenele din următoarele 14 zile.",
+          "en": "Prompts are ready-made flows the client can offer as commands. Resources are readable context: your profile and the deadlines for the next 14 days."
+        }
+      ]
+    },
+    {
+      "type": "figure",
+      "diagram": "tool-surface",
+      "heading": { "ro": "Suprafața uneltelor", "en": "The tool surface" },
+      "caption": { "ro": "Uneltele, grupate pe zone, cu tipul fiecăreia.", "en": "The tools, grouped by area, with each one's type." },
+      "alt": {
+        "ro": "Diagramă: uneltele MCP grupate pe cont, cursuri, teme, forumuri, note, quizuri, notificări și API Moodle, cu puncte verzi pentru citire, galbene pentru scriere și albastre pentru local.",
+        "en": "Diagram: the MCP tools grouped by account, courses, assignments, forums, grades, quizzes, notifications and Moodle API, with green dots for read, amber for write and blue for local."
+      }
+    }
+  ],
+  "tools": {
+    "groups": [
+      { "id": "account", "label": { "ro": "Cont", "en": "Account" }, "names": ["whoami", "auth_status", "moodle_login"] },
+      { "id": "courses", "label": { "ro": "Cursuri și materiale", "en": "Courses and materials" }, "names": ["list_courses", "course_outline", "download_materials"] },
+      { "id": "assignments", "label": { "ro": "Teme", "en": "Assignments" }, "names": ["list_assignments", "assignment_status", "submit_assignment_file", "submit_assignment_text"] },
+      { "id": "forums", "label": { "ro": "Forumuri", "en": "Forums" }, "names": ["list_forums", "forum_discussions", "discussion_posts", "reply_to_post", "new_discussion"] },
+      { "id": "grades", "label": { "ro": "Note", "en": "Grades" }, "names": ["grades_overview", "course_grades"] },
+      { "id": "quizzes", "label": { "ro": "Quizuri", "en": "Quizzes" }, "names": ["list_quizzes", "quiz_attempts", "quiz_start", "quiz_questions", "quiz_answer", "quiz_review"] },
+      { "id": "notifications", "label": { "ro": "Notificări și termene", "en": "Notifications and deadlines" }, "names": ["notifications", "mark_notification_read", "deadlines"] },
+      { "id": "api", "label": { "ro": "API Moodle", "en": "Moodle API" }, "names": ["moodle_functions", "moodle_call"] }
+    ],
+    "descriptions": {
+      "whoami": { "ro": "Contul conectat, site-ul și numărul de funcții Web Service disponibile.", "en": "" },
+      "auth_status": { "ro": "Verifică dacă tokenul salvat există și funcționează; întoarce `logged_in` și numele.", "en": "" },
+      "moodle_login": { "ro": "Deschide browserul (sau clipboard-ul) și salvează tokenul. Blochează până la login sau până la `timeout_s`.", "en": "" },
+      "list_courses": { "ro": "Cursurile înscrise, filtrate după an, semestru, an universitar, tip sau nume.", "en": "" },
+      "course_outline": { "ro": "Structura brută a cursului: secțiuni, module, conținut și URL-uri de fișiere.", "en": "" },
+      "download_materials": { "ro": "Descarcă cursurile pe disc, în paralel: fișiere, pagini, teme, forumuri, quizuri, note, linkuri, JSON brut.", "en": "" },
+      "list_assignments": { "ro": "Temele, cu termene, tipuri de trimitere și instrucțiuni.", "en": "" },
+      "assignment_status": { "ro": "Starea trimiterii: ciorne activate, fișiere sau text trimis, notă, feedback.", "en": "" },
+      "submit_assignment_file": { "ro": "Încarcă un fișier ca răspuns. Ciornă dacă tema are ciorne; `allow_direct` forțează o temă fără ciorne. Cere `confirm=true`.", "en": "" },
+      "submit_assignment_text": { "ro": "Scrie răspunsul ca text online. Aceleași reguli de ciornă. Cere `confirm=true`.", "en": "" },
+      "list_forums": { "ro": "Forumurile cursurilor date sau ale tuturor cursurilor, inclusiv anunțurile.", "en": "" },
+      "forum_discussions": { "ro": "Discuțiile unui forum, cu id, autor, date și număr de răspunsuri.", "en": "" },
+      "discussion_posts": { "ro": "Postările unei discuții, cu text și atașamente.", "en": "" },
+      "reply_to_post": { "ro": "Răspunde la o postare. Cere `confirm=true` după ce aprobi mesajul.", "en": "" },
+      "new_discussion": { "ro": "Deschide o discuție nouă. Cere `confirm=true` după ce aprobi mesajul.", "en": "" },
+      "grades_overview": { "ro": "Notele finale pentru fiecare curs înscris.", "en": "" },
+      "course_grades": { "ro": "Elementele de notare ale unui curs: note, intervale, procente, feedback.", "en": "" },
+      "list_quizzes": { "ro": "Quizurile, cu ferestrele de deschidere și limita de încercări.", "en": "" },
+      "quiz_attempts": { "ro": "Încercările tale la un quiz, cu stare și note.", "en": "" },
+      "quiz_start": { "ro": "Pornește sau reia o încercare. Contează în limita Moodle. Cere `confirm=true`.", "en": "" },
+      "quiz_questions": { "ro": "Întrebările unei încercări: numele câmpului, tipul și opțiunile.", "en": "" },
+      "quiz_answer": { "ro": "Salvează răspunsuri (`finish=false`) sau trimite încercarea (`finish=true`, ireversibil). Cere `confirm=true`.", "en": "" },
+      "quiz_review": { "ro": "Revizuirea unei încercări terminate: întrebări, răspunsuri, punctaj (date brute).", "en": "" },
+      "notifications": { "ro": "Notificările recente și numărul de necitite.", "en": "" },
+      "mark_notification_read": { "ro": "Marchează o notificare ca citită. Cere `confirm=true`.", "en": "" },
+      "deadlines": { "ro": "Termenele și evenimentele din următoarele N zile, în ordine.", "en": "" },
+      "moodle_functions": { "ro": "Toate funcțiile Web Service disponibile pentru token, cu filtru regex opțional.", "en": "" },
+      "moodle_call": { "ro": "Apelează orice funcție Web Service cu un dicționar de parametri. Funcțiile care scriu cer `confirm=true`.", "en": "" }
+    },
+    "prompts": {
+      "weekly_brief": "Deadlines, unread notifications and open assignments for the week; writes nothing.",
+      "prepare_assignment": "The requirement, the deadline, the state and a plan; submits only after approval.",
+      "solve_quiz": "Questions, proposed answers, save, then finish after a second approval.",
+      "download_year": "Download a year and semester, then summarise the report."
+    },
+    "resources": {
+      "moodle://me": "The connected student's profile.",
+      "moodle://deadlines": "Deadlines for the next 14 days."
+    }
+  },
+  "claims": [
+    { "text": "Serverul expune 28 de unelte, 4 prompturi și 2 resurse.", "evidence": "src/ase_moodle/mcp_server.py decorators; builder gate reference-count", "status": "verified" },
+    { "text": "Fiecare unealtă are o anotare: citire, scriere sau local.", "evidence": "src/ase_moodle/mcp_server.py:23", "status": "verified" },
+    { "text": "Uneltele care întorc liste răspund cu {\"count\": n, \"items\": [...]}.", "evidence": "src/ase_moodle/mcp_server.py:51", "status": "verified" },
+    { "text": "Scrierile cer confirm=true; fără el, serverul întoarce eroare și nu face nimic.", "evidence": "docs/MCP.md:178", "status": "verified" },
+    { "text": "Trimiterile la temele fără ciorne sunt refuzate, cu excepția allow_direct=true.", "evidence": "docs/MCP.md:179", "status": "verified" },
+    { "text": "Resursa moodle://deadlines conține termenele din următoarele 14 zile.", "evidence": "src/ase_moodle/mcp_server.py:351", "status": "verified" },
+    { "text": "Prompturile sunt fluxuri gata, pe care clientul le poate oferi ca comenzi.", "evidence": "docs/MCP.md:83", "status": "verified" }
+  ]
+}

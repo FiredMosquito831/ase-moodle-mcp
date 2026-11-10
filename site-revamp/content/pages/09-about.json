@@ -1,0 +1,117 @@
+{
+  "id": "about",
+  "order": 90,
+  "nav": null,
+  "priority": "0.5",
+  "words": [400, 600],
+  "path": { "ro": "/despre/", "en": "/en/about/" },
+  "title": { "ro": "Despre | ase-moodle", "en": "About | ase-moodle" },
+  "description": {
+    "ro": "Despre ase-moodle: autor, stare verificată pe contul real în octombrie 2026, limite cunoscute, cum e construit și cum contribui la proiect.",
+    "en": "About ase-moodle: author, state verified on the real account in October 2026, known limits, how it is built and how to contribute."
+  },
+  "h1": { "ro": "Despre ase-moodle", "en": "About ase-moodle" },
+  "eyebrow": { "ro": "Autor, stare, limite", "en": "Author, state, limits" },
+  "blocks": [
+    {
+      "type": "lead",
+      "text": {
+        "ro": "ase-moodle e un proiect al lui FiredMosquito831, scris pentru studenții BL@ASE. Versiunea {version} e sub Apache License 2.0.",
+        "en": "ase-moodle is a project by FiredMosquito831, written for BL@ASE students. Version {version} is under the Apache License 2.0."
+      }
+    },
+    {
+      "type": "facts",
+      "items": [
+        { "label": { "ro": "Autor", "en": "Author" }, "value": "FiredMosquito831" },
+        { "label": { "ro": "Versiune", "en": "Version" }, "value": "{version}" },
+        { "label": { "ro": "Licență", "en": "License" }, "value": "Apache-2.0" },
+        { "label": { "ro": "Python", "en": "Python" }, "value": "3.10+" },
+        { "label": { "ro": "Stare", "en": "Status" }, "value": "Beta" }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": { "ro": "Stare verificată", "en": "Verified state" },
+      "paragraphs": [
+        {
+          "ro": "Verificat pe contul real, în octombrie 2026: autentificare prin browser (SSO) și salvare în Credential Manager; cursuri, teme, forumuri, notificări, termene, note și quizuri (citire); descărcarea unui an și semestru, cu a doua rulare care nu descarcă nimic.",
+          "en": "Verified on the real account, in October 2026: browser login (SSO) and storage in Credential Manager; courses, assignments, forums, notifications, deadlines, grades and quizzes (reading); downloading a year and semester, with a second run that downloads nothing."
+        },
+        {
+          "ro": "Tot atunci: erori fără efecte (quiz închis, obiecte inexistente, fișier inexistent); garda pentru ciorne, care refuză o salvare pe o temă fără ciorne fără să trimită nimic; instalare, verificare și dezinstalare pe Claude Code, Codex și opencode, global și pe proiect, și pe Antigravity, global.",
+          "en": "At the same time: errors with no side effects (closed quiz, missing objects, missing file); the drafts guard, which refuses a save on an assignment without drafts without sending anything; install, check and uninstall on Claude Code, Codex and opencode, globally and per project, and on Antigravity, globally."
+        },
+        {
+          "ro": "Testele trec pe Windows. Pe Linux (WSL Ubuntu 24.04) au trecut înainte de ultimele modificări și nu au fost rerulate.",
+          "en": "The tests pass on Windows. On Linux (WSL Ubuntu 24.04) they passed before the latest changes and were not rerun."
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": { "ro": "Limite cunoscute", "en": "Known limits" },
+      "paragraphs": [
+        {
+          "ro": "Mesageria Moodle este dezactivată pe site. Funcțiile Web Service sunt cele ale serviciului mobil Moodle; ce există doar în interfața web nu se acoperă. Antigravity se instalează doar global. macOS nu e testat.",
+          "en": "Moodle messaging is disabled on the site. The Web Service functions are those of the Moodle mobile service; what exists only in the web interface is not covered. Antigravity installs globally only. macOS is untested."
+        },
+        {
+          "ro": "Netestat pe contul real: `update` pentru toate platformele și o trimitere reală cu ciorne activate, pentru că nu există astfel de situații acum.",
+          "en": "Not tested on the real account: `update` for every platform and a real submission with drafts enabled, because no such situations exist right now."
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": { "ro": "Cum e construit", "en": "How it is built" },
+      "paragraphs": [
+        {
+          "ro": "Codul e împărțit pe module: `client.py` vorbește cu Moodle, `activities.py` face citirile, `actions.py` scrierile cu confirmare, iar `quiz.py`, `materials.py` și `install.py` acoperă părțile mari. CLI-ul și serverul MCP folosesc aceleași funcții.",
+          "en": "The code is split by module: `client.py` talks to Moodle, `activities.py` does the reads, `actions.py` the writes with confirmation, and `quiz.py`, `materials.py` and `install.py` cover the large parts. The CLI and the MCP server use the same functions."
+        },
+        {
+          "ro": "Testele rulează fără internet și fără contul tău, pe un server Moodle fals cu date sintetice. CI rulează pe Windows și Ubuntu: `pyflakes` și suita `unittest`.",
+          "en": "The tests run without internet and without your account, against a fake Moodle server with synthetic data. CI runs on Windows and Ubuntu: `pyflakes` and the `unittest` suite."
+        },
+        {
+          "ro": "Pluginul aduce serverul MCP, skill-ul și comenzile `/ase-login`, `/ase-deadlines` și `/ase-download`. Skill-ul din `src/ase_moodle/data/SKILL.md` e sursa canonică; `ase-moodle sync-plugin` îl copiază în plugin, iar testele verifică faptul că cele două copii sunt identice.",
+          "en": "The plugin brings the MCP server, the skill and the `/ase-login`, `/ase-deadlines` and `/ase-download` commands. The skill in `src/ase_moodle/data/SKILL.md` is the canonical source; `ase-moodle sync-plugin` copies it into the plugin, and the tests check that the two copies are identical."
+        },
+        {
+          "ro": "Launcherul npm e un înveliș subțire: pornește comenzile din pachetul Python și îl instalează prin pipx la prima rulare. Pachetul npm are versiunea lui, separată de versiunea Python.",
+          "en": "The npm launcher is a thin wrapper: it starts the commands from the Python package and installs it through pipx on the first run. The npm package has its own version, separate from the Python version."
+        },
+        {
+          "ro": "Două workflow-uri publice verifică fiecare modificare: `ci.yml` rulează testele pe Windows și Ubuntu, iar `pypi.yml` construiește pachetul la un tag și îl pornește pe Windows, Ubuntu și macOS înainte de publicare. Pagina aceasta are propriul workflow, care rulează verificarea site-ului.",
+          "en": "Two public workflows check every change: `ci.yml` runs the tests on Windows and Ubuntu, and `pypi.yml` builds the package at a tag and starts it on Windows, Ubuntu and macOS before publishing. This page has its own workflow, which runs the site check."
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": { "ro": "Contribuții", "en": "Contributing" },
+      "paragraphs": [
+        {
+          "ro": "Raportează o problemă sau propune o schimbare pe [GitHub Issues](https://github.com/FiredMosquito831/ase-moodle-mcp/issues). Pentru o funcție nouă, pașii sunt în `docs/DEVELOPMENT.md`: logica, CLI-ul, unealta MCP, documentația și testele.",
+          "en": "Report a problem or propose a change on [GitHub Issues](https://github.com/FiredMosquito831/ase-moodle-mcp/issues). For a new feature, the steps are in `docs/DEVELOPMENT.md`: the logic, the CLI, the MCP tool, the documentation and the tests."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    { "text": "ase-moodle e un proiect al lui FiredMosquito831.", "evidence": "pyproject.toml:10", "status": "verified" },
+    { "text": "Versiunea 0.2.4 e sub Apache License 2.0.", "evidence": "pyproject.toml:6; pyproject.toml:9", "status": "verified" },
+    { "text": "Verificat pe contul real în octombrie 2026: login SSO, citiri, descărcare idempotentă, garda pentru ciorne, instalare pe platforme.", "evidence": "README.md:97", "status": "verified" },
+    { "text": "Testele trec pe Windows; pe Linux au trecut înainte de ultimele modificări și nu au fost rerulate.", "evidence": "README.md:105", "status": "verified" },
+    { "text": "Mesageria Moodle este dezactivată pe site.", "evidence": "README.md:111", "status": "verified" },
+    { "text": "Funcțiile Web Service sunt cele ale serviciului mobil Moodle.", "evidence": "README.md:112", "status": "verified" },
+    { "text": "Antigravity se instalează doar global.", "evidence": "README.md:113", "status": "verified" },
+    { "text": "macOS nu e testat.", "evidence": "README.md:114", "status": "verified" },
+    { "text": "Netestat: update pentru toate platformele și o trimitere reală cu ciorne activate.", "evidence": "README.md:107", "status": "verified" },
+    { "text": "Codul e împărțit pe module: client, activities, actions, quiz, materials, install.", "evidence": "docs/DEVELOPMENT.md:5", "status": "verified" },
+    { "text": "Testele rulează fără internet și fără contul real, pe un server Moodle fals.", "evidence": "docs/TESTING.md:3", "status": "verified" },
+    { "text": "CI rulează pyflakes și suita unittest pe Windows și Ubuntu.", "evidence": ".github/workflows/ci.yml:10", "status": "verified" },
+    { "text": "Pașii pentru o funcție nouă sunt în docs/DEVELOPMENT.md.", "evidence": "docs/DEVELOPMENT.md:38", "status": "verified" }
+  ]
+}
