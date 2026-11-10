@@ -932,7 +932,7 @@ def build(site: dict, pages: list[dict], ctx: dict) -> dict[str, bytes]:
         nav=build_nav(pages, "ro", "404"),
         nav_label="Navigare",
         home="/",
-        footer_pages=footer_links(pages, lang),
+        footer_pages=footer_links(pages, "ro"),
     )
     put("404.html", body404)
 
