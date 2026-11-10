@@ -34,8 +34,8 @@
     {
       "type": "lead",
       "text": {
-        "ro": "De la zero la prima întrebare. Pașii de mai jos presupun Python 3.10+ și un cont BL@ASE pe online.ase.ro. Primii pași cu ase-moodle durează aproximativ cinci minute, de la instalare până la primul răspuns.",
-        "en": "From zero to the first question. The steps below assume Python 3.10+ and a BL@ASE account on online.ase.ro. The quick start with ase-moodle takes about five minutes, from the install to the first answer."
+        "ro": "De la zero la prima întrebare. Pașii de mai jos presupun Python 3.10+ și un cont BL@ASE pe online.ase.ro. Primii pași cu ase-moodle sunt șase pași, de la instalare până la primul răspuns.",
+        "en": "From zero to the first question. The steps below assume Python 3.10+ and a BL@ASE account on online.ase.ro. The quick start with ase-moodle is six steps, from the install to the first answer."
       }
     },
     {
@@ -327,6 +327,11 @@
     {
       "text": "Scope-ul de proiect nu se aplică în subfoldere.",
       "evidence": "docs/PLATFORMS.md:16",
+      "status": "verified"
+    },
+    {
+      "text": "Primii pași cu ase-moodle sunt șase pași, de la instalare până la primul răspuns.",
+      "evidence": "docs/INSTALL.md:18; docs/INSTALL.md:20; docs/INSTALL.md:40",
       "status": "verified"
     }
   ]

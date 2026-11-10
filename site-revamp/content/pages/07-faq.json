@@ -400,6 +400,11 @@
       "text": "Mesageria Moodle e dezactivată pe site.",
       "evidence": "README.md:111",
       "status": "verified"
+    },
+    {
+      "text": "Întrebările frecvente ase-moodle acoperă contul, tokenul, siguranța, platformele și limitele.",
+      "evidence": "docs/AUTH.md:5; docs/PLATFORMS.md:16",
+      "status": "verified"
     }
   ]
 }

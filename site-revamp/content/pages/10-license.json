@@ -131,6 +131,11 @@
       "text": "Textul integral al licenței este în fișierul LICENSE din repo.",
       "evidence": "LICENSE",
       "status": "verified"
+    },
+    {
+      "text": "Licența ase-moodle se aplică întregului pachet, inclusiv serverului MCP și CLI-ului.",
+      "evidence": "pyproject.toml:10",
+      "status": "verified"
     }
   ]
 }

@@ -536,6 +536,11 @@
       "text": "Codul de ieșire 3 înseamnă că doctor a găsit o problemă.",
       "evidence": "docs/USAGE.md:12",
       "status": "verified"
+    },
+    {
+      "text": "Pagina de instalare ase-moodle explică fiecare variantă în parte.",
+      "evidence": "docs/INSTALL.md:20; docs/INSTALL.md:40; docs/INSTALL.md:78; docs/INSTALL.md:105; docs/INSTALL.md:126",
+      "status": "verified"
     }
   ]
 }

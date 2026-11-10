@@ -353,6 +353,11 @@
       "text": "Prompturile sunt fluxuri gata, pe care clientul le poate oferi ca comenzi.",
       "evidence": "docs/MCP.md:83",
       "status": "verified"
+    },
+    {
+      "text": "Aceleași unelte MCP sunt disponibile în toate cele patru harness-uri.",
+      "evidence": "docs/MCP.md:3; src/ase_moodle/harnesses/__init__.py:14",
+      "status": "verified"
     }
   ]
 }

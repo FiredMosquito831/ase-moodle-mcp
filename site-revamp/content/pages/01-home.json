@@ -130,8 +130,8 @@
           "en": "ase-moodle has three faces that share one Moodle token. The `ase-moodle-mcp` MCP server speaks over stdio to your client. The `ase-moodle` CLI writes JSON on stdout, for scripts. The plugin adds the tools, the skill and the commands to Claude Code, Codex, opencode and Antigravity."
         },
         {
-          "ro": "Nu ai nevoie de un cont separat și nu se instalează un server undeva. Totul rulează pe calculatorul tău, iar singurele conexiuni sunt către Moodle-ul configurat și, la instalare, către GitHub. Cu alte cuvinte, ase-moodle este un server MCP pentru Moodle: automatizare Moodle în agentul tău, fără să atingă contul.",
-          "en": "You do not need a separate account, and no server is installed somewhere else. Everything runs on your machine, and the only connections are to the configured Moodle and, during installation, to GitHub. In other words, ase-moodle is an MCP server for Moodle: Moodle automation inside your agent, without touching the account."
+          "ro": "Nu ai nevoie de un cont separat și nu se instalează un server undeva. Totul rulează pe calculatorul tău, iar singurele conexiuni sunt către Moodle-ul configurat și, la instalare, către GitHub. Cu alte cuvinte, ase-moodle este un server MCP pentru Moodle: automatizare Moodle în agentul tău, cu confirmare pentru fiecare scriere.",
+          "en": "You do not need a separate account, and no server is installed somewhere else. Everything runs on your machine, and the only connections are to the configured Moodle and, during installation, to GitHub. In other words, ase-moodle is an MCP server for Moodle: Moodle automation inside your agent, with confirmation for every write."
         }
       ]
     },
@@ -473,6 +473,11 @@
     {
       "text": "Login-ul se face cu Google, ca în browser.",
       "evidence": "docs/AUTH.md:5",
+      "status": "verified"
+    },
+    {
+      "text": "ase-moodle este un server MCP pentru Moodle, cu automatizare Moodle și confirmare pentru fiecare scriere.",
+      "evidence": "README.md:7; docs/SAFETY.md:11",
       "status": "verified"
     }
   ]

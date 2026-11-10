@@ -221,6 +221,11 @@
       "text": "Pașii pentru o funcție nouă sunt în docs/DEVELOPMENT.md.",
       "evidence": "docs/DEVELOPMENT.md:38",
       "status": "verified"
+    },
+    {
+      "text": "Pagina despre ase-moodle spune cine îl construiește, în ce stare este și ce limite are.",
+      "evidence": "README.md:97",
+      "status": "verified"
     }
   ]
 }

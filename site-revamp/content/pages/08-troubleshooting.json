@@ -245,6 +245,11 @@
       "text": "Pachetul nu scrie fișiere de log; erorile apar pe stderr sau în răspunsul uneltei.",
       "evidence": "docs/TROUBLESHOOTING.md:203",
       "status": "verified"
+    },
+    {
+      "text": "Problemele frecvente ase-moodle sunt grupate pe autentificare, instalare, scrieri și descărcare.",
+      "evidence": "docs/TROUBLESHOOTING.md:1",
+      "status": "verified"
     }
   ]
 }

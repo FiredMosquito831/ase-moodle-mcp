@@ -362,6 +362,11 @@
       "text": "37 de comenzi, generate din parserul real.",
       "evidence": "src/ase_moodle/cli.py build_parser; builder gate reference-count",
       "status": "verified"
+    },
+    {
+      "text": "Comenzile CLI ase-moodle acoperă același cont Moodle ca uneltele MCP.",
+      "evidence": "README.md:7; docs/MCP.md:3",
+      "status": "verified"
     }
   ]
 }

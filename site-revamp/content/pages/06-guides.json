@@ -440,6 +440,11 @@
       "text": "Regulile cursului pot interzice ajutorul automat; răspunderea e a studentului.",
       "evidence": "docs/SAFETY.md:51",
       "status": "verified"
+    },
+    {
+      "text": "Ghidurile ase-moodle acoperă descărcarea materialelor, termenele, temele, forumurile și quizurile.",
+      "evidence": "docs/USAGE.md:3",
+      "status": "verified"
     }
   ]
 }
