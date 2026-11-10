@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="dl-title dl-desc">
+  <title id="dl-title">The download folder layout</title>
+  <desc id="dl-desc">Each course gets its own folder with index.md, teme.md, forumuri, quizuri.md, note.md, linkuri.txt and the raw data in _raw. Files of the same size are skipped, so a second run downloads nothing.</desc>
+  <style>
+    .bg { fill: #0A0E14; }
+    .panel { fill: #111722; stroke: #5A6B82; stroke-width: 1; }
+    .title { fill: #E8EEF6; font: 700 24px system-ui, sans-serif; }
+    .tree { fill: #A7B6C9; font: 400 15px ui-monospace, Consolas, monospace; }
+    .folder { fill: #5B9DFF; font: 500 15px ui-monospace, Consolas, monospace; }
+    .file { fill: #E8EEF6; font: 400 15px ui-monospace, Consolas, monospace; }
+    .raw { fill: #A7B6C9; font: 400 15px ui-monospace, Consolas, monospace; }
+    .h { fill: #A7B6C9; font: 600 13px system-ui, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+    .note { fill: #E8EEF6; font: 600 17px system-ui, sans-serif; }
+    .sub { fill: #A7B6C9; font: 400 14px system-ui, sans-serif; }
+    .legend { fill: #A7B6C9; font: 400 13px system-ui, sans-serif; }
+    .swatch-folder { fill: #5B9DFF; }
+    .swatch-md { fill: #E8EEF6; }
+    .swatch-raw { fill: #A7B6C9; }
+  </style>
+  <rect class="bg" width="960" height="540" rx="16"/>
+  <text x="40" y="46" class="title">The download folder layout</text>
+
+  <text x="40" y="104" class="folder">~/ASE-Moodle/</text>
+  <text x="40" y="132"><tspan class="tree">└── </tspan><tspan class="folder">Programare - CURS/</tspan></text>
+  <text x="40" y="160"><tspan class="tree">    ├── </tspan><tspan class="folder">Curs 1/</tspan></text>
+  <text x="40" y="188"><tspan class="tree">    │   └── </tspan><tspan class="file">fisier.pdf</tspan></text>
+  <text x="40" y="216"><tspan class="tree">    ├── </tspan><tspan class="file">index.md</tspan></text>
+  <text x="40" y="244"><tspan class="tree">    ├── </tspan><tspan class="file">teme.md</tspan></text>
+  <text x="40" y="272"><tspan class="tree">    ├── </tspan><tspan class="folder">forumuri/</tspan></text>
+  <text x="40" y="300"><tspan class="tree">    ├── </tspan><tspan class="file">quizuri.md</tspan></text>
+  <text x="40" y="328"><tspan class="tree">    ├── </tspan><tspan class="file">note.md</tspan></text>
+  <text x="40" y="356"><tspan class="tree">    ├── </tspan><tspan class="file">linkuri.txt</tspan></text>
+  <text x="40" y="384"><tspan class="tree">    └── </tspan><tspan class="folder">_raw/</tspan></text>
+  <text x="40" y="412"><tspan class="tree">        └── </tspan><tspan class="raw">*.json</tspan></text>
+
+  <rect class="panel" x="560" y="104" width="360" height="200" rx="12"/>
+  <text x="584" y="144" class="note">On later runs</text>
+  <text x="584" y="176" class="sub">Files of the same size are</text>
+  <text x="584" y="200" class="sub">skipped. Only what is missing is</text>
+  <text x="584" y="224" class="sub">downloaded again.</text>
+
+  <text x="40" y="500" class="h">Legend</text>
+  <rect class="swatch-folder" x="40" y="512" width="14" height="14" rx="3"/>
+  <text x="62" y="524" class="legend">folder</text>
+  <rect class="swatch-md" x="180" y="512" width="14" height="14" rx="3"/>
+  <text x="202" y="524" class="legend">readable summary</text>
+  <rect class="swatch-raw" x="360" y="512" width="14" height="14" rx="3"/>
+  <text x="382" y="524" class="legend">raw Moodle data</text>
+</svg>

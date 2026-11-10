@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="af-title af-desc">
+  <title id="af-title">The authentication flow</title>
+  <desc id="af-desc">Login opens a dedicated browser profile. You sign in once with Google, Moodle redirects to moodlemobile://token=…, the package verifies the token with a real call and saves it in the system keychain. Later runs are automatic.</desc>
+  <defs>
+    <marker id="af-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#5B9DFF"/>
+    </marker>
+    <marker id="af-arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#A7B6C9"/>
+    </marker>
+  </defs>
+  <style>
+    .bg { fill: #0A0E14; }
+    .panel { fill: #111722; stroke: #5A6B82; stroke-width: 1; }
+    .panel2 { fill: #17202D; stroke: #5A6B82; stroke-width: 1; }
+    .title { fill: #E8EEF6; font: 700 24px system-ui, sans-serif; }
+    .num { fill: #1F6FEB; }
+    .numtext { fill: #FFFFFF; font: 700 15px ui-monospace, Consolas, monospace; }
+    .name { fill: #E8EEF6; font: 600 17px ui-monospace, Consolas, monospace; }
+    .sub { fill: #A7B6C9; font: 400 14px system-ui, sans-serif; }
+    .h { fill: #A7B6C9; font: 600 13px system-ui, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+    .legend { fill: #A7B6C9; font: 400 13px system-ui, sans-serif; }
+    .line { stroke: #5B9DFF; stroke-width: 2; fill: none; }
+    .dash { stroke: #A7B6C9; stroke-width: 2; stroke-dasharray: 6 6; fill: none; }
+  </style>
+  <rect class="bg" width="960" height="540" rx="16"/>
+  <text x="40" y="46" class="title">The authentication flow</text>
+
+  <rect class="panel" x="40" y="78" width="540" height="64" rx="10"/>
+  <circle class="num" cx="72" cy="110" r="16"/>
+  <text x="72" y="116" class="numtext" text-anchor="middle">1</text>
+  <text x="102" y="104" class="name">ase-moodle login</text>
+  <text x="102" y="126" class="sub">opens a dedicated browser profile</text>
+  <path class="line" d="M310 142V156" marker-end="url(#af-arrow)"/>
+  <rect class="panel" x="40" y="160" width="540" height="64" rx="10"/>
+  <circle class="num" cx="72" cy="192" r="16"/>
+  <text x="72" y="198" class="numtext" text-anchor="middle">2</text>
+  <text x="102" y="186" class="name">Google SSO</text>
+  <text x="102" y="208" class="sub">you sign in once; the password is never stored</text>
+  <path class="line" d="M310 224V238" marker-end="url(#af-arrow)"/>
+  <rect class="panel" x="40" y="242" width="540" height="64" rx="10"/>
+  <circle class="num" cx="72" cy="274" r="16"/>
+  <text x="72" y="280" class="numtext" text-anchor="middle">3</text>
+  <text x="102" y="268" class="name">launch.php</text>
+  <text x="102" y="290" class="sub">Moodle redirects to moodlemobile://token=…</text>
+  <path class="line" d="M310 306V320" marker-end="url(#af-arrow)"/>
+  <rect class="panel" x="40" y="324" width="540" height="64" rx="10"/>
+  <circle class="num" cx="72" cy="356" r="16"/>
+  <text x="72" y="362" class="numtext" text-anchor="middle">4</text>
+  <text x="102" y="350" class="name">verification</text>
+  <text x="102" y="372" class="sub">the token is tested with a real call</text>
+  <path class="line" d="M310 388V402" marker-end="url(#af-arrow)"/>
+  <rect class="panel" x="40" y="406" width="540" height="64" rx="10"/>
+  <circle class="num" cx="72" cy="438" r="16"/>
+  <text x="72" y="444" class="numtext" text-anchor="middle">5</text>
+  <text x="102" y="432" class="name">storage</text>
+  <text x="102" y="454" class="sub">Credential Manager or Secret Service</text>
+
+  <rect class="panel2" x="620" y="150" width="300" height="170" rx="12"/>
+  <text x="640" y="182" class="name">--method manual</text>
+  <text x="640" y="210" class="sub">You copy the token from Security</text>
+  <text x="640" y="232" class="sub">keys; the package reads it from</text>
+  <text x="640" y="254" class="sub">the clipboard.</text>
+  <path class="dash" d="M580 242H620" marker-end="url(#af-arrow-muted)"/>
+
+  <text x="620" y="366" class="sub">After the first login, the</text>
+  <text x="620" y="388" class="sub">command asks for nothing while</text>
+  <text x="620" y="410" class="sub">the Google session is valid.</text>
+
+  <text x="40" y="500" class="h">Legend</text>
+  <path class="line" d="M40 518H76" marker-end="url(#af-arrow)"/>
+  <text x="86" y="523" class="legend">once</text>
+  <path class="dash" d="M250 518H286" marker-end="url(#af-arrow-muted)"/>
+  <text x="296" y="523" class="legend">on every call</text>
+</svg>

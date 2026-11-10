@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="hm-title hm-desc">
+  <title id="hm-title">Cum ajunge o cerere la Moodle</title>
+  <desc id="hm-desc">Patru clienți — Claude Code, Codex, opencode și Google Antigravity — pornesc serverul MCP ase-moodle-mcp prin stdio. Serverul apelează Moodle BL@ASE prin HTTPS. CLI-ul ase-moodle folosește același token și vorbește direct cu Moodle.</desc>
+  <defs>
+    <marker id="hm-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#5B9DFF"/>
+    </marker>
+    <marker id="hm-arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#A7B6C9"/>
+    </marker>
+  </defs>
+  <style>
+    .bg { fill: #0A0E14; }
+    .frame { fill: #111722; stroke: #5A6B82; stroke-width: 1; }
+    .panel { fill: #17202D; stroke: #5A6B82; stroke-width: 1; }
+    .accent { fill: #1F6FEB; stroke: #5B9DFF; stroke-width: 1; }
+    .title { fill: #E8EEF6; font: 700 24px system-ui, sans-serif; }
+    .h { fill: #A7B6C9; font: 600 13px system-ui, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+    .name { fill: #E8EEF6; font: 600 17px system-ui, sans-serif; }
+    .sub { fill: #A7B6C9; font: 400 13px ui-monospace, Consolas, monospace; }
+    .on-accent { fill: #FFFFFF; font: 600 17px system-ui, sans-serif; }
+    .on-accent-sub { fill: #FFFFFF; font: 400 13px ui-monospace, Consolas, monospace; }
+    .mono { fill: #5B9DFF; font: 600 15px ui-monospace, Consolas, monospace; }
+    .legend { fill: #A7B6C9; font: 400 13px system-ui, sans-serif; }
+    .dash { stroke: #A7B6C9; stroke-width: 2; stroke-dasharray: 6 6; fill: none; }
+    .line { stroke: #5B9DFF; stroke-width: 2; fill: none; }
+  </style>
+  <rect class="bg" width="960" height="540" rx="16"/>
+  <text x="40" y="46" class="title">Cum ajunge o cerere la Moodle</text>
+
+  <text x="40" y="88" class="h">Clienți</text>
+  <rect class="panel" x="40" y="104" width="250" height="64" rx="10"/>
+  <text x="58" y="132" class="name">Claude Code</text>
+  <text x="58" y="153" class="sub">plugin + MCP</text>
+
+  <rect class="panel" x="40" y="180" width="250" height="64" rx="10"/>
+  <text x="58" y="208" class="name">Codex</text>
+  <text x="58" y="229" class="sub">plugin + MCP</text>
+
+  <rect class="panel" x="40" y="256" width="250" height="64" rx="10"/>
+  <text x="58" y="284" class="name">opencode</text>
+  <text x="58" y="305" class="sub">MCP + SKILL.md</text>
+
+  <rect class="panel" x="40" y="332" width="250" height="64" rx="10"/>
+  <text x="58" y="360" class="name">Google Antigravity</text>
+  <text x="58" y="381" class="sub">MCP + plugin</text>
+
+  <path class="line" d="M290 136C330 136 330 210 360 210" marker-end="url(#hm-arrow)"/>
+  <path class="line" d="M290 212C330 212 330 226 360 226" marker-end="url(#hm-arrow)"/>
+  <path class="line" d="M290 288C330 288 330 250 360 250" marker-end="url(#hm-arrow)"/>
+  <path class="line" d="M290 364C330 364 330 266 360 266" marker-end="url(#hm-arrow)"/>
+
+  <rect class="accent" x="360" y="150" width="240" height="180" rx="12"/>
+  <text x="380" y="188" class="on-accent">ase-moodle-mcp</text>
+  <text x="380" y="212" class="on-accent-sub">server MCP · stdio</text>
+  <text x="380" y="248" class="on-accent-sub">unelte, prompturi, resurse</text>
+  <text x="380" y="286" class="on-accent-sub">confirm=true</text>
+
+  <path class="line" d="M600 240H660" marker-end="url(#hm-arrow)"/>
+
+  <rect class="panel" x="660" y="150" width="260" height="180" rx="12"/>
+  <text x="680" y="188" class="name">Moodle BL@ASE</text>
+  <text x="680" y="212" class="sub">online.ase.ro · REST</text>
+  <text x="680" y="248" class="sub">core_webservice_get_site_info</text>
+  <text x="680" y="272" class="sub">mod_assign_* · mod_forum_*</text>
+  <text x="680" y="296" class="sub">mod_quiz_* · gradereport_*</text>
+
+  <rect class="panel" x="360" y="404" width="240" height="76" rx="12"/>
+  <text x="380" y="436" class="name">ase-moodle CLI</text>
+  <text x="380" y="458" class="sub">JSON pe stdout</text>
+
+  <path class="line" d="M600 442C630 442 630 330 660 330" marker-end="url(#hm-arrow)"/>
+  <path class="dash" d="M480 330V404" marker-end="url(#hm-arrow-muted)"/>
+  <text x="492" y="372" class="legend">același token</text>
+
+  <text x="40" y="500" class="h">Legendă</text>
+  <path class="line" d="M40 518H76" marker-end="url(#hm-arrow)"/>
+  <text x="86" y="523" class="legend">MCP prin stdio</text>
+  <path class="line" d="M250 518H286" marker-end="url(#hm-arrow)"/>
+  <text x="296" y="523" class="legend">HTTPS către Moodle</text>
+  <path class="dash" d="M470 518H506" marker-end="url(#hm-arrow-muted)"/>
+  <text x="516" y="523" class="legend">același token</text>
+</svg>

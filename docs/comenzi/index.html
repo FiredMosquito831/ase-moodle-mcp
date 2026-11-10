@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comenzi CLI | ase-moodle</title>
+  <meta name="description" content="Referința comenzilor ase-moodle, generată din parserul real: cont, cursuri, teme, forumuri, note, quizuri, notificări, API Moodle și instalare.">
+<link rel="canonical" href="https://ase-moodle-mcp.danubelabs.net/comenzi/"><link rel="alternate" hreflang="ro" href="https://ase-moodle-mcp.danubelabs.net/comenzi/"><link rel="alternate" hreflang="en" href="https://ase-moodle-mcp.danubelabs.net/en/commands/"><link rel="alternate" hreflang="x-default" href="https://ase-moodle-mcp.danubelabs.net/comenzi/">  <meta name="theme-color" content="#0A0E14">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ase-moodle">
+  <meta property="og:title" content="Comenzi CLI | ase-moodle">
+  <meta property="og:description" content="Referința comenzilor ase-moodle, generată din parserul real: cont, cursuri, teme, forumuri, note, quizuri, notificări, API Moodle și instalare.">
+  <meta property="og:url" content="https://ase-moodle-mcp.danubelabs.net/comenzi/">
+  <meta property="og:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Comenzi CLI | ase-moodle">
+  <meta property="og:locale" content="ro_RO">
+<meta property="og:locale:alternate" content="en_US">  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Comenzi CLI | ase-moodle">
+  <meta name="twitter:description" content="Referința comenzilor ase-moodle, generată din parserul real: cont, cursuri, teme, forumuri, note, quizuri, notificări, API Moodle și instalare.">
+  <meta name="twitter:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
+<script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Comenzi CLI | ase-moodle",
+    "url": "https://ase-moodle-mcp.danubelabs.net/comenzi/",
+    "description": "Referința comenzilor ase-moodle, generată din parserul real: cont, cursuri, teme, forumuri, note, quizuri, notificări, API Moodle și instalare.",
+    "inLanguage": "ro",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "ase-moodle",
+      "url": "https://ase-moodle-mcp.danubelabs.net"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Acasă",
+        "item": "https://ase-moodle-mcp.danubelabs.net/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Comenzi",
+        "item": "https://ase-moodle-mcp.danubelabs.net/comenzi/"
+      }
+    ]
+  }
+]</script></head>
+<body>
+  <a class="skip" href="#main">Sari la conținut</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect class="mark-bg" width="32" height="32" rx="8"/>
+          <path class="mark-ink" d="M9 10l6 6-6 6" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path class="mark-ink" d="M17 22h6" fill="none" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-name">ase-moodle</span>
+        <span class="brand-tag">BL@ASE</span>
+      </a>
+      <nav class="site-nav" aria-label="Navigare">
+        <ul>
+          <li><a href="/instalare/">Instalare</a></li>
+          <li><a href="/start/">Primii pași</a></li>
+          <li><a href="/comenzi/" aria-current="page">Comenzi</a></li>
+          <li><a href="/unelte/">Unelte</a></li>
+          <li><a href="/ghiduri/">Ghiduri</a></li>
+          <li><a href="/intrebari/">Întrebări</a></li>
+        </ul>
+      </nav>
+      <a class="lang-switch" href="/en/commands/" hreflang="en" lang="en" aria-label="English">EN</a>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+<nav class="crumbs" aria-label="Firimituri">
+  <ol>
+    <li><a href="/">Acasă</a></li>
+    <li><span aria-current="page">Comenzi</span></li>
+  </ol>
+</nav>
+<div class="page-head">
+<p class="eyebrow">37 de comenzi, generate din parser</p>  <h1>Comenzi</h1>
+</div>
+<div class="layout with-toc">
+  <div class="prose">
+    <p class="lead">Toate comenzile scriu JSON pe stdout, iar erorile merg pe stderr ca <code>{"error": "...", "message": "..."}</code>. Tabelul de mai jos este generat din parserul real: numele, opțiunile și ajutorul vin din cod.</p>
+<section id="cum-citesti-tabelul"><h2><span class="prompt" aria-hidden="true">&gt;</span> Cum citești tabelul</h2><p><code>N</code> înseamnă un număr întreg, <code>JSON</code> un obiect JSON, iar <code>A|B</code> o alegere dintre valori. Opțiunile fără valoare sunt comutatoare. Comenzile care modifică contul cer <code>--yes</code>.</p><p>Textul pentru <code>submit-text</code>, <code>reply</code> și <code>new-discussion</code> vine din <code>--text</code>, dintr-un <code>--file</code> sau din stdin, prin pipe.</p><p>Coloana „Ce face” din pagina românească afișează textele de ajutor ale comenzilor, exact cum le dă <code>--help</code>. Pagina engleză le traduce, iar numele și opțiunile rămân aceleași.</p></section>
+<section id="coduri-de-iesire"><h2><span class="prompt" aria-hidden="true">&gt;</span> Coduri de ieșire</h2><div class="table-wrap"><table><thead><tr><th scope="col">Cod</th><th scope="col">Înseamnă</th></tr></thead><tbody><tr><td><code>0</code></td><td>reușit</td></tr><tr><td><code>1</code></td><td>eroare: Moodle, token lipsă, fișier inexistent, ciorne dezactivate</td></tr><tr><td><code>2</code></td><td>scriere blocată: lipsește <code>--yes</code></td></tr><tr><td><code>3</code></td><td><code>install</code>, <code>update</code> sau <code>doctor</code> a găsit o problemă</td></tr></tbody></table></div></section>
+<section id="commands-account"><h2><span class="prompt" aria-hidden="true">&gt;</span> Cont</h2><div class="table-wrap"><table><thead><tr><th>Comandă</th><th>Opțiuni</th><th>Ce face</th></tr></thead><tbody><tr id="cmd-login"><td><code>ase-moodle login</code></td><td><code>--method auto|browser|manual</code> <code>--timeout N</code> <code>--token TOKEN</code> <code>--token-stdin</code> <code>--base-url URL</code></td><td>Obtine tokenul automat (browser) sau il salveaza din --token</td></tr><tr id="cmd-logout"><td><code>ase-moodle logout</code></td><td><code>--forget-browser</code></td><td>Sterge tokenul salvat</td></tr><tr id="cmd-auth-status"><td><code>ase-moodle auth-status</code></td><td>—</td><td>Verifica daca tokenul salvat functioneaza</td></tr><tr id="cmd-whoami"><td><code>ase-moodle whoami</code></td><td>—</td><td>Cine sunt conectat</td></tr></tbody></table></div></section>
+<section id="commands-courses"><h2><span class="prompt" aria-hidden="true">&gt;</span> Cursuri și materiale</h2><div class="table-wrap"><table><thead><tr><th>Comandă</th><th>Opțiuni</th><th>Ce face</th></tr></thead><tbody><tr id="cmd-courses"><td><code>ase-moodle courses</code></td><td><code>--year N</code> <code>--sem N</code> <code>--ay AN</code> <code>--tip TIP</code> <code>--search TEXT</code></td><td>Listeaza cursurile inscrise</td></tr><tr id="cmd-outline"><td><code>ase-moodle outline</code></td><td><code>course_id</code></td><td>Structura cursului (JSON Moodle brut)</td></tr><tr id="cmd-download"><td><code>ase-moodle download</code></td><td><code>--year N</code> <code>--sem N</code> <code>--ay AN</code> <code>--tip TIP</code> <code>--course N</code> <code>--out DIR</code> <code>--shallow</code></td><td>Descarca materialele si datele cursurilor</td></tr></tbody></table></div></section>
+<section id="commands-assignments"><h2><span class="prompt" aria-hidden="true">&gt;</span> Teme</h2><div class="table-wrap"><table><thead><tr><th>Comandă</th><th>Opțiuni</th><th>Ce face</th></tr></thead><tbody><tr id="cmd-assignments"><td><code>ase-moodle assignments</code></td><td><code>--course N</code></td><td>Lista temelor</td></tr><tr id="cmd-assignment"><td><code>ase-moodle assignment</code></td><td><code>assign_id</code></td><td>Cerinta si starea trimiterii pentru o tema</td></tr><tr id="cmd-submit"><td><code>ase-moodle submit</code></td><td><code>assign_id</code> <code>file</code> <code>--submit</code> <code>--allow-direct</code> <code>--yes</code></td><td>Incarca un fisier la tema (ciorna sau final)</td></tr><tr id="cmd-submit-text"><td><code>ase-moodle submit-text</code></td><td><code>assign_id</code> <code>--text TEXT</code> <code>--file FILE</code> <code>--submit</code> <code>--allow-direct</code> <code>--yes</code></td><td>Trimite text ca raspuns la tema</td></tr></tbody></table></div></section>
+<section id="commands-forums"><h2><span class="prompt" aria-hidden="true">&gt;</span> Forumuri</h2><div class="table-wrap"><table><thead><tr><th>Comandă</th><th>Opțiuni</th><th>Ce face</th></tr></thead><tbody><tr id="cmd-forums"><td><code>ase-moodle forums</code></td><td><code>--course N</code></td><td>Lista forumurilor</td></tr><tr id="cmd-forum"><td><code>ase-moodle forum</code></td><td><code>forum_id</code></td><td>Discutiile unui forum</td></tr><tr id="cmd-discussion"><td><code>ase-moodle discussion</code></td><td><code>discussion_id</code></td><td>Postarile unei discutii</td></tr><tr id="cmd-reply"><td><code>ase-moodle reply</code></td><td><code>post_id</code> <code>--subject TEXT</code> <code>--text TEXT</code> <code>--file FILE</code> <code>--yes</code></td><td>Raspunde la o postare de forum</td></tr><tr id="cmd-new-discussion"><td><code>ase-moodle new-discussion</code></td><td><code>forum_id</code> <code>--subject TEXT</code> <code>--text TEXT</code> <code>--file FILE</code> <code>--yes</code></td><td>Deschide o discutie noua pe un forum</td></tr></tbody></table></div></section>
+<section id="commands-grades"><h2><span class="prompt" aria-hidden="true">&gt;</span> Note</h2><div class="table-wrap"><table><thead><tr><th>Comandă</th><th>Opțiuni</th><th>Ce face</th></tr></thead><tbody><tr id="cmd-grades"><td><code>ase-moodle grades</code></td><td><code>--course N</code></td><td>Notele: toate cursurile sau un curs</td></tr></tbody></table></div></section>
+<section id="commands-quizzes"><h2><span class="prompt" aria-hidden="true">&gt;</span> Quizuri</h2><div class="table-wrap"><table><thead><tr><th>Comandă</th><th>Opțiuni</th><th>Ce face</th></tr></thead><tbody><tr id="cmd-quizzes"><td><code>ase-moodle quizzes</code></td><td><code>--course N</code></td><td>Lista quizurilor</td></tr><tr id="cmd-quiz-attempts"><td><code>ase-moodle quiz-attempts</code></td><td><code>quiz_id</code></td><td>Incercarile tale la un quiz</td></tr><tr id="cmd-quiz-start"><td><code>ase-moodle quiz-start</code></td><td><code>quiz_id</code> <code>--force-new</code> <code>--yes</code></td><td>Porneste o incercare la un quiz</td></tr><tr id="cmd-quiz-questions"><td><code>ase-moodle quiz-questions</code></td><td><code>attempt_id</code></td><td>Intrebarile unei incercari, cu campurile de raspuns</td></tr><tr id="cmd-quiz-answer"><td><code>ase-moodle quiz-answer</code></td><td><code>attempt_id</code> <code>--answers JSON</code> <code>--answers-file FILE</code> <code>--finish</code> <code>--yes</code></td><td>Salveaza raspunsuri (sau trimite cu --finish)</td></tr><tr id="cmd-quiz-review"><td><code>ase-moodle quiz-review</code></td><td><code>attempt_id</code></td><td>Revizuirea unei incercari terminate</td></tr></tbody></table></div></section>
+<section id="commands-notifications"><h2><span class="prompt" aria-hidden="true">&gt;</span> Notificări și termene</h2><div class="table-wrap"><table><thead><tr><th>Comandă</th><th>Opțiuni</th><th>Ce face</th></tr></thead><tbody><tr id="cmd-notifications"><td><code>ase-moodle notifications</code></td><td><code>--limit N</code> <code>--unread</code></td><td>Notificari</td></tr><tr id="cmd-read-notification"><td><code>ase-moodle read-notification</code></td><td><code>notification_id</code> <code>--yes</code></td><td>Marcheaza o notificare ca citita</td></tr><tr id="cmd-deadlines"><td><code>ase-moodle deadlines</code></td><td><code>--days N</code></td><td>Termene limita viitoare</td></tr></tbody></table></div></section>
+<section id="commands-api"><h2><span class="prompt" aria-hidden="true">&gt;</span> API Moodle</h2><div class="table-wrap"><table><thead><tr><th>Comandă</th><th>Opțiuni</th><th>Ce face</th></tr></thead><tbody><tr id="cmd-functions"><td><code>ase-moodle functions</code></td><td><code>--filter REGEX</code></td><td>Functiile Moodle disponibile pentru token</td></tr><tr id="cmd-call"><td><code>ase-moodle call</code></td><td><code>function</code> <code>--json-params JSON</code> <code>--yes</code></td><td>Apel generic la orice functie Moodle</td></tr></tbody></table></div></section>
+<section id="commands-install"><h2><span class="prompt" aria-hidden="true">&gt;</span> Instalare și întreținere</h2><div class="table-wrap"><table><thead><tr><th>Comandă</th><th>Opțiuni</th><th>Ce face</th></tr></thead><tbody><tr id="cmd-install"><td><code>ase-moodle install</code></td><td><code>targets...</code> <code>--source SOURCE</code></td><td>Configureaza pluginul in Claude Code, Codex, opencode si/sau Antigravity</td></tr><tr id="cmd-uninstall"><td><code>ase-moodle uninstall</code></td><td><code>targets...</code> <code>--source SOURCE</code></td><td>Elimina configurarea din CLI-urile alese</td></tr><tr id="cmd-update"><td><code>ase-moodle update</code></td><td><code>targets...</code> <code>--source SOURCE</code></td><td>Actualizeaza pluginul in CLI-urile alese (marketplace + plugin)</td></tr><tr id="cmd-doctor"><td><code>ase-moodle doctor</code></td><td>—</td><td>Verifica starea instalarii, tokenul si procesele MCP</td></tr><tr id="cmd-sync-plugin"><td><code>ase-moodle sync-plugin</code></td><td>—</td><td>(dezvoltare) copiaza SKILL.md canonic in plugin</td></tr></tbody></table></div></section>
+<section id="commands-harnesses"><h2><span class="prompt" aria-hidden="true">&gt;</span> Comenzi per harness</h2><div class="table-wrap"><table><thead><tr><th>Comandă</th><th>Opțiuni</th><th>Ce face</th></tr></thead><tbody><tr id="cmd-claude"><td><code>ase-moodle claude</code></td><td><code>install</code> <code>update</code> <code>uninstall</code> <code>doctor</code> <code>--project-dir DIR</code> <code>--scope global|project|all</code> <code>--source SOURCE</code></td><td>claude: install, update, uninstall, doctor</td></tr><tr id="cmd-codex"><td><code>ase-moodle codex</code></td><td><code>install</code> <code>update</code> <code>uninstall</code> <code>doctor</code> <code>--project-dir DIR</code> <code>--scope global|project|all</code> <code>--source SOURCE</code></td><td>codex: install, update, uninstall, doctor</td></tr><tr id="cmd-opencode"><td><code>ase-moodle opencode</code></td><td><code>install</code> <code>update</code> <code>uninstall</code> <code>doctor</code> <code>--project-dir DIR</code> <code>--scope global|project|all</code> <code>--source SOURCE</code></td><td>opencode: install, update, uninstall, doctor</td></tr><tr id="cmd-antigravity"><td><code>ase-moodle antigravity</code></td><td><code>install</code> <code>update</code> <code>uninstall</code> <code>doctor</code> <code>--project-dir DIR</code> <code>--scope global|project|all</code> <code>--source SOURCE</code></td><td>antigravity: install, update, uninstall, doctor</td></tr></tbody></table></div></section>
+<section id="scopuri-si-harness-uri"><h2><span class="prompt" aria-hidden="true">&gt;</span> Scopuri și harness-uri</h2><p>Comenzile <code>claude</code>, <code>codex</code>, <code>opencode</code> și <code>antigravity</code> merg doar la adaptorul lor. Fiecare acceptă <code>install</code>, <code>update</code>, <code>uninstall</code> și <code>doctor</code>, cu <code>--scope global|project</code> unde există. Antigravity nu are scop de proiect: <code>--scope project</code> este o eroare.</p><p><code>ase-moodle install</code> fără nume de harness rulează toate adaptoarele. Un harness care nu suportă scopul cerut este sărit, cu motivul în output.</p></section>
+<aside class="callout callout-warn"><p class="callout-title">Confirmarea</p><p>Fără <code>--yes</code>, o scriere se oprește cu codul <code>2</code> și nu trimite nimic. Adaugă <code>--yes</code> doar după ce ai verificat exact ce trimite comanda.</p></aside>
+  </div>
+  <aside class="toc" aria-label="Cuprins">
+    <h2>Cuprins</h2>
+    <ol>
+      <li><a href="#cum-citesti-tabelul">Cum citești tabelul</a></li>
+      <li><a href="#coduri-de-iesire">Coduri de ieșire</a></li>
+      <li><a href="#scopuri-si-harness-uri">Scopuri și harness-uri</a></li>
+    </ol>
+  </aside>
+</div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p><strong>ase-moodle</strong> — server MCP, CLI și plugin pentru Moodle BL@ASE (online.ase.ro).</p>
+          <p><a href="https://github.com/FiredMosquito831/ase-moodle-mcp">github.com/FiredMosquito831/ase-moodle-mcp</a></p>
+        </div>
+        <div class="footer-col">
+          <h2>Pagini</h2>
+          <ul>
+            <li><a href="/">Acasă</a></li>
+            <li><a href="/instalare/">Instalare</a></li>
+            <li><a href="/start/">Primii pași</a></li>
+            <li><a href="/comenzi/">Comenzi</a></li>
+            <li><a href="/unelte/">Unelte</a></li>
+            <li><a href="/ghiduri/">Ghiduri</a></li>
+            <li><a href="/intrebari/">Întrebări</a></li>
+            <li><a href="/probleme/">Probleme frecvente</a></li>
+            <li><a href="/despre/">Despre ase-moodle</a></li>
+            <li><a href="/licenta/">Licență</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Proiect</h2>
+          <ul>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp">GitHub</a></li>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/tree/main/docs">Documentația din repo</a></li>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/issues">Issues</a></li>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/LICENSE">LICENSE</a></li>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/NOTICE">NOTICE</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal">
+        <p>Licențiat sub Apache License 2.0 (Apache-2.0).</p>
+        <p>ase-moodle este un proiect independent. Nu este afiliat cu, aprobat de sau sponsorizat de ASE București sau de Moodle. Moodle este o marcă a proprietarului ei.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>

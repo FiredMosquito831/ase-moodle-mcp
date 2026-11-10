@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Primii pași | ase-moodle</title>
+  <meta name="description" content="De la zero la prima întrebare: instalează ase-moodle, loghează-te cu Google, configurează clientul și cere termenele următoare în Claude Code sau opencode.">
+<link rel="canonical" href="https://ase-moodle-mcp.danubelabs.net/start/"><link rel="alternate" hreflang="ro" href="https://ase-moodle-mcp.danubelabs.net/start/"><link rel="alternate" hreflang="en" href="https://ase-moodle-mcp.danubelabs.net/en/quick-start/"><link rel="alternate" hreflang="x-default" href="https://ase-moodle-mcp.danubelabs.net/start/">  <meta name="theme-color" content="#0A0E14">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ase-moodle">
+  <meta property="og:title" content="Primii pași | ase-moodle">
+  <meta property="og:description" content="De la zero la prima întrebare: instalează ase-moodle, loghează-te cu Google, configurează clientul și cere termenele următoare în Claude Code sau opencode.">
+  <meta property="og:url" content="https://ase-moodle-mcp.danubelabs.net/start/">
+  <meta property="og:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Primii pași | ase-moodle">
+  <meta property="og:locale" content="ro_RO">
+<meta property="og:locale:alternate" content="en_US">  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Primii pași | ase-moodle">
+  <meta name="twitter:description" content="De la zero la prima întrebare: instalează ase-moodle, loghează-te cu Google, configurează clientul și cere termenele următoare în Claude Code sau opencode.">
+  <meta name="twitter:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
+<script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Primii pași | ase-moodle",
+    "url": "https://ase-moodle-mcp.danubelabs.net/start/",
+    "description": "De la zero la prima întrebare: instalează ase-moodle, loghează-te cu Google, configurează clientul și cere termenele următoare în Claude Code sau opencode.",
+    "inLanguage": "ro",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "ase-moodle",
+      "url": "https://ase-moodle-mcp.danubelabs.net"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Acasă",
+        "item": "https://ase-moodle-mcp.danubelabs.net/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Primii pași",
+        "item": "https://ase-moodle-mcp.danubelabs.net/start/"
+      }
+    ]
+  }
+]</script></head>
+<body>
+  <a class="skip" href="#main">Sari la conținut</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect class="mark-bg" width="32" height="32" rx="8"/>
+          <path class="mark-ink" d="M9 10l6 6-6 6" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path class="mark-ink" d="M17 22h6" fill="none" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-name">ase-moodle</span>
+        <span class="brand-tag">BL@ASE</span>
+      </a>
+      <nav class="site-nav" aria-label="Navigare">
+        <ul>
+          <li><a href="/instalare/">Instalare</a></li>
+          <li><a href="/start/" aria-current="page">Primii pași</a></li>
+          <li><a href="/comenzi/">Comenzi</a></li>
+          <li><a href="/unelte/">Unelte</a></li>
+          <li><a href="/ghiduri/">Ghiduri</a></li>
+          <li><a href="/intrebari/">Întrebări</a></li>
+        </ul>
+      </nav>
+      <a class="lang-switch" href="/en/quick-start/" hreflang="en" lang="en" aria-label="English">EN</a>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+<nav class="crumbs" aria-label="Firimituri">
+  <ol>
+    <li><a href="/">Acasă</a></li>
+    <li><span aria-current="page">Primii pași</span></li>
+  </ol>
+</nav>
+<div class="page-head">
+<p class="eyebrow">Șase pași, aproximativ cinci minute</p>  <h1>Primii pași</h1>
+</div>
+<div class="layout with-toc">
+  <div class="prose">
+    <p class="lead">De la zero la prima întrebare. Pașii de mai jos presupun Python 3.10+ și un cont BL@ASE pe online.ase.ro.</p>
+<section id="pasii"><h2><span class="prompt" aria-hidden="true">&gt;</span> Pașii</h2><ol class="steps"><li><h3>Instalează pachetul</h3><p>Cu pipx, fără Node.js. Variantele npm și pip sunt în pagina de instalare.</p><pre><code>python -m pip install --user pipx
+pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git</code></pre></li><li><h3>Loghează-te o singură dată</h3><p>Se deschide o fereastră cu un profil dedicat. Te loghezi cu Google; tokenul se salvează în seiful sistemului.</p><pre><code>ase-moodle login</code></pre></li><li><h3>Configurează clienții</h3><p><code>install</code> scrie configurația în Claude Code, Codex, opencode și Antigravity. Pentru un singur folder, adaugă <code>--scope project</code>.</p><pre><code>ase-moodle install</code></pre></li><li><h3>Verifică</h3><p><code>doctor</code> verifică fiecare platformă, tokenul, procesele MCP și funcțiile Moodle. Fără token, pasul e <code>skipped</code>, nu eroare.</p><pre><code>ase-moodle doctor</code></pre></li><li><h3>Întreabă în client</h3><p>Deschide Claude Code, Codex, opencode sau Antigravity și întreabă: „Ce termene am în următoarele 7 zile?”. Serverul ar trebui să apeleze <code>deadlines</code>.</p></li><li><h3>Descarcă un semestru</h3><p>Materialele ajung în folderul dat, cu <code>index.md</code>, <code>teme.md</code>, <code>forumuri/</code>, <code>quizuri.md</code>, <code>note.md</code> și datele brute. A doua rulare sare fișierele existente.</p><pre><code>ase-moodle download --year 3 --sem 1 --out D:\Materiale</code></pre></li></ol></section>
+<section id="ce-instaleaza-fiecare-client"><h2><span class="prompt" aria-hidden="true">&gt;</span> Ce instalează fiecare client</h2><div class="table-wrap"><table><thead><tr><th scope="col">Client</th><th scope="col">Global</th><th scope="col">Doar un folder</th></tr></thead><tbody><tr><td>Claude Code</td><td>plugin + marketplace, scope user</td><td>plugin + marketplace, în <code>.claude/settings.json</code></td></tr><tr><td>Codex</td><td>plugin + marketplace, în <code>~/.codex</code></td><td>doar serverul MCP, în <code>.codex/config.toml</code></td></tr><tr><td>opencode</td><td>MCP + <code>SKILL.md</code> în <code>~/.config/opencode</code></td><td>MCP în <code>opencode.json</code> din folder</td></tr><tr><td>Antigravity</td><td>MCP + plugin, prin <code>agy</code></td><td>nu are: rămâne global</td></tr></tbody></table></div></section>
+<section id="ce-se-intampla-la-login"><h2><span class="prompt" aria-hidden="true">&gt;</span> Ce se întâmplă la login</h2><figure class="diagram"><img src="/assets/diagrams/auth-flow-ro.svg" alt="Diagramă: login-ul deschide un profil de browser dedicat; te loghezi cu Google; Moodle redirecționează către moodlemobile://token=…; tokenul e verificat și salvat în Credential Manager sau Secret Service." width="960" height="540" loading="lazy"><figcaption>O singură autentificare, apoi tokenul e citit local la fiecare apel.</figcaption></figure><p class="figure-alt">Diagramă: login-ul deschide un profil de browser dedicat; te loghezi cu Google; Moodle redirecționează către moodlemobile://token=…; tokenul e verificat și salvat în Credential Manager sau Secret Service.</p></section>
+<section id="ce-vezi-daca-merge"><h2><span class="prompt" aria-hidden="true">&gt;</span> Ce vezi dacă merge</h2><p><code>ase-moodle auth-status</code> întoarce <code>logged_in</code> și numele tău. <code>ase-moodle doctor</code> arată <code>ok</code> pentru pachet și pentru fiecare platformă instalată. În client, serverul apare ca <code>ase-moodle</code> și răspunde cu date reale.</p><p>Dacă <code>doctor</code> arată <code>skipped</code> pentru o platformă, CLI-ul acelei platforme nu e instalat sau nu e în PATH. Nu e o eroare: <code>install</code> marchează la fel platformele pe care nu le găsește.</p><p>Dacă <code>doctor</code> arată <code>error</code>, rulează din nou <code>ase-moodle install</code> pentru platforma respectivă. Instalarea e idempotentă: o rulare repetată nu dublează nimic, iar schimbarea de scop curăță celălalt scop.</p></section>
+<section><figure class="code"><div class="code-head"><span>terminal · JSON</span></div><pre><code>{
+  &quot;logged_in&quot;: true,
+  &quot;user&quot;: &quot;Student Test&quot;,
+  &quot;base_url&quot;: &quot;https://online.ase.ro&quot;
+}</code></pre><figcaption>Forma răspunsului <code>ase-moodle auth-status</code>, cu datele serverului fals din teste.</figcaption></figure></section>
+<aside class="callout callout-note"><p class="callout-title">Prima fereastră de login</p><p>Fereastra se deschide cu un profil de browser separat, nu cu profilul tău obișnuit. Loghează-te cu Google în ea. Dacă o închizi din greșeală, rulează din nou <code>ase-moodle login</code>; comanda așteaptă până la 300 de secunde.</p></aside>
+<aside class="callout callout-note"><p class="callout-title">Scope-ul de proiect</p><p>Dacă instalezi cu <code>--scope project</code>, pornește clientul din folderul exact unde ai instalat. Scope-ul de proiect nu se aplică în subfoldere; pentru asta folosește scope-ul global.</p></aside>
+<section id="daca-ceva-nu-merge"><h2><span class="prompt" aria-hidden="true">&gt;</span> Dacă ceva nu merge</h2><p>Începe cu <code>ase-moodle doctor</code> și <code>ase-moodle auth-status</code>: ele spun ce e instalat, ce token există și de unde e citit. Lista completă de erori și rezolvări este în <a href="/probleme/">probleme frecvente</a>.</p></section>
+  </div>
+  <aside class="toc" aria-label="Cuprins">
+    <h2>Cuprins</h2>
+    <ol>
+      <li><a href="#pasii">Pașii</a></li>
+      <li><a href="#ce-instaleaza-fiecare-client">Ce instalează fiecare client</a></li>
+      <li><a href="#ce-se-intampla-la-login">Ce se întâmplă la login</a></li>
+      <li><a href="#ce-vezi-daca-merge">Ce vezi dacă merge</a></li>
+      <li><a href="#daca-ceva-nu-merge">Dacă ceva nu merge</a></li>
+    </ol>
+  </aside>
+</div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p><strong>ase-moodle</strong> — server MCP, CLI și plugin pentru Moodle BL@ASE (online.ase.ro).</p>
+          <p><a href="https://github.com/FiredMosquito831/ase-moodle-mcp">github.com/FiredMosquito831/ase-moodle-mcp</a></p>
+        </div>
+        <div class="footer-col">
+          <h2>Pagini</h2>
+          <ul>
+            <li><a href="/">Acasă</a></li>
+            <li><a href="/instalare/">Instalare</a></li>
+            <li><a href="/start/">Primii pași</a></li>
+            <li><a href="/comenzi/">Comenzi</a></li>
+            <li><a href="/unelte/">Unelte</a></li>
+            <li><a href="/ghiduri/">Ghiduri</a></li>
+            <li><a href="/intrebari/">Întrebări</a></li>
+            <li><a href="/probleme/">Probleme frecvente</a></li>
+            <li><a href="/despre/">Despre ase-moodle</a></li>
+            <li><a href="/licenta/">Licență</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Proiect</h2>
+          <ul>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp">GitHub</a></li>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/tree/main/docs">Documentația din repo</a></li>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/issues">Issues</a></li>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/LICENSE">LICENSE</a></li>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/NOTICE">NOTICE</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal">
+        <p>Licențiat sub Apache License 2.0 (Apache-2.0).</p>
+        <p>ase-moodle este un proiect independent. Nu este afiliat cu, aprobat de sau sponsorizat de ASE București sau de Moodle. Moodle este o marcă a proprietarului ei.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>
