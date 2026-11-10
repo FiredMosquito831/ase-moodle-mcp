@@ -1502,6 +1502,9 @@ def render(site: dict, pages: list[dict], ctx: dict) -> dict[str, bytes]:
 
 def main() -> int:
     global SITE_SRC, CONTENT, TEMPLATES, STATIC
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
     parser = argparse.ArgumentParser(description="Build the ase-moodle documentation site.")
     parser.add_argument("--check", action="store_true", help="compare docs/ with a fresh build")
     parser.add_argument("--report", action="store_true", help="print word counts and reference counts")
