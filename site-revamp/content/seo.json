@@ -1,0 +1,407 @@
+{
+  "_readme": "Per-page SEO for ase-moodle-mcp, Romanian and English. Every keyword must be truthful: the product must actually do it. Titles are validated at 60 characters or fewer, descriptions at 120-160, per page and per language.",
+  "site": {
+    "ro": {
+      "title": "ase-moodle: Moodle BL@ASE pentru agenți AI",
+      "description": "Server MCP, CLI și plugin pentru Moodle BL@ASE: cursuri, materiale, teme, forumuri, note, quizuri și termene în Claude Code, Codex, opencode și Antigravity.",
+      "keywords": [
+        "ase moodle mcp",
+        "moodle ase",
+        "blase moodle",
+        "online ase ro",
+        "server mcp moodle",
+        "moodle claude code",
+        "moodle codex",
+        "moodle opencode",
+        "moodle antigravity",
+        "automatizare moodle",
+        "automatizari ase",
+        "ase automatizari",
+        "agent ai ase",
+        "agent ai moodle",
+        "moodle romania",
+        "ase bucuresti moodle",
+        "descarcare cursuri moodle",
+        "teme moodle automat",
+        "note moodle",
+        "quizuri moodle",
+        "termene moodle",
+        "mcp server romania"
+      ],
+      "primary": [
+        "server MCP pentru Moodle",
+        "automatizare Moodle",
+        "Moodle BL@ASE"
+      ]
+    },
+    "en": {
+      "title": "ase-moodle: BL@ASE Moodle MCP server for AI agents",
+      "description": "MCP server, CLI and plugin for BL@ASE Moodle at online.ase.ro: courses, materials, assignments, forums, grades and quizzes in Claude Code, Codex and opencode.",
+      "keywords": [
+        "ase moodle mcp",
+        "moodle mcp server",
+        "blase moodle",
+        "online ase ro",
+        "moodle claude code",
+        "moodle codex",
+        "moodle opencode",
+        "moodle antigravity",
+        "automate moodle",
+        "moodle automation",
+        "ase automation",
+        "ai agent moodle",
+        "moodle cli",
+        "moodle courses download",
+        "moodle assignments automation",
+        "moodle grades",
+        "moodle quizzes",
+        "moodle deadlines",
+        "romanian university ai",
+        "mcp server education"
+      ],
+      "primary": [
+        "MCP server for Moodle",
+        "Moodle automation",
+        "BL@ASE Moodle"
+      ]
+    }
+  },
+  "pages": {
+    "install": {
+      "ro": {
+        "title": "Instalare ase-moodle în Claude Code, Codex, opencode",
+        "description": "Cum instalezi serverul MCP ase-moodle în Claude Code, Codex, opencode sau Antigravity, cu o singură comandă, plus ce face instalarea.",
+        "keywords": [
+          "instalare ase moodle",
+          "instalare mcp claude code",
+          "moodle mcp instalare",
+          "ase moodle setup",
+          "mcp server instalare",
+          "instalare pipx moodle",
+          "instalare npm moodle mcp",
+          "configurare claude code moodle"
+        ],
+        "primary": [
+          "instalare ase-moodle"
+        ],
+        "llms": "Instalare cu pipx, npm, scriptul din repo sau pip, plus actualizare și dezinstalare."
+      },
+      "en": {
+        "title": "Install ase-moodle in Claude Code, Codex and opencode",
+        "description": "How to install the ase-moodle MCP server in Claude Code, Codex, opencode or Antigravity with one command, and what the install does.",
+        "keywords": [
+          "install moodle mcp",
+          "install mcp server claude code",
+          "ase moodle setup",
+          "moodle mcp install",
+          "codex mcp install",
+          "moodle mcp pipx",
+          "moodle mcp npm",
+          "configure moodle claude code"
+        ],
+        "primary": [
+          "install ase-moodle"
+        ],
+        "llms": "Install with pipx, npm, the script in the repo or pip, plus update and uninstall."
+      }
+    },
+    "quick-start": {
+      "ro": {
+        "title": "Primii pași cu ase-moodle",
+        "description": "Prima autentificare, primul curs, prima temă: ghidul pas cu pas pentru a folosi serverul ase-moodle în agentul tău AI, cu comenzile exacte.",
+        "keywords": [
+          "primii pasi ase moodle",
+          "autentificare moodle",
+          "login moodle ase",
+          "ghid ase moodle",
+          "autentificare google moodle",
+          "primul curs moodle",
+          "verificare instalare moodle",
+          "descarcare semestru moodle"
+        ],
+        "primary": [
+          "primii pași cu ase-moodle"
+        ]
+      },
+      "en": {
+        "title": "Quick start with ase-moodle",
+        "description": "First sign-in, first course, first assignment: the step-by-step guide to using the ase-moodle MCP server in your AI agent, with the exact commands.",
+        "keywords": [
+          "moodle mcp quick start",
+          "moodle login automation",
+          "ase moodle guide",
+          "moodle agent setup",
+          "moodle google sign in",
+          "first moodle course",
+          "moodle install check",
+          "download moodle semester"
+        ],
+        "primary": [
+          "quick start with ase-moodle"
+        ]
+      }
+    },
+    "commands": {
+      "ro": {
+        "title": "Comenzi CLI ase-moodle",
+        "description": "Toate comenzile CLI ase-moodle, generate din parserul real: cursuri, teme, forumuri, note, quizuri, notificări și termene.",
+        "keywords": [
+          "comenzi ase moodle",
+          "cli moodle",
+          "ase moodle comenzi",
+          "moodle cli romania",
+          "comenzi moodle json",
+          "coduri de ieșire ase moodle",
+          "comenzi teme moodle",
+          "comenzi quizuri moodle"
+        ],
+        "primary": [
+          "comenzi CLI ase-moodle"
+        ],
+        "llms": "Toate cele {commands} comenzi CLI, generate din parser, cu opțiuni și coduri de ieșire."
+      },
+      "en": {
+        "title": "ase-moodle CLI commands",
+        "description": "Every ase-moodle CLI command, generated from the real parser: courses, assignments, forums, grades, quizzes, notifications and deadlines.",
+        "keywords": [
+          "ase moodle cli",
+          "moodle cli commands",
+          "moodle command line",
+          "ase moodle commands",
+          "moodle json output",
+          "ase moodle exit codes",
+          "moodle assignments cli",
+          "moodle quiz cli"
+        ],
+        "primary": [
+          "ase-moodle CLI"
+        ],
+        "llms": "All {commands} CLI commands, generated from the parser, with options and exit codes."
+      }
+    },
+    "tools": {
+      "ro": {
+        "title": "Unelte MCP ase-moodle",
+        "description": "Referința uneltelor MCP, generată din definițiile reale: 28 de unelte cu parametri și tip, 4 prompturi și 2 resurse pentru Moodle BL@ASE.",
+        "keywords": [
+          "unelte mcp moodle",
+          "mcp tools moodle",
+          "ase moodle unelte",
+          "moodle mcp tools",
+          "prompturi mcp moodle",
+          "resurse mcp moodle",
+          "unelte citire scriere moodle",
+          "api moodle unelte"
+        ],
+        "primary": [
+          "unelte MCP"
+        ],
+        "llms": "Cele {tools} unelte MCP, {prompts} prompturi și {resources} resurse, cu parametri și tip."
+      },
+      "en": {
+        "title": "ase-moodle MCP tools",
+        "description": "The MCP tool reference, generated from the real definitions: 28 tools with parameters and type, 4 prompts and 2 resources for BL@ASE Moodle.",
+        "keywords": [
+          "moodle mcp tools",
+          "ase moodle tools",
+          "mcp tool reference moodle",
+          "moodle api tools",
+          "moodle mcp prompts",
+          "moodle mcp resources",
+          "moodle tool annotations",
+          "ase-moodle tool reference"
+        ],
+        "primary": [
+          "MCP tools"
+        ],
+        "llms": "The {tools} MCP tools, {prompts} prompts and {resources} resources, with parameters and type."
+      }
+    },
+    "guides": {
+      "ro": {
+        "title": "Ghiduri ase-moodle",
+        "description": "Ghiduri practice pentru ase-moodle: teme și trimiteri, quizuri, forumuri, descarcarea materialelor și planificarea termenelor, fiecare verificat în cod.",
+        "keywords": [
+          "ghiduri ase moodle",
+          "teme moodle ghid",
+          "quizuri moodle ghid",
+          "descarcare materiale moodle",
+          "ghid descarcare semestru",
+          "ghid forum moodle",
+          "ghid termene moodle",
+          "ghid trimitere tema moodle"
+        ],
+        "primary": [
+          "ghiduri ase-moodle"
+        ],
+        "llms": "Șase sarcini pas cu pas: descărcare, termene, teme, forumuri, quizuri, căutare."
+      },
+      "en": {
+        "title": "ase-moodle guides",
+        "description": "Practical guides for ase-moodle: assignments and submissions, quizzes, forums, downloading materials and planning deadlines, each verified against the code.",
+        "keywords": [
+          "moodle mcp guides",
+          "moodle assignments guide",
+          "moodle quiz guide",
+          "moodle materials download",
+          "download moodle semester guide",
+          "moodle forum guide",
+          "moodle deadlines guide",
+          "moodle assignment submission guide"
+        ],
+        "primary": [
+          "ase-moodle guides"
+        ],
+        "llms": "Six tasks step by step: download, deadlines, assignments, forums, quizzes, search."
+      }
+    },
+    "faq": {
+      "ro": {
+        "title": "Întrebări frecvente ase-moodle",
+        "description": "Răspunsuri la întrebările frecvente despre ase-moodle: autentificare, token, siguranță, limite și ce se întâmplă cu datele tale.",
+        "keywords": [
+          "intrebari ase moodle",
+          "faq moodle mcp",
+          "ase moodle token",
+          "ase moodle siguranta",
+          "ase moodle gratuit",
+          "ase moodle linux",
+          "ase moodle nodejs",
+          "ase moodle doctor"
+        ],
+        "primary": [
+          "întrebări frecvente ase-moodle"
+        ],
+        "llms": "Autentificare, token, siguranță, platforme și limite, cu răspunsuri verificate."
+      },
+      "en": {
+        "title": "ase-moodle FAQ",
+        "description": "Answers to the common questions about ase-moodle: sign-in, the saved token, safety, limits, and what happens to your Moodle data when an agent acts.",
+        "keywords": [
+          "moodle mcp faq",
+          "ase moodle token",
+          "moodle mcp safety",
+          "ase moodle questions",
+          "ase moodle free",
+          "ase moodle linux macos",
+          "ase moodle nodejs",
+          "ase moodle doctor"
+        ],
+        "primary": [
+          "ase-moodle FAQ"
+        ],
+        "llms": "Sign-in, token, safety, platforms and limits, with verified answers."
+      }
+    },
+    "troubleshooting": {
+      "ro": {
+        "title": "Probleme frecvente ase-moodle",
+        "description": "Soluții verificate pentru problemele frecvente ase-moodle: autentificare eșuată, token expirat, cursuri care nu apar, erori de rețea.",
+        "keywords": [
+          "probleme ase moodle",
+          "moodle login failed",
+          "ase moodle erori",
+          "moodle token expirat",
+          "ase moodle path",
+          "ase moodle browser login",
+          "ase moodle confirmare",
+          "ase moodle descarcare"
+        ],
+        "primary": [
+          "probleme frecvente ase-moodle"
+        ]
+      },
+      "en": {
+        "title": "ase-moodle troubleshooting",
+        "description": "Verified fixes for the common ase-moodle problems: failed sign-in, an expired token, courses that do not appear, and network or timeout errors.",
+        "keywords": [
+          "moodle mcp troubleshooting",
+          "moodle login failed",
+          "ase moodle errors",
+          "moodle token expired",
+          "ase moodle path",
+          "ase moodle browser login",
+          "ase moodle confirmation",
+          "ase moodle download"
+        ],
+        "primary": [
+          "ase-moodle troubleshooting"
+        ]
+      }
+    },
+    "about": {
+      "ro": {
+        "title": "Despre ase-moodle",
+        "description": "Cine construiește ase-moodle, în ce stare este proiectul, cum e construit din sursele reale și ce nu este: un proiect independent, neafiliat cu ASE.",
+        "keywords": [
+          "despre ase moodle",
+          "ase moodle autor",
+          "ase moodle proiect",
+          "ase moodle stare",
+          "ase moodle limite",
+          "ase moodle contributii",
+          "ase moodle teste",
+          "ase moodle open source"
+        ],
+        "primary": [
+          "despre ase-moodle"
+        ]
+      },
+      "en": {
+        "title": "About ase-moodle",
+        "description": "Who builds ase-moodle, what state the project is in, how it is built from the real sources, and what it is not: an independent project, not affiliated with ASE.",
+        "keywords": [
+          "about ase moodle",
+          "ase moodle author",
+          "ase moodle project",
+          "ase moodle status",
+          "ase moodle limits",
+          "ase moodle contributing",
+          "ase moodle tests",
+          "ase moodle open source"
+        ],
+        "primary": [
+          "about ase-moodle"
+        ]
+      }
+    },
+    "license": {
+      "ro": {
+        "title": "Licență ase-moodle",
+        "description": "Licența Apache-2.0 pentru ase-moodle, atribuirile terților din fișierul NOTICE și nota de neafiliere față de ASE și de Moodle Pty Ltd.",
+        "keywords": [
+          "licenta ase moodle",
+          "apache 2.0 moodle mcp",
+          "licenta apache 2.0",
+          "nota copyright ase moodle",
+          "neafiliere ase",
+          "moodle marca",
+          "cod sursa ase moodle",
+          "distribuire cod ase moodle"
+        ],
+        "primary": [
+          "licență ase-moodle"
+        ],
+        "llms": "Apache License 2.0, notele din NOTICE și neafilierea față de ASE și Moodle."
+      },
+      "en": {
+        "title": "ase-moodle license",
+        "description": "The Apache-2.0 licence for ase-moodle, the third-party attributions from the NOTICE file, and the non-affiliation notice for ASE and Moodle Pty Ltd.",
+        "keywords": [
+          "ase moodle license",
+          "apache 2.0 moodle mcp",
+          "apache license 2.0",
+          "ase moodle copyright notice",
+          "ase non affiliation",
+          "moodle trademark",
+          "ase moodle source code",
+          "ase moodle redistribution"
+        ],
+        "primary": [
+          "ase-moodle license"
+        ],
+        "llms": "Apache License 2.0, the NOTICE attributions and the non-affiliation with ASE and Moodle."
+      }
+    }
+  }
+}
