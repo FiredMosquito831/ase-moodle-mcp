@@ -1348,9 +1348,7 @@ def gate_metadata(files: dict[str, bytes], pages: list[dict]) -> None:
         if rel != "404.html":
             if 'rel="canonical"' not in text:
                 problems.append(f"docs/{rel}: no canonical")
-            for lang in ("ro", "en", "x-default"):
-                if f'hreflang="{lang}"' not in text:
-                    problems.append(f"docs/{rel}: no hreflang {lang}")
+            # The three hreflang links and their targets are gate_hreflang's job.
     if problems:
         die("page metadata gate failed:\n  " + "\n  ".join(problems))
 
@@ -1473,11 +1471,18 @@ def gate_structured(files: dict[str, bytes], pages: list[dict]) -> None:
             blocks = []
             for raw in re.findall(r'<script type="application/ld\+json">(.*?)</script>', text, re.S):
                 try:
-                    blocks.extend(json.loads(raw))
+                    parsed = json.loads(raw)
                 except json.JSONDecodeError:
                     problems.append(f"docs/{rel}: JSON-LD does not parse")
                     blocks = []
                     break
+                if isinstance(parsed, dict):
+                    parsed = [parsed]
+                if not isinstance(parsed, list) or not all(isinstance(item, dict) for item in parsed):
+                    problems.append(f"docs/{rel}: JSON-LD block is not an object or a list of objects")
+                    blocks = []
+                    break
+                blocks.extend(parsed)
             types = {block.get("@type"): block for block in blocks}
             required = ["WebPage"]
             if page["id"] == "home":
