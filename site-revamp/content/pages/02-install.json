@@ -248,7 +248,7 @@
     }
   ],
   "claims": [
-    { "text": "Ai nevoie de Python 3.10+ și de un cont BL@ASE.", "evidence": "docs/INSTALL.md:7; pyproject.toml:22", "status": "verified" },
+    { "text": "Ai nevoie de Python 3.10+ și de un cont BL@ASE.", "evidence": "docs/INSTALL.md:7; pyproject.toml:23", "status": "verified" },
     { "text": "Rezultatul e același: comenzile ase-moodle și ase-moodle-mcp în PATH.", "evidence": "docs/INSTALL.md:18", "status": "verified" },
     { "text": "pipx instalează aplicațiile Python în medii izolate și le pune în PATH.", "evidence": "docs/INSTALL.md:22", "status": "verified" },
     { "text": "Pachetul npm instalează pachetul Python prin pipx.", "evidence": "docs/INSTALL.md:42", "status": "verified" },

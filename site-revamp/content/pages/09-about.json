@@ -100,8 +100,8 @@
     }
   ],
   "claims": [
-    { "text": "ase-moodle e un proiect al lui FiredMosquito831.", "evidence": "pyproject.toml:10", "status": "verified" },
-    { "text": "Versiunea 0.2.4 e sub Apache License 2.0.", "evidence": "pyproject.toml:6; pyproject.toml:9", "status": "verified" },
+    { "text": "ase-moodle e un proiect al lui FiredMosquito831.", "evidence": "pyproject.toml:11", "status": "verified" },
+    { "text": "Versiunea 0.2.4 e sub Apache License 2.0.", "evidence": "pyproject.toml:7; pyproject.toml:10", "status": "verified" },
     { "text": "Verificat pe contul real în octombrie 2026: login SSO, citiri, descărcare idempotentă, garda pentru ciorne, instalare pe platforme.", "evidence": "README.md:97", "status": "verified" },
     { "text": "Testele trec pe Windows; pe Linux au trecut înainte de ultimele modificări și nu au fost rerulate.", "evidence": "README.md:105", "status": "verified" },
     { "text": "Mesageria Moodle este dezactivată pe site.", "evidence": "README.md:111", "status": "verified" },
@@ -109,9 +109,9 @@
     { "text": "Antigravity se instalează doar global.", "evidence": "README.md:113", "status": "verified" },
     { "text": "macOS nu e testat.", "evidence": "README.md:114", "status": "verified" },
     { "text": "Netestat: update pentru toate platformele și o trimitere reală cu ciorne activate.", "evidence": "README.md:107", "status": "verified" },
-    { "text": "Codul e împărțit pe module: client, activities, actions, quiz, materials, install.", "evidence": "docs/DEVELOPMENT.md:5", "status": "verified" },
+    { "text": "Codul e împărțit pe module: client, activities, actions, quiz, materials, install.", "evidence": "docs/DEVELOPMENT.md:6", "status": "verified" },
     { "text": "Testele rulează fără internet și fără contul real, pe un server Moodle fals.", "evidence": "docs/TESTING.md:3", "status": "verified" },
-    { "text": "CI rulează pyflakes și suita unittest pe Windows și Ubuntu.", "evidence": ".github/workflows/ci.yml:10", "status": "verified" },
+    { "text": "CI rulează pyflakes și suita unittest pe Windows și Ubuntu.", "evidence": ".github/workflows/ci.yml:12", "status": "verified" },
     { "text": "Pașii pentru o funcție nouă sunt în docs/DEVELOPMENT.md.", "evidence": "docs/DEVELOPMENT.md:38", "status": "verified" }
   ]
 }

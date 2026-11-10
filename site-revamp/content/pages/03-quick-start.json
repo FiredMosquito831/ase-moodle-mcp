@@ -160,7 +160,7 @@
     { "text": "Fără token, pasul functii Moodle e skipped, nu eroare.", "evidence": "docs/USAGE.md:200", "status": "verified" },
     { "text": "Serverul ar trebui să apeleze deadlines la întrebarea despre termene.", "evidence": "docs/MCP.md:184", "status": "verified" },
     { "text": "Descărcarea pune index.md, teme.md, forumuri/, quizuri.md, note.md și datele brute în folderul cursului.", "evidence": "docs/CONFIGURATION.md:62", "status": "verified" },
-    { "text": "A doua rulare sare fișierele existente cu aceeași dimensiune.", "evidence": "docs/INSTALL.md:57; src/ase_moodle/materials.py", "status": "verified" },
+    { "text": "A doua rulare sare fișierele existente cu aceeași dimensiune.", "evidence": "docs/USAGE.md:57; src/ase_moodle/materials.py", "status": "verified" },
     { "text": "auth-status întoarce logged_in și numele utilizatorului.", "evidence": "docs/USAGE.md:43", "status": "verified" },
     { "text": "Scope-ul de proiect nu se aplică în subfoldere.", "evidence": "docs/PLATFORMS.md:16", "status": "verified" }
   ]
