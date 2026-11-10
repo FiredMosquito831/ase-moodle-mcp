@@ -1,0 +1,30 @@
+# ase-moodle
+
+> Server MCP, CLI și plugin pentru Moodle BL@ASE (online.ase.ro); an MCP server, CLI and plugin for BL@ASE Moodle.
+
+ase-moodle opens a BL@ASE Moodle account at online.ase.ro inside Claude Code, Codex, opencode and Google Antigravity: courses, materials, assignments, forums, grades, quizzes and deadlines. It is an independent Apache-2.0 project, version 0.2.4, not affiliated with ASE Bucharest or Moodle. Everything runs on the user's machine; writes need explicit confirmation. The site is Romanian-first, with a full English version under /en/.
+
+## Română
+
+- [ase-moodle: Moodle BL@ASE pentru agenți AI](https://ase-moodle-mcp.danubelabs.net/): Server MCP, CLI și plugin pentru Moodle BL@ASE, cu 28 de unelte, 37 de comenzi și patru harness-uri.
+- [Instalare ase-moodle în Claude Code, Codex, opencode](https://ase-moodle-mcp.danubelabs.net/instalare/): Instalare cu pipx, npm, scriptul din repo sau pip, plus actualizare și dezinstalare.
+- [Comenzi CLI ase-moodle](https://ase-moodle-mcp.danubelabs.net/comenzi/): Toate cele 37 de comenzi CLI, generate din parser, cu opțiuni și coduri de ieșire.
+- [Unelte MCP ase-moodle](https://ase-moodle-mcp.danubelabs.net/unelte/): Cele 28 de unelte MCP, 4 prompturi și 2 resurse, cu parametri și tip.
+- [Ghiduri ase-moodle](https://ase-moodle-mcp.danubelabs.net/ghiduri/): Șase sarcini pas cu pas: descărcare, termene, teme, forumuri, quizuri, căutare.
+- [Întrebări frecvente ase-moodle](https://ase-moodle-mcp.danubelabs.net/intrebari/): Autentificare, token, siguranță, platforme și limite, cu răspunsuri verificate.
+- [Licență ase-moodle](https://ase-moodle-mcp.danubelabs.net/licenta/): Apache License 2.0, notele din NOTICE și neafilierea față de ASE și Moodle.
+
+## English
+
+- [ase-moodle: BL@ASE Moodle MCP server for AI agents](https://ase-moodle-mcp.danubelabs.net/en/): MCP server, CLI and plugin for BL@ASE Moodle, with 28 tools, 37 commands and four harnesses.
+- [Install ase-moodle in Claude Code, Codex and opencode](https://ase-moodle-mcp.danubelabs.net/en/install/): Install with pipx, npm, the script in the repo or pip, plus update and uninstall.
+- [ase-moodle CLI commands](https://ase-moodle-mcp.danubelabs.net/en/commands/): All 37 CLI commands, generated from the parser, with options and exit codes.
+- [ase-moodle MCP tools](https://ase-moodle-mcp.danubelabs.net/en/tools/): The 28 MCP tools, 4 prompts and 2 resources, with parameters and type.
+- [ase-moodle guides](https://ase-moodle-mcp.danubelabs.net/en/guides/): Six tasks step by step: download, deadlines, assignments, forums, quizzes, search.
+- [ase-moodle FAQ](https://ase-moodle-mcp.danubelabs.net/en/faq/): Sign-in, token, safety, platforms and limits, with verified answers.
+- [ase-moodle license](https://ase-moodle-mcp.danubelabs.net/en/license/): Apache License 2.0, the NOTICE attributions and the non-affiliation with ASE and Moodle.
+
+## Optional
+
+- [Sursa / source](https://github.com/FiredMosquito831/ase-moodle-mcp): the repository, the product documentation in docs/*.md and the issue tracker.
+- [Sitemap](https://ase-moodle-mcp.danubelabs.net/sitemap.xml): every page in both languages.

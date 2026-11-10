@@ -1,0 +1,27 @@
+{
+  "name": "ase-moodle",
+  "url": "https://ase-moodle-mcp.danubelabs.net",
+  "lastmod": "2026-11-10",
+  "repo": "https://github.com/FiredMosquito831/ase-moodle-mcp",
+  "author": "FiredMosquito831",
+  "author_url": "https://github.com/FiredMosquito831",
+  "license": {
+    "name": "Apache License 2.0",
+    "spdx": "Apache-2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0"
+  },
+  "locale": {
+    "ro": "ro_RO",
+    "en": "en_US"
+  },
+  "legal": {
+    "ro": {
+      "license": "Licențiat sub Apache License 2.0 (Apache-2.0).",
+      "nonaffiliation": "ase-moodle este un proiect independent. Nu este afiliat cu, aprobat de sau sponsorizat de ASE București sau de Moodle. Moodle este o marcă a proprietarului ei."
+    },
+    "en": {
+      "license": "Licensed under the Apache License 2.0 (Apache-2.0).",
+      "nonaffiliation": "ase-moodle is an independent project. It is not affiliated with, endorsed by, or sponsored by ASE Bucharest or Moodle. Moodle is a trademark of its owner."
+    }
+  }
+}

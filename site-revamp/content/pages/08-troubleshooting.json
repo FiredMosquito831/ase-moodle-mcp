@@ -1,0 +1,255 @@
+{
+  "id": "troubleshooting",
+  "order": 80,
+  "nav": null,
+  "priority": "0.6",
+  "words": [
+    600,
+    1000
+  ],
+  "path": {
+    "ro": "/probleme/",
+    "en": "/en/troubleshooting/"
+  },
+  "title": {
+    "ro": "Probleme frecvente | ase-moodle",
+    "en": "Troubleshooting | ase-moodle"
+  },
+  "description": {
+    "ro": "Erori frecvente și rezolvări verificate: token lipsă, login expirat, browser lipsă, PATH, instalare blocată, confirmări, ciorne, quizuri și descărcări.",
+    "en": "Common errors and verified fixes: missing token, expired login, missing browser, PATH, blocked install, confirmations, drafts, quizzes and downloads."
+  },
+  "h1": {
+    "ro": "Probleme frecvente",
+    "en": "Troubleshooting"
+  },
+  "eyebrow": {
+    "ro": "Simptom, cauză, rezolvare",
+    "en": "Symptom, cause, fix"
+  },
+  "blocks": [
+    {
+      "type": "lead",
+      "text": {
+        "ro": "Începe mereu cu `ase-moodle doctor` și `ase-moodle auth-status`. Ele spun ce e instalat, ce token există și de unde e citit. Lista de probleme frecvente ase-moodle de mai jos este grupată pe autentificare, instalare, scrieri și descărcare.",
+        "en": "Always start with `ase-moodle doctor` and `ase-moodle auth-status`. They say what is installed, which token exists and where it is read from. The ase-moodle troubleshooting list below is grouped by authentication, installation, writes and downloads."
+      }
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Autentificare",
+        "en": "Authentication"
+      },
+      "paragraphs": [
+        {
+          "ro": "**„Lipsește tokenul.”** Nu ai rulat `ase-moodle login`, sau tokenul a fost șters. Rulează `ase-moodle login`.",
+          "en": "**“The token is missing.”** You have not run `ase-moodle login`, or the token was deleted. Run `ase-moodle login`."
+        },
+        {
+          "ro": "**Login-ul expiră („Nu am primit tokenul în timpul limitei”).** Fereastra s-a deschis, dar nu te-ai logat. Rulează din nou, crește timpul cu `ase-moodle login --timeout 600`, sau folosește `--method manual`.",
+          "en": "**Login times out (“No token received within the limit”).** The window opened but you did not sign in. Run again, raise the time with `ase-moodle login --timeout 600`, or use `--method manual`."
+        },
+        {
+          "ro": "**„Browserul pentru login nu e instalat.”** Mesajul conține comanda exactă, cu Python-ul mediului în care rulează `ase-moodle`. Rulează exact acea comandă, nu un `python` oarecare din PATH. Alternativ, `--method manual`.",
+          "en": "**“The browser for login is not installed.”** The message contains the exact command, with the Python of the environment that runs `ase-moodle`. Run exactly that command, not some other `python` from PATH. Alternatively, `--method manual`."
+        },
+        {
+          "ro": "**`auth-status` spune că tokenul nu merge.** Tokenul a fost resetat în Moodle sau a expirat. Obține unul nou cu `ase-moodle login`. Pentru a invalida complet un token, resetează-l din Chei de securitate.",
+          "en": "**`auth-status` says the token does not work.** The token was reset in Moodle or expired. Get a new one with `ase-moodle login`. To invalidate a token completely, reset it from Security keys."
+        },
+        {
+          "ro": "**Metoda manual nu găsește tokenul.** Pe Linux instalează `xclip`, `xsel` sau `wl-paste`. Verifică faptul că ai copiat exact șirul de 32 de caractere, fără spații. Pentru scripturi, `login --token-stdin` citește tokenul din stdin.",
+          "en": "**The manual method does not find the token.** On Linux install `xclip`, `xsel` or `wl-paste`. Check that you copied exactly the 32-character string, without spaces. For scripts, `login --token-stdin` reads the token from stdin."
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Instalare",
+        "en": "Installation"
+      },
+      "paragraphs": [
+        {
+          "ro": "**`ase-moodle-mcp` nu e în PATH.** Pachetul nu e instalat, sau folderul executabilelor pipx nu e în PATH. Rulează `pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git`, apoi `pipx ensurepath` și deschide un terminal nou.",
+          "en": "**`ase-moodle-mcp` is not on PATH.** The package is not installed, or the pipx executables folder is not on PATH. Run `pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git`, then `pipx ensurepath`, and open a new terminal."
+        },
+        {
+          "ro": "**`pipx install` eșuează pe Windows cu „Access denied” pe `ase-moodle-mcp.exe`.** Un client MCP rulează și blochează executabilul. Închide Claude Code, Codex, opencode sau Antigravity și rulează din nou. `doctor` numără procesele pornite.",
+          "en": "**`pipx install` fails on Windows with “Access denied” on `ase-moodle-mcp.exe`.** An MCP client is running and locks the executable. Close Claude Code, Codex, opencode or Antigravity and run again. `doctor` counts the running processes."
+        },
+        {
+          "ro": "**Claude Code nu vede update-ul.** Repornește Claude Code: pluginul se încarcă la pornire.",
+          "en": "**Claude Code does not see the update.** Restart Claude Code: the plugin loads at startup."
+        },
+        {
+          "ro": "**Claude Code nu detectează serverul în folderul proiectului.** Repornește Claude Code în folderul proiectului, rulează `/mcp`, apoi `ase-moodle claude doctor --project-dir <folder>`. Verifică `.claude/settings.json`: trebuie să conțină `ase-moodle@ase-moodle-marketplace` în `enabledPlugins`. Dacă Claude Code cere aprobarea marketplace-ului, acceptă.",
+          "en": "**Claude Code does not detect the server in the project folder.** Restart Claude Code in the project folder, run `/mcp`, then `ase-moodle claude doctor --project-dir <folder>`. Check `.claude/settings.json`: it must contain `ase-moodle@ase-moodle-marketplace` in `enabledPlugins`. If Claude Code asks to approve the marketplace, accept."
+        },
+        {
+          "ro": "**Codex nu încarcă serverul de proiect.** Codex cere să marchezi folderul ca proiect de încredere. Verifică și că `.codex/config.toml` conține `[mcp_servers.ase-moodle]`.",
+          "en": "**Codex does not load the project server.** Codex requires the folder to be marked as a trusted project. Also check that `.codex/config.toml` contains `[mcp_servers.ase-moodle]`."
+        },
+        {
+          "ro": "**`opencode.json` nu e JSON valid.** Instalatorul se oprește și nu modifică fișierul. Corectează virgulele și ghilimelele, apoi rulează din nou. Există și o copie `.bak` de la rularea anterioară.",
+          "en": "**`opencode.json` is not valid JSON.** The installer stops and leaves the file alone. Fix the commas and quotes, then run again. A `.bak` copy from the previous run exists."
+        },
+        {
+          "ro": "**Două servere `ase-moodle` apar în client.** Ai o instalare veche, globală, și una de proiect. Rulează `ase-moodle install <platforma> --scope <scopul dorit>`: scopul celălalt se curăță automat, ca să nu existe două servere cu același nume.",
+          "en": "**Two `ase-moodle` servers appear in the client.** You have an old global install and a project one. Run `ase-moodle install <platform> --scope <wanted scope>`: the other scope is cleaned automatically, so two servers with the same name do not exist."
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Scrieri și quizuri",
+        "en": "Writes and quizzes"
+      },
+      "paragraphs": [
+        {
+          "ro": "**`needs_confirmation` (cod 2).** Scrierea nu are confirmare. Dacă rulezi tu comanda, adaugă `--yes` după ce ai verificat ce trimiți. Dacă e un agent, cere-i să arate conținutul și aprobă-l.",
+          "en": "**`needs_confirmation` (exit code 2).** The write has no confirmation. If you run the command, add `--yes` after checking what it sends. If an agent runs it, ask it to show the content and approve it."
+        },
+        {
+          "ro": "**„Tema nu are ciorne.”** Salvarea ar trimite fișierul direct. Alege o trimitere finală cu `--submit`, sau `--allow-direct` doar dacă vrei salvarea directă.",
+          "en": "**“The assignment has no drafts.”** Saving would send the file at once. Choose a final submission with `--submit`, or `--allow-direct` only if you want the direct save."
+        },
+        {
+          "ro": "**Quiz: „Câmpuri necunoscute.”** Numele din `quiz-answer` nu se potrivesc cu cele din `quiz-questions`. Copiază numele exact din răspuns.",
+          "en": "**Quiz: “Unknown fields.”** The names in `quiz-answer` do not match the ones from `quiz-questions`. Copy the names exactly from the answer."
+        },
+        {
+          "ro": "**Quiz: „Nu s-a putut porni încercarea.”** Quizul e închis sau ai atins limita de încercări. Mesajul Moodle explică.",
+          "en": "**Quiz: “The attempt could not be started.”** The quiz is closed or you reached the attempt limit. The Moodle message explains."
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Descărcare și doctor",
+        "en": "Downloads and doctor"
+      },
+      "paragraphs": [
+        {
+          "ro": "**Materiale lipsă.** Rulează din nou: fișierele cu aceeași dimensiune se sar, cele lipsă se descarcă. Verifică `_rezumat.json` pentru erori și avertismente.",
+          "en": "**Missing materials.** Run again: files of the same size are skipped, missing ones are downloaded. Check `_rezumat.json` for errors and warnings."
+        },
+        {
+          "ro": "**`doctor` arată `functii Moodle` cu `warning`.** `obligatorii lipsa` înseamnă că site-ul nu mai are funcțiile listate, de obicei după o actualizare Moodle; uneltele care le folosesc vor da eroare. `optionale lipsa` singur nu e o problemă: pachetul are o rezervă sau sare acel tip de material.",
+          "en": "**`doctor` shows `functii Moodle` with a `warning`.** `obligatorii lipsa` means the site no longer has the listed functions, usually after a Moodle update; the tools that use them will fail. `optionale lipsa` alone is not a problem: the package has a fallback or skips that material type."
+        },
+        {
+          "ro": "**Unde sunt log-urile?** Pachetul nu scrie fișiere de log. Erorile apar pe stderr (CLI) sau în răspunsul uneltei (MCP).",
+          "en": "**Where are the logs?** The package writes no log files. Errors appear on stderr (CLI) or in the tool's answer (MCP)."
+        }
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "note",
+      "title": {
+        "ro": "Când nu e clar",
+        "en": "When it is not clear"
+      },
+      "text": {
+        "ro": "Rulează `ase-moodle doctor` și păstrează output-ul: nu conține tokenul. Cu el, problema e de obicei ușor de găsit.",
+        "en": "Run `ase-moodle doctor` and keep the output: it does not contain the token. With it, the problem is usually easy to find."
+      }
+    }
+  ],
+  "claims": [
+    {
+      "text": "Începe cu doctor și auth-status: ele spun ce e instalat, ce token există și de unde e citit.",
+      "evidence": "docs/TROUBLESHOOTING.md:3",
+      "status": "verified"
+    },
+    {
+      "text": "Lipsește tokenul înseamnă că nu ai rulat login sau tokenul a fost șters.",
+      "evidence": "docs/TROUBLESHOOTING.md:9",
+      "status": "verified"
+    },
+    {
+      "text": "Login-ul expiră dacă nu te-ai logat; crește timpul cu --timeout 600 sau folosește --method manual.",
+      "evidence": "docs/TROUBLESHOOTING.md:17",
+      "status": "verified"
+    },
+    {
+      "text": "Mesajul pentru browser lipsă conține comanda exactă, cu Python-ul mediului.",
+      "evidence": "docs/TROUBLESHOOTING.md:23",
+      "status": "verified"
+    },
+    {
+      "text": "Tokenul se resetează din Chei de securitate.",
+      "evidence": "docs/AUTH.md:82",
+      "status": "verified"
+    },
+    {
+      "text": "Pe Linux, metoda manual are nevoie de xclip, xsel sau wl-paste.",
+      "evidence": "docs/TROUBLESHOOTING.md:39",
+      "status": "verified"
+    },
+    {
+      "text": "ase-moodle-mcp nu e în PATH dacă pachetul nu e instalat sau folderul pipx nu e în PATH.",
+      "evidence": "docs/TROUBLESHOOTING.md:64",
+      "status": "verified"
+    },
+    {
+      "text": "Pe Windows, un client MCP poate bloca ase-moodle-mcp.exe la pipx install.",
+      "evidence": "docs/TROUBLESHOOTING.md:73",
+      "status": "verified"
+    },
+    {
+      "text": "Claude Code încarcă pluginul la pornire.",
+      "evidence": "docs/PLATFORMS.md:47",
+      "status": "verified"
+    },
+    {
+      "text": "Pentru proiect, .claude/settings.json trebuie să conțină ase-moodle@ase-moodle-marketplace în enabledPlugins.",
+      "evidence": "docs/TROUBLESHOOTING.md:88",
+      "status": "verified"
+    },
+    {
+      "text": "Codex cere folderul marcat ca proiect de încredere.",
+      "evidence": "docs/PLATFORMS.md:71",
+      "status": "verified"
+    },
+    {
+      "text": "Instalatorul face copie .bak înainte de a scrie opencode.json și se oprește dacă JSON-ul nu e valid.",
+      "evidence": "docs/PLATFORMS.md:83",
+      "status": "verified"
+    },
+    {
+      "text": "Scrierile fără confirmare se opresc cu needs_confirmation (cod 2).",
+      "evidence": "docs/SAFETY.md:11",
+      "status": "verified"
+    },
+    {
+      "text": "Tema fără ciorne: --submit pentru trimitere finală, --allow-direct pentru salvare directă.",
+      "evidence": "docs/TROUBLESHOOTING.md:139",
+      "status": "verified"
+    },
+    {
+      "text": "Numele din quiz-answer trebuie copiate exact din quiz-questions.",
+      "evidence": "docs/TROUBLESHOOTING.md:152",
+      "status": "verified"
+    },
+    {
+      "text": "Materialele lipsă se reiau; _rezumat.json are erorile și avertismentele.",
+      "evidence": "docs/TROUBLESHOOTING.md:163",
+      "status": "verified"
+    },
+    {
+      "text": "Pachetul nu scrie fișiere de log; erorile apar pe stderr sau în răspunsul uneltei.",
+      "evidence": "docs/TROUBLESHOOTING.md:203",
+      "status": "verified"
+    },
+    {
+      "text": "Problemele frecvente ase-moodle sunt grupate pe autentificare, instalare, scrieri și descărcare.",
+      "evidence": "docs/TROUBLESHOOTING.md:1",
+      "status": "verified"
+    }
+  ]
+}

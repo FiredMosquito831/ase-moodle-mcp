@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="ts-title ts-desc" class="diagram-svg">
+  <title id="ts-title">Suprafața uneltelor MCP</title>
+  <desc id="ts-desc">28 de unelte, grupate pe zone, cu tipul fiecăreia: citire, scriere sau local.</desc>
+  <style>
+    .bg { fill: #0A0E14; }
+    .frame { fill: #111722; stroke: #5A6B82; stroke-width: 1; }
+    .label { fill: #E8EEF6; font: 500 17px system-ui, sans-serif; }
+    .count { fill: #A7B6C9; font: 600 16px ui-monospace, Consolas, monospace; }
+    .total { fill: #5B9DFF; font: 700 30px ui-monospace, Consolas, monospace; }
+    .total-label { fill: #A7B6C9; font: 500 15px system-ui, sans-serif; }
+    .legend-title { fill: #A7B6C9; font: 600 13px system-ui, sans-serif; text-transform: uppercase; letter-spacing: .08em; }
+    .legend-text { fill: #E8EEF6; font: 400 14px system-ui, sans-serif; }
+  </style>
+  <rect class="bg" width="960" height="540" rx="16"/>
+  <rect class="frame" x="16" y="16" width="928" height="508" rx="12"/>
+  <text x="48" y="58" class="total">28</text>
+  <text x="48" y="78" class="total-label">unelte</text>
+  <text x="48" y="101" class="label">Cont</text><text x="360" y="101" class="count">3</text><circle cx="470" cy="96" r="6" fill="#3FB950"/><circle cx="488" cy="96" r="6" fill="#3FB950"/><circle cx="506" cy="96" r="6" fill="#5B9DFF"/><text x="48" y="159" class="label">Cursuri și materiale</text><text x="360" y="159" class="count">3</text><circle cx="470" cy="154" r="6" fill="#3FB950"/><circle cx="488" cy="154" r="6" fill="#3FB950"/><circle cx="506" cy="154" r="6" fill="#5B9DFF"/><text x="48" y="217" class="label">Teme</text><text x="360" y="217" class="count">4</text><circle cx="470" cy="212" r="6" fill="#3FB950"/><circle cx="488" cy="212" r="6" fill="#3FB950"/><circle cx="506" cy="212" r="6" fill="#D29922"/><circle cx="524" cy="212" r="6" fill="#D29922"/><text x="48" y="275" class="label">Forumuri</text><text x="360" y="275" class="count">5</text><circle cx="470" cy="270" r="6" fill="#3FB950"/><circle cx="488" cy="270" r="6" fill="#3FB950"/><circle cx="506" cy="270" r="6" fill="#3FB950"/><circle cx="524" cy="270" r="6" fill="#D29922"/><circle cx="542" cy="270" r="6" fill="#D29922"/><text x="48" y="333" class="label">Note</text><text x="360" y="333" class="count">2</text><circle cx="470" cy="328" r="6" fill="#3FB950"/><circle cx="488" cy="328" r="6" fill="#3FB950"/><text x="48" y="391" class="label">Quizuri</text><text x="360" y="391" class="count">6</text><circle cx="470" cy="386" r="6" fill="#3FB950"/><circle cx="488" cy="386" r="6" fill="#3FB950"/><circle cx="506" cy="386" r="6" fill="#3FB950"/><circle cx="524" cy="386" r="6" fill="#3FB950"/><circle cx="542" cy="386" r="6" fill="#D29922"/><circle cx="560" cy="386" r="6" fill="#D29922"/><text x="48" y="449" class="label">Notificări și termene</text><text x="360" y="449" class="count">3</text><circle cx="470" cy="444" r="6" fill="#3FB950"/><circle cx="488" cy="444" r="6" fill="#3FB950"/><circle cx="506" cy="444" r="6" fill="#D29922"/><text x="48" y="507" class="label">API Moodle</text><text x="360" y="507" class="count">2</text><circle cx="470" cy="502" r="6" fill="#3FB950"/><circle cx="488" cy="502" r="6" fill="#D29922"/>
+  <g class="legend"><text x="48" y="486" class="legend-title">Legendă</text><circle cx="140" cy="481" r="6" fill="#3FB950"/><text x="154" y="486" class="legend-text">citire</text><circle cx="222" cy="481" r="6" fill="#D29922"/><text x="236" y="486" class="legend-text">scriere</text><circle cx="312" cy="481" r="6" fill="#5B9DFF"/><text x="326" y="486" class="legend-text">local</text></g>
+</svg>

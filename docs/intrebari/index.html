@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Întrebări frecvente ase-moodle</title>
+  <meta name="description" content="Răspunsuri la întrebările frecvente despre ase-moodle: autentificare, token, siguranță, limite și ce se întâmplă cu datele tale.">
+  <meta name="keywords" content="intrebari ase moodle, faq moodle mcp, ase moodle token, ase moodle siguranta, ase moodle gratuit, ase moodle linux, ase moodle nodejs, ase moodle doctor">
+<link rel="canonical" href="https://ase-moodle-mcp.danubelabs.net/intrebari/"><link rel="alternate" hreflang="ro" href="https://ase-moodle-mcp.danubelabs.net/intrebari/"><link rel="alternate" hreflang="en" href="https://ase-moodle-mcp.danubelabs.net/en/faq/"><link rel="alternate" hreflang="x-default" href="https://ase-moodle-mcp.danubelabs.net/intrebari/">  <meta name="theme-color" content="#0A0E14">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ase-moodle">
+  <meta property="og:title" content="Întrebări frecvente ase-moodle">
+  <meta property="og:description" content="Răspunsuri la întrebările frecvente despre ase-moodle: autentificare, token, siguranță, limite și ce se întâmplă cu datele tale.">
+  <meta property="og:url" content="https://ase-moodle-mcp.danubelabs.net/intrebari/">
+  <meta property="og:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Întrebări frecvente ase-moodle">
+  <meta property="og:locale" content="ro_RO">
+<meta property="og:locale:alternate" content="en_US">  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Întrebări frecvente ase-moodle">
+  <meta name="twitter:description" content="Răspunsuri la întrebările frecvente despre ase-moodle: autentificare, token, siguranță, limite și ce se întâmplă cu datele tale.">
+  <meta name="twitter:image" content="https://ase-moodle-mcp.danubelabs.net/og.png">
+<script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Întrebări frecvente ase-moodle",
+    "url": "https://ase-moodle-mcp.danubelabs.net/intrebari/",
+    "description": "Răspunsuri la întrebările frecvente despre ase-moodle: autentificare, token, siguranță, limite și ce se întâmplă cu datele tale.",
+    "inLanguage": "ro",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "ase-moodle",
+      "url": "https://ase-moodle-mcp.danubelabs.net"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Acasă",
+        "item": "https://ase-moodle-mcp.danubelabs.net/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Întrebări frecvente",
+        "item": "https://ase-moodle-mcp.danubelabs.net/intrebari/"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "inLanguage": "ro",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Cât costă?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nimic. Codul e sub Apache License 2.0, iar pachetul se instalează din GitHub sau de pe npm. Nu există abonament și nu se cere un cont separat."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Cu ce cont merge?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cu un cont BL@ASE pe online.ase.ro. Login-ul se face doar prin Google, ca în browser; nu există login cu nume de utilizator și parolă pentru pachet."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Trebuie să dau parola Google pachetului?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nu. Te loghezi tu, în fereastra care se deschide. Pachetul nu salvează parola Google, nici în seif, nici în .env, nici în fișiere."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Unde ajunge tokenul Moodle?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "În Windows Credential Manager sau în Secret Service pe Linux. Dacă seiful nu e disponibil, rămâne în ~/.ase-moodle/config.json, cu acces doar pentru tine. Nu intră în git."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Tokenul apare în output?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nu. auth-status și doctor spun doar de unde a fost citit: env, dotenv, keyring sau file. Erorile nu includ tokenul."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Trimite date către alte servere?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nu. Singurele conexiuni sunt către Moodle-ul configurat și către GitHub, doar la instalare, pentru marketplace. Nu există analytics și nici telemetrie."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Poate trimite teme fără să aprob?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nu. Scrierile cer confirm=true în MCP sau --yes în CLI. Fără ele, acțiunea se oprește cu needs_confirmation (cod 2) și nu trimite nimic."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Ce se întâmplă la o temă fără ciorne?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Salvarea ar trimite fișierul imediat. Pachetul verifică drafts_enabled și refuză cu DirectSubmissionBlocked, fără să scrie nimic. Doar allow_direct=true (sau --allow-direct) forțează."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Poate răspunde la quizuri?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Da, pentru că studentul a cerut-o. Fluxul salvează întâi răspunsurile, fără să trimită, și trimite încercarea doar după o a doua aprobare. Trimiterea e ireversibilă."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Ce reguli de integritate se aplică?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Regulile cursului. Multe cursuri interzic ajutorul automat sau externalizarea răspunsurilor. Răspunderea pentru conținutul trimis e a studentului."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Merge pe Linux și macOS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Windows e testat pe contul real. Logica de instalare e testată pe Linux (WSL Ubuntu 24.04) și în CI. macOS nu e testat, în afară de smoke-ul serverului din workflow-ul PyPI."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Am nevoie de Node.js?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nu, dacă folosești pipx. Node.js 18+ e nevoie doar pentru varianta npm. Ambele variante instalează același pachet Python."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Merge cu altă instanță Moodle?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pachetul e scris pentru BL@ASE, care rulează Moodle 4.5 din octombrie 2026, și funcționează pe 4.5 și 4.1. Alte instanțe ar putea funcționa, dar nu sunt testate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Pot folosi fără instalare globală?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Da, cu npx ase-moodle-mcp <comandă> după npm. Pentru clienții MCP e nevoie de o comandă fixă ase-moodle-mcp în PATH, deci de instalarea globală."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Ce nu face pachetul?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nu citește mesajele private (mesageria e dezactivată pe site), nu schimbă parola, nu modifică setările contului și nu rulează automat quizuri sau teme. Totul pornește dintr-o comandă sau un apel explicit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Ce nu e testat?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Un quiz deschis, completat de la cap la coadă, pe contul real; o trimitere reală cu ciorne activate; comenzile reale ale CLI-urilor pe Linux; launcherul npm; macOS."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Pot descărca un singur curs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Da. ase-moodle download --course ID selectează cursul după id, iar opțiunea poate fi repetată pentru mai multe cursuri. Fără --course, filtrele de an, semestru și tip aleg cursurile."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Cum actualizez pachetul?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cu pipx: pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git, apoi ase-moodle update. Cu npm, launcherul nu actualizează pachetul Python dacă există deja, așa că îl actualizezi separat. Repornește Claude Code după."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Ce face doctor exact?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Verifică fără să modifice nimic: fiecare platformă, instalările de proiect, sursa tokenului, .env, procesele MCP pornite, versiunea pachetului și funcțiile Moodle folosite de pachet. Codul de ieșire e 3 dacă găsește o problemă."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Tokenul a fost expus. Ce fac?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Îl consideri compromis și îl resetezi din Moodle: Chei de securitate, rândul „Moodle mobile web service”, butonul de resetare. Tokenul vechi nu mai funcționează, iar pachetul are nevoie de ase-moodle login."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Ce se întâmplă cu materialele descărcate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Rămân pe disc, în folderul ales, și nu se șterg automat. Pachetul nu le execută: un fișier executabil din materiale rămâne un fișier până îl deschizi tu. Verifică înainte."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Pot folosi pachetul în paralel, în două clienturi?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Da. Fiecare client pornește propriul proces ase-moodle-mcp, iar toate citesc același token. Pentru reinstalare, închide procesele: doctor le numără, iar pe Windows un proces pornit blochează executabilul."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Merge fără să deschid browserul?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Da, cu ase-moodle login --method manual: se deschide pagina de login, copiezi tokenul din Chei de securitate, iar pachetul îl citește din clipboard. Pentru scripturi, --token-stdin citește tokenul din stdin."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Ce se întâmplă dacă Moodle se actualizează?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "doctor compară funcțiile Web Service folosite de pachet cu cele pe care le are site-ul. obligatorii lipsa înseamnă că o unealtă nu va merge; optionale lipsa singur nu e o problemă, pentru că pachetul are o rezervă sau sare acel tip de material."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Unde raportez o problemă?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pe GitHub Issues, cu output-ul lui ase-moodle doctor și mesajul de eroare. Output-ul nu conține tokenul. Pentru o funcție nouă, pașii sunt în docs/DEVELOPMENT.md."
+        }
+      }
+    ]
+  }
+]</script></head>
+<body>
+  <a class="skip" href="#main">Sari la conținut</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect class="mark-bg" width="32" height="32" rx="8"/>
+          <path class="mark-ink" d="M9 10l6 6-6 6" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path class="mark-ink" d="M17 22h6" fill="none" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-name">ase-moodle</span>
+        <span class="brand-tag">BL@ASE</span>
+      </a>
+      <nav class="site-nav" aria-label="Navigare">
+        <ul>
+          <li><a href="/instalare/">Instalare</a></li>
+          <li><a href="/start/">Primii pași</a></li>
+          <li><a href="/comenzi/">Comenzi</a></li>
+          <li><a href="/unelte/">Unelte</a></li>
+          <li><a href="/ghiduri/">Ghiduri</a></li>
+          <li><a href="/intrebari/" aria-current="page">Întrebări</a></li>
+        </ul>
+      </nav>
+      <a class="lang-switch" href="/en/faq/" hreflang="en" lang="en" aria-label="English">EN</a>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+<nav class="crumbs" aria-label="Firimituri">
+  <ol>
+    <li><a href="/">Acasă</a></li>
+    <li><span aria-current="page">Întrebări frecvente</span></li>
+  </ol>
+</nav>
+<div class="page-head">
+<p class="eyebrow">Răspunsuri verificate</p>  <h1>Întrebări frecvente</h1>
+</div>
+<div class="layout with-toc">
+  <div class="prose">
+    <p class="lead">Răspunsurile de mai jos sunt luate din documentația produsului și din cod. Aceleași răspunsuri apar și în datele structurate ale paginii. Pagina de întrebări frecvente ase-moodle acoperă contul, tokenul, siguranța, platformele și limitele.</p>
+<section id="despre-produs"><h2><span class="prompt" aria-hidden="true">&gt;</span> Despre produs</h2><div class="faq"><div class="faq-item"><h3>Cât costă?</h3><p>Nimic. Codul e sub Apache License 2.0, iar pachetul se instalează din GitHub sau de pe npm. Nu există abonament și nu se cere un cont separat.</p></div><div class="faq-item"><h3>Cu ce cont merge?</h3><p>Cu un cont BL@ASE pe online.ase.ro. Login-ul se face doar prin Google, ca în browser; nu există login cu nume de utilizator și parolă pentru pachet.</p></div><div class="faq-item"><h3>Trebuie să dau parola Google pachetului?</h3><p>Nu. Te loghezi tu, în fereastra care se deschide. Pachetul nu salvează parola Google, nici în seif, nici în <code>.env</code>, nici în fișiere.</p></div><div class="faq-item"><h3>Unde ajunge tokenul Moodle?</h3><p>În Windows Credential Manager sau în Secret Service pe Linux. Dacă seiful nu e disponibil, rămâne în <code>~/.ase-moodle/config.json</code>, cu acces doar pentru tine. Nu intră în git.</p></div><div class="faq-item"><h3>Tokenul apare în output?</h3><p>Nu. <code>auth-status</code> și <code>doctor</code> spun doar de unde a fost citit: <code>env</code>, <code>dotenv</code>, <code>keyring</code> sau <code>file</code>. Erorile nu includ tokenul.</p></div><div class="faq-item"><h3>Trimite date către alte servere?</h3><p>Nu. Singurele conexiuni sunt către Moodle-ul configurat și către GitHub, doar la instalare, pentru marketplace. Nu există analytics și nici telemetrie.</p></div></div></section>
+<section id="despre-scrieri"><h2><span class="prompt" aria-hidden="true">&gt;</span> Despre scrieri</h2><div class="faq"><div class="faq-item"><h3>Poate trimite teme fără să aprob?</h3><p>Nu. Scrierile cer <code>confirm=true</code> în MCP sau <code>--yes</code> în CLI. Fără ele, acțiunea se oprește cu <code>needs_confirmation</code> (cod 2) și nu trimite nimic.</p></div><div class="faq-item"><h3>Ce se întâmplă la o temă fără ciorne?</h3><p>Salvarea ar trimite fișierul imediat. Pachetul verifică <code>drafts_enabled</code> și refuză cu <code>DirectSubmissionBlocked</code>, fără să scrie nimic. Doar <code>allow_direct=true</code> (sau <code>--allow-direct</code>) forțează.</p></div><div class="faq-item"><h3>Poate răspunde la quizuri?</h3><p>Da, pentru că studentul a cerut-o. Fluxul salvează întâi răspunsurile, fără să trimită, și trimite încercarea doar după o a doua aprobare. Trimiterea e ireversibilă.</p></div><div class="faq-item"><h3>Ce reguli de integritate se aplică?</h3><p>Regulile cursului. Multe cursuri interzic ajutorul automat sau externalizarea răspunsurilor. Răspunderea pentru conținutul trimis e a studentului.</p></div></div></section>
+<section id="despre-platforme"><h2><span class="prompt" aria-hidden="true">&gt;</span> Despre platforme</h2><div class="faq"><div class="faq-item"><h3>Merge pe Linux și macOS?</h3><p>Windows e testat pe contul real. Logica de instalare e testată pe Linux (WSL Ubuntu 24.04) și în CI. macOS nu e testat, în afară de smoke-ul serverului din workflow-ul PyPI.</p></div><div class="faq-item"><h3>Am nevoie de Node.js?</h3><p>Nu, dacă folosești pipx. Node.js 18+ e nevoie doar pentru varianta npm. Ambele variante instalează același pachet Python.</p></div><div class="faq-item"><h3>Merge cu altă instanță Moodle?</h3><p>Pachetul e scris pentru BL@ASE, care rulează Moodle 4.5 din octombrie 2026, și funcționează pe 4.5 și 4.1. Alte instanțe ar putea funcționa, dar nu sunt testate.</p></div><div class="faq-item"><h3>Pot folosi fără instalare globală?</h3><p>Da, cu <code>npx ase-moodle-mcp &lt;comandă&gt;</code> după npm. Pentru clienții MCP e nevoie de o comandă fixă <code>ase-moodle-mcp</code> în PATH, deci de instalarea globală.</p></div></div></section>
+<section id="limite"><h2><span class="prompt" aria-hidden="true">&gt;</span> Limite</h2><div class="faq"><div class="faq-item"><h3>Ce nu face pachetul?</h3><p>Nu citește mesajele private (mesageria e dezactivată pe site), nu schimbă parola, nu modifică setările contului și nu rulează automat quizuri sau teme. Totul pornește dintr-o comandă sau un apel explicit.</p></div><div class="faq-item"><h3>Ce nu e testat?</h3><p>Un quiz deschis, completat de la cap la coadă, pe contul real; o trimitere reală cu ciorne activate; comenzile reale ale CLI-urilor pe Linux; launcherul npm; macOS.</p></div><div class="faq-item"><h3>Pot descărca un singur curs?</h3><p>Da. <code>ase-moodle download --course ID</code> selectează cursul după id, iar opțiunea poate fi repetată pentru mai multe cursuri. Fără <code>--course</code>, filtrele de an, semestru și tip aleg cursurile.</p></div><div class="faq-item"><h3>Cum actualizez pachetul?</h3><p>Cu pipx: <code>pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git</code>, apoi <code>ase-moodle update</code>. Cu npm, launcherul nu actualizează pachetul Python dacă există deja, așa că îl actualizezi separat. Repornește Claude Code după.</p></div><div class="faq-item"><h3>Ce face <code>doctor</code> exact?</h3><p>Verifică fără să modifice nimic: fiecare platformă, instalările de proiect, sursa tokenului, <code>.env</code>, procesele MCP pornite, versiunea pachetului și funcțiile Moodle folosite de pachet. Codul de ieșire e <code>3</code> dacă găsește o problemă.</p></div><div class="faq-item"><h3>Tokenul a fost expus. Ce fac?</h3><p>Îl consideri compromis și îl resetezi din Moodle: Chei de securitate, rândul „Moodle mobile web service”, butonul de resetare. Tokenul vechi nu mai funcționează, iar pachetul are nevoie de <code>ase-moodle login</code>.</p></div><div class="faq-item"><h3>Ce se întâmplă cu materialele descărcate?</h3><p>Rămân pe disc, în folderul ales, și nu se șterg automat. Pachetul nu le execută: un fișier executabil din materiale rămâne un fișier până îl deschizi tu. Verifică înainte.</p></div><div class="faq-item"><h3>Pot folosi pachetul în paralel, în două clienturi?</h3><p>Da. Fiecare client pornește propriul proces <code>ase-moodle-mcp</code>, iar toate citesc același token. Pentru reinstalare, închide procesele: <code>doctor</code> le numără, iar pe Windows un proces pornit blochează executabilul.</p></div><div class="faq-item"><h3>Merge fără să deschid browserul?</h3><p>Da, cu <code>ase-moodle login --method manual</code>: se deschide pagina de login, copiezi tokenul din Chei de securitate, iar pachetul îl citește din clipboard. Pentru scripturi, <code>--token-stdin</code> citește tokenul din stdin.</p></div><div class="faq-item"><h3>Ce se întâmplă dacă Moodle se actualizează?</h3><p><code>doctor</code> compară funcțiile Web Service folosite de pachet cu cele pe care le are site-ul. <code>obligatorii lipsa</code> înseamnă că o unealtă nu va merge; <code>optionale lipsa</code> singur nu e o problemă, pentru că pachetul are o rezervă sau sare acel tip de material.</p></div><div class="faq-item"><h3>Unde raportez o problemă?</h3><p>Pe GitHub Issues, cu output-ul lui <code>ase-moodle doctor</code> și mesajul de eroare. Output-ul nu conține tokenul. Pentru o funcție nouă, pașii sunt în <code>docs/DEVELOPMENT.md</code>.</p></div></div></section>
+  </div>
+  <aside class="toc" aria-label="Cuprins">
+    <h2>Cuprins</h2>
+    <ol>
+      <li><a href="#despre-produs">Despre produs</a></li>
+      <li><a href="#despre-scrieri">Despre scrieri</a></li>
+      <li><a href="#despre-platforme">Despre platforme</a></li>
+      <li><a href="#limite">Limite</a></li>
+    </ol>
+  </aside>
+</div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p><strong>ase-moodle</strong> — server MCP, CLI și plugin pentru Moodle BL@ASE (online.ase.ro).</p>
+          <p><a href="https://github.com/FiredMosquito831/ase-moodle-mcp">github.com/FiredMosquito831/ase-moodle-mcp</a></p>
+        </div>
+        <div class="footer-col">
+          <h2>Pagini</h2>
+          <ul>
+            <li><a href="/">Acasă</a></li>
+            <li><a href="/instalare/">Instalare</a></li>
+            <li><a href="/start/">Primii pași</a></li>
+            <li><a href="/comenzi/">Comenzi</a></li>
+            <li><a href="/unelte/">Unelte</a></li>
+            <li><a href="/ghiduri/">Ghiduri</a></li>
+            <li><a href="/intrebari/">Întrebări</a></li>
+            <li><a href="/probleme/">Probleme frecvente</a></li>
+            <li><a href="/despre/">Despre ase-moodle</a></li>
+            <li><a href="/licenta/">Licență</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Proiect</h2>
+          <ul>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp">GitHub</a></li>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/tree/main/docs">Documentația din repo</a></li>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/issues">Issues</a></li>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/LICENSE">LICENSE</a></li>
+            <li><a href="https://github.com/FiredMosquito831/ase-moodle-mcp/blob/main/NOTICE">NOTICE</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal">
+        <p>Licențiat sub Apache License 2.0 (Apache-2.0).</p>
+        <p>ase-moodle este un proiect independent. Nu este afiliat cu, aprobat de sau sponsorizat de ASE București sau de Moodle. Moodle este o marcă a proprietarului ei.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,484 @@
+{
+  "id": "home",
+  "order": 10,
+  "nav": null,
+  "priority": "1.0",
+  "words": [
+    700,
+    1200
+  ],
+  "path": {
+    "ro": "/",
+    "en": "/en/"
+  },
+  "title": {
+    "ro": "ase-moodle: Moodle BL@ASE pentru agenți AI",
+    "en": "ase-moodle: BL@ASE Moodle for AI agents"
+  },
+  "description": {
+    "ro": "Server MCP, CLI și plugin pentru Moodle BL@ASE: cursuri, materiale, teme, forumuri, note, quizuri și termene în Claude Code, Codex, opencode și Antigravity.",
+    "en": "MCP server, CLI and plugin for BL@ASE Moodle: courses, materials, assignments, forums, grades, quizzes and deadlines in Claude Code, Codex and opencode."
+  },
+  "h1": {
+    "ro": "Moodle BL@ASE, pentru agentul tău AI",
+    "en": "BL@ASE Moodle, for your AI agent"
+  },
+  "eyebrow": {
+    "ro": "Server MCP · CLI · plugin",
+    "en": "MCP server · CLI · plugin"
+  },
+  "blocks": [
+    {
+      "type": "lead",
+      "text": {
+        "ro": "ase-moodle deschide contul tău de Moodle de la online.ase.ro în Claude Code, Codex, opencode și Google Antigravity. Cursuri, materiale, teme, forumuri, note, quizuri, notificări și termene, cu confirmare pentru orice scriere.",
+        "en": "ase-moodle opens your Moodle account at online.ase.ro in Claude Code, Codex, opencode and Google Antigravity. Courses, materials, assignments, forums, grades, quizzes, notifications and deadlines, with confirmation for every write."
+      }
+    },
+    {
+      "type": "actions",
+      "items": [
+        {
+          "label": {
+            "ro": "Instalează",
+            "en": "Install"
+          },
+          "href": {
+            "ro": "/instalare/",
+            "en": "/en/install/"
+          },
+          "kind": "primary"
+        },
+        {
+          "label": {
+            "ro": "Primii pași",
+            "en": "Quick start"
+          },
+          "href": {
+            "ro": "/start/",
+            "en": "/en/quick-start/"
+          }
+        },
+        {
+          "label": {
+            "ro": "Cod pe GitHub",
+            "en": "Code on GitHub"
+          },
+          "href": {
+            "ro": "https://github.com/FiredMosquito831/ase-moodle-mcp",
+            "en": "https://github.com/FiredMosquito831/ase-moodle-mcp"
+          }
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "items": [
+        {
+          "label": {
+            "ro": "Versiune",
+            "en": "Version"
+          },
+          "value": "{version}"
+        },
+        {
+          "label": {
+            "ro": "Licență",
+            "en": "License"
+          },
+          "value": "Apache-2.0"
+        },
+        {
+          "label": {
+            "ro": "Python",
+            "en": "Python"
+          },
+          "value": "3.10+"
+        },
+        {
+          "label": {
+            "ro": "Unelte MCP",
+            "en": "MCP tools"
+          },
+          "value": "{tools}"
+        },
+        {
+          "label": {
+            "ro": "Comenzi CLI",
+            "en": "CLI commands"
+          },
+          "value": "{commands}"
+        },
+        {
+          "label": {
+            "ro": "Harness-uri",
+            "en": "Harnesses"
+          },
+          "value": "{harnesses}"
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Ce este",
+        "en": "What it is"
+      },
+      "paragraphs": [
+        {
+          "ro": "ase-moodle are trei fețe care folosesc același token Moodle. Serverul MCP `ase-moodle-mcp` vorbește prin stdio cu clientul tău. CLI-ul `ase-moodle` scrie JSON pe stdout, pentru scripturi. Pluginul adaugă în Claude Code, Codex, opencode și Antigravity uneltele, skill-ul și comenzile.",
+          "en": "ase-moodle has three faces that share one Moodle token. The `ase-moodle-mcp` MCP server speaks over stdio to your client. The `ase-moodle` CLI writes JSON on stdout, for scripts. The plugin adds the tools, the skill and the commands to Claude Code, Codex, opencode and Antigravity."
+        },
+        {
+          "ro": "Nu ai nevoie de un cont separat și nu se instalează un server undeva. Totul rulează pe calculatorul tău, iar singurele conexiuni sunt către Moodle-ul configurat și, la instalare, către GitHub. Cu alte cuvinte, ase-moodle este un server MCP pentru Moodle: automatizare Moodle în agentul tău, cu confirmare pentru fiecare scriere.",
+          "en": "You do not need a separate account, and no server is installed somewhere else. Everything runs on your machine, and the only connections are to the configured Moodle and, during installation, to GitHub. In other words, ase-moodle is an MCP server for Moodle: Moodle automation inside your agent, with confirmation for every write."
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Pentru cine",
+        "en": "Who it is for"
+      },
+      "paragraphs": [
+        {
+          "ro": "Pentru studenții BL@ASE care vor să întrebe în limbaj natural: „ce am de făcut săptămâna asta?”, „descarcă materialele de la anul 3, semestrul 1”, „ce notă am la seminar?”. Agentul alege unealta potrivită și îți arată rezultatul.",
+          "en": "For BL@ASE students who want to ask in plain language: “what do I have to do this week?”, “download the year 3, semester 1 materials”, “what grade do I have in the seminar?”. The agent picks the right tool and shows you the result."
+        },
+        {
+          "ro": "Pentru cine lucrează din terminal: CLI-ul întoarce JSON, deci poate fi pus într-un script sau într-un pipeline fără să parseze text.",
+          "en": "For people who work from a terminal: the CLI returns JSON, so it can go into a script or a pipeline without parsing text."
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": {
+        "ro": "Ce poți face",
+        "en": "What you can do"
+      },
+      "items": [
+        {
+          "title": {
+            "ro": "Cursuri și materiale",
+            "en": "Courses and materials"
+          },
+          "text": {
+            "ro": "Listezi cursurile pe an, semestru și tip. Descarci un curs sau un an întreg, în paralel: fișiere, pagini, linkuri, teme, forumuri, quizuri, note.",
+            "en": "List courses by year, semester and type. Download one course or a whole year, in parallel: files, pages, links, assignments, forums, quizzes, grades."
+          },
+          "href": {
+            "ro": "/ghiduri/",
+            "en": "/en/guides/"
+          }
+        },
+        {
+          "title": {
+            "ro": "Teme și ciorne",
+            "en": "Assignments and drafts"
+          },
+          "text": {
+            "ro": "Vezi cerința, termenul, starea trimiterii și feedbackul. Trimiterea cere confirmarea ta, iar temele fără ciorne sunt protejate.",
+            "en": "See the requirement, the deadline, the submission state and the feedback. Submitting needs your confirmation, and assignments without drafts are protected."
+          },
+          "href": {
+            "ro": "/ghiduri/",
+            "en": "/en/guides/"
+          }
+        },
+        {
+          "title": {
+            "ro": "Forumuri",
+            "en": "Forums"
+          },
+          "text": {
+            "ro": "Citești discuțiile și postările. Răspunsurile și discuțiile noi se trimit doar după ce aprobi textul.",
+            "en": "Read discussions and posts. Replies and new discussions are sent only after you approve the text."
+          },
+          "href": {
+            "ro": "/ghiduri/",
+            "en": "/en/guides/"
+          }
+        },
+        {
+          "title": {
+            "ro": "Note",
+            "en": "Grades"
+          },
+          "text": {
+            "ro": "Notele tuturor cursurilor, sau elementele de notare ale unui curs, cu feedback.",
+            "en": "Grades for every course, or the grade items of one course, with feedback."
+          },
+          "href": {
+            "ro": "/unelte/",
+            "en": "/en/tools/"
+          }
+        },
+        {
+          "title": {
+            "ro": "Quizuri",
+            "en": "Quizzes"
+          },
+          "text": {
+            "ro": "Citești întrebările, salvezi răspunsuri fără să trimiți, apoi trimiți încercarea doar după o a doua aprobare.",
+            "en": "Read the questions, save answers without submitting, then finish the attempt only after a second approval."
+          },
+          "href": {
+            "ro": "/ghiduri/",
+            "en": "/en/guides/"
+          }
+        },
+        {
+          "title": {
+            "ro": "Notificări și termene",
+            "en": "Notifications and deadlines"
+          },
+          "text": {
+            "ro": "Notificările noi și termenele următoare, în ordine. Marcarea ca citită cere confirmare.",
+            "en": "New notifications and upcoming deadlines, in order. Marking one as read needs confirmation."
+          },
+          "href": {
+            "ro": "/unelte/",
+            "en": "/en/tools/"
+          }
+        }
+      ]
+    },
+    {
+      "type": "figure",
+      "diagram": "harness-map",
+      "heading": {
+        "ro": "Cum se leagă piesele",
+        "en": "How the pieces connect"
+      },
+      "caption": {
+        "ro": "Patru clienți, un server MCP și Moodle. CLI-ul folosește același token.",
+        "en": "Four clients, one MCP server and Moodle. The CLI uses the same token."
+      },
+      "alt": {
+        "ro": "Diagramă: Claude Code, Codex, opencode și Google Antigravity pornesc serverul ase-moodle-mcp prin stdio; serverul apelează Moodle BL@ASE prin HTTPS; CLI-ul ase-moodle folosește același token.",
+        "en": "Diagram: Claude Code, Codex, opencode and Google Antigravity start the ase-moodle-mcp server over stdio; the server calls BL@ASE Moodle over HTTPS; the ase-moodle CLI uses the same token."
+      }
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Cum funcționează",
+        "en": "How it works"
+      },
+      "paragraphs": [
+        {
+          "ro": "Te loghezi o singură dată, în browser, cu Google. Tokenul Moodle ajunge în seiful sistemului (Credential Manager pe Windows, Secret Service pe Linux), nu în fișiere de proiect.",
+          "en": "You sign in once, in a browser, with Google. The Moodle token goes into the system keychain (Credential Manager on Windows, Secret Service on Linux), not into project files."
+        },
+        {
+          "ro": "`ase-moodle install` scrie configurația fiecărui client. Serverul citește tokenul la pornire și nu îl primește prin client.",
+          "en": "`ase-moodle install` writes each client's configuration. The server reads the token at startup and never receives it through the client."
+        },
+        {
+          "ro": "Fiecare unealtă are o anotare: citire, scriere sau local. Scrierile cer `confirm=true` în MCP sau `--yes` în CLI; fără ele, acțiunea se oprește.",
+          "en": "Every tool carries an annotation: read, write or local. Writes need `confirm=true` in MCP or `--yes` in the CLI; without it, the action stops."
+        },
+        {
+          "ro": "Descărcarea scrie totul într-un folder obișnuit, cu rezumate în Markdown și datele brute în `_raw`. Fișierele cu aceeași dimensiune sunt sărite, deci o rulare repetată nu descarcă din nou.",
+          "en": "Downloading writes everything into an ordinary folder, with Markdown summaries and the raw data in `_raw`. Files of the same size are skipped, so a repeated run downloads nothing again."
+        },
+        {
+          "ro": "Serverul nu ține o copie a datelor tale. Fiecare apel citește din Moodle în momentul cererii, iar descărcarea scrie doar pe disc, în folderul pe care îl alegi.",
+          "en": "The server keeps no copy of your data. Every call reads from Moodle at request time, and downloading writes only to disk, in the folder you choose."
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "heading": {
+        "ro": "Ce primești",
+        "en": "What you get"
+      },
+      "items": [
+        {
+          "ro": "Un server MCP cu {tools} de unelte, {prompts} prompturi și {resources} resurse.",
+          "en": "An MCP server with {tools} tools, {prompts} prompts and {resources} resources."
+        },
+        {
+          "ro": "Un CLI cu {commands} de comenzi, cu ieșire JSON pe stdout.",
+          "en": "A CLI with {commands} commands, with JSON output on stdout."
+        },
+        {
+          "ro": "Un plugin pentru Claude Code, Codex, opencode și Antigravity.",
+          "en": "A plugin for Claude Code, Codex, opencode and Antigravity."
+        },
+        {
+          "ro": "Un skill care îi spune agentului ce are voie să facă și ce cere confirmare.",
+          "en": "A skill that tells the agent what it may do and what needs confirmation."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "heading": {
+        "ro": "O ieșire reală",
+        "en": "A real output"
+      },
+      "label": {
+        "ro": "terminal · JSON",
+        "en": "terminal · JSON"
+      },
+      "text": "[\n  {\n    \"id\": 101,\n    \"name\": \"Materie Test\",\n    \"tip\": \"CURS\",\n    \"semester\": 1,\n    \"academic_year\": \"2026-2027\",\n    \"study_year\": 3,\n    \"study_year_source\": \"descriere\",\n    \"shortname\": \"Materie-CURS Sem1 (2026-2027)\"\n  },\n  {\n    \"id\": 102,\n    \"name\": \"Materie Test\",\n    \"tip\": \"SEMINAR\",\n    \"semester\": 1,\n    \"academic_year\": \"2026-2027\",\n    \"study_year\": 3,\n    \"study_year_source\": \"dedus din aceeasi materie\",\n    \"shortname\": \"Materie-SEMINAR Sem1 (2026-2027)\"\n  }\n]",
+      "caption": {
+        "ro": "Ieșire reală a `ase-moodle courses --year 3 --sem 1`, împotriva serverului Moodle fals din teste. Datele sunt sintetice.",
+        "en": "Real output of `ase-moodle courses --year 3 --sem 1`, against the fake Moodle server used by the tests. The data is synthetic."
+      }
+    },
+    {
+      "type": "callout",
+      "kind": "warn",
+      "title": {
+        "ro": "Scrierile cer confirmarea ta",
+        "en": "Writes need your confirmation"
+      },
+      "text": {
+        "ro": "O trimitere, un răspuns pe forum sau un quiz pornit nu pleacă fără `confirm=true` (MCP) sau `--yes` (CLI). Aprobarea pentru o acțiune nu o acoperă pe următoarea.",
+        "en": "A submission, a forum reply or a started quiz does not go out without `confirm=true` (MCP) or `--yes` (CLI). Approval for one action does not cover the next."
+      }
+    },
+    {
+      "type": "faq",
+      "heading": {
+        "ro": "Trei întrebări dese",
+        "en": "Three common questions"
+      },
+      "items": [
+        {
+          "q": {
+            "ro": "Merge cu contul meu?",
+            "en": "Does it work with my account?"
+          },
+          "a": {
+            "ro": "Da, dacă ai un cont BL@ASE pe online.ase.ro. Login-ul se face cu Google, ca în browser.",
+            "en": "Yes, if you have a BL@ASE account on online.ase.ro. Login goes through Google, as in the browser."
+          }
+        },
+        {
+          "q": {
+            "ro": "Unde ajunge tokenul?",
+            "en": "Where does the token go?"
+          },
+          "a": {
+            "ro": "În seiful sistemului: Credential Manager pe Windows, Secret Service pe Linux. Nu în git și nu în mesaje de eroare.",
+            "en": "Into the system keychain: Credential Manager on Windows, Secret Service on Linux. Not into git and not into error messages."
+          }
+        },
+        {
+          "q": {
+            "ro": "Pot trimite teme fără să văd ce pleacă?",
+            "en": "Can it submit assignments without showing me what goes out?"
+          },
+          "a": {
+            "ro": "Nu. Fiecare scriere cere confirmarea ta, iar temele fără ciorne sunt refuzate implicit.",
+            "en": "No. Every write needs your confirmation, and assignments without drafts are refused by default."
+          }
+        }
+      ]
+    },
+    {
+      "type": "actions",
+      "items": [
+        {
+          "label": {
+            "ro": "Instalează ase-moodle",
+            "en": "Install ase-moodle"
+          },
+          "href": {
+            "ro": "/instalare/",
+            "en": "/en/install/"
+          },
+          "kind": "primary"
+        },
+        {
+          "label": {
+            "ro": "Toate întrebările",
+            "en": "All questions"
+          },
+          "href": {
+            "ro": "/intrebari/",
+            "en": "/en/faq/"
+          }
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "text": "ase-moodle deschide contul tău de Moodle de la online.ase.ro în Claude Code, Codex, opencode și Google Antigravity.",
+      "evidence": "README.md:7",
+      "status": "verified"
+    },
+    {
+      "text": "Serverul MCP ase-moodle-mcp vorbește prin stdio.",
+      "evidence": "docs/MCP.md:3",
+      "status": "verified"
+    },
+    {
+      "text": "CLI-ul ase-moodle scrie JSON pe stdout.",
+      "evidence": "docs/USAGE.md:3",
+      "status": "verified"
+    },
+    {
+      "text": "Versiunea 0.2.4.",
+      "evidence": "pyproject.toml:7",
+      "status": "verified"
+    },
+    {
+      "text": "Python 3.10+.",
+      "evidence": "pyproject.toml:23",
+      "status": "verified"
+    },
+    {
+      "text": "28 de unelte MCP, 4 prompturi și 2 resurse.",
+      "evidence": "src/ase_moodle/mcp_server.py (decorators @mcp.tool, @mcp.prompt, @mcp.resource); builder gate reference-count",
+      "status": "verified"
+    },
+    {
+      "text": "37 de comenzi CLI.",
+      "evidence": "src/ase_moodle/cli.py build_parser (33 cmd_* functions + 4 harness commands); builder gate reference-count",
+      "status": "verified"
+    },
+    {
+      "text": "Patru harness-uri: Claude Code, Codex, opencode, Antigravity.",
+      "evidence": "src/ase_moodle/harnesses/__init__.py:14",
+      "status": "verified"
+    },
+    {
+      "text": "Tokenul se salvează în Credential Manager pe Windows și în Secret Service pe Linux.",
+      "evidence": "docs/AUTH.md:53",
+      "status": "verified"
+    },
+    {
+      "text": "Scrierile cer confirm=true în MCP sau --yes în CLI.",
+      "evidence": "docs/SAFETY.md:11",
+      "status": "verified"
+    },
+    {
+      "text": "Temele fără ciorne sunt refuzate implicit, cu excepția allow_direct=true.",
+      "evidence": "docs/SAFETY.md:35",
+      "status": "verified"
+    },
+    {
+      "text": "Pachetul nu trimite date către servere terțe.",
+      "evidence": "docs/SAFETY.md:73",
+      "status": "verified"
+    },
+    {
+      "text": "Login-ul se face cu Google, ca în browser.",
+      "evidence": "docs/AUTH.md:5",
+      "status": "verified"
+    },
+    {
+      "text": "ase-moodle este un server MCP pentru Moodle, cu automatizare Moodle și confirmare pentru fiecare scriere.",
+      "evidence": "README.md:7; docs/SAFETY.md:11",
+      "status": "verified"
+    }
+  ]
+}

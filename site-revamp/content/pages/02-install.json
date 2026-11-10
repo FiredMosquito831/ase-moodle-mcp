@@ -1,0 +1,546 @@
+{
+  "id": "install",
+  "order": 20,
+  "nav": {
+    "ro": "Instalare",
+    "en": "Install"
+  },
+  "priority": "0.9",
+  "words": [
+    500,
+    800
+  ],
+  "path": {
+    "ro": "/instalare/",
+    "en": "/en/install/"
+  },
+  "title": {
+    "ro": "Instalare | ase-moodle",
+    "en": "Install | ase-moodle"
+  },
+  "description": {
+    "ro": "Instalează ase-moodle cu pipx sau npm, loghează-te o dată cu Google și configurează Claude Code, Codex, opencode și Antigravity. Cerințe, actualizare.",
+    "en": "Install ase-moodle with pipx or npm, sign in once with Google and configure Claude Code, Codex, opencode and Antigravity. Requirements, update, uninstall."
+  },
+  "h1": {
+    "ro": "Instalare",
+    "en": "Install"
+  },
+  "eyebrow": {
+    "ro": "pipx · npm · script · pip",
+    "en": "pipx · npm · script · pip"
+  },
+  "blocks": [
+    {
+      "type": "lead",
+      "text": {
+        "ro": "Ai nevoie de Python 3.10+ și de un cont BL@ASE. Alege o variantă: pipx, npm, scriptul din repo sau pip. Rezultatul e același: comenzile `ase-moodle` și `ase-moodle-mcp` în PATH. Pagina de instalare ase-moodle explică fiecare variantă în parte, iar la final ai un server MCP pentru Moodle gata de pornit.",
+        "en": "You need Python 3.10+ and a BL@ASE account. Pick one path: pipx, npm, the script in the repo or pip. The result is the same: the `ase-moodle` and `ase-moodle-mcp` commands on PATH. The ase-moodle install page explains each path in turn, and at the end you have an MCP server for Moodle ready to start."
+      }
+    },
+    {
+      "type": "table",
+      "heading": {
+        "ro": "Cerințe",
+        "en": "Requirements"
+      },
+      "headers": [
+        {
+          "ro": "",
+          "en": ""
+        },
+        {
+          "ro": "Windows",
+          "en": "Windows"
+        },
+        {
+          "ro": "Linux",
+          "en": "Linux"
+        },
+        {
+          "ro": "macOS",
+          "en": "macOS"
+        }
+      ],
+      "rows": [
+        [
+          {
+            "ro": "Python",
+            "en": "Python"
+          },
+          {
+            "ro": "3.10+ (testat cu 3.13)",
+            "en": "3.10+ (tested with 3.13)"
+          },
+          {
+            "ro": "3.10+ (testat cu 3.12, Ubuntu 24.04)",
+            "en": "3.10+ (tested with 3.12, Ubuntu 24.04)"
+          },
+          {
+            "ro": "3.10+ (netestat)",
+            "en": "3.10+ (untested)"
+          }
+        ],
+        [
+          {
+            "ro": "git",
+            "en": "git"
+          },
+          {
+            "ro": "da",
+            "en": "yes"
+          },
+          {
+            "ro": "da",
+            "en": "yes"
+          },
+          {
+            "ro": "da",
+            "en": "yes"
+          }
+        ],
+        [
+          {
+            "ro": "Browser pentru login",
+            "en": "Browser for login"
+          },
+          {
+            "ro": "Edge sau Chrome, detectat automat",
+            "en": "Edge or Chrome, detected automatically"
+          },
+          {
+            "ro": "Chromium, sau `--method manual`",
+            "en": "Chromium, or `--method manual`"
+          },
+          {
+            "ro": "Chromium (netestat)",
+            "en": "Chromium (untested)"
+          }
+        ],
+        [
+          {
+            "ro": "Clipboard pentru `--method manual`",
+            "en": "Clipboard for `--method manual`"
+          },
+          {
+            "ro": "PowerShell, inclus",
+            "en": "PowerShell, included"
+          },
+          {
+            "ro": "`xclip`, `xsel` sau `wl-paste`",
+            "en": "`xclip`, `xsel` or `wl-paste`"
+          },
+          {
+            "ro": "`pbpaste`, inclus",
+            "en": "`pbpaste`, included"
+          }
+        ],
+        [
+          {
+            "ro": "Seiful tokenului",
+            "en": "Token keychain"
+          },
+          {
+            "ro": "Windows Credential Manager",
+            "en": "Windows Credential Manager"
+          },
+          {
+            "ro": "Secret Service (GNOME Keyring, KWallet)",
+            "en": "Secret Service (GNOME Keyring, KWallet)"
+          },
+          {
+            "ro": "Keychain (netestat)",
+            "en": "Keychain (untested)"
+          }
+        ],
+        [
+          {
+            "ro": "Node.js 18+ și npm",
+            "en": "Node.js 18+ and npm"
+          },
+          {
+            "ro": "doar pentru varianta npm",
+            "en": "only for the npm path"
+          },
+          {
+            "ro": "doar pentru varianta npm",
+            "en": "only for the npm path"
+          },
+          {
+            "ro": "doar pentru varianta npm",
+            "en": "only for the npm path"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "heading": {
+        "ro": "Varianta 1: pipx (recomandată)",
+        "en": "Path 1: pipx (recommended)"
+      },
+      "items": [
+        {
+          "title": {
+            "ro": "Instalează pipx, o singură dată",
+            "en": "Install pipx, once"
+          },
+          "text": {
+            "ro": "pipx instalează aplicațiile Python în medii izolate și le pune în PATH.",
+            "en": "pipx installs Python applications in isolated environments and puts them on PATH."
+          },
+          "code": "python -m pip install --user pipx"
+        },
+        {
+          "title": {
+            "ro": "Instalează ase-moodle",
+            "en": "Install ase-moodle"
+          },
+          "text": {
+            "ro": "Pachetul vine direct din GitHub.",
+            "en": "The package comes straight from GitHub."
+          },
+          "code": "pipx install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git"
+        },
+        {
+          "title": {
+            "ro": "Loghează-te, configurează, verifică",
+            "en": "Sign in, configure, verify"
+          },
+          "text": {
+            "ro": "Login-ul deschide browserul o singură dată. `install` scrie configurația clienților, iar `doctor` spune ce lipsește.",
+            "en": "Login opens the browser once. `install` writes the clients' configuration, and `doctor` says what is missing."
+          },
+          "code": "ase-moodle login\nase-moodle install\nase-moodle doctor"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "heading": {
+        "ro": "Varianta 2: npm",
+        "en": "Path 2: npm"
+      },
+      "items": [
+        {
+          "title": {
+            "ro": "Instalează launcherul",
+            "en": "Install the launcher"
+          },
+          "text": {
+            "ro": "Pachetul npm instalează pachetul Python prin pipx. La prima rulare durează câteva minute, iar npm nu afișează progresul.",
+            "en": "The npm package installs the Python package through pipx. The first run takes a few minutes, and npm does not show progress."
+          },
+          "code": "npm install -g ase-moodle-mcp"
+        },
+        {
+          "title": {
+            "ro": "Vezi progresul, dacă vrei",
+            "en": "See the progress, if you want"
+          },
+          "text": {
+            "ro": "Aceeași instalare, cu mesajele scriptului vizibile.",
+            "en": "The same install, with the script's messages visible."
+          },
+          "code": "npm install -g --foreground-scripts ase-moodle-mcp"
+        },
+        {
+          "title": {
+            "ro": "Loghează-te și configurează",
+            "en": "Sign in and configure"
+          },
+          "text": {
+            "ro": "Comenzile sunt aceleași ca la pipx.",
+            "en": "The commands are the same as with pipx."
+          },
+          "code": "ase-moodle login\nase-moodle install\nase-moodle doctor"
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Varianta 3: scriptul din repo",
+        "en": "Path 3: the script in the repo"
+      },
+      "paragraphs": [
+        {
+          "ro": "Scripturile fac tot din clonă: instalează pachetul, instalează Chromium pe Linux și macOS, te loghează, configurează CLI-urile și rulează `doctor`.",
+          "en": "The scripts do everything from a clone: install the package, install Chromium on Linux and macOS, sign in, configure the CLIs and run `doctor`."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "label": {
+        "ro": "Windows · PowerShell",
+        "en": "Windows · PowerShell"
+      },
+      "text": "git clone https://github.com/FiredMosquito831/ase-moodle-mcp.git\ncd ase-moodle-mcp\npowershell -ExecutionPolicy Bypass -File scripts\\bootstrap.ps1",
+      "caption": {
+        "ro": "Parametri: `-Targets claude,codex`, `-Scope project`, `-SkipLogin`.",
+        "en": "Parameters: `-Targets claude,codex`, `-Scope project`, `-SkipLogin`."
+      }
+    },
+    {
+      "type": "code",
+      "label": {
+        "ro": "Linux și macOS · bash",
+        "en": "Linux and macOS · bash"
+      },
+      "text": "git clone https://github.com/FiredMosquito831/ase-moodle-mcp.git\ncd ase-moodle-mcp\nbash scripts/bootstrap.sh",
+      "caption": {
+        "ro": "Variabile: `TARGETS`, `SCOPE`, `SKIP_LOGIN`, `SKIP_BROWSER`, `PYTHON`.",
+        "en": "Variables: `TARGETS`, `SCOPE`, `SKIP_LOGIN`, `SKIP_BROWSER`, `PYTHON`."
+      }
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Varianta 4: pip direct",
+        "en": "Path 4: pip directly"
+      },
+      "paragraphs": [
+        {
+          "ro": "Fără pipx, în Python-ul global sau într-un venv. Pentru dezvoltare, `-e` face modificările din cod active imediat.",
+          "en": "Without pipx, in the global Python or in a venv. For development, `-e` makes code changes active immediately."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "label": {
+        "ro": "terminal",
+        "en": "terminal"
+      },
+      "text": "python -m pip install git+https://github.com/FiredMosquito831/ase-moodle-mcp.git\nase-moodle login\nase-moodle install"
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Doar pentru un folder",
+        "en": "For one folder only"
+      },
+      "paragraphs": [
+        {
+          "ro": "`ase-moodle install --scope project` scrie configurația doar în folderul de unde rulezi comanda. Scope-ul de proiect nu se aplică în subfoldere. Antigravity rămâne global: nu are scope de proiect.",
+          "en": "`ase-moodle install --scope project` writes the configuration only in the folder you run it from. The project scope does not apply in subfolders. Antigravity stays global: it has no project scope."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "label": {
+        "ro": "terminal",
+        "en": "terminal"
+      },
+      "text": "cd D:\\Projecte\\facultate\nase-moodle install claude codex opencode --scope project"
+    },
+    {
+      "type": "table",
+      "heading": {
+        "ro": "Ce face fiecare comandă",
+        "en": "What each command does"
+      },
+      "headers": [
+        {
+          "ro": "Comandă",
+          "en": "Command"
+        },
+        {
+          "ro": "Ce face",
+          "en": "What it does"
+        }
+      ],
+      "rows": [
+        [
+          {
+            "ro": "`ase-moodle login`",
+            "en": "`ase-moodle login`"
+          },
+          {
+            "ro": "deschide browserul; te loghezi cu Google o singură dată, iar tokenul se salvează în seif",
+            "en": "opens the browser; you sign in with Google once, and the token is saved in the keychain"
+          }
+        ],
+        [
+          {
+            "ro": "`ase-moodle install`",
+            "en": "`ase-moodle install`"
+          },
+          {
+            "ro": "adaugă pluginul în CLI-urile găsite: Claude Code, Codex, opencode, Antigravity",
+            "en": "adds the plugin to the CLIs it finds: Claude Code, Codex, opencode, Antigravity"
+          }
+        ],
+        [
+          {
+            "ro": "`ase-moodle doctor`",
+            "en": "`ase-moodle doctor`"
+          },
+          {
+            "ro": "verifică instalarea, tokenul, procesele MCP și funcțiile Moodle; nu modifică nimic",
+            "en": "checks the installation, the token, the MCP processes and the Moodle functions; changes nothing"
+          }
+        ],
+        [
+          {
+            "ro": "`ase-moodle update`",
+            "en": "`ase-moodle update`"
+          },
+          {
+            "ro": "aduce ultima versiune din marketplace; repornește Claude Code după",
+            "en": "brings the latest marketplace version; restart Claude Code afterwards"
+          }
+        ],
+        [
+          {
+            "ro": "`ase-moodle uninstall`",
+            "en": "`ase-moodle uninstall`"
+          },
+          {
+            "ro": "scoate configurarea din CLI-urile alese; nu șterge pachetul Python",
+            "en": "removes the configuration from the chosen CLIs; does not delete the Python package"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Actualizare",
+        "en": "Update"
+      },
+      "paragraphs": [
+        {
+          "ro": "Cu pipx, `pipx upgrade` nu aduce codul nou din GitHub. Folosește `--force`, apoi `ase-moodle update` și repornește Claude Code.",
+          "en": "With pipx, `pipx upgrade` does not bring new code from GitHub. Use `--force`, then `ase-moodle update`, and restart Claude Code."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "label": {
+        "ro": "terminal",
+        "en": "terminal"
+      },
+      "text": "pipx install --force git+https://github.com/FiredMosquito831/ase-moodle-mcp.git\nase-moodle update"
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Dezinstalare",
+        "en": "Uninstall"
+      },
+      "paragraphs": [
+        {
+          "ro": "Pachetul are mai multe părți, instalate separat. Rulează întâi pașii care folosesc `ase-moodle`, apoi șterge pachetul.",
+          "en": "The package has several parts, installed separately. Run the steps that use `ase-moodle` first, then delete the package."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "label": {
+        "ro": "terminal",
+        "en": "terminal"
+      },
+      "text": "ase-moodle uninstall\nase-moodle logout --forget-browser\nnpm uninstall -g ase-moodle-mcp\npipx uninstall ase-moodle"
+    },
+    {
+      "type": "callout",
+      "kind": "note",
+      "title": {
+        "ro": "Fără instalare globală",
+        "en": "Without a global install"
+      },
+      "text": {
+        "ro": "După npm, poți rula `npx ase-moodle-mcp <comandă>`. Pentru clienții MCP folosește instalarea globală, ca să existe o comandă fixă `ase-moodle-mcp` în PATH.",
+        "en": "After npm, you can run `npx ase-moodle-mcp <command>`. For MCP clients use the global install, so a fixed `ase-moodle-mcp` command exists on PATH."
+      }
+    },
+    {
+      "type": "prose",
+      "heading": {
+        "ro": "Verificare după instalare",
+        "en": "Check after installing"
+      },
+      "paragraphs": [
+        {
+          "ro": "`auth-status` spune dacă ești logat, `courses` face o citire reală, iar `doctor` arată starea fiecărei platforme. Codul de ieșire `3` înseamnă că `doctor` a găsit o problemă.",
+          "en": "`auth-status` says whether you are signed in, `courses` does a real read, and `doctor` shows each platform's state. Exit code `3` means `doctor` found a problem."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "label": {
+        "ro": "terminal",
+        "en": "terminal"
+      },
+      "text": "ase-moodle auth-status\nase-moodle courses --year 3 --sem 1\nase-moodle doctor"
+    }
+  ],
+  "claims": [
+    {
+      "text": "Ai nevoie de Python 3.10+ și de un cont BL@ASE.",
+      "evidence": "docs/INSTALL.md:7; pyproject.toml:23",
+      "status": "verified"
+    },
+    {
+      "text": "Rezultatul e același: comenzile ase-moodle și ase-moodle-mcp în PATH.",
+      "evidence": "docs/INSTALL.md:18",
+      "status": "verified"
+    },
+    {
+      "text": "pipx instalează aplicațiile Python în medii izolate și le pune în PATH.",
+      "evidence": "docs/INSTALL.md:22",
+      "status": "verified"
+    },
+    {
+      "text": "Pachetul npm instalează pachetul Python prin pipx.",
+      "evidence": "docs/INSTALL.md:42",
+      "status": "verified"
+    },
+    {
+      "text": "La prima rulare durează câteva minute, iar npm nu afișează progresul.",
+      "evidence": "docs/INSTALL.md:63",
+      "status": "verified"
+    },
+    {
+      "text": "Scripturile instalează pachetul, instalează Chromium pe Linux și macOS, te loghează, configurează CLI-urile și rulează doctor.",
+      "evidence": "docs/INSTALL.md:80",
+      "status": "verified"
+    },
+    {
+      "text": "Scope-ul de proiect nu se aplică în subfoldere.",
+      "evidence": "docs/PLATFORMS.md:16",
+      "status": "verified"
+    },
+    {
+      "text": "Antigravity rămâne global: nu are scope de proiect.",
+      "evidence": "docs/PLATFORMS.md:25",
+      "status": "verified"
+    },
+    {
+      "text": "pipx upgrade nu aduce codul nou din GitHub; folosește --force.",
+      "evidence": "docs/INSTALL.md:156",
+      "status": "verified"
+    },
+    {
+      "text": "Dezinstalarea are mai mulți pași, pentru că pluginul și pachetul sunt instalate separat.",
+      "evidence": "docs/INSTALL.md:172",
+      "status": "verified"
+    },
+    {
+      "text": "Codul de ieșire 3 înseamnă că doctor a găsit o problemă.",
+      "evidence": "docs/USAGE.md:12",
+      "status": "verified"
+    },
+    {
+      "text": "Pagina de instalare ase-moodle explică fiecare variantă în parte.",
+      "evidence": "docs/INSTALL.md:20; docs/INSTALL.md:40; docs/INSTALL.md:78; docs/INSTALL.md:105; docs/INSTALL.md:126",
+      "status": "verified"
+    }
+  ]
+}

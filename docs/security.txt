@@ -1,0 +1,4 @@
+Contact: https://github.com/FiredMosquito831/ase-moodle-mcp/security/advisories/new
+Expires: 2027-11-09T00:00:00Z
+Preferred-Languages: ro, en
+Canonical: https://ase-moodle-mcp.danubelabs.net/.well-known/security.txt

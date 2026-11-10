@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block main %}
+{% if page.id != "home" %}
+<nav class="crumbs" aria-label="{{ 'Firimituri' if lang == 'ro' else 'Breadcrumb' }}">
+  <ol>
+    <li><a href="{{ home }}">{{ "Acasă" if lang == "ro" else "Home" }}</a></li>
+    <li><span aria-current="page">{{ page.h1[lang] }}</span></li>
+  </ol>
+</nav>
+{% endif %}
+<div class="page-head">
+  {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow[lang] }}</p>{% endif %}
+  <h1>{{ page.h1[lang] }}</h1>
+</div>
+<div class="layout{% if toc %} with-toc{% endif %}">
+  <div class="prose">
+    {{ blocks }}
+  </div>
+  {% if toc %}
+  <aside class="toc" aria-label="{{ 'Cuprins' if lang == 'ro' else 'Contents' }}">
+    <h2>{{ "Cuprins" if lang == "ro" else "Contents" }}</h2>
+    <ol>
+      {% for item in toc %}
+      <li><a href="#{{ item.id }}">{{ item.label }}</a></li>
+      {% endfor %}
+    </ol>
+  </aside>
+  {% endif %}
+</div>
+{% endblock %}

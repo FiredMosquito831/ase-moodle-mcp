@@ -1,0 +1,39 @@
+{
+  "id": "404",
+  "order": 999,
+  "nav": null,
+  "priority": "0.0",
+  "words": [
+    60,
+    100
+  ],
+  "path": {
+    "ro": "/404.html",
+    "en": null
+  },
+  "title": {
+    "ro": "Pagina nu există | ase-moodle",
+    "en": "Page not found | ase-moodle"
+  },
+  "description": {
+    "ro": "Pagina căutată nu există pe site-ul ase-moodle. Întoarce-te la pagina principală sau la referința de comenzi, unelte și ghiduri.",
+    "en": "The page you are looking for does not exist on the ase-moodle site. Go back to the home page or to the commands, tools and guides reference."
+  },
+  "h1": {
+    "ro": "Pagina nu există",
+    "en": "Page not found"
+  },
+  "lead": {
+    "ro": "Adresa nu duce nicăieri. Pagina a fost mutată sau linkul e greșit. ase-moodle nu are această pagină. Dacă ai urmat un link din documentație, spune-mi unde ducea, ca să-l repar.",
+    "en": "This address leads nowhere. The page moved or the link is wrong. ase-moodle has no such page. If you followed a link from the documentation, tell me where it pointed, so I can fix it."
+  },
+  "eyebrow": null,
+  "blocks": [],
+  "claims": [
+    {
+      "text": "Pagina 404 trimite către pagina principală, comenzi și unelte.",
+      "evidence": "site-revamp/templates/404.html",
+      "status": "verified"
+    }
+  ]
+}
